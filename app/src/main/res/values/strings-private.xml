@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name" translatable="false">Recurrence</string>
 
+    <string name="developer_name" translatable="false">Jonas Bleyl</string>
     <string name="email" translatable="false">bleyl.android@gmail.com</string>
     <string name="app_url" translatable="false">https://play.google.com/store/apps/details?id=com.bleyl.recurrence</string>
 

@@ -43,7 +43,6 @@
     <string name="libraries">Libraries</string>
     <string name="rate_app">Rate app</string>
     <string name="contact">Contact</string>
-    <string name="developer_name" translatable="false">Jonas Bleyl</string>
     <string name="version">Version</string>
 
     <string name="notification_image">Notification image</string>
