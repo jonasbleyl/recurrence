@@ -56,6 +56,8 @@ public class CreateActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create);
 
+        getWindow().setBackgroundDrawable(null);
+
         mTitleEditText = (EditText) findViewById(R.id.notificationTitle);
         mContentEditText = (EditText) findViewById(R.id.notificationContent);
         mTimeText = (TextView) findViewById(R.id.time);
