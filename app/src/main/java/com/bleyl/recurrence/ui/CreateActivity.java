@@ -27,6 +27,7 @@ import com.bleyl.recurrence.model.Notification;
 import com.bleyl.recurrence.R;
 import com.bleyl.recurrence.database.Database;
 import com.bleyl.recurrence.util.AlarmUtil;
+import com.bleyl.recurrence.util.AnimationUtil;
 import com.bleyl.recurrence.util.DateAndTimeUtil;
 
 import java.util.Calendar;
@@ -219,6 +220,7 @@ public class CreateActivity extends AppCompatActivity {
             mImageWarningDate.setVisibility(View.VISIBLE);
         } else if (mTitleEditText.getText().toString().trim().isEmpty()) {
             Toast.makeText(getApplicationContext(), getResources().getString(R.string.toast_title_empty), Toast.LENGTH_SHORT).show();
+            AnimationUtil.shakeView(mTitleEditText, getApplicationContext());
         } else {
             saveNotification();
         }
