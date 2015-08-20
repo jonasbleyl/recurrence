@@ -45,6 +45,9 @@
     <string name="contact">Contact</string>
     <string name="version">Version</string>
 
+    <string name="thanks_to">Thanks to</string>
+    <string name="translator">Translator</string>
+
     <string name="notification_image">Notification image</string>
     <string name="app_icon">App icon</string>
     <string name="tab_icon">Tab icon</string>
