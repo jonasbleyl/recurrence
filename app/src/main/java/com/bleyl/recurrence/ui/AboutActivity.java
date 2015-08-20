@@ -21,6 +21,8 @@ public class AboutActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
 
+        getWindow().setBackgroundDrawable(null);
+
         TextView versionText = (TextView) findViewById(R.id.version);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
