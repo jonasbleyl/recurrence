@@ -1,0 +1,13 @@
+<resources>
+    <color name="primary">#315e97</color>
+    <color name="primaryDark">#294E7D</color>
+    <color name="accent">#897dae</color>
+    <color name="accentLight">#ff988db6</color>
+    <color name="background">#eeeeee</color>
+    <color name="lightGray">#d6d6d6</color>
+    <color name="textLightGray">#757575</color>
+    <color name="textGreyHeader">#ff818181</color>
+    <color name="tabUnselected">#80ffffff</color>
+    <color name="notificationContentText">#737373</color>
+    <color name="white">#ffffff</color>
+</resources>

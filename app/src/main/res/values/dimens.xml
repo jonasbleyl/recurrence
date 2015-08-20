@@ -1,0 +1,18 @@
+<resources>
+    <dimen name="toolbar_elevation">4dp</dimen>
+    <dimen name="toolbar_shadow_height">10dp</dimen>
+    <dimen name="toolbar_shadow_adjust">-10dp</dimen>
+    <dimen name="table_row_default_padding_top">20dp</dimen>
+    <dimen name="table_row_default_padding_side">16dp</dimen>
+    <dimen name="line_separator_height">1dp</dimen>
+    <dimen name="line_separator_margin_side_large">64dp</dimen>
+    <dimen name="line_separator_margin_side">8dp</dimen>
+    <dimen name="image_margin_side">16dp</dimen>
+    <dimen name="text_margin_side">22dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="table_row_about_padding">18dp</dimen>
+    <dimen name="text_about_margin_side">22dp</dimen>
+    <dimen name="text_view_margin_side">28dp</dimen>
+    <dimen name="table_row_view_padding">15dp</dimen>
+    <dimen name="text_dialog_padding_side">16dp</dimen>
+</resources>

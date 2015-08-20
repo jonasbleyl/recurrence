@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    <PreferenceCategory
+        android:title="@string/preference_notification_category">
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="checkBoxVibrate"
+            android:title="@string/checkbox_vibrate" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="checkBoxSound"
+            android:title="@string/checkbox_sound" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="checkBoxLED"
+            android:title="@string/checkbox_LED" />
+        <CheckBoxPreference
+            android:key="checkBoxOngoing"
+            android:title="@string/checkbox_ongoing" />
+    </PreferenceCategory>
+</PreferenceScreen>
