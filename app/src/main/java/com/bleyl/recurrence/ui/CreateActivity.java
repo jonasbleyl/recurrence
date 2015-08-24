@@ -273,7 +273,7 @@ public class CreateActivity extends AppCompatActivity {
         String times;
         if (mTimesEditText.getText().toString().isEmpty()) {
             times = "0";
-            mTimesEditText.setText(times);
+            mTimesEditText.append(times);
         } else {
             times = mTimesEditText.getText().toString();
         }
