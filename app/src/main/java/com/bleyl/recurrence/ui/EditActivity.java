@@ -192,7 +192,7 @@ public class EditActivity extends AppCompatActivity {
         }
 
         // Increment timesToShow to allow notification to go off one more time if conditions are met
-        if (Integer.parseInt(mTimesEditText.getText().toString()) == mTimesShown && !mForeverSwitch.isChecked()) {
+        if (timesToShow == mTimesShown && !mForeverSwitch.isChecked()) {
             timesToShow++;
         }
 
@@ -233,10 +233,7 @@ public class EditActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), getResources().getString(R.string.toast_past_date), Toast.LENGTH_SHORT).show();
             mImageWarningTime.setVisibility(View.VISIBLE);
             mImageWarningDate.setVisibility(View.VISIBLE);
-        } else if ((times.isEmpty() || Integer.parseInt(times) < mTimesShown) && !mForeverSwitch.isChecked()) {
-            Toast.makeText(getApplicationContext(), getResources().getString(R.string.toast_higher_number), Toast.LENGTH_SHORT).show();
-            mImageWarningShow.setVisibility(View.VISIBLE);
-        } else if ((mRepeatType != 0 && Integer.parseInt(times) == mTimesShown) && !mForeverSwitch.isChecked()) {
+        } else if ((mRepeatType != 0 && Integer.parseInt(times) <= mTimesShown) && !mForeverSwitch.isChecked()) {
             Toast.makeText(getApplicationContext(), getResources().getString(R.string.toast_higher_number), Toast.LENGTH_SHORT).show();
             mImageWarningShow.setVisibility(View.VISIBLE);
         }  else if (mTitleEditText.getText().toString().trim().isEmpty()) {
