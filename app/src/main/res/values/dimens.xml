@@ -15,4 +15,5 @@
     <dimen name="text_view_margin_side">28dp</dimen>
     <dimen name="table_row_view_padding">15dp</dimen>
     <dimen name="text_dialog_padding_side">16dp</dimen>
+    <dimen name="dialog_padding_side">24dp</dimen>
 </resources>

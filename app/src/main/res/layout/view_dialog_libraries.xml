@@ -6,34 +6,34 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingLeft="24dp"
-        android:paddingRight="24dp"
-        android:paddingTop="16dp"
+        android:orientation="vertical"
         android:paddingBottom="16dp"
-        android:orientation="vertical">
+        android:paddingLeft="@dimen/dialog_padding_side"
+        android:paddingRight="@dimen/dialog_padding_side"
+        android:paddingTop="16dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:textStyle="bold"
+            android:text="@string/tabTitle"
             android:textColor="@android:color/black"
-            android:text="@string/tabTitle"/>
+            android:textSize="14sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tabLink"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="13sp"
+            android:text="@string/tabLink"
             android:textColor="@color/primary"
-            android:text="@string/tabLink"/>
+            android:textSize="13sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="12sp"
             android:paddingBottom="16dp"
-            android:text="@string/tabLicense"/>
+            android:text="@string/tabLicense"
+            android:textSize="12sp" />
 
     </LinearLayout>
 

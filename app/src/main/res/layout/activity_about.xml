@@ -175,6 +175,34 @@
                 android:layout_marginRight="@dimen/line_separator_margin_side"
                 android:background="@color/lightGray"/>
 
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/table_row_about_padding"
+                android:background="?attr/selectableItemBackground"
+                android:paddingBottom="@dimen/table_row_about_padding"
+                android:weightSum="1"
+                android:onClick="showContributorsDialog">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/thanks_to"
+                    android:textColor="@android:color/black"
+                    android:layout_marginLeft="@dimen/text_about_margin_side"
+                    android:layout_marginRight="@dimen/text_about_margin_side"
+                    android:textSize="16sp"
+                    android:layout_gravity="center_vertical"/>
+
+            </TableRow>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/line_separator_height"
+                android:layout_marginLeft="@dimen/line_separator_margin_side"
+                android:layout_marginRight="@dimen/line_separator_margin_side"
+                android:background="@color/lightGray"/>
+
             <TextView
                 android:id="@+id/version"
                 android:layout_width="wrap_content"

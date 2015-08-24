@@ -53,7 +53,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
-        // Show sticky header for item if it is the first in date group
+        // Show header for item if it is the first in date group
         if (position > 0 && mNotificationList.get(position).getDate().equals(mNotificationList.get(position - 1).getDate()) ) {
             viewHolder.mTextSeparator.setVisibility(View.GONE);
         } else {

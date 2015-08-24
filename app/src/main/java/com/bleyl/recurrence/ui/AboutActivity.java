@@ -5,6 +5,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +15,7 @@ import android.widget.TextView;
 
 import com.bleyl.recurrence.BuildConfig;
 import com.bleyl.recurrence.R;
+import com.bleyl.recurrence.adapter.ContributionAdapter;
 
 public class AboutActivity extends AppCompatActivity {
 
@@ -31,7 +34,6 @@ public class AboutActivity extends AppCompatActivity {
                 finish();
             }
         });
-
         versionText.setText(getResources().getString(R.string.version) + " " + BuildConfig.VERSION_NAME);
     }
 
@@ -69,5 +71,26 @@ public class AboutActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    public void showContributorsDialog(View view) {
+        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.root);
+        LayoutInflater inflater = getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.view_dialog_contributors, linearLayout, false);
+
+        RecyclerView recyclerView = (RecyclerView) dialogView.findViewById(R.id.contributors_recycler_view);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+
+        String[] contributor_names = getResources().getStringArray(R.array.contributors_array);
+        String[] contribution_type = getResources().getStringArray(R.array.contribution_array);
+        recyclerView.setAdapter(new ContributionAdapter(this, R.layout.item_contributor_list, contributor_names, contribution_type));
+
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+        alertDialog.setTitle(getResources().getString(R.string.thanks_to));
+        alertDialog.setView(dialogView);
+        alertDialog.setPositiveButton(getResources().getString(R.string.ok), null);
+        alertDialog.show();
+
     }
 }
