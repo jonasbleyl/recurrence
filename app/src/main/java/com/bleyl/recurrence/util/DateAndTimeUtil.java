@@ -7,8 +7,8 @@ import java.util.Locale;
 public class DateAndTimeUtil {
 
     private static final SimpleDateFormat DATE_AND_TIME_FORMAT = new SimpleDateFormat("yyyyMMddHHmm", Locale.UK);
-    private static final SimpleDateFormat READABLE_DAY_MONTH_FORMAT = new SimpleDateFormat("d MMMM", Locale.UK);
-    private static final SimpleDateFormat READABLE_DAY_MONTH_YEAR_FORMAT = new SimpleDateFormat("d MMMM yyyy", Locale.UK);
+    private static final SimpleDateFormat READABLE_DAY_MONTH_FORMAT = new SimpleDateFormat("d MMMM", Locale.getDefault());
+    private static final SimpleDateFormat READABLE_DAY_MONTH_YEAR_FORMAT = new SimpleDateFormat("d MMMM yyyy", Locale.getDefault());
     private static final SimpleDateFormat READABLE_TIME_FORMAT = new SimpleDateFormat("HH:mm", Locale.UK);
     private static final SimpleDateFormat READABLE_DATE_FORMAT = new SimpleDateFormat("yyyy/MM/dd", Locale.UK);
     private static final SimpleDateFormat TIME_FORMAT = new SimpleDateFormat("HHmm", Locale.UK);

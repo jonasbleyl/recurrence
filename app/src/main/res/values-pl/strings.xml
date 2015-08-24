@@ -1,0 +1,66 @@
+<resources>
+    <string name="create_notification">Utwórz powiadomienie</string>
+    <string name="view_notification">Wyświetl powiadomienie</string>
+    <string name="edit_notification">Edytuj powiadomienie</string>
+    <string name="about">O</string>
+    <string name="settings">Ustawienia</string>
+
+    <string name="preference_notification_category">Preferencje powiadomień</string>
+    <string name="checkbox_vibrate">Wibracja</string>
+    <string name="checkbox_sound">Dźwięk</string>
+    <string name="checkbox_LED">LED</string>
+    <string name="checkbox_ongoing">Trwające</string>
+
+    <string name="action_settings">Ustawienia</string>
+    <string name="action_delete">Usuń</string>
+    <string name="action_edit">Edytuj</string>
+    <string name="action_about">O</string>
+
+    <string name="delete_confirmation">Na pewno chcesz usunąć to powiadomienie?</string>
+    <string name="yes">Tak</string>
+    <string name="no">Nie</string>
+    <string name="ok">OK</string>
+
+    <string name="title">Tytuł</string>
+    <string name="save_menu">Zapisz</string>
+    <string name="time_now">Teraz</string>
+    <string name="date_today">Dzisiaj</string>
+    <string name="times_shown">Wyświetlono %1$d z %2$d razy</string>
+    <string name="times_shown_edit">Wyświetlono %1$d z</string>
+    <string name="forever">Na zawsze</string>
+    <string name="no_repeat">Nie powtarzaj</string>
+    <string name="times">razy</string>
+    <string name="repeat_notification">Ilość powtórzeń: </string>
+    <string name="content_hint">Dodaj treść powiadomienia</string>
+
+    <string name="no_active">Brak aktywnych powiadomień</string>
+    <string name="no_inactive">Brak nieaktywnych powiadomień</string>
+
+    <string name="toast_past_date">Nie można ustawić początkowej daty w przeszłości</string>
+    <string name="toast_higher_number">Ilość powtórzeń musi być większa</string>
+    <string name="toast_title_empty">Tytuł nie może być pusty</string>
+
+    <string name="libraries">Biblioteki</string>
+    <string name="rate_app">Oceń aplikację</string>
+    <string name="contact">Kontakt</string>
+    <string name="version">Wersja</string>
+
+    <string name="thanks_to">Podziękowania</string>
+    <string name="translator">Tłumacz</string>
+
+    <string name="notification_image">Obrazek powiadomienia</string>
+    <string name="app_icon">Ikona aplikacji</string>
+    <string name="tab_icon">Ikona zakładki</string>
+    <string name="list_image">Lista obrazów</string>
+    <string name="error_image">Zrzut błędu</string>
+
+    <string name="send_email">Wyślij email</string>
+
+    <string-array name="repeat_array">
+        <item>Nie powtarzaj</item>
+        <item>Codziennie</item>
+        <item>Co tydzień</item>
+        <item>Co miesiąc</item>
+        <item>Co roku</item>
+    </string-array>
+</resources>
