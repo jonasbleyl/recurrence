@@ -27,11 +27,11 @@ public class ContributionAdapter extends RecyclerView.Adapter<ContributionAdapte
         }
     }
 
-    public ContributionAdapter(Context context, int rowLayout, String[] contributorNames, String[] contribution_types) {
+    public ContributionAdapter(Context context, int rowLayout, String[] contributorNames, String[] contributionTypes) {
         mContext = context;
         mRowLayout = rowLayout;
         mContributorNames = contributorNames;
-        mContributionTypes = contribution_types;
+        mContributionTypes = contributionTypes;
     }
 
     @Override
