@@ -164,7 +164,7 @@ public class ViewActivity extends AppCompatActivity {
     }
 
     public void actionEdit() {
-        Intent intent = new Intent(this, EditActivity.class);
+        Intent intent = new Intent(this, CreateActivity.class);
         intent.putExtra("NOTIFICATION_ID", mNotification.getId());
         startActivity(intent);
         finish();

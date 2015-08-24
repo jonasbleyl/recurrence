@@ -5,23 +5,21 @@ import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import com.bleyl.recurrence.model.Notification;
 import com.bleyl.recurrence.R;
@@ -34,6 +32,7 @@ import java.util.Calendar;
 
 public class CreateActivity extends AppCompatActivity {
 
+    private CoordinatorLayout mCoordinatorLayout;
     private EditText mTitleEditText;
     private EditText mContentEditText;
     private TextView mTimeText;
@@ -45,10 +44,14 @@ public class CreateActivity extends AppCompatActivity {
     private TableRow mBottomRow;
     private View mBottomView;
     private TextView mShowText;
+    private TextView mTimesText;
     private ImageView mImageWarningTime;
     private ImageView mImageWarningDate;
+    private ImageView mImageWarningShow;
     private Calendar mCalendar;
+    private int mTimesShown;
     private int mRepeatType;
+    private boolean newNotification;
     private int mId;
 
     @Override
@@ -56,6 +59,7 @@ public class CreateActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create);
 
+        mCoordinatorLayout = (CoordinatorLayout) findViewById(R.id.create_coordinator);
         mTitleEditText = (EditText) findViewById(R.id.notificationTitle);
         mContentEditText = (EditText) findViewById(R.id.notificationContent);
         mTimeText = (TextView) findViewById(R.id.time);
@@ -67,18 +71,10 @@ public class CreateActivity extends AppCompatActivity {
         mBottomRow = (TableRow) findViewById(R.id.bottomRow);
         mBottomView = findViewById(R.id.bottomView);
         mShowText = (TextView) findViewById(R.id.show);
+        mTimesText = (TextView) findViewById(R.id.times);
         mImageWarningTime = (ImageView) findViewById(R.id.errorTime);
         mImageWarningDate = (ImageView) findViewById(R.id.errorDate);
-        mCalendar = Calendar.getInstance();
-
-        // Set default values
-        mCalendar.set(Calendar.SECOND, 0);
-        mTimesEditText.setText("1");
-        mRepeatType = 0;
-
-        Database database = new Database(this.getApplicationContext());
-        mId = database.getLastId() + 1;
-        database.close();
+        mImageWarningShow = (ImageView) findViewById(R.id.errorShow);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -90,11 +86,61 @@ public class CreateActivity extends AppCompatActivity {
             }
         });
 
-        mForeverSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                toggleTextColour();
-            }
-        });
+        mCalendar = Calendar.getInstance();
+        mId = getIntent().getIntExtra("NOTIFICATION_ID", 0);
+
+        // Check whether to edit or create a new notification
+        if (mId == 0) {
+            assignDefaultValues();
+        } else {
+            assignNotificationValues();
+        }
+    }
+
+    public void assignDefaultValues() {
+        if (getSupportActionBar() != null) getSupportActionBar().setTitle(getResources().getString(R.string.create_notification));
+        Database database = new Database(this.getApplicationContext());
+        mId = database.getLastId() + 1;
+        database.close();
+        mCalendar.set(Calendar.SECOND, 0);
+        mTimesEditText.setText("1");
+        newNotification = true;
+        mRepeatType = 0;
+        mTimesShown = 0;
+    }
+
+    public void assignNotificationValues() {
+        if (getSupportActionBar() != null) getSupportActionBar().setTitle(getResources().getString(R.string.edit_notification));
+        Database database = new Database(this.getApplicationContext());
+        Notification notification = database.getNotification(mId);
+        database.close();
+
+        mShowText.setText(String.format(getResources().getString(R.string.times_shown_edit), notification.getNumberShown()));
+        mTimesEditText.setText(Integer.toString(notification.getNumberToShow()));
+        mCalendar = DateAndTimeUtil.parseDateAndTime(notification.getDateAndTime());
+        mTitleEditText.setText(notification.getTitle());
+        mContentEditText.setText(notification.getContent());
+        mTimeText.setText(DateAndTimeUtil.toStringReadableTime(mCalendar));
+        mDateText.setText(DateAndTimeUtil.toStringReadableDate(mCalendar));
+        mTimesEditText.setText(Integer.toString(notification.getNumberToShow()));
+        mTimesShown = notification.getNumberShown();
+        mRepeatType = notification.getRepeatType();
+        mTimesText.setVisibility(View.VISIBLE);
+        mCalendar.set(Calendar.SECOND, 0);
+        newNotification = false;
+
+        if (notification.getRepeatType() != 0) {
+            mForeverRow.setVisibility(View.VISIBLE);
+            mBottomRow.setVisibility(View.VISIBLE);
+            mBottomView.setVisibility(View.VISIBLE);
+            String[] mRepeatTexts = getResources().getStringArray(R.array.repeat_array);
+            mRepeatText.setText(mRepeatTexts[notification.getRepeatType()]);
+        }
+
+        if (Boolean.parseBoolean(notification.getForeverState())) {
+            mForeverSwitch.setChecked(true);
+            toggleTextColour();
+        }
     }
 
     public void timePicker(View view) {
@@ -128,6 +174,7 @@ public class CreateActivity extends AppCompatActivity {
         builder.setItems(repeatArray, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 if (which == 0) {
+                    mForeverSwitch.setChecked(false);
                     mForeverRow.setVisibility(View.GONE);
                     mBottomRow.setVisibility(View.GONE);
                     mBottomView.setVisibility(View.GONE);
@@ -149,6 +196,7 @@ public class CreateActivity extends AppCompatActivity {
         String title = mTitleEditText.getText().toString();
         String content = mContentEditText.getText().toString();
         String forever = Boolean.toString(mForeverSwitch.isChecked());
+        int timesToShow = Integer.parseInt(mTimesEditText.getText().toString());
 
         // Assign time depending on whether a value was selected
         String time;
@@ -166,17 +214,18 @@ public class CreateActivity extends AppCompatActivity {
             date = DateAndTimeUtil.toStringDate(mCalendar);
         }
 
-        // Assign previous timesToShow number if no number was entered
-        int timesToShow;
-        if (mTimesEditText.getText().toString().isEmpty() || Integer.parseInt(mTimesEditText.getText().toString()) == 0) {
-            timesToShow = 1;
-        } else {
-            timesToShow = Integer.parseInt(mTimesEditText.getText().toString());
+        // Show notification once if set to not repeat
+        if (mRepeatType == 0) {
+            timesToShow = mTimesShown + 1;
         }
 
         Database database = new Database(this.getApplicationContext());
-        Notification notification = new Notification(mId, title, content, date + time, mRepeatType, forever, timesToShow, 0);
-        database.add(notification);
+        Notification notification = new Notification(mId, title, content, date + time, mRepeatType, forever, timesToShow, mTimesShown);
+        if (newNotification) {
+            database.add(notification);
+        } else {
+            database.update(notification);
+        }
         database.close();
 
         AlarmUtil.setAlarm(getApplicationContext(), notification.getId(), mCalendar);
@@ -185,15 +234,22 @@ public class CreateActivity extends AppCompatActivity {
 
     public void toggleSwitch(View view) {
         mForeverSwitch.toggle();
+        toggleTextColour();
+    }
+
+    public void switchClicked(View view) {
+        toggleTextColour();
     }
 
     public void toggleTextColour() {
         if (mForeverSwitch.isChecked()) {
             mShowText.setTextColor(getResources().getColor(R.color.textLightGray));
             mTimesEditText.setTextColor(getResources().getColor(R.color.textLightGray));
+            mTimesText.setTextColor(getResources().getColor(R.color.textLightGray));
         } else {
             mShowText.setTextColor(Color.BLACK);
             mTimesEditText.setTextColor(Color.BLACK);
+            mTimesText.setTextColor(Color.BLACK);
         }
     }
 
@@ -213,14 +269,30 @@ public class CreateActivity extends AppCompatActivity {
             mCalendar.set(Calendar.DAY_OF_MONTH, nowCalendar.get(Calendar.DAY_OF_MONTH));
         }
 
+        // Check if the number of times to show notification is empty
+        String times;
+        if (mTimesEditText.getText().toString().isEmpty()) {
+            times = "0";
+            mTimesEditText.setText(times);
+        } else {
+            times = mTimesEditText.getText().toString();
+        }
+
         // Check if selected date is before today's date
         if (DateAndTimeUtil.toLongDateAndTime(mCalendar) < DateAndTimeUtil.toLongDateAndTime(nowCalendar)) {
-            Toast.makeText(getApplicationContext(), getResources().getString(R.string.toast_past_date), Toast.LENGTH_SHORT).show();
+            Snackbar.make(mCoordinatorLayout, getResources().getString(R.string.toast_past_date), Snackbar.LENGTH_SHORT).show();
             mImageWarningTime.setVisibility(View.VISIBLE);
             mImageWarningDate.setVisibility(View.VISIBLE);
+
+            // Check if title is empty
         } else if (mTitleEditText.getText().toString().trim().isEmpty()) {
-            Toast.makeText(getApplicationContext(), getResources().getString(R.string.toast_title_empty), Toast.LENGTH_SHORT).show();
+            Snackbar.make(mCoordinatorLayout, getResources().getString(R.string.toast_title_empty), Snackbar.LENGTH_SHORT).show();
             AnimationUtil.shakeView(mTitleEditText, getApplicationContext());
+
+            // Check if times to show notification is too low
+        } else if (Integer.parseInt(times) <= mTimesShown && !mForeverSwitch.isChecked() && mRepeatType != 0) {
+            Snackbar.make(mCoordinatorLayout, getResources().getString(R.string.toast_higher_number), Snackbar.LENGTH_SHORT).show();
+            mImageWarningShow.setVisibility(View.VISIBLE);
         } else {
             saveNotification();
         }

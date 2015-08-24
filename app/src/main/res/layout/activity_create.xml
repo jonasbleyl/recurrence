@@ -1,43 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/create_coordinator"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
     <LinearLayout
-        android:id="@+id/header"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            android:theme="@style/Toolbar"
-            app:popupTheme="@style/Theme.AppCompat.Light.DarkActionBar" />
-
         <LinearLayout
+            android:id="@+id/header"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:background="?attr/colorPrimary"
-            android:orientation="vertical"
-            android:paddingBottom="8dp"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:paddingTop="4dp">
+            android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="@string/title"
-                android:textColor="@android:color/white"
-                android:paddingBottom="2dp"
-                android:id="@+id/textView" />
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                android:theme="@style/Toolbar"
+                app:popupTheme="@style/Theme.AppCompat.Light.DarkActionBar" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?attr/colorPrimary"
+                android:orientation="vertical"
+                android:paddingBottom="8dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingTop="4dp">
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="2dp"
+                    android:text="@string/title"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@android:color/white" />
 
                 <EditText
                     android:id="@+id/notificationTitle"
@@ -48,342 +54,345 @@
                     android:textColorHighlight="@color/accentLight"
                     android:textSize="26sp" />
 
+            </LinearLayout>
+
         </LinearLayout>
+
+        <View
+            android:id="@+id/toolbarShadow"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/toolbar_shadow_height"
+            android:layout_marginBottom="@dimen/toolbar_shadow_adjust"
+            android:background="@drawable/toolbar_shadow" />
+
+        <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="18dp"
+                    android:paddingEnd="@dimen/table_row_default_padding_side"
+                    android:paddingRight="@dimen/table_row_default_padding_side"
+                    android:paddingTop="24dp"
+                    android:weightSum="1">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/image_margin_side"
+                        android:layout_marginStart="@dimen/image_margin_side"
+                        android:background="@drawable/ic_subject_grey600_24dp"
+                        android:contentDescription="@string/list_image" />
+
+                    <EditText
+                        android:id="@+id/notificationContent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="@dimen/text_margin_side"
+                        android:layout_marginStart="@dimen/text_margin_side"
+                        android:background="@android:color/transparent"
+                        android:hint="@string/content_hint"
+                        android:inputType="textMultiLine|textCapSentences"
+                        android:textColorHighlight="@color/accentLight"
+                        android:textColorHint="@color/textLightGray"
+                        android:textSize="16sp" />
+
+                </TableRow>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/line_separator_height"
+                    android:layout_marginLeft="@dimen/line_separator_margin_side_large"
+                    android:layout_marginStart="@dimen/line_separator_margin_side_large"
+                    android:background="@color/lightGray" />
+
+                <TableRow
+                    android:id="@+id/timeRow"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackground"
+                    android:onClick="timePicker"
+                    android:paddingBottom="18dp"
+                    android:paddingEnd="@dimen/table_row_default_padding_side"
+                    android:paddingRight="@dimen/table_row_default_padding_side"
+                    android:paddingTop="@dimen/table_row_default_padding_top"
+                    android:weightSum="1">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/image_margin_side"
+                        android:layout_marginStart="@dimen/image_margin_side"
+                        android:background="@drawable/ic_access_time_grey600_24dp"
+                        android:contentDescription="@string/list_image" />
+
+                    <TextView
+                        android:id="@+id/time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="@dimen/text_margin_side"
+                        android:layout_marginStart="@dimen/text_margin_side"
+                        android:text="@string/time_now"
+                        android:textColor="@android:color/black"
+                        android:textSize="16sp" />
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:weightSum="1">
+
+                        <ImageView
+                            android:id="@+id/errorTime"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/ic_error_red_24dp"
+                            android:contentDescription="@string/error_image"
+                            android:visibility="gone" />
+
+                    </TableRow>
+
+                </TableRow>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/line_separator_height"
+                    android:layout_marginLeft="@dimen/line_separator_margin_side_large"
+                    android:layout_marginStart="@dimen/line_separator_margin_side_large"
+                    android:background="@color/lightGray" />
+
+                <TableRow
+                    android:id="@+id/dateRow"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackground"
+                    android:onClick="datePicker"
+                    android:paddingBottom="18dp"
+                    android:paddingEnd="@dimen/table_row_default_padding_side"
+                    android:paddingRight="@dimen/table_row_default_padding_side"
+                    android:paddingTop="@dimen/table_row_default_padding_top"
+                    android:weightSum="1">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/image_margin_side"
+                        android:layout_marginStart="@dimen/image_margin_side"
+                        android:background="@drawable/ic_today_grey600_24dp"
+                        android:contentDescription="@string/list_image" />
+
+                    <TextView
+                        android:id="@+id/date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="@dimen/text_margin_side"
+                        android:layout_marginStart="@dimen/text_margin_side"
+                        android:text="@string/date_today"
+                        android:textColor="@android:color/black"
+                        android:textSize="16sp" />
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:weightSum="1">
+
+                        <ImageView
+                            android:id="@+id/errorDate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/ic_error_red_24dp"
+                            android:contentDescription="@string/error_image"
+                            android:visibility="gone" />
+
+                    </TableRow>
+
+                </TableRow>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/line_separator_height"
+                    android:layout_marginLeft="@dimen/line_separator_margin_side_large"
+                    android:layout_marginStart="@dimen/line_separator_margin_side_large"
+                    android:background="@color/lightGray" />
+
+                <TableRow
+                    android:id="@+id/repeatDayRow"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackground"
+                    android:onClick="repeatSelector"
+                    android:paddingBottom="18dp"
+                    android:paddingEnd="@dimen/table_row_default_padding_side"
+                    android:paddingRight="@dimen/table_row_default_padding_side"
+                    android:paddingTop="@dimen/table_row_default_padding_top"
+                    android:weightSum="1">
+
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/image_margin_side"
+                        android:layout_marginStart="@dimen/image_margin_side"
+                        android:background="@drawable/ic_refresh_grey600_24dp"
+                        android:contentDescription="@string/list_image" />
+
+                    <TextView
+                        android:id="@+id/repeatDay"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="22dp"
+                        android:layout_marginStart="22dp"
+                        android:text="@string/no_repeat"
+                        android:textColor="@android:color/black"
+                        android:textSize="16sp" />
+
+                </TableRow>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/line_separator_height"
+                    android:layout_marginLeft="@dimen/line_separator_margin_side_large"
+                    android:layout_marginStart="@dimen/line_separator_margin_side_large"
+                    android:background="@color/lightGray" />
+
+                <TableRow
+                    android:id="@+id/foreverRow"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackground"
+                    android:onClick="toggleSwitch"
+                    android:paddingBottom="18dp"
+                    android:paddingEnd="@dimen/table_row_default_padding_side"
+                    android:paddingRight="@dimen/table_row_default_padding_side"
+                    android:paddingTop="@dimen/table_row_default_padding_top"
+                    android:visibility="gone"
+                    android:weightSum="1">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/image_margin_side"
+                        android:layout_marginStart="@dimen/image_margin_side"
+                        android:background="@drawable/ic_remove_red_eye_grey600_24dp"
+                        android:contentDescription="@string/list_image" />
+
+                    <TextView
+                        android:id="@+id/forever"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="@dimen/text_margin_side"
+                        android:layout_marginStart="@dimen/text_margin_side"
+                        android:layout_weight="1"
+                        android:text="@string/forever"
+                        android:textColor="@android:color/black"
+                        android:textSize="16sp" />
+
+                    <android.support.v7.widget.SwitchCompat
+                        android:id="@+id/switchToggle"
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:onClick="switchClicked"
+                        app:showText="false" />
+
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/bottomRow"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="12dp"
+                    android:paddingEnd="@dimen/table_row_default_padding_side"
+                    android:paddingRight="@dimen/table_row_default_padding_side"
+                    android:visibility="gone"
+                    android:weightSum="1">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/show"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="62dp"
+                            android:layout_marginStart="62dp"
+                            android:text="@string/repeat_notification"
+                            android:textColor="@android:color/black"
+                            android:textSize="16sp" />
+
+                        <EditText
+                            android:id="@+id/showTimesNumber"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:inputType="number"
+                            android:maxLength="4"
+                            android:minWidth="30dp"
+                            android:paddingLeft="12dp"
+                            android:paddingRight="12dp"
+                            android:textColorHighlight="@color/accentLight"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/times"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/times"
+                            android:textColor="@android:color/black"
+                            android:textSize="16sp"
+                            android:visibility="gone" />
+
+                    </LinearLayout>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:paddingTop="7dp"
+                        android:weightSum="1">
+
+                        <ImageView
+                            android:id="@+id/errorShow"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/ic_error_red_24dp"
+                            android:contentDescription="@string/error_image"
+                            android:visibility="gone" />
+
+                    </TableRow>
+
+                </TableRow>
+
+                <View
+                    android:id="@+id/bottomView"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/line_separator_height"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginLeft="@dimen/line_separator_margin_side_large"
+                    android:layout_marginStart="@dimen/line_separator_margin_side_large"
+                    android:background="@color/lightGray"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+
+        </ScrollView>
 
     </LinearLayout>
 
-    <View
-        android:id="@+id/toolbarShadow"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/toolbar_shadow_height"
-        android:layout_marginBottom="@dimen/toolbar_shadow_adjust"
-        android:background="@drawable/toolbar_shadow" />
-
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="18dp"
-                android:paddingEnd="@dimen/table_row_default_padding_side"
-                android:paddingRight="@dimen/table_row_default_padding_side"
-                android:paddingTop="24dp"
-                android:weightSum="1">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/image_margin_side"
-                    android:layout_marginStart="@dimen/image_margin_side"
-                    android:background="@drawable/ic_subject_grey600_24dp"
-                    android:contentDescription="@string/list_image" />
-
-                <EditText
-                    android:id="@+id/notificationContent"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="@dimen/text_margin_side"
-                    android:layout_marginStart="@dimen/text_margin_side"
-                    android:background="@android:color/transparent"
-                    android:hint="@string/content_hint"
-                    android:inputType="textMultiLine|textCapSentences"
-                    android:textColorHighlight="@color/accentLight"
-                    android:textColorHint="@color/textLightGray"
-                    android:textSize="16sp" />
-
-            </TableRow>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/line_separator_height"
-                android:layout_marginLeft="@dimen/line_separator_margin_side_large"
-                android:layout_marginStart="@dimen/line_separator_margin_side_large"
-                android:background="@color/lightGray" />
-
-            <TableRow
-                android:id="@+id/timeRow"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?attr/selectableItemBackground"
-                android:onClick="timePicker"
-                android:paddingBottom="18dp"
-                android:paddingEnd="@dimen/table_row_default_padding_side"
-                android:paddingRight="@dimen/table_row_default_padding_side"
-                android:paddingTop="@dimen/table_row_default_padding_top"
-                android:weightSum="1">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/image_margin_side"
-                    android:layout_marginStart="@dimen/image_margin_side"
-                    android:background="@drawable/ic_access_time_grey600_24dp"
-                    android:contentDescription="@string/list_image" />
-
-                <TextView
-                    android:id="@+id/time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="@dimen/text_margin_side"
-                    android:layout_marginStart="@dimen/text_margin_side"
-                    android:text="@string/time_now"
-                    android:textColor="@android:color/black"
-                    android:textSize="16sp" />
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="end"
-                    android:weightSum="1">
-
-                    <ImageView
-                        android:id="@+id/errorTime"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/ic_error_red_24dp"
-                        android:contentDescription="@string/error_image"
-                        android:visibility="gone" />
-
-                </TableRow>
-
-            </TableRow>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/line_separator_height"
-                android:layout_marginLeft="@dimen/line_separator_margin_side_large"
-                android:layout_marginStart="@dimen/line_separator_margin_side_large"
-                android:background="@color/lightGray" />
-
-            <TableRow
-                android:id="@+id/dateRow"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?attr/selectableItemBackground"
-                android:onClick="datePicker"
-                android:paddingBottom="18dp"
-                android:paddingEnd="@dimen/table_row_default_padding_side"
-                android:paddingRight="@dimen/table_row_default_padding_side"
-                android:paddingTop="@dimen/table_row_default_padding_top"
-                android:weightSum="1">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/image_margin_side"
-                    android:layout_marginStart="@dimen/image_margin_side"
-                    android:background="@drawable/ic_today_grey600_24dp"
-                    android:contentDescription="@string/list_image" />
-
-                <TextView
-                    android:id="@+id/date"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="@dimen/text_margin_side"
-                    android:layout_marginStart="@dimen/text_margin_side"
-                    android:text="@string/date_today"
-                    android:textColor="@android:color/black"
-                    android:textSize="16sp" />
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="end"
-                    android:weightSum="1">
-
-                    <ImageView
-                        android:id="@+id/errorDate"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/ic_error_red_24dp"
-                        android:contentDescription="@string/error_image"
-                        android:visibility="gone" />
-
-                </TableRow>
-
-            </TableRow>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/line_separator_height"
-                android:layout_marginLeft="@dimen/line_separator_margin_side_large"
-                android:layout_marginStart="@dimen/line_separator_margin_side_large"
-                android:background="@color/lightGray" />
-
-            <TableRow
-                android:id="@+id/repeatDayRow"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?attr/selectableItemBackground"
-                android:onClick="repeatSelector"
-                android:paddingBottom="18dp"
-                android:paddingEnd="@dimen/table_row_default_padding_side"
-                android:paddingRight="@dimen/table_row_default_padding_side"
-                android:paddingTop="@dimen/table_row_default_padding_top"
-                android:weightSum="1">
-
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/image_margin_side"
-                    android:layout_marginStart="@dimen/image_margin_side"
-                    android:background="@drawable/ic_refresh_grey600_24dp"
-                    android:contentDescription="@string/list_image" />
-
-                <TextView
-                    android:id="@+id/repeatDay"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="22dp"
-                    android:layout_marginStart="22dp"
-                    android:text="@string/no_repeat"
-                    android:textColor="@android:color/black"
-                    android:textSize="16sp" />
-
-            </TableRow>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/line_separator_height"
-                android:layout_marginLeft="@dimen/line_separator_margin_side_large"
-                android:layout_marginStart="@dimen/line_separator_margin_side_large"
-                android:background="@color/lightGray" />
-
-            <TableRow
-                android:id="@+id/foreverRow"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?attr/selectableItemBackground"
-                android:onClick="toggleSwitch"
-                android:paddingBottom="18dp"
-                android:paddingEnd="@dimen/table_row_default_padding_side"
-                android:paddingRight="@dimen/table_row_default_padding_side"
-                android:paddingTop="@dimen/table_row_default_padding_top"
-                android:visibility="gone"
-                android:weightSum="1">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/image_margin_side"
-                    android:layout_marginStart="@dimen/image_margin_side"
-                    android:background="@drawable/ic_remove_red_eye_grey600_24dp"
-                    android:contentDescription="@string/list_image" />
-
-                <TextView
-                    android:id="@+id/forever"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="@dimen/text_margin_side"
-                    android:layout_marginStart="@dimen/text_margin_side"
-                    android:layout_weight="1"
-                    android:text="@string/forever"
-                    android:textColor="@android:color/black"
-                    android:textSize="16sp" />
-
-                <android.support.v7.widget.SwitchCompat
-                    android:id="@+id/switchToggle"
-                    android:layout_width="50dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="1"
-                    app:showText="false" />
-
-            </TableRow>
-
-            <TableRow
-                android:id="@+id/bottomRow"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="12dp"
-                android:paddingEnd="@dimen/table_row_default_padding_side"
-                android:paddingRight="@dimen/table_row_default_padding_side"
-                android:visibility="gone"
-                android:weightSum="1">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/show"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="62dp"
-                        android:layout_marginStart="62dp"
-                        android:text="@string/repeat_notification"
-                        android:textColor="@android:color/black"
-                        android:textSize="16sp" />
-
-                    <EditText
-                        android:id="@+id/showTimesNumber"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:inputType="number"
-                        android:maxLength="4"
-                        android:minWidth="30dp"
-                        android:paddingLeft="12dp"
-                        android:paddingRight="12dp"
-                        android:textColorHighlight="@color/accentLight"
-                        android:textSize="16sp" />
-
-                    <TextView
-                        android:id="@+id/times"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/times"
-                        android:textColor="@android:color/black"
-                        android:textSize="16sp"
-                        android:visibility="gone"/>
-
-                </LinearLayout>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="7dp"
-                    android:gravity="end"
-                    android:weightSum="1">
-
-                    <ImageView
-                        android:id="@+id/errorShow"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/ic_error_red_24dp"
-                        android:contentDescription="@string/error_image"
-                        android:visibility="gone" />
-
-                </TableRow>
-
-            </TableRow>
-
-            <View
-                android:id="@+id/bottomView"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/line_separator_height"
-                android:layout_marginBottom="16dp"
-                android:layout_marginStart="@dimen/line_separator_margin_side_large"
-                android:layout_marginLeft="@dimen/line_separator_margin_side_large"
-                android:background="@color/lightGray"
-                android:visibility="gone" />
-
-        </LinearLayout>
-
-    </ScrollView>
-
-</LinearLayout>
+</android.support.design.widget.CoordinatorLayout>
