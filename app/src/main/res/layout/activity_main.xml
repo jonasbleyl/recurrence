@@ -18,10 +18,7 @@
 
             <com.astuetz.PagerSlidingTabStrip
                 android:id="@+id/tabs"
-                android:textColor="@color/tabUnselected"
                 android:layout_width="match_parent"
-                app:pstsTextColorSelected="@android:color/white"
-                app:pstsIndicatorColor="@android:color/white"
                 android:layout_height="?attr/actionBarSize"
                 app:pstsTabPaddingLeftRight="26dp"
                 android:layout_marginLeft="8dp"

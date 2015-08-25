@@ -25,6 +25,16 @@ public class ViewPageAdapter extends FragmentPagerAdapter implements PagerSlidin
     }
 
     @Override
+    public void tabUnselected(View view) {
+        view.setSelected(false);
+    }
+
+    @Override
+    public void tabSelected(View view) {
+        view.setSelected(true);
+    }
+
+    @Override
     public View getCustomTabView(ViewGroup parent, int position) {
         FrameLayout customLayout = (FrameLayout) LayoutInflater.from(mContext).inflate(R.layout.custom_tab, parent, false);
         ((ImageView) customLayout.findViewById(R.id.image)).setImageResource(ICONS[position]);
