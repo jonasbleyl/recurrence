@@ -82,9 +82,9 @@ public class AboutActivity extends AppCompatActivity {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        String[] contributor_names = getResources().getStringArray(R.array.contributors_array);
-        String[] contribution_type = getResources().getStringArray(R.array.contribution_array);
-        recyclerView.setAdapter(new ContributionAdapter(this, R.layout.item_contributor_list, contributor_names, contribution_type));
+        String[] contributorNames = getResources().getStringArray(R.array.contributors_array);
+        String[] contributionTypes = getResources().getStringArray(R.array.contribution_array);
+        recyclerView.setAdapter(new ContributionAdapter(this, R.layout.item_contributor_list, contributorNames, contributionTypes));
 
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
         alertDialog.setTitle(getResources().getString(R.string.thanks_to));
