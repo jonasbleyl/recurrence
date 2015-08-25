@@ -30,7 +30,7 @@ import com.bleyl.recurrence.util.DateAndTimeUtil;
 
 import java.util.Calendar;
 
-public class CreateActivity extends AppCompatActivity {
+public class CreateEditActivity extends AppCompatActivity {
 
     private CoordinatorLayout mCoordinatorLayout;
     private EditText mTitleEditText;
@@ -144,7 +144,7 @@ public class CreateActivity extends AppCompatActivity {
     }
 
     public void timePicker(View view) {
-        TimePickerDialog TimePicker = new TimePickerDialog(CreateActivity.this, new TimePickerDialog.OnTimeSetListener() {
+        TimePickerDialog TimePicker = new TimePickerDialog(CreateEditActivity.this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int hour, int minute) {
                 mCalendar.set(Calendar.HOUR_OF_DAY, hour);
@@ -156,7 +156,7 @@ public class CreateActivity extends AppCompatActivity {
     }
 
     public void datePicker(View view) {
-        DatePickerDialog DatePicker = new DatePickerDialog(CreateActivity.this, new DatePickerDialog.OnDateSetListener() {
+        DatePickerDialog DatePicker = new DatePickerDialog(CreateEditActivity.this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker DatePicker, int year, int month, int dayOfMonth) {
                 mCalendar.set(Calendar.YEAR, year);

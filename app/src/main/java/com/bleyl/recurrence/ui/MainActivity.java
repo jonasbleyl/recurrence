@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void fabClicked() {
-        Intent intent = new Intent(this, CreateActivity.class);
+        Intent intent = new Intent(this, CreateEditActivity.class);
         startActivity(intent);
     }
 
