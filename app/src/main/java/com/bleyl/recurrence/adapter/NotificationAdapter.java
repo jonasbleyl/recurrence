@@ -7,8 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.bleyl.recurrence.ui.fragment.ActiveTabFragment;
-import com.bleyl.recurrence.ui.fragment.InactiveTabFragment;
+import com.bleyl.recurrence.ui.fragment.TabFragment;
 import com.bleyl.recurrence.model.Notification;
 import com.bleyl.recurrence.R;
 import com.bleyl.recurrence.util.DateAndTimeUtil;
@@ -21,7 +20,6 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
     private int mRowLayout;
     private Context mContext;
     private List<Notification> mNotificationList;
-    private String mListType;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView mTitle;
@@ -38,11 +36,10 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         }
     }
 
-    public NotificationAdapter(Context context, int rowLayout, List<Notification> notificationList, String listType) {
+    public NotificationAdapter(Context context, int rowLayout, List<Notification> notificationList) {
         mContext = context;
         mRowLayout = rowLayout;
         mNotificationList = notificationList;
-        mListType = listType;
     }
 
     @Override
@@ -57,14 +54,11 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         if (position > 0 && mNotificationList.get(position).getDate().equals(mNotificationList.get(position - 1).getDate()) ) {
             viewHolder.mTextSeparator.setVisibility(View.GONE);
         } else {
-            viewHolder.mTextSeparator.setVisibility(View.VISIBLE);
             // Parse date and get appropriate date format
             Calendar DateAndTime = DateAndTimeUtil.parseDateAndTime(mNotificationList.get(position).getDateAndTime());
-            String appropriateDate = DateAndTimeUtil.getAppropriateDateFormat(DateAndTime);
-            if (appropriateDate.equals("TODAY")) {
-                appropriateDate = mContext.getResources().getString(R.string.date_today);
-            }
+            String appropriateDate = DateAndTimeUtil.getAppropriateDateFormat(mContext, DateAndTime);
             viewHolder.mTextSeparator.setText(appropriateDate);
+            viewHolder.mTextSeparator.setVisibility(View.VISIBLE);
         }
 
         viewHolder.mTitle.setText(mNotificationList.get(position).getTitle());
@@ -72,14 +66,9 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
         viewHolder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                if (mListType.equals("ACTIVE")) {
-                    ActiveTabFragment fragment = new ActiveTabFragment();
-                    fragment.startViewerActivity(mContext, v, position);
-                } else if (mListType.equals("INACTIVE")) {
-                    InactiveTabFragment fragment = new InactiveTabFragment();
-                    fragment.startViewerActivity(mContext, v, position);
-                }
+            public void onClick(View view) {
+                    TabFragment fragment = new TabFragment();
+                    fragment.startViewerActivity(view, mNotificationList.get(position));
             }
         });
     }

@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         int pageMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4, getResources().getDisplayMetrics());
         viewPager.setPageMargin(pageMargin);
 
-        mFloatingActionButton = (FloatingActionButton)findViewById(R.id.fab_button);
+        mFloatingActionButton = (FloatingActionButton) findViewById(R.id.fab_button);
         mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         if (mFabIsHidden) {
             mFloatingActionButton.show();
             mFabIsHidden = false;
-            }
+        }
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.bleyl.recurrence.adapter;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -11,13 +12,17 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.astuetz.PagerSlidingTabStrip;
-import com.bleyl.recurrence.ui.fragment.ActiveTabFragment;
-import com.bleyl.recurrence.ui.fragment.InactiveTabFragment;
+import com.bleyl.recurrence.NotificationsTypeEnum;
+import com.bleyl.recurrence.ui.fragment.TabFragment;
 import com.bleyl.recurrence.R;
 
 public class ViewPageAdapter extends FragmentPagerAdapter implements PagerSlidingTabStrip.CustomTabProvider {
-    private final int[] ICONS = { R.drawable.icon_selector_active, R.drawable.icon_selector_inactive };
+
     private Context mContext;
+    private final int[] ICONS = {
+            R.drawable.icon_selector_active,
+            R.drawable.icon_selector_inactive
+    };
 
     public ViewPageAdapter(FragmentManager fm, Context context) {
         super(fm);
@@ -53,16 +58,18 @@ public class ViewPageAdapter extends FragmentPagerAdapter implements PagerSlidin
 
     @Override
     public Fragment getItem(int position) {
-        Fragment fragment;
+        Bundle bundle = new Bundle();
         switch (position) {
             case 0:
             default:
-                fragment = new ActiveTabFragment();
+                bundle.putSerializable("TYPE", NotificationsTypeEnum.ACTIVE);
                 break;
             case 1:
-                fragment = new InactiveTabFragment();
+                bundle.putSerializable("TYPE", NotificationsTypeEnum.INACTIVE);
                 break;
         }
+        Fragment fragment = new TabFragment();
+        fragment.setArguments(bundle);
         return fragment;
     }
 }

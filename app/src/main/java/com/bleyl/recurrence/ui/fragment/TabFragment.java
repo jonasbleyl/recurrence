@@ -22,43 +22,48 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.bleyl.recurrence.NotificationsTypeEnum;
+import com.bleyl.recurrence.database.Database;
 import com.bleyl.recurrence.model.Notification;
 import com.bleyl.recurrence.R;
 import com.bleyl.recurrence.adapter.NotificationAdapter;
-import com.bleyl.recurrence.database.Database;
 import com.bleyl.recurrence.ui.MainActivity;
 import com.bleyl.recurrence.ui.ViewActivity;
 
 import java.util.List;
 
-public class ActiveTabFragment extends Fragment {
+public class TabFragment extends Fragment {
 
-    private static Activity sParentActivity;
+    private static Activity sActivity;
     private RecyclerView mRecyclerView;
     private TextView mEmptyText;
     private NotificationAdapter mNotificationAdapter;
     private List<Notification> mNotificationList;
+    private NotificationsTypeEnum mNotificationsTypeEnum;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_tabs, container, false);
-        sParentActivity = getActivity();
-        LocalBroadcastManager.getInstance(sParentActivity).registerReceiver(messageReceiver, new IntentFilter("BROADCAST_REFRESH"));
+        sActivity = getActivity();
+        LocalBroadcastManager.getInstance(sActivity).registerReceiver(messageReceiver, new IntentFilter("BROADCAST_REFRESH"));
         return view;
     }
 
     @Override
-    public void onViewCreated(View view, Bundle bundle){
+    public void onViewCreated(View view, Bundle bundle) {
         super.onViewCreated(view, bundle);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         mEmptyText = (TextView) view.findViewById(R.id.empty_view);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(sParentActivity);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(sActivity);
         mRecyclerView.setLayoutManager(layoutManager);
 
-        Database database = new Database(sParentActivity.getApplicationContext());
-        mNotificationList = database.getActiveNotifications();
-        mNotificationAdapter = new NotificationAdapter(sParentActivity, R.layout.item_notification_list, mNotificationList, "ACTIVE");
-        database.close();
+        mNotificationsTypeEnum = (NotificationsTypeEnum) this.getArguments().get("TYPE");
+        if (mNotificationsTypeEnum == NotificationsTypeEnum.INACTIVE) {
+            mEmptyText.setText(getResources().getString(R.string.no_inactive));
+        }
+
+        mNotificationList = getListData();
+        mNotificationAdapter = new NotificationAdapter(sActivity, R.layout.item_notification_list, mNotificationList);
         mRecyclerView.setAdapter(mNotificationAdapter);
 
         if (mNotificationAdapter.getItemCount() == 0) {
@@ -67,18 +72,16 @@ public class ActiveTabFragment extends Fragment {
         }
     }
 
-    private BroadcastReceiver messageReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            updateList();
-        }
-    };
+    public List<Notification> getListData() {
+        Database database = new Database(sActivity.getApplicationContext());
+        List<Notification> notificationList = database.getNotificationList(mNotificationsTypeEnum);
+        database.close();
+        return notificationList;
+    }
 
     public void updateList() {
-        Database database = new Database(sParentActivity.getApplicationContext());
         mNotificationList.clear();
-        mNotificationList.addAll(database.getActiveNotifications());
-        database.close();
+        mNotificationList.addAll(getListData());
         mNotificationAdapter.notifyDataSetChanged();
 
         if (mNotificationAdapter.getItemCount() == 0) {
@@ -90,13 +93,9 @@ public class ActiveTabFragment extends Fragment {
         }
     }
 
-    public void startViewerActivity(Context context, View view, int position) {
-        Database database = new Database(context.getApplicationContext());
-        List<Notification> notificationList = database.getActiveNotifications();
-        database.close();
-
-        Intent intent = new Intent(sParentActivity, ViewActivity.class);
-        intent.putExtra("NOTIFICATION_ID", notificationList.get(position).getId());
+    public void startViewerActivity(View view, Notification notification) {
+        Intent intent = new Intent(sActivity, ViewActivity.class);
+        intent.putExtra("NOTIFICATION_ID", notification.getId());
 
         // Add shared element transition animation if on Lollipop or later
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -111,17 +110,24 @@ public class ActiveTabFragment extends Fragment {
             transition.setDuration(400);
             setExit.addTransition(transition);
 
-            sParentActivity.getWindow().setSharedElementsUseOverlay(false);
-            sParentActivity.getWindow().setReenterTransition(null);
+            sActivity.getWindow().setSharedElementsUseOverlay(false);
+            sActivity.getWindow().setReenterTransition(null);
 
-            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(sParentActivity, cardView, "cardTransition");
-            ActivityCompat.startActivity(sParentActivity, intent, options.toBundle());
+            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(sActivity, cardView, "cardTransition");
+            ActivityCompat.startActivity(sActivity, intent, options.toBundle());
 
-            ((MainActivity)view.getContext()).hideFab();
+            ((MainActivity) view.getContext()).hideFab();
         } else {
             view.getContext().startActivity(intent);
         }
     }
+
+    private BroadcastReceiver messageReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            updateList();
+        }
+    };
 
     @Override
     public void onResume() {
@@ -131,7 +137,7 @@ public class ActiveTabFragment extends Fragment {
 
     @Override
     public void onDestroy() {
-        LocalBroadcastManager.getInstance(sParentActivity).unregisterReceiver(messageReceiver);
+        LocalBroadcastManager.getInstance(sActivity).unregisterReceiver(messageReceiver);
         super.onDestroy();
     }
 }
