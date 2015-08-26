@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
+import com.bleyl.recurrence.NotificationsTypeEnum;
 import com.bleyl.recurrence.util.AlarmUtil;
 import com.bleyl.recurrence.database.Database;
 import com.bleyl.recurrence.model.Notification;
@@ -16,7 +17,7 @@ public class BootReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         Database database = new Database(context.getApplicationContext());
-        List<Notification> notificationList = database.getActiveNotifications();
+        List<Notification> notificationList = database.getNotificationList(NotificationsTypeEnum.ACTIVE);
         database.close();
 
         for (Notification notification : notificationList) {

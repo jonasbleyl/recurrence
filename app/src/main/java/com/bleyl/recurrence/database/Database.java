@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.bleyl.recurrence.NotificationsTypeEnum;
 import com.bleyl.recurrence.model.Notification;
 import com.bleyl.recurrence.util.DateAndTimeUtil;
 
@@ -76,38 +77,19 @@ public class Database extends SQLiteOpenHelper {
         return data;
     }
 
-    public List<Notification> getActiveNotifications() {
+    public List<Notification> getNotificationList(NotificationsTypeEnum notificationsTypeEnum) {
         List<Notification> notificationList = new ArrayList<>();
+        String query;
 
-        String query = "SELECT * FROM " + NOTIFICATION_TABLE + " WHERE " + COL_DATE_AND_TIME + " > "
-                + DateAndTimeUtil.toLongDateAndTime(Calendar.getInstance()) + " ORDER BY " + COL_DATE_AND_TIME;
-
-        SQLiteDatabase database = this.getWritableDatabase();
-        Cursor cursor = database.rawQuery(query, null);
-
-        if (cursor.moveToFirst()) {
-            do {
-                Notification notification = new Notification();
-                notification.setId(cursor.getInt(0));
-                notification.setTitle(cursor.getString(1));
-                notification.setContent(cursor.getString(2));
-                notification.setDateAndTime(cursor.getString(3));
-                notification.setRepeatType(cursor.getInt(4));
-                notification.setForeverState(cursor.getString(5));
-                notification.setNumberToShow(cursor.getInt(6));
-                notification.setNumberShown(cursor.getInt(7));
-                notificationList.add(notification);
-            } while (cursor.moveToNext());
+        switch (notificationsTypeEnum) {
+            case ACTIVE:
+            default:
+                query = "SELECT * FROM " + NOTIFICATION_TABLE + " WHERE " + COL_DATE_AND_TIME + " > " + DateAndTimeUtil.toLongDateAndTime(Calendar.getInstance()) + " ORDER BY " + COL_DATE_AND_TIME;
+                break;
+            case INACTIVE:
+                query = "SELECT * FROM " + NOTIFICATION_TABLE + " WHERE " + COL_DATE_AND_TIME + " <= " + DateAndTimeUtil.toLongDateAndTime(Calendar.getInstance()) + " ORDER BY " + COL_DATE_AND_TIME + " DESC";
+                break;
         }
-        cursor.close();
-        return notificationList;
-    }
-
-    public List<Notification> getInactiveNotifications() {
-        List<Notification> notificationList = new ArrayList<>();
-
-        String query = "SELECT * FROM " + NOTIFICATION_TABLE + " WHERE " + COL_DATE_AND_TIME + " <= "
-                + DateAndTimeUtil.toLongDateAndTime(Calendar.getInstance()) + " ORDER BY " + COL_DATE_AND_TIME + " DESC";
 
         SQLiteDatabase database = this.getWritableDatabase();
         Cursor cursor = database.rawQuery(query, null);
