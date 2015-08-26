@@ -1,5 +1,9 @@
 package com.bleyl.recurrence.util;
 
+import android.content.Context;
+
+import com.bleyl.recurrence.R;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
@@ -38,10 +42,10 @@ public class DateAndTimeUtil {
         return DATE_AND_TIME_FORMAT.format(calendar.getTime());
     }
 
-    public static String getAppropriateDateFormat(Calendar calendar) {
+    public static String getAppropriateDateFormat(Context context, Calendar calendar) {
         if (isThisYear(calendar)) {
             if (isThisMonth(calendar) && isThisDayOfMonth(calendar)) {
-                return "TODAY";
+                return context.getResources().getString(R.string.date_today);
             } else {
                 return READABLE_DAY_MONTH_FORMAT.format(calendar.getTime());
             }
