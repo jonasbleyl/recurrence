@@ -1,4 +1,4 @@
-package com.bleyl.recurrence.ui;
+package com.bleyl.recurrence.ui.activities;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -21,12 +21,12 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
-import com.bleyl.recurrence.model.Notification;
+import com.bleyl.recurrence.models.Notification;
 import com.bleyl.recurrence.R;
 import com.bleyl.recurrence.database.Database;
-import com.bleyl.recurrence.util.AlarmUtil;
-import com.bleyl.recurrence.util.AnimationUtil;
-import com.bleyl.recurrence.util.DateAndTimeUtil;
+import com.bleyl.recurrence.utils.AlarmUtil;
+import com.bleyl.recurrence.utils.AnimationUtil;
+import com.bleyl.recurrence.utils.DateAndTimeUtil;
 
 import java.util.Calendar;
 

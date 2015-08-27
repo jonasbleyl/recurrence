@@ -1,4 +1,4 @@
-package com.bleyl.recurrence.ui;
+package com.bleyl.recurrence.ui.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,7 +13,7 @@ import android.view.View;
 
 import com.astuetz.PagerSlidingTabStrip;
 import com.bleyl.recurrence.R;
-import com.bleyl.recurrence.adapter.ViewPageAdapter;
+import com.bleyl.recurrence.adapters.ViewPageAdapter;
 
 public class MainActivity extends AppCompatActivity {
 

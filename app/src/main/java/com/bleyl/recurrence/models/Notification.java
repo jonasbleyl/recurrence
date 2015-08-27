@@ -1,4 +1,4 @@
-package com.bleyl.recurrence.model;
+package com.bleyl.recurrence.models;
 
 public class Notification {
     private int mId;

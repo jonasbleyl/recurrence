@@ -1,4 +1,4 @@
-package com.bleyl.recurrence.util;
+package com.bleyl.recurrence.utils;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -6,7 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 
-import com.bleyl.recurrence.receiver.AlarmReceiver;
+import com.bleyl.recurrence.receivers.AlarmReceiver;
 
 import java.util.Calendar;
 

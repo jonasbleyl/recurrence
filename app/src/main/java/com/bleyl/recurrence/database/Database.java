@@ -6,9 +6,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.bleyl.recurrence.NotificationsTypeEnum;
-import com.bleyl.recurrence.model.Notification;
-import com.bleyl.recurrence.util.DateAndTimeUtil;
+import com.bleyl.recurrence.enums.NotificationsType;
+import com.bleyl.recurrence.models.Notification;
+import com.bleyl.recurrence.utils.DateAndTimeUtil;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -77,11 +77,11 @@ public class Database extends SQLiteOpenHelper {
         return data;
     }
 
-    public List<Notification> getNotificationList(NotificationsTypeEnum notificationsTypeEnum) {
+    public List<Notification> getNotificationList(NotificationsType notificationsType) {
         List<Notification> notificationList = new ArrayList<>();
         String query;
 
-        switch (notificationsTypeEnum) {
+        switch (notificationsType) {
             case ACTIVE:
             default:
                 query = "SELECT * FROM " + NOTIFICATION_TABLE + " WHERE " + COL_DATE_AND_TIME + " > " + DateAndTimeUtil.toLongDateAndTime(Calendar.getInstance()) + " ORDER BY " + COL_DATE_AND_TIME;

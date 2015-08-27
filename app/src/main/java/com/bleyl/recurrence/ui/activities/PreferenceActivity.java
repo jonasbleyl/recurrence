@@ -1,4 +1,4 @@
-package com.bleyl.recurrence.ui;
+package com.bleyl.recurrence.ui.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

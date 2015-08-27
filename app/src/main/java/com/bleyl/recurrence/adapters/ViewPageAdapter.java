@@ -1,4 +1,4 @@
-package com.bleyl.recurrence.adapter;
+package com.bleyl.recurrence.adapters;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -12,8 +12,8 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.astuetz.PagerSlidingTabStrip;
-import com.bleyl.recurrence.NotificationsTypeEnum;
-import com.bleyl.recurrence.ui.fragment.TabFragment;
+import com.bleyl.recurrence.enums.NotificationsType;
+import com.bleyl.recurrence.ui.fragments.TabFragment;
 import com.bleyl.recurrence.R;
 
 public class ViewPageAdapter extends FragmentPagerAdapter implements PagerSlidingTabStrip.CustomTabProvider {
@@ -62,10 +62,10 @@ public class ViewPageAdapter extends FragmentPagerAdapter implements PagerSlidin
         switch (position) {
             case 0:
             default:
-                bundle.putSerializable("TYPE", NotificationsTypeEnum.ACTIVE);
+                bundle.putSerializable("TYPE", NotificationsType.ACTIVE);
                 break;
             case 1:
-                bundle.putSerializable("TYPE", NotificationsTypeEnum.INACTIVE);
+                bundle.putSerializable("TYPE", NotificationsType.INACTIVE);
                 break;
         }
         Fragment fragment = new TabFragment();

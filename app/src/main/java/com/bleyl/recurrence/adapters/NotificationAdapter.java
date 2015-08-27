@@ -1,4 +1,4 @@
-package com.bleyl.recurrence.adapter;
+package com.bleyl.recurrence.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -7,10 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.bleyl.recurrence.ui.fragment.TabFragment;
-import com.bleyl.recurrence.model.Notification;
+import com.bleyl.recurrence.ui.fragments.TabFragment;
+import com.bleyl.recurrence.models.Notification;
 import com.bleyl.recurrence.R;
-import com.bleyl.recurrence.util.DateAndTimeUtil;
+import com.bleyl.recurrence.utils.DateAndTimeUtil;
 
 import java.util.Calendar;
 import java.util.List;

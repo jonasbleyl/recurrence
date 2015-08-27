@@ -1,4 +1,4 @@
-package com.bleyl.recurrence.ui;
+package com.bleyl.recurrence.ui.activities;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import com.bleyl.recurrence.BuildConfig;
 import com.bleyl.recurrence.R;
-import com.bleyl.recurrence.adapter.ContributionAdapter;
+import com.bleyl.recurrence.adapters.ContributionAdapter;
 
 public class AboutActivity extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package com.bleyl.recurrence.util;
+package com.bleyl.recurrence.utils;
 
 import android.content.Context;
 
@@ -10,13 +10,13 @@ import java.util.Locale;
 
 public class DateAndTimeUtil {
 
-    private static final SimpleDateFormat DATE_AND_TIME_FORMAT = new SimpleDateFormat("yyyyMMddHHmm", Locale.UK);
+    private static final SimpleDateFormat DATE_AND_TIME_FORMAT = new SimpleDateFormat("yyyyMMddHHmm", Locale.getDefault());
     private static final SimpleDateFormat READABLE_DAY_MONTH_FORMAT = new SimpleDateFormat("d MMMM", Locale.getDefault());
     private static final SimpleDateFormat READABLE_DAY_MONTH_YEAR_FORMAT = new SimpleDateFormat("d MMMM yyyy", Locale.getDefault());
-    private static final SimpleDateFormat READABLE_TIME_FORMAT = new SimpleDateFormat("HH:mm", Locale.UK);
-    private static final SimpleDateFormat READABLE_DATE_FORMAT = new SimpleDateFormat("yyyy/MM/dd", Locale.UK);
-    private static final SimpleDateFormat TIME_FORMAT = new SimpleDateFormat("HHmm", Locale.UK);
-    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyyMMdd", Locale.UK);
+    private static final SimpleDateFormat READABLE_TIME_FORMAT = new SimpleDateFormat("HH:mm", Locale.getDefault());
+    private static final SimpleDateFormat READABLE_DATE_FORMAT = new SimpleDateFormat("yyyy/MM/dd", Locale.getDefault());
+    private static final SimpleDateFormat TIME_FORMAT = new SimpleDateFormat("HHmm", Locale.getDefault());
+    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
 
     public static String toStringTime(Calendar calendar) {
         return TIME_FORMAT.format(calendar.getTime());

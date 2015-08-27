@@ -1,4 +1,4 @@
-package com.bleyl.recurrence.receiver;
+package com.bleyl.recurrence.receivers;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -12,12 +12,12 @@ import android.provider.Settings;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.LocalBroadcastManager;
 
-import com.bleyl.recurrence.util.AlarmUtil;
+import com.bleyl.recurrence.utils.AlarmUtil;
 import com.bleyl.recurrence.database.Database;
-import com.bleyl.recurrence.model.Notification;
+import com.bleyl.recurrence.models.Notification;
 import com.bleyl.recurrence.R;
-import com.bleyl.recurrence.util.DateAndTimeUtil;
-import com.bleyl.recurrence.ui.ViewActivity;
+import com.bleyl.recurrence.utils.DateAndTimeUtil;
+import com.bleyl.recurrence.ui.activities.ViewActivity;
 
 import java.util.Calendar;
 

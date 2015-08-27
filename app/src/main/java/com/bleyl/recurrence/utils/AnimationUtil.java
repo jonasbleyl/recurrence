@@ -1,4 +1,4 @@
-package com.bleyl.recurrence.util;
+package com.bleyl.recurrence.utils;
 
 import android.content.Context;
 import android.view.View;

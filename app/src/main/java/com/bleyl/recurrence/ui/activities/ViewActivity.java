@@ -1,4 +1,4 @@
-package com.bleyl.recurrence.ui;
+package com.bleyl.recurrence.ui.activities;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -21,11 +21,11 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.bleyl.recurrence.model.Notification;
+import com.bleyl.recurrence.models.Notification;
 import com.bleyl.recurrence.R;
 import com.bleyl.recurrence.database.Database;
-import com.bleyl.recurrence.util.AlarmUtil;
-import com.bleyl.recurrence.util.DateAndTimeUtil;
+import com.bleyl.recurrence.utils.AlarmUtil;
+import com.bleyl.recurrence.utils.DateAndTimeUtil;
 
 import java.util.Calendar;
 

@@ -1,4 +1,4 @@
-package com.bleyl.recurrence.ui.fragment;
+package com.bleyl.recurrence.ui.fragments;
 
 import android.app.Activity;
 import android.app.ActivityOptions;
@@ -22,13 +22,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.bleyl.recurrence.NotificationsTypeEnum;
+import com.bleyl.recurrence.enums.NotificationsType;
 import com.bleyl.recurrence.database.Database;
-import com.bleyl.recurrence.model.Notification;
+import com.bleyl.recurrence.models.Notification;
 import com.bleyl.recurrence.R;
-import com.bleyl.recurrence.adapter.NotificationAdapter;
-import com.bleyl.recurrence.ui.MainActivity;
-import com.bleyl.recurrence.ui.ViewActivity;
+import com.bleyl.recurrence.adapters.NotificationAdapter;
+import com.bleyl.recurrence.ui.activities.MainActivity;
+import com.bleyl.recurrence.ui.activities.ViewActivity;
 
 import java.util.List;
 
@@ -39,7 +39,7 @@ public class TabFragment extends Fragment {
     private TextView mEmptyText;
     private NotificationAdapter mNotificationAdapter;
     private List<Notification> mNotificationList;
-    private NotificationsTypeEnum mNotificationsTypeEnum;
+    private NotificationsType mNotificationsType;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -57,8 +57,8 @@ public class TabFragment extends Fragment {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(sActivity);
         mRecyclerView.setLayoutManager(layoutManager);
 
-        mNotificationsTypeEnum = (NotificationsTypeEnum) this.getArguments().get("TYPE");
-        if (mNotificationsTypeEnum == NotificationsTypeEnum.INACTIVE) {
+        mNotificationsType = (NotificationsType) this.getArguments().get("TYPE");
+        if (mNotificationsType == NotificationsType.INACTIVE) {
             mEmptyText.setText(getResources().getString(R.string.no_inactive));
         }
 
@@ -74,7 +74,7 @@ public class TabFragment extends Fragment {
 
     public List<Notification> getListData() {
         Database database = new Database(sActivity.getApplicationContext());
-        List<Notification> notificationList = database.getNotificationList(mNotificationsTypeEnum);
+        List<Notification> notificationList = database.getNotificationList(mNotificationsType);
         database.close();
         return notificationList;
     }
