@@ -22,8 +22,8 @@
                 android:layout_height="?attr/actionBarSize"
                 app:pstsIndicatorColor="@android:color/white"
                 app:pstsTabPaddingLeftRight="26dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginStart="8dp"
+                android:layout_marginLeft="@dimen/tabs_padding"
+                android:layout_marginStart="@dimen/tabs_padding"
                 android:layout_weight="0.5"
                 android:background="?attr/colorPrimary" />
 

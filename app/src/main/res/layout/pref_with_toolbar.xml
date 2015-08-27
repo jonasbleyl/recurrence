@@ -23,6 +23,8 @@
     <FrameLayout
         android:id="@+id/content_frame"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:paddingLeft="@dimen/list_padding"
+        android:paddingRight="@dimen/list_padding"/>
 
 </LinearLayout>

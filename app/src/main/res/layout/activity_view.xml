@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
+        android:paddingBottom="@dimen/view_header_padding_bottom"
         android:orientation="vertical">
 
         <android.support.v7.widget.Toolbar
@@ -26,8 +27,8 @@
             android:transitionName="cardTransition"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
+            android:layout_marginLeft="@dimen/card_view_margin"
+            android:layout_marginRight="@dimen/card_view_margin"
             android:layout_marginBottom="6dp"
             card_view:cardCornerRadius="3dp"
             card_view:cardUseCompatPadding="true">
@@ -104,6 +105,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="5dp"
+            android:paddingLeft="@dimen/list_padding"
+            android:paddingRight="@dimen/list_padding"
             android:orientation="vertical">
 
             <TableRow
