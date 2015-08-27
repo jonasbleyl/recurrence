@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="list_padding">50dp</dimen>
+    <dimen name="card_view_margin">55dp</dimen>
+    <dimen name="tabs_padding">42dp</dimen>
+</resources>
