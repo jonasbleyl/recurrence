@@ -27,7 +27,7 @@
         <activity
             android:name=".ui.activities.ViewActivity"
             android:label="@string/view_notification"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppThemeLight">
         </activity>
 
         <activity

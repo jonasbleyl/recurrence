@@ -48,7 +48,6 @@ public class ViewActivity extends AppCompatActivity {
         TextView shownTextView = (TextView) findViewById(R.id.shown);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         LinearLayout linearLayout = (LinearLayout) findViewById(R.id.detail_layout);
-        View rootView = findViewById(R.id.root);
         View shadowView = findViewById(R.id.toolbarShadow);
         scroll = (ScrollView) findViewById(R.id.scroll);
         headerView = findViewById(R.id.header);
@@ -56,17 +55,17 @@ public class ViewActivity extends AppCompatActivity {
         // Setup the shared element transitions for this activity
         setupTransitions();
 
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
+        if (getActionBar() != null) getActionBar().setDisplayHomeAsUpEnabled(true);
+
         // Add drawable shadow and adjust layout if build version is before lollipop
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             linearLayout.setPadding(0, 0, 0, 0);
-            rootView.setBackgroundColor(Color.WHITE);
             shadowView.setVisibility(View.VISIBLE);
+        } else {
+            ViewCompat.setElevation(headerView, getResources().getDimension(R.dimen.toolbar_elevation));
         }
-
-        setSupportActionBar(toolbar);
-        ViewCompat.setElevation(headerView, getResources().getDimension(R.dimen.toolbar_elevation));
-        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
-        if (getActionBar() != null) getActionBar().setDisplayHomeAsUpEnabled(true);
 
         Database database = new Database(this.getApplicationContext());
         Intent intent = getIntent();
