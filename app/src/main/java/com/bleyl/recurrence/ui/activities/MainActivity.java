@@ -14,8 +14,9 @@ import android.view.View;
 import com.astuetz.PagerSlidingTabStrip;
 import com.bleyl.recurrence.R;
 import com.bleyl.recurrence.adapters.ViewPageAdapter;
+import com.bleyl.recurrence.interfaces.RecyclerCallback;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements RecyclerCallback {
 
     private FloatingActionButton mFloatingActionButton;
     private boolean mFabIsHidden = false;
@@ -54,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    @Override
     public void hideFab() {
         mFloatingActionButton.hide();
         mFabIsHidden = true;

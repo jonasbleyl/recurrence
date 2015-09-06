@@ -24,10 +24,10 @@ import android.widget.TextView;
 
 import com.bleyl.recurrence.enums.NotificationsType;
 import com.bleyl.recurrence.database.Database;
+import com.bleyl.recurrence.interfaces.RecyclerCallback;
 import com.bleyl.recurrence.models.Notification;
 import com.bleyl.recurrence.R;
 import com.bleyl.recurrence.adapters.NotificationAdapter;
-import com.bleyl.recurrence.ui.activities.MainActivity;
 import com.bleyl.recurrence.ui.activities.ViewActivity;
 
 import java.util.List;
@@ -116,7 +116,7 @@ public class TabFragment extends Fragment {
             ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(sActivity, cardView, "cardTransition");
             ActivityCompat.startActivity(sActivity, intent, options.toBundle());
 
-            ((MainActivity) view.getContext()).hideFab();
+            ((RecyclerCallback) sActivity).hideFab();
         } else {
             view.getContext().startActivity(intent);
         }
