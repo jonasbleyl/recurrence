@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="ContentDescription"
     android:id="@+id/create_coordinator"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -90,8 +92,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/image_margin_side"
                         android:layout_marginStart="@dimen/image_margin_side"
-                        android:background="@drawable/ic_subject_grey600_24dp"
-                        android:contentDescription="@string/list_image" />
+                        android:background="@drawable/ic_subject_grey600_24dp"/>
 
                     <EditText
                         android:id="@+id/notificationContent"
@@ -133,8 +134,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/image_margin_side"
                         android:layout_marginStart="@dimen/image_margin_side"
-                        android:background="@drawable/ic_access_time_grey600_24dp"
-                        android:contentDescription="@string/list_image" />
+                        android:background="@drawable/ic_access_time_grey600_24dp"/>
 
                     <TextView
                         android:id="@+id/time"
@@ -158,7 +158,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/ic_error_red_24dp"
-                            android:contentDescription="@string/error_image"
                             android:visibility="gone" />
 
                     </TableRow>
@@ -189,8 +188,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/image_margin_side"
                         android:layout_marginStart="@dimen/image_margin_side"
-                        android:background="@drawable/ic_today_grey600_24dp"
-                        android:contentDescription="@string/list_image" />
+                        android:background="@drawable/ic_today_grey600_24dp" />
 
                     <TextView
                         android:id="@+id/date"
@@ -214,7 +212,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/ic_error_red_24dp"
-                            android:contentDescription="@string/error_image"
                             android:visibility="gone" />
 
                     </TableRow>
@@ -246,8 +243,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/image_margin_side"
                         android:layout_marginStart="@dimen/image_margin_side"
-                        android:background="@drawable/ic_refresh_grey600_24dp"
-                        android:contentDescription="@string/list_image" />
+                        android:background="@drawable/ic_refresh_grey600_24dp"/>
 
                     <TextView
                         android:id="@+id/repeatDay"
@@ -287,8 +283,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/image_margin_side"
                         android:layout_marginStart="@dimen/image_margin_side"
-                        android:background="@drawable/ic_remove_red_eye_grey600_24dp"
-                        android:contentDescription="@string/list_image" />
+                        android:background="@drawable/ic_remove_red_eye_grey600_24dp"/>
 
                     <TextView
                         android:id="@+id/forever"
@@ -374,7 +369,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/ic_error_red_24dp"
-                            android:contentDescription="@string/error_image"
                             android:visibility="gone" />
 
                     </TableRow>

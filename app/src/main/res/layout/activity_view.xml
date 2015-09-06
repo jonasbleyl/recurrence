@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="ContentDescription"
     android:orientation="vertical"
     android:id="@+id/root"
     android:layout_width="match_parent"
@@ -51,7 +53,6 @@
                         android:layout_height="20dp"
                         android:layout_marginLeft="10dp"
                         android:layout_marginStart="10dp"
-                        android:contentDescription="@string/notification_image"
                         android:background="@drawable/ic_notifications_white_24dp"
                         android:layout_gravity="center"/>
 
@@ -119,7 +120,6 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:contentDescription="@string/list_image"
                     android:background="@drawable/ic_access_time_grey600_24dp"
                     android:layout_marginStart="@dimen/image_margin_side"
                     android:layout_marginLeft="@dimen/image_margin_side"/>
@@ -147,7 +147,6 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:contentDescription="@string/list_image"
                     android:background="@drawable/ic_today_grey600_24dp"
                     android:layout_marginStart="@dimen/image_margin_side"
                     android:layout_marginLeft="@dimen/image_margin_side"/>
@@ -175,7 +174,6 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:contentDescription="@string/list_image"
                     android:background="@drawable/ic_refresh_grey600_24dp"
                     android:layout_marginStart="@dimen/image_margin_side"
                     android:layout_marginLeft="@dimen/image_margin_side"/>
@@ -202,7 +200,6 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:contentDescription="@string/list_image"
                     android:background="@drawable/ic_remove_red_eye_grey600_24dp"
                     android:layout_marginStart="@dimen/image_margin_side"
                     android:layout_marginLeft="@dimen/image_margin_side"/>

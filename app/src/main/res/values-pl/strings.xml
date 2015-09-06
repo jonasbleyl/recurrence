@@ -48,12 +48,6 @@
     <string name="thanks_to">Podziękowania</string>
     <string name="translator">Tłumacz</string>
 
-    <string name="notification_image">Obrazek powiadomienia</string>
-    <string name="app_icon">Ikona aplikacji</string>
-    <string name="tab_icon">Ikona zakładki</string>
-    <string name="list_image">Lista obrazów</string>
-    <string name="error_image">Zrzut błędu</string>
-
     <string name="send_email">Wyślij email</string>
 
     <string-array name="repeat_array">

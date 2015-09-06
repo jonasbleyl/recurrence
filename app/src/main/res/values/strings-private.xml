@@ -8,13 +8,11 @@
     <string-array name="contributors_array" translatable="false">
         <item>Robert Ehrhardt</item>
         <item>TykTak</item>
-        <item>-</item>
     </string-array>
 
     <string-array name="contribution_array" translatable="false">
         <item>(GE)</item>
         <item>(PL)</item>
-        <item>(ES)</item>
     </string-array>
 
     <string name="tabTitle" translatable="false">PagerSlidingTabStrip</string>

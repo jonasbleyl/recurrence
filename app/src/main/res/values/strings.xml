@@ -9,7 +9,7 @@
     <string name="checkbox_vibrate">Vibrate</string>
     <string name="checkbox_sound">Sound</string>
     <string name="checkbox_LED">LED</string>
-    <string name="checkbox_ongoing">Ongoing</string>
+    <string name="checkbox_ongoing">Persistent</string>
 
     <string name="action_settings">Settings</string>
     <string name="action_delete">Delete</string>
@@ -47,12 +47,6 @@
 
     <string name="thanks_to">Thanks to</string>
     <string name="translator">Translator</string>
-
-    <string name="notification_image">Notification image</string>
-    <string name="app_icon">App icon</string>
-    <string name="tab_icon">Tab icon</string>
-    <string name="list_image">List image</string>
-    <string name="error_image">Error image</string>
 
     <string name="send_email">Send email</string>
 
