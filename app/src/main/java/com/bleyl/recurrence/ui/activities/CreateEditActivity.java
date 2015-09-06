@@ -79,12 +79,7 @@ public class CreateEditActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_close_white_24dp);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        if (getActionBar() != null) getActionBar().setDisplayHomeAsUpEnabled(true);
 
         mCalendar = Calendar.getInstance();
         mId = getIntent().getIntExtra("NOTIFICATION_ID", 0);
@@ -306,9 +301,14 @@ public class CreateEditActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.action_save) {
-            validateInput();
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            case R.id.action_save:
+                validateInput();
+                return true;
         }
-        return true;
+        return super.onOptionsItemSelected(item);
     }
 }

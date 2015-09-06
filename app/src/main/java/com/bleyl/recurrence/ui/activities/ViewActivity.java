@@ -66,16 +66,7 @@ public class ViewActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         ViewCompat.setElevation(headerView, getResources().getDimension(R.dimen.toolbar_elevation));
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    finishAfterTransition();
-                } else {
-                    finish();
-                }
-            }
-        });
+        if (getActionBar() != null) getActionBar().setDisplayHomeAsUpEnabled(true);
 
         Database database = new Database(this.getApplicationContext());
         Intent intent = getIntent();
@@ -172,7 +163,7 @@ public class ViewActivity extends AppCompatActivity {
 
     public void returnHome() {
         Intent intent = new Intent(this, MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         finish();
     }
@@ -185,13 +176,16 @@ public class ViewActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.action_delete) {
-            confirmDelete();
-        }
-        if (id == R.id.action_edit) {
-            actionEdit();
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            case R.id.action_delete:
+                confirmDelete();
+                return true;
+            case R.id.action_edit:
+                actionEdit();
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
