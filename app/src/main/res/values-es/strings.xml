@@ -29,7 +29,7 @@
     <string name="times_shown_edit">Mostrado %1$d de</string>
     <string name="forever">Para siempre</string>
     <string name="no_repeat">No se repita</string>
-    <string name="times"> vez/veces</string>
+    <string name="times">vez/veces</string>
     <string name="repeat_notification">Número de veces que se repite: </string>
     <string name="content_hint">Añade contenido a la notificación</string>
 
