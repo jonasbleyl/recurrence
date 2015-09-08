@@ -92,7 +92,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/image_margin_side"
                         android:layout_marginStart="@dimen/image_margin_side"
-                        android:background="@drawable/ic_subject_grey600_24dp"/>
+                        android:tint="@color/iconTint"
+                        android:src="@drawable/ic_subject_white_24dp"/>
 
                     <EditText
                         android:id="@+id/notificationContent"
@@ -130,11 +131,13 @@
                     android:weightSum="1">
 
                     <ImageView
+                        android:id="@+id/timeImage"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/image_margin_side"
                         android:layout_marginStart="@dimen/image_margin_side"
-                        android:background="@drawable/ic_access_time_grey600_24dp"/>
+                        android:tint="@color/iconTint"
+                        android:src="@drawable/ic_access_time_white_24dp"/>
 
                     <TextView
                         android:id="@+id/time"
@@ -188,7 +191,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/image_margin_side"
                         android:layout_marginStart="@dimen/image_margin_side"
-                        android:background="@drawable/ic_today_grey600_24dp" />
+                        android:tint="@color/iconTint"
+                        android:src="@drawable/ic_today_white_24dp" />
 
                     <TextView
                         android:id="@+id/date"
@@ -243,7 +247,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/image_margin_side"
                         android:layout_marginStart="@dimen/image_margin_side"
-                        android:background="@drawable/ic_refresh_grey600_24dp"/>
+                        android:tint="@color/iconTint"
+                        android:src="@drawable/ic_refresh_white_24dp"/>
 
                     <TextView
                         android:id="@+id/repeatDay"
@@ -283,7 +288,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/image_margin_side"
                         android:layout_marginStart="@dimen/image_margin_side"
-                        android:background="@drawable/ic_remove_red_eye_grey600_24dp"/>
+                        android:tint="@color/iconTint"
+                        android:src="@drawable/ic_remove_red_eye_white_24dp"/>
 
                     <TextView
                         android:id="@+id/forever"
