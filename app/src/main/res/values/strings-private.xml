@@ -9,12 +9,14 @@
         <item>Robert Ehrhardt</item>
         <item>TykTak</item>
         <item>Ivica Jeđud</item>
+        <item>Fan Guan</item>
     </string-array>
 
     <string-array name="contribution_array" translatable="false">
         <item>(GE)</item>
         <item>(PL)</item>
         <item>(HR)</item>
+        <item>(ZH)</item>
     </string-array>
 
     <string name="tabTitle" translatable="false">PagerSlidingTabStrip</string>
