@@ -1,0 +1,4 @@
+<resources>
+    <string name="select_colour">Select a color</string>
+    <string name="default_colour">Default color</string>
+</resources>
