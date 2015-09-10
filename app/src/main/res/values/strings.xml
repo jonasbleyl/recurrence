@@ -34,6 +34,23 @@
     <string name="repeat_notification">Number of times to repeat: </string>
     <string name="content_hint">Add notification content</string>
 
+    <string name="select_icon">Select an icon</string>
+    <string name="default_icon">Default icon</string>
+    <string name="custom_icon">Custom icon</string>
+
+    <string name="select_colour">Select a colour</string>
+    <string name="default_colour">Default colour</string>
+    <string-array name="colour_names_array">
+        <item>Grey</item>
+        <item>Blue</item>
+        <item>Purple</item>
+        <item>Red</item>
+        <item>Green</item>
+        <item>Orange</item>
+        <item>Yellow</item>
+        <item>Pink</item>
+    </string-array>
+
     <string name="no_active">No active notifications</string>
     <string name="no_inactive">No inactive notifications</string>
 

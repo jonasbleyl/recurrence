@@ -20,8 +20,8 @@ public class ViewPageAdapter extends FragmentPagerAdapter implements PagerSlidin
 
     private Context mContext;
     private final int[] ICONS = {
-            R.drawable.icon_selector_active,
-            R.drawable.icon_selector_inactive
+            R.drawable.selector_icon_active,
+            R.drawable.selector_icon_inactive
     };
 
     public ViewPageAdapter(FragmentManager fm, Context context) {

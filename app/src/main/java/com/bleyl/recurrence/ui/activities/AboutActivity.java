@@ -53,11 +53,11 @@ public class AboutActivity extends AppCompatActivity {
         LayoutInflater inflater = getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.view_dialog_libraries, linearLayout, false);
 
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-        alertDialog.setTitle(getResources().getString(R.string.libraries));
-        alertDialog.setView(dialogView);
-        alertDialog.setPositiveButton(getResources().getString(R.string.ok), null);
-        alertDialog.show();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getResources().getString(R.string.libraries));
+        builder.setView(dialogView);
+        builder.setPositiveButton(getResources().getString(R.string.ok), null);
+        builder.show();
 
         dialogView.findViewById(R.id.tabLink).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,12 +83,11 @@ public class AboutActivity extends AppCompatActivity {
         String[] contributionTypes = getResources().getStringArray(R.array.contribution_array);
         recyclerView.setAdapter(new ContributionAdapter(this, R.layout.item_contributor_list, contributorNames, contributionTypes));
 
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-        alertDialog.setTitle(getResources().getString(R.string.thanks_to));
-        alertDialog.setView(dialogView);
-        alertDialog.setPositiveButton(getResources().getString(R.string.ok), null);
-        alertDialog.show();
-
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getResources().getString(R.string.thanks_to));
+        builder.setView(dialogView);
+        builder.setPositiveButton(getResources().getString(R.string.ok), null);
+        builder.show();
     }
 
     @Override
