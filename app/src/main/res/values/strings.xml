@@ -10,6 +10,7 @@
     <string name="checkbox_sound">Sound</string>
     <string name="checkbox_LED">LED</string>
     <string name="checkbox_ongoing">Persistent</string>
+    <string name="checkbox_dismiss">Clear on tap</string>
 
     <string name="action_settings">Settings</string>
     <string name="action_delete">Delete</string>

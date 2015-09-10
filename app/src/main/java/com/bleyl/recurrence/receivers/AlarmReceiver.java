@@ -42,18 +42,28 @@ public class AlarmReceiver extends BroadcastReceiver {
                 .setContentTitle(mNotification.getTitle())
                 .setContentText(mNotification.getContent())
                 .setTicker(mNotification.getTitle())
-                .setContentIntent(pending)
                 .setAutoCancel(true);
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
 
         // Set notification preferences options
-        if (prefs.getBoolean("checkBoxSound", true)) builder.setSound(Settings.System.DEFAULT_NOTIFICATION_URI);
-        if (prefs.getBoolean("checkBoxLED", true))  builder.setLights(Color.BLUE, 700, 1500);
-        if (prefs.getBoolean("checkBoxOngoing", false)) builder.setOngoing(true);
+        if (prefs.getBoolean("checkBoxSound", true)) {
+            builder.setSound(Settings.System.DEFAULT_NOTIFICATION_URI);
+        }
+        if (prefs.getBoolean("checkBoxLED", true)) {
+            builder.setLights(Color.BLUE, 700, 1500);
+        }
+        if (prefs.getBoolean("checkBoxOngoing", false)) {
+            builder.setOngoing(true);
+        }
         if (prefs.getBoolean("checkBoxVibrate", true)) {
             long[] pattern = {0, 300, 0};
             builder.setVibrate(pattern);
+        }
+        if (prefs.getBoolean("checkBoxDismiss", false)) {
+            builder.setContentIntent(PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT));
+        } else {
+            builder.setContentIntent(pending);
         }
 
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);

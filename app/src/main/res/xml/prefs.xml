@@ -17,5 +17,8 @@
         <CheckBoxPreference
             android:key="checkBoxOngoing"
             android:title="@string/checkbox_ongoing" />
+        <CheckBoxPreference
+            android:key="checkBoxDismiss"
+            android:title="@string/checkbox_dismiss" />
     </PreferenceCategory>
 </PreferenceScreen>
