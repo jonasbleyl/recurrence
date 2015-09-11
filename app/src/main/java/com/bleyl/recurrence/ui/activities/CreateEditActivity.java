@@ -214,7 +214,7 @@ public class CreateEditActivity extends AppCompatActivity {
         View dialogView = inflater.inflate(R.layout.view_dialog_icons, coordinatorLayout, false);
 
         RecyclerView recyclerView = (RecyclerView) dialogView.findViewById(R.id.icons_recycler_view);
-        recyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(), 5));
+        recyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(), getResources().getInteger(R.integer.grid_columns)));
         ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(getApplicationContext(), R.dimen.item_offset);
         recyclerView.addItemDecoration(itemDecoration);
 
