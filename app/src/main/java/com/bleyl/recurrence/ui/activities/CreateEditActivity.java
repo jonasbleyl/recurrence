@@ -228,8 +228,12 @@ public class CreateEditActivity extends AppCompatActivity {
 
     public void iconSelected(Drawable icon, int position) {
         mIconNumber = position;
+        if (mIconNumber != 0) {
+            mIconText.setText(getResources().getString(R.string.custom_icon));
+        } else {
+            mIconText.setText(getResources().getString(R.string.default_icon));
+        }
         mImageIconSelect.setImageDrawable(icon);
-        mIconText.setText(getResources().getString(R.string.custom_icon));
         mIconSelectorDialog.cancel();
     }
 
