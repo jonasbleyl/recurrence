@@ -16,7 +16,7 @@ import java.util.List;
 
 public class Database extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     private static final String DB_NAME = "RECURRENCE_DB";
     private static final String NOTIFICATION_TABLE = "NOTIFICATIONS";
     private static final String COL_ID = "ID";
@@ -27,6 +27,8 @@ public class Database extends SQLiteOpenHelper {
     private static final String COL_FOREVER = "FOREVER";
     private static final String COL_NUMBER_TO_SHOW = "NUMBER_TO_SHOW";
     private static final String COL_NUMBER_SHOWN = "NUMBER_SHOWN";
+    private static final String COL_ICON_NUMBER = "ICON_NUMBER";
+    private static final String COL_COLOUR_NUMBER = "COLOUR_NUMBER";
 
     public Database(Context context) {
         super(context, DB_NAME, null, DATABASE_VERSION);
@@ -41,12 +43,18 @@ public class Database extends SQLiteOpenHelper {
                 + COL_REPEAT_TYPE + " INTEGER, "
                 + COL_FOREVER + " BOOLEAN, "
                 + COL_NUMBER_TO_SHOW + " INTEGER, "
-                + COL_NUMBER_SHOWN + " INTEGER) ");
+                + COL_NUMBER_SHOWN + " INTEGER, "
+                + COL_ICON_NUMBER + " INTEGER, "
+                + COL_COLOUR_NUMBER + " INTEGER) ");
     }
 
     public void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion) {
-        database.execSQL("DROP TABLE IF EXISTS " + NOTIFICATION_TABLE);
-        onCreate(database);
+        if (oldVersion < 2) {
+            database.execSQL("ALTER TABLE " + NOTIFICATION_TABLE + " ADD " + COL_ICON_NUMBER + " INTEGER");
+            database.execSQL("ALTER TABLE " + NOTIFICATION_TABLE + " ADD " + COL_COLOUR_NUMBER + " INTEGER");
+            database.execSQL("UPDATE " + NOTIFICATION_TABLE + " SET " + COL_ICON_NUMBER + " = 0;");
+            database.execSQL("UPDATE " + NOTIFICATION_TABLE + " SET " + COL_COLOUR_NUMBER + " = 0;");
+        }
     }
 
     public void add(Notification notification) {
@@ -61,6 +69,8 @@ public class Database extends SQLiteOpenHelper {
         values.put(COL_FOREVER, notification.getForeverState());
         values.put(COL_NUMBER_TO_SHOW, notification.getNumberToShow());
         values.put(COL_NUMBER_SHOWN, notification.getNumberShown());
+        values.put(COL_ICON_NUMBER, notification.getIconNumber());
+        values.put(COL_COLOUR_NUMBER, notification.getColourNumber());
 
         database.insert(NOTIFICATION_TABLE, null, values);
     }
@@ -105,6 +115,8 @@ public class Database extends SQLiteOpenHelper {
                 notification.setForeverState(cursor.getString(5));
                 notification.setNumberToShow(cursor.getInt(6));
                 notification.setNumberShown(cursor.getInt(7));
+                notification.setIconNumber(cursor.getInt(8));
+                notification.setColourNumber(cursor.getInt(9));
                 notificationList.add(notification);
             } while (cursor.moveToNext());
         }
@@ -126,6 +138,8 @@ public class Database extends SQLiteOpenHelper {
         notification.setForeverState(cursor.getString(5));
         notification.setNumberToShow(cursor.getInt(6));
         notification.setNumberShown(cursor.getInt(7));
+        notification.setIconNumber(cursor.getInt(8));
+        notification.setColourNumber(cursor.getInt(9));
         cursor.close();
         return notification;
     }
@@ -133,6 +147,7 @@ public class Database extends SQLiteOpenHelper {
     public void update(Notification notification) {
         SQLiteDatabase database = this.getReadableDatabase();
         ContentValues values = new ContentValues();
+
         values.put(COL_TITLE, notification.getTitle());
         values.put(COL_CONTENT, notification.getContent());
         values.put(COL_DATE_AND_TIME, notification.getDateAndTime());
@@ -140,6 +155,9 @@ public class Database extends SQLiteOpenHelper {
         values.put(COL_FOREVER, notification.getForeverState());
         values.put(COL_NUMBER_TO_SHOW, notification.getNumberToShow());
         values.put(COL_NUMBER_SHOWN, notification.getNumberShown());
+        values.put(COL_ICON_NUMBER, notification.getIconNumber());
+        values.put(COL_COLOUR_NUMBER, notification.getColourNumber());
+
         database.update(NOTIFICATION_TABLE, values, COL_ID + " = " + notification.getId(), null);
     }
 
