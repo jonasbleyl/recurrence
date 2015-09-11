@@ -72,6 +72,8 @@ public class CreateEditActivity extends AppCompatActivity {
     private Calendar mCalendar;
     private int mTimesShown;
     private int mRepeatType;
+    private int mIconNumber;
+    private int mColourNumber;
     private boolean newNotification;
     private int mId;
 
@@ -101,6 +103,10 @@ public class CreateEditActivity extends AppCompatActivity {
         mImageWarningDate = (ImageView) findViewById(R.id.errorDate);
         mImageWarningShow = (ImageView) findViewById(R.id.errorShow);
 
+        mIconsArray = getResources().obtainTypedArray(R.array.icons_array);
+        mColoursArray = getResources().getStringArray(R.array.colours_array);
+        mColourNames = getResources().getStringArray(R.array.colour_names_array);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_close_white_24dp);
@@ -127,6 +133,8 @@ public class CreateEditActivity extends AppCompatActivity {
         newNotification = true;
         mRepeatType = 0;
         mTimesShown = 0;
+        mIconNumber = 0;
+        mColourNumber = 0;
     }
 
     public void assignNotificationValues() {
@@ -145,9 +153,21 @@ public class CreateEditActivity extends AppCompatActivity {
         mTimesEditText.setText(Integer.toString(notification.getNumberToShow()));
         mTimesShown = notification.getNumberShown();
         mRepeatType = notification.getRepeatType();
+        mIconNumber = notification.getIconNumber();
+        mColourNumber = notification.getColourNumber();
         mTimesText.setVisibility(View.VISIBLE);
         mCalendar.set(Calendar.SECOND, 0);
         newNotification = false;
+
+        if (mIconNumber != 0) {
+            mImageIconSelect.setImageDrawable(mIconsArray.getDrawable(mIconNumber));
+            mIconText.setText(getResources().getString(R.string.custom_icon));
+        }
+
+        if (mColourNumber != 0) {
+            mImageColourSelect.setColorFilter(Color.parseColor(mColoursArray[mColourNumber]));
+            mColourText.setText(mColourNames[mColourNumber]);
+        }
 
         if (notification.getRepeatType() != 0) {
             mForeverRow.setVisibility(View.VISIBLE);
@@ -198,7 +218,6 @@ public class CreateEditActivity extends AppCompatActivity {
         ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(getApplicationContext(), R.dimen.item_offset);
         recyclerView.addItemDecoration(itemDecoration);
 
-        mIconsArray = getResources().obtainTypedArray(R.array.icons_array);
         recyclerView.setAdapter(new IconsAdapter(this, R.layout.item_icon_grid, mIconsArray));
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -208,6 +227,7 @@ public class CreateEditActivity extends AppCompatActivity {
     }
 
     public void iconSelected(Drawable icon, int position) {
+        mIconNumber = position;
         mImageIconSelect.setImageDrawable(icon);
         mIconText.setText(getResources().getString(R.string.custom_icon));
         mIconSelectorDialog.cancel();
@@ -223,8 +243,6 @@ public class CreateEditActivity extends AppCompatActivity {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        mColoursArray = getResources().getStringArray(R.array.colours_array);
-        mColourNames = getResources().getStringArray(R.array.colour_names_array);
         recyclerView.setAdapter(new ColoursAdapter(this, R.layout.item_colour_list, mColoursArray, mColourNames));
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -233,7 +251,8 @@ public class CreateEditActivity extends AppCompatActivity {
         mColourSelectorDialog = builder.show();
     }
 
-    public void colourSelected(String name, int colour) {
+    public void colourSelected(String name, int colour, int position) {
+        mColourNumber = position;
         mImageColourSelect.setColorFilter(colour);
         mColourText.setText(name);
         mColourSelectorDialog.cancel();
@@ -291,7 +310,7 @@ public class CreateEditActivity extends AppCompatActivity {
         }
 
         Database database = new Database(this.getApplicationContext());
-        Notification notification = new Notification(mId, title, content, date + time, mRepeatType, forever, timesToShow, mTimesShown);
+        Notification notification = new Notification(mId, title, content, date + time, mRepeatType, forever, timesToShow, mTimesShown, mIconNumber, mColourNumber);
         if (newNotification) {
             database.add(notification);
         } else {

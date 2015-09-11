@@ -62,7 +62,7 @@ public class ColoursAdapter extends RecyclerView.Adapter<ColoursAdapter.ViewHold
         viewHolder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((CreateEditActivity) mContext).colourSelected(colourName, colour);
+                ((CreateEditActivity) mContext).colourSelected(colourName, colour, position);
             }
         });
     }

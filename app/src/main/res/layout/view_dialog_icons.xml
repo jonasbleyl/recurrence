@@ -3,6 +3,5 @@
     android:id="@+id/icons_recycler_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="@dimen/dialog_padding_side"
-    android:paddingRight="@dimen/dialog_padding_side"
+    android:padding="12dp"
     android:clipToPadding="false"/>

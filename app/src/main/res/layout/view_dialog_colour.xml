@@ -5,4 +5,6 @@
     android:layout_height="match_parent"
     android:paddingLeft="@dimen/dialog_padding_side"
     android:paddingRight="@dimen/dialog_padding_side"
+    android:paddingTop="12dp"
+    android:paddingBottom="12dp"
     android:clipToPadding="false"/>
