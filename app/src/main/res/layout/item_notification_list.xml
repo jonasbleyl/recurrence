@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:ignore="ContentDescription"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:ignore="ContentDescription">
 
     <TextView
-        style="?android:attr/listSeparatorTextViewStyle"
-        android:background="@android:color/transparent"
         android:id="@+id/header_separator"
+        style="?android:attr/listSeparatorTextViewStyle"
         android:layout_width="match_parent"
         android:layout_height="38dp"
+        android:background="@android:color/transparent"
+        android:clickable="true"
+        android:gravity="center_vertical"
         android:paddingLeft="12dp"
         android:paddingRight="12dp"
-        android:textSize="14sp"
         android:textColor="@color/textGreyHeader"
-        android:gravity="center_vertical"
-        android:clickable="true"
-        android:visibility="gone"/>
+        android:textSize="14sp"
+        android:visibility="gone" />
 
     <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:id="@+id/card_view"
-        android:transitionName="cardTransition"
-        android:clipChildren="false"
-        android:layout_gravity="center"
         android:layout_width="match_parent"
-        android:foreground="?android:attr/selectableItemBackground"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
+        android:clipChildren="false"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:transitionName="cardTransition"
         card_view:cardCornerRadius="3dp"
         card_view:cardUseCompatPadding="true">
 
@@ -39,22 +39,27 @@
             android:orientation="horizontal"
             android:padding="11dp">
 
-            <LinearLayout
+            <FrameLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:background="@drawable/circle">
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/circle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/circle"/>
 
                 <ImageView
                     android:id="@+id/image"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
+                    android:layout_gravity="center_vertical"
                     android:layout_marginLeft="10dp"
                     android:layout_marginStart="10dp"
-                    android:background="@drawable/ic_notifications_white_24dp"
-                    android:layout_gravity="center"/>
+                    android:src="@drawable/ic_notifications_white_24dp"
+                    android:gravity="center" />
 
-            </LinearLayout>
+            </FrameLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -67,15 +72,15 @@
                     android:id="@+id/title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="16sp"
-                    android:textColor="@android:color/black"/>
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/content"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="14sp"
-                    android:textColor="@color/notificationContentText"/>
+                    android:textColor="@color/notificationContentText"
+                    android:textSize="14sp" />
 
             </LinearLayout>
 
