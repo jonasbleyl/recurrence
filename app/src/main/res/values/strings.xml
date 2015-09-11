@@ -41,7 +41,7 @@
     <string name="select_colour">Select a colour</string>
     <string name="default_colour">Default colour</string>
     <string-array name="colour_names_array">
-        <item>Grey</item>
+        <item>Default colour</item>
         <item>Blue</item>
         <item>Purple</item>
         <item>Red</item>
