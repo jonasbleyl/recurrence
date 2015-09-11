@@ -231,7 +231,6 @@ public class CreateEditActivity extends AppCompatActivity {
         mImageIconSelect.setImageDrawable(icon);
         mIconText.setText(getResources().getString(R.string.custom_icon));
         mIconSelectorDialog.cancel();
-        mIconsArray.recycle();
     }
 
     public void colourSelector(View view) {
@@ -317,7 +316,7 @@ public class CreateEditActivity extends AppCompatActivity {
             database.update(notification);
         }
         database.close();
-
+        mIconsArray.recycle();
         AlarmUtil.setAlarm(getApplicationContext(), notification.getId(), mCalendar);
         finish();
     }
