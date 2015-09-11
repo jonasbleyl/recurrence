@@ -20,14 +20,14 @@
     </string-array>
 
     <string-array name="colours_array" translatable="false">
-        <item>#828282</item>
-        <item>#315e97</item>
-        <item>#897dae</item>
-        <item>#a64042</item>
-        <item>#45a675</item>
-        <item>#a67649</item>
-        <item>#a6a650</item>
-        <item>#a670a0</item>
+        <item>#757575</item>
+        <item>#2f81b7</item>
+        <item>#8d48ab</item>
+        <item>#be3a31</item>
+        <item>#239f85</item>
+        <item>#e47e30</item>
+        <item>#e1b736</item>
+        <item>#c23b71</item>
     </string-array>
 
     <string-array name="icons_string_array" translatable="false">
@@ -56,7 +56,7 @@
         <item>ic_shopping_cart_white_24dp</item>
         <item>ic_local_gas_station_white_24dp</item> 
          <item>ic_account_balance_white_24dp</item> 
-         <item>ic_grade_white_24dp</item> 
+        <item>ic_grade_white_24dp</item> 
         <item>ic_access_time_white_24dp</item> 
         <item>ic_accessibility_white_24dp</item> 
         <item>ic_account_box_white_24dp</item>
