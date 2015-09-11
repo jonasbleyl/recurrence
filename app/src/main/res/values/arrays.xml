@@ -1,11 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <array name="icons_array" translatable="false">
+    <array name="icons_array">
+        <item>@drawable/ic_notifications_white_24dp</item>
+        <item>@drawable/ic_account_balance_wallet_white_24dp</item>
+        <item>@drawable/ic_local_dining_white_24dp</item> 
+         <item>@drawable/ic_list_white_24dp</item> 
+        <item>@drawable/ic_favorite_white_24dp</item> 
+        <item>@drawable/ic_airplanemode_active_white_24dp</item> 
+        <item>@drawable/ic_android_white_24dp</item> 
+         <item>@drawable/ic_email_white_24dp</item> 
+         <item>@drawable/ic_games_white_24dp</item> 
+        <item>@drawable/ic_camera_alt_white_24dp</item> 
+        <item>@drawable/ic_call_white_24dp</item> 
+         <item>@drawable/ic_directions_bus_white_24dp</item> 
+        <item>@drawable/ic_directions_car_white_24dp</item>
+         <item>@drawable/ic_directions_railway_white_24dp</item> 
+        <item>@drawable/ic_laptop_chromebook_white_24dp</item>
+         <item>@drawable/ic_laptop_mac_white_24dp</item> 
+        <item>@drawable/ic_school_white_24dp</item> 
+        <item>@drawable/ic_local_printshop_white_24dp</item>
+        <item>@drawable/ic_delete_white_24dp</item>
+        <item>@drawable/ic_work_white_24dp</item>
+        <item>@drawable/ic_shop_white_24dp</item> 
+        <item>@drawable/ic_shopping_basket_white_24dp</item> 
+        <item>@drawable/ic_shopping_cart_white_24dp</item>
+        <item>@drawable/ic_local_gas_station_white_24dp</item> 
+         <item>@drawable/ic_account_balance_white_24dp</item> 
+        <item>@drawable/ic_grade_white_24dp</item> 
         <item>@drawable/ic_access_time_white_24dp</item> 
         <item>@drawable/ic_accessibility_white_24dp</item> 
-        <item>@drawable/ic_account_balance_wallet_white_24dp</item>
-         <item>@drawable/ic_account_balance_white_24dp</item> 
         <item>@drawable/ic_account_box_white_24dp</item>
          <item>@drawable/ic_account_circle_white_24dp</item> 
         <item>@drawable/ic_adb_white_24dp</item>
@@ -15,13 +39,11 @@
         <item>@drawable/ic_add_white_24dp</item>
          <item>@drawable/ic_adjust_white_24dp</item> 
         <item>@drawable/ic_airline_seat_recline_normal_white_24dp</item>
-         <item>@drawable/ic_airplanemode_active_white_24dp</item> 
         <item>@drawable/ic_alarm_add_white_24dp</item>
          <item>@drawable/ic_alarm_off_white_24dp</item> 
         <item>@drawable/ic_alarm_on_white_24dp</item>
          <item>@drawable/ic_alarm_white_24dp</item> 
         <item>@drawable/ic_album_white_24dp</item> 
-        <item>@drawable/ic_android_white_24dp</item> 
         <item>@drawable/ic_announcement_white_24dp</item> 
         <item>@drawable/ic_archive_white_24dp</item> 
         <item>@drawable/ic_arrow_back_white_24dp</item>
@@ -57,8 +79,6 @@
         <item>@drawable/ic_call_missed_white_24dp</item> 
         <item>@drawable/ic_call_received_white_24dp</item> 
         <item>@drawable/ic_call_split_white_24dp</item>
-         <item>@drawable/ic_call_white_24dp</item> 
-        <item>@drawable/ic_camera_alt_white_24dp</item> 
         <item>@drawable/ic_camera_enhance_white_24dp</item> 
         <item>@drawable/ic_camera_roll_white_24dp</item>
          <item>@drawable/ic_camera_white_24dp</item> 
@@ -89,7 +109,6 @@
         <item>@drawable/ic_create_white_24dp</item> 
         <item>@drawable/ic_credit_card_white_24dp</item>
          <item>@drawable/ic_data_usage_white_24dp</item> 
-        <item>@drawable/ic_delete_white_24dp</item>
          <item>@drawable/ic_description_white_24dp</item> 
         <item>@drawable/ic_desktop_mac_white_24dp</item> 
         <item>@drawable/ic_desktop_windows_white_24dp</item>
@@ -97,9 +116,6 @@
         <item>@drawable/ic_devices_white_24dp</item> 
         <item>@drawable/ic_directions_bike_white_24dp</item> 
         <item>@drawable/ic_directions_boat_white_24dp</item>
-         <item>@drawable/ic_directions_bus_white_24dp</item> 
-        <item>@drawable/ic_directions_car_white_24dp</item>
-         <item>@drawable/ic_directions_railway_white_24dp</item> 
         <item>@drawable/ic_directions_run_white_24dp</item>
          <item>@drawable/ic_directions_subway_white_24dp</item> 
         <item>@drawable/ic_directions_walk_white_24dp</item>
@@ -109,7 +125,6 @@
         <item>@drawable/ic_drafts_white_24dp</item> 
         <item>@drawable/ic_dvr_white_24dp</item>
          <item>@drawable/ic_eject_white_24dp</item>
-         <item>@drawable/ic_email_white_24dp</item> 
         <item>@drawable/ic_equalizer_white_24dp</item> 
         <item>@drawable/ic_error_white_24dp</item> 
         <item>@drawable/ic_event_seat_white_24dp</item> 
@@ -118,7 +133,6 @@
         <item>@drawable/ic_face_white_24dp</item> 
         <item>@drawable/ic_fast_forward_white_24dp</item> 
         <item>@drawable/ic_fast_rewind_white_24dp</item> 
-        <item>@drawable/ic_favorite_white_24dp</item> 
         <item>@drawable/ic_feedback_white_24dp</item> 
         <item>@drawable/ic_filter_b_and_w_white_24dp</item> 
         <item>@drawable/ic_filter_frames_white_24dp</item>
@@ -134,10 +148,8 @@
         <item>@drawable/ic_format_paint_white_24dp</item> 
         <item>@drawable/ic_format_quote_white_24dp</item> 
         <item>@drawable/ic_forum_white_24dp</item>
-         <item>@drawable/ic_games_white_24dp</item> 
         <item>@drawable/ic_get_app_white_24dp</item> 
         <item>@drawable/ic_gps_fixed_white_24dp</item>
-         <item>@drawable/ic_grade_white_24dp</item> 
         <item>@drawable/ic_group_work_white_24dp</item> 
         <item>@drawable/ic_headset_mic_white_24dp</item> 
         <item>@drawable/ic_headset_white_24dp</item> 
@@ -158,25 +170,19 @@
          <item>@drawable/ic_keyboard_white_24dp</item>
          <item>@drawable/ic_label_white_24dp</item> 
         <item>@drawable/ic_language_white_24dp</item> 
-        <item>@drawable/ic_laptop_chromebook_white_24dp</item>
-         <item>@drawable/ic_laptop_mac_white_24dp</item> 
         <item>@drawable/ic_layers_white_24dp</item>
          <item>@drawable/ic_library_add_white_24dp</item> 
         <item>@drawable/ic_library_music_white_24dp</item>
-         <item>@drawable/ic_list_white_24dp</item> 
         <item>@drawable/ic_live_help_white_24dp</item> 
         <item>@drawable/ic_local_activity_white_24dp</item> 
         <item>@drawable/ic_local_atm_white_24dp</item> 
         <item>@drawable/ic_local_bar_white_24dp</item> 
         <item>@drawable/ic_local_cafe_white_24dp</item> 
-        <item>@drawable/ic_local_dining_white_24dp</item> 
         <item>@drawable/ic_local_florist_white_24dp</item>
-         <item>@drawable/ic_local_gas_station_white_24dp</item> 
         <item>@drawable/ic_local_laundry_service_white_24dp</item>
          <item>@drawable/ic_local_library_white_24dp</item> 
         <item>@drawable/ic_local_mall_white_24dp</item> 
         <item>@drawable/ic_local_pizza_white_24dp</item> 
-        <item>@drawable/ic_local_printshop_white_24dp</item>
          <item>@drawable/ic_local_shipping_white_24dp</item> 
         <item>@drawable/ic_local_taxi_white_24dp</item>
          <item>@drawable/ic_location_city_white_24dp</item> 
@@ -197,7 +203,6 @@
         <item>@drawable/ic_note_add_white_24dp</item> 
         <item>@drawable/ic_notifications_off_white_24dp</item>
          <item>@drawable/ic_notifications_paused_white_24dp</item> 
-        <item>@drawable/ic_notifications_white_24dp</item>
          <item>@drawable/ic_open_in_browser_white_24dp</item> 
         <item>@drawable/ic_open_in_new_white_24dp</item>
          <item>@drawable/ic_pause_circle_filled_white_24dp</item> 
@@ -230,7 +235,6 @@
          <item>@drawable/ic_satellite_white_24dp</item>
          <item>@drawable/ic_save_white_24dp</item> 
         <item>@drawable/ic_scanner_white_24dp</item> 
-        <item>@drawable/ic_school_white_24dp</item> 
         <item>@drawable/ic_sd_storage_white_24dp</item> 
         <item>@drawable/ic_search_white_24dp</item> 
         <item>@drawable/ic_security_white_24dp</item> 
@@ -243,9 +247,6 @@
         <item>@drawable/ic_settings_white_24dp</item>
          <item>@drawable/ic_share_white_24dp</item>
          <item>@drawable/ic_shop_two_white_24dp</item> 
-        <item>@drawable/ic_shop_white_24dp</item> 
-        <item>@drawable/ic_shopping_basket_white_24dp</item> 
-        <item>@drawable/ic_shopping_cart_white_24dp</item>
          <item>@drawable/ic_shuffle_white_24dp</item>
          <item>@drawable/ic_sim_card_white_24dp</item> 
         <item>@drawable/ic_skip_next_white_24dp</item> 
@@ -295,7 +296,6 @@
          <item>@drawable/ic_whatshot_white_24dp</item> 
         <item>@drawable/ic_wifi_tethering_white_24dp</item>
          <item>@drawable/ic_wifi_white_24dp</item> 
-        <item>@drawable/ic_work_white_24dp</item>
     </array>
 
 </resources>
