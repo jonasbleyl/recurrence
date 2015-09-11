@@ -10,6 +10,7 @@
     <string name="checkbox_sound">Sonar</string>
     <string name="checkbox_LED">LED</string>
     <string name="checkbox_ongoing">Persistente</string>
+    <string name="checkbox_dismiss">Eliminar al toque</string>
 
     <string name="action_settings">Ajustes</string>
     <string name="action_delete">Borrar</string>
@@ -32,6 +33,35 @@
     <string name="times">vez/veces</string>
     <string name="repeat_notification">Número de veces que se repite: </string>
     <string name="content_hint">Añade contenido a la notificación</string>
+
+    <string name="select_icon">Seleccione un icono</string>
+    <string name="default_icon">Icono defecto</string>
+    <string name="custom_icon">Icono personalizado</string>
+
+    <string name="select_colour">Seleccione un color</string>
+    <string name="default_colour">Color defecto</string>
+    <string-array name="colour_names_array">
+        <item>Color defecto</item>
+        <item>Azul</item>
+        <item>Morado</item>
+        <item>Rojo</item>
+        <item>Verde</item>
+        <item>Naranja</item>
+        <item>Amarillo</item>
+        <item>Rosa</item>
+    </string-array>
+
+    <string name="specific_days">Días específicos de la semana</string>
+    <string name="repeats_on">Repite en:</string>
+    <string-array name="days_array">
+        <item>Lunes</item>
+        <item>Martes</item>
+        <item>Miércoles</item>
+        <item>Jueves</item>
+        <item>Viernes</item>
+        <item>Sábado</item>
+        <item>Domingo</item>
+    </string-array>
 
     <string name="no_active">Ninguna notificación activa</string>
     <string name="no_inactive">Ninguna notificación inactiva</string>
