@@ -6,6 +6,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
@@ -36,8 +37,13 @@ public class AlarmReceiver extends BroadcastReceiver {
         viewIntent.putExtra("NOTIFICATION_ID", mNotification.getId());
         PendingIntent pending = PendingIntent.getActivity(context, mNotification.getId(), viewIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
+        String[] iconsArray = context.getResources().getStringArray(R.array.icons_string_array);
+        String[] coloursArray = context.getResources().getStringArray(R.array.colours_array);
+        int imageResId = context.getResources().getIdentifier(iconsArray[mNotification.getIconNumber()], "drawable", context.getPackageName());
+
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
-                .setSmallIcon(R.drawable.ic_notifications_white_24dp)
+                .setSmallIcon(imageResId)
+                .setColor(Color.parseColor(coloursArray[mNotification.getColourNumber()]))
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(mNotification.getContent()))
                 .setContentTitle(mNotification.getTitle())
                 .setContentText(mNotification.getContent())

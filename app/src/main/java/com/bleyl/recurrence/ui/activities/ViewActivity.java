@@ -2,6 +2,7 @@ package com.bleyl.recurrence.ui.activities;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -46,11 +48,16 @@ public class ViewActivity extends AppCompatActivity {
         TextView dateTextView = (TextView) findViewById(R.id.date);
         TextView repeatTextView = (TextView) findViewById(R.id.repeat);
         TextView shownTextView = (TextView) findViewById(R.id.shown);
+        ImageView iconImage = (ImageView) findViewById(R.id.image);
+        ImageView circleImage = (ImageView) findViewById(R.id.circle);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         LinearLayout linearLayout = (LinearLayout) findViewById(R.id.detail_layout);
         View shadowView = findViewById(R.id.toolbarShadow);
         scroll = (ScrollView) findViewById(R.id.scroll);
         headerView = findViewById(R.id.header);
+
+        TypedArray iconsArray = getResources().obtainTypedArray(R.array.icons_array);
+        String[] coloursArray = getResources().getStringArray(R.array.colours_array);
 
         // Setup the shared element transitions for this activity
         setupTransitions();
@@ -84,6 +91,9 @@ public class ViewActivity extends AppCompatActivity {
             dateTextView.setText(DateAndTimeUtil.toStringReadableDate(calendar));
             String[] repeatTexts = getResources().getStringArray(R.array.repeat_array);
             repeatTextView.setText(repeatTexts[mNotification.getRepeatType()]);
+            iconImage.setImageDrawable(iconsArray.getDrawable(mNotification.getIconNumber()));
+            circleImage.setColorFilter(Color.parseColor(coloursArray[mNotification.getColourNumber()]));
+            iconsArray.recycle();
 
             if (Boolean.parseBoolean(mNotification.getForeverState())) {
                 shownTextView.setText(getResources().getString(R.string.forever));

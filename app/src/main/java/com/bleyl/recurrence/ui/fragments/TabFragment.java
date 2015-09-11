@@ -6,6 +6,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.TypedArray;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
@@ -40,6 +41,7 @@ public class TabFragment extends Fragment {
     private NotificationAdapter mNotificationAdapter;
     private List<Notification> mNotificationList;
     private NotificationsType mNotificationsType;
+    private TypedArray mIconsArray;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -62,8 +64,11 @@ public class TabFragment extends Fragment {
             mEmptyText.setText(getResources().getString(R.string.no_inactive));
         }
 
+        mIconsArray = getResources().obtainTypedArray(R.array.icons_array);
+        String[] coloursArray = getResources().getStringArray(R.array.colours_array);
+
         mNotificationList = getListData();
-        mNotificationAdapter = new NotificationAdapter(sActivity, R.layout.item_notification_list, mNotificationList);
+        mNotificationAdapter = new NotificationAdapter(sActivity, R.layout.item_notification_list, mNotificationList, mIconsArray, coloursArray);
         mRecyclerView.setAdapter(mNotificationAdapter);
 
         if (mNotificationAdapter.getItemCount() == 0) {
@@ -138,6 +143,7 @@ public class TabFragment extends Fragment {
     @Override
     public void onDestroy() {
         LocalBroadcastManager.getInstance(sActivity).unregisterReceiver(messageReceiver);
+        mIconsArray.recycle();
         super.onDestroy();
     }
 }
