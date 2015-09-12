@@ -94,10 +94,10 @@ public class Database extends SQLiteOpenHelper {
         switch (notificationsType) {
             case ACTIVE:
             default:
-                query = "SELECT * FROM " + NOTIFICATION_TABLE + " WHERE " + COL_DATE_AND_TIME + " > " + DateAndTimeUtil.toLongDateAndTime(Calendar.getInstance()) + " ORDER BY " + COL_DATE_AND_TIME;
+                query = "SELECT * FROM " + NOTIFICATION_TABLE + " WHERE " + COL_NUMBER_SHOWN + " < " + COL_NUMBER_TO_SHOW + " OR " + COL_FOREVER + " = 'true' " +" ORDER BY " + COL_DATE_AND_TIME;
                 break;
             case INACTIVE:
-                query = "SELECT * FROM " + NOTIFICATION_TABLE + " WHERE " + COL_DATE_AND_TIME + " <= " + DateAndTimeUtil.toLongDateAndTime(Calendar.getInstance()) + " ORDER BY " + COL_DATE_AND_TIME + " DESC";
+                query = "SELECT * FROM " + NOTIFICATION_TABLE + " WHERE " + COL_NUMBER_SHOWN + " = " + COL_NUMBER_TO_SHOW + " AND " + COL_FOREVER + " = 'false' " + " ORDER BY " + COL_DATE_AND_TIME + " DESC";
                 break;
         }
 
