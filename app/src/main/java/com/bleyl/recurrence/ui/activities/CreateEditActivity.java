@@ -4,10 +4,9 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.res.TypedArray;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Rect;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.DimenRes;
 import android.support.annotation.NonNull;
@@ -33,13 +32,16 @@ import android.widget.TimePicker;
 
 import com.bleyl.recurrence.adapters.ColoursAdapter;
 import com.bleyl.recurrence.adapters.IconsAdapter;
+import com.bleyl.recurrence.models.Icon;
 import com.bleyl.recurrence.models.Notification;
 import com.bleyl.recurrence.R;
 import com.bleyl.recurrence.database.Database;
+import com.bleyl.recurrence.receivers.AlarmReceiver;
 import com.bleyl.recurrence.utils.AlarmUtil;
 import com.bleyl.recurrence.utils.AnimationUtil;
 import com.bleyl.recurrence.utils.DateAndTimeUtil;
 
+import java.util.Arrays;
 import java.util.Calendar;
 
 public class CreateEditActivity extends AppCompatActivity {
@@ -47,9 +49,8 @@ public class CreateEditActivity extends AppCompatActivity {
     private CoordinatorLayout mCoordinatorLayout;
     private AlertDialog mIconSelectorDialog;
     private AlertDialog mColourSelectorDialog;
-    private TypedArray mIconsArray;
-    private String[] mColoursArray;
     private String[] mColourNames;
+    private String[] mColoursArray;
     private EditText mTitleEditText;
     private EditText mContentEditText;
     private TextView mTimeText;
@@ -72,8 +73,8 @@ public class CreateEditActivity extends AppCompatActivity {
     private Calendar mCalendar;
     private int mTimesShown;
     private int mRepeatType;
-    private int mIconNumber;
-    private int mColourNumber;
+    private String mIcon;
+    private String mColour;
     private boolean newNotification;
     private int mId;
 
@@ -103,9 +104,8 @@ public class CreateEditActivity extends AppCompatActivity {
         mImageWarningDate = (ImageView) findViewById(R.id.errorDate);
         mImageWarningShow = (ImageView) findViewById(R.id.errorShow);
 
-        mIconsArray = getResources().obtainTypedArray(R.array.icons_array);
-        mColoursArray = getResources().getStringArray(R.array.colours_array);
         mColourNames = getResources().getStringArray(R.array.colour_names_array);
+        mColoursArray = getResources().getStringArray(R.array.colours_array);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -133,8 +133,8 @@ public class CreateEditActivity extends AppCompatActivity {
         newNotification = true;
         mRepeatType = 0;
         mTimesShown = 0;
-        mIconNumber = 0;
-        mColourNumber = 0;
+        mIcon = getResources().getString(R.string.default_icon_value);
+        mColour = getResources().getString(R.string.default_colour_value);
     }
 
     public void assignNotificationValues() {
@@ -153,20 +153,21 @@ public class CreateEditActivity extends AppCompatActivity {
         mTimesEditText.setText(Integer.toString(notification.getNumberToShow()));
         mTimesShown = notification.getNumberShown();
         mRepeatType = notification.getRepeatType();
-        mIconNumber = notification.getIconNumber();
-        mColourNumber = notification.getColourNumber();
+        mIcon = notification.getIcon();
+        mColour = notification.getColour();
         mTimesText.setVisibility(View.VISIBLE);
         mCalendar.set(Calendar.SECOND, 0);
         newNotification = false;
 
-        if (mIconNumber != 0) {
-            mImageIconSelect.setImageDrawable(mIconsArray.getDrawable(mIconNumber));
+        if (!getResources().getString(R.string.default_icon).equals(mIcon)) {
+            int iconResId = getResources().getIdentifier(notification.getIcon(), "drawable", getPackageName());
+            mImageIconSelect.setImageResource(iconResId);
             mIconText.setText(getResources().getString(R.string.custom_icon));
         }
 
-        if (mColourNumber != 0) {
-            mImageColourSelect.setColorFilter(Color.parseColor(mColoursArray[mColourNumber]));
-            mColourText.setText(mColourNames[mColourNumber]);
+        if (!getResources().getString(R.string.default_colour).equals(mColour)) {
+            mImageColourSelect.setColorFilter(Color.parseColor(mColour));
+            mColourText.setText(mColourNames[Arrays.asList(mColoursArray).indexOf(mColour)]);
         }
 
         if (notification.getRepeatType() != 0) {
@@ -218,7 +219,9 @@ public class CreateEditActivity extends AppCompatActivity {
         ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(getApplicationContext(), R.dimen.item_offset);
         recyclerView.addItemDecoration(itemDecoration);
 
-        recyclerView.setAdapter(new IconsAdapter(this, R.layout.item_icon_grid, mIconsArray));
+        Database database = new Database(this.getApplicationContext());
+        recyclerView.setAdapter(new IconsAdapter(this, R.layout.item_icon_grid, database.getIconList()));
+        database.close();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(getResources().getString(R.string.select_icon));
@@ -226,15 +229,19 @@ public class CreateEditActivity extends AppCompatActivity {
         mIconSelectorDialog = builder.show();
     }
 
-    public void iconSelected(Drawable icon, int position) {
-        mIconNumber = position;
-        if (mIconNumber != 0) {
+    public void iconSelected(int iconResId, Icon icon) {
+        mIcon = icon.getName();
+        if (!mIcon.equals(getResources().getString(R.string.default_icon_value))) {
             mIconText.setText(getResources().getString(R.string.custom_icon));
         } else {
             mIconText.setText(getResources().getString(R.string.default_icon));
         }
-        mImageIconSelect.setImageDrawable(icon);
+        mImageIconSelect.setImageResource(iconResId);
         mIconSelectorDialog.cancel();
+        Database database = new Database(this.getApplicationContext());
+        icon.setUseFrequency(icon.getUseFrequency() + 1);
+        database.updateIcon(icon);
+        database.close();
     }
 
     public void colourSelector(View view) {
@@ -245,7 +252,6 @@ public class CreateEditActivity extends AppCompatActivity {
         RecyclerView recyclerView = (RecyclerView) dialogView.findViewById(R.id.colours_recycler_view);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-
         recyclerView.setAdapter(new ColoursAdapter(this, R.layout.item_colour_list, mColoursArray, mColourNames));
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -254,9 +260,9 @@ public class CreateEditActivity extends AppCompatActivity {
         mColourSelectorDialog = builder.show();
     }
 
-    public void colourSelected(String name, int colour, int position) {
-        mColourNumber = position;
-        mImageColourSelect.setColorFilter(colour);
+    public void colourSelected(String name, String colour) {
+        mColour = colour;
+        mImageColourSelect.setColorFilter(Color.parseColor(colour));
         mColourText.setText(name);
         mColourSelectorDialog.cancel();
     }
@@ -313,15 +319,15 @@ public class CreateEditActivity extends AppCompatActivity {
         }
 
         Database database = new Database(this.getApplicationContext());
-        Notification notification = new Notification(mId, title, content, date + time, mRepeatType, forever, timesToShow, mTimesShown, mIconNumber, mColourNumber);
+        Notification notification = new Notification(mId, title, content, date + time, mRepeatType, forever, timesToShow, mTimesShown, mIcon, mColour);
         if (newNotification) {
             database.add(notification);
         } else {
             database.update(notification);
         }
         database.close();
-        mIconsArray.recycle();
-        AlarmUtil.setAlarm(getApplicationContext(), notification.getId(), mCalendar);
+        Intent alarmIntent = new Intent(getApplicationContext(), AlarmReceiver.class);
+        AlarmUtil.setAlarm(getApplicationContext(), alarmIntent, notification.getId(), mCalendar);
         finish();
     }
 

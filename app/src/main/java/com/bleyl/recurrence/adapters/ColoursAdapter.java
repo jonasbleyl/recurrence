@@ -54,15 +54,14 @@ public class ColoursAdapter extends RecyclerView.Adapter<ColoursAdapter.ViewHold
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
         final String colourName = mColourNames[position];
-        final int colour = Color.parseColor(mColoursArray[position]);
         viewHolder.mColourText.setText(colourName);
         GradientDrawable bgShape = (GradientDrawable) viewHolder.mColourView.getDrawable();
-        bgShape.setColor(colour);
+        bgShape.setColor(Color.parseColor(mColoursArray[position]));
 
         viewHolder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((CreateEditActivity) mContext).colourSelected(colourName, colour, position);
+                ((CreateEditActivity) mContext).colourSelected(colourName, mColoursArray[position]);
             }
         });
     }

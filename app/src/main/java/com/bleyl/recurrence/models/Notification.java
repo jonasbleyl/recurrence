@@ -9,12 +9,12 @@ public class Notification {
     private String mForeverState;
     private int mNumberToShow;
     private int mNumberShown;
-    private int mIconNumber;
-    private int mColourNumber;
+    private String mIcon;
+    private String mColour;
 
     public Notification() {}
 
-    public Notification(int id, String title, String content, String dateAndTime, int repeatType, String foreverState, int numberToShow, int numberShown, int iconNumber, int colourNumber) {
+    public Notification(int id, String title, String content, String dateAndTime, int repeatType, String foreverState, int numberToShow, int numberShown, String icon, String colour) {
         mId = id;
         mTitle = title;
         mContent = content;
@@ -23,8 +23,8 @@ public class Notification {
         mForeverState = foreverState;
         mNumberToShow = numberToShow;
         mNumberShown = numberShown;
-        mIconNumber = iconNumber;
-        mColourNumber = colourNumber;
+        mIcon = icon;
+        mColour = colour;
     }
 
     public int getId() {
@@ -99,19 +99,19 @@ public class Notification {
         mNumberShown = numberShown;
     }
 
-    public int getIconNumber() {
-        return mIconNumber;
+    public String getIcon() {
+        return mIcon;
     }
 
-    public void setIconNumber(int iconNumber) {
-        mIconNumber = iconNumber;
+    public void setIcon(String icon) {
+        mIcon = icon;
     }
 
-    public int getColourNumber() {
-        return mColourNumber;
+    public String getColour() {
+        return mColour;
     }
 
-    public void setColourNumber(int colourNumber) {
-        mColourNumber = colourNumber;
+    public void setColour(String colour) {
+        mColour = colour;
     }
 }

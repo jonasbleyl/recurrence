@@ -1,7 +1,6 @@
 package com.bleyl.recurrence.adapters;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.support.v7.widget.RecyclerView;
@@ -24,8 +23,6 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
     private int mRowLayout;
     private Context mContext;
     private List<Notification> mNotificationList;
-    private TypedArray mIconsArray;
-    private String[] mColoursArray;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView mTitle;
@@ -46,12 +43,10 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         }
     }
 
-    public NotificationAdapter(Context context, int rowLayout, List<Notification> notificationList, TypedArray iconsArray, String[] coloursArray) {
+    public NotificationAdapter(Context context, int rowLayout, List<Notification> notificationList) {
         mContext = context;
         mRowLayout = rowLayout;
         mNotificationList = notificationList;
-        mIconsArray = iconsArray;
-        mColoursArray = coloursArray;
     }
 
     @Override
@@ -75,10 +70,10 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
         viewHolder.mTitle.setText(mNotificationList.get(position).getTitle());
         viewHolder.mContent.setText(mNotificationList.get(position).getContent());
-        viewHolder.mIcon.setImageDrawable(mIconsArray.getDrawable(mNotificationList.get(position).getIconNumber()));
-        Color.parseColor(mColoursArray[mNotificationList.get(position).getColourNumber()]);
+        int iconResId = mContext.getResources().getIdentifier(mNotificationList.get(position).getIcon(), "drawable", mContext.getPackageName());
+        viewHolder.mIcon.setImageResource(iconResId);
         GradientDrawable bgShape = (GradientDrawable) viewHolder.mCircle.getDrawable();
-        bgShape.setColor(Color.parseColor(mColoursArray[mNotificationList.get(position).getColourNumber()]));
+        bgShape.setColor(Color.parseColor(mNotificationList.get(position).getColour()));
 
         viewHolder.mView.setOnClickListener(new View.OnClickListener() {
             @Override

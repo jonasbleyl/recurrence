@@ -290,7 +290,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/image_margin_side"
                         android:layout_marginStart="@dimen/image_margin_side"
-                        android:tint="@color/iconTint"
+                        android:tint="@color/default_colour_grey"
                         android:src="@drawable/ic_color_lens_white_24dp"/>
 
                     <TextView

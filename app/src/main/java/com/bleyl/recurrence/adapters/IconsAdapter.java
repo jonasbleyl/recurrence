@@ -1,8 +1,6 @@
 package com.bleyl.recurrence.adapters;
 
 import android.content.Context;
-import android.content.res.TypedArray;
-import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,13 +8,16 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bleyl.recurrence.R;
+import com.bleyl.recurrence.models.Icon;
 import com.bleyl.recurrence.ui.activities.CreateEditActivity;
+
+import java.util.List;
 
 public class IconsAdapter extends RecyclerView.Adapter<IconsAdapter.ViewHolder>{
 
     private int mRowLayout;
     private Context mContext;
-    private TypedArray mIconsArray;
+    private List<Icon> mIconList;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public ImageView mImageView;
@@ -29,15 +30,15 @@ public class IconsAdapter extends RecyclerView.Adapter<IconsAdapter.ViewHolder>{
         }
     }
 
-    public IconsAdapter(Context context, int rowLayout, TypedArray iconsArray) {
+    public IconsAdapter(Context context, int rowLayout, List<Icon> iconList) {
         mContext = context;
         mRowLayout = rowLayout;
-        mIconsArray = iconsArray;
+        mIconList = iconList;
     }
 
     @Override
     public int getItemCount() {
-        return mIconsArray.length();
+        return mIconList.size();
     }
 
     @Override
@@ -48,12 +49,13 @@ public class IconsAdapter extends RecyclerView.Adapter<IconsAdapter.ViewHolder>{
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
-        final Drawable icon = mIconsArray.getDrawable(position);
-        viewHolder.mImageView.setImageDrawable(icon);
+        final String iconName = mIconList.get(position).getName();
+        final int iconResId = mContext.getResources().getIdentifier(iconName, "drawable", mContext.getPackageName());
+        viewHolder.mImageView.setImageResource(iconResId);
         viewHolder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((CreateEditActivity) mContext).iconSelected(icon, position);
+                ((CreateEditActivity) mContext).iconSelected(iconResId, mIconList.get(position));
             }
         });
     }

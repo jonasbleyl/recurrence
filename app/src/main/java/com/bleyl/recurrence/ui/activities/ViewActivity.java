@@ -2,7 +2,6 @@ package com.bleyl.recurrence.ui.activities;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -26,6 +25,7 @@ import android.widget.TextView;
 import com.bleyl.recurrence.models.Notification;
 import com.bleyl.recurrence.R;
 import com.bleyl.recurrence.database.Database;
+import com.bleyl.recurrence.receivers.AlarmReceiver;
 import com.bleyl.recurrence.utils.AlarmUtil;
 import com.bleyl.recurrence.utils.DateAndTimeUtil;
 
@@ -55,9 +55,6 @@ public class ViewActivity extends AppCompatActivity {
         View shadowView = findViewById(R.id.toolbarShadow);
         scroll = (ScrollView) findViewById(R.id.scroll);
         headerView = findViewById(R.id.header);
-
-        TypedArray iconsArray = getResources().obtainTypedArray(R.array.icons_array);
-        String[] coloursArray = getResources().getStringArray(R.array.colours_array);
 
         // Setup the shared element transitions for this activity
         setupTransitions();
@@ -91,9 +88,9 @@ public class ViewActivity extends AppCompatActivity {
             dateTextView.setText(DateAndTimeUtil.toStringReadableDate(calendar));
             String[] repeatTexts = getResources().getStringArray(R.array.repeat_array);
             repeatTextView.setText(repeatTexts[mNotification.getRepeatType()]);
-            iconImage.setImageDrawable(iconsArray.getDrawable(mNotification.getIconNumber()));
-            circleImage.setColorFilter(Color.parseColor(coloursArray[mNotification.getColourNumber()]));
-            iconsArray.recycle();
+            int iconResId = getResources().getIdentifier(mNotification.getIcon(), "drawable", getPackageName());
+            iconImage.setImageResource(iconResId);
+            circleImage.setColorFilter(Color.parseColor(mNotification.getColour()));
 
             if (Boolean.parseBoolean(mNotification.getForeverState())) {
                 shownTextView.setText(getResources().getString(R.string.forever));
@@ -159,7 +156,8 @@ public class ViewActivity extends AppCompatActivity {
         database.delete(mNotification);
         database.close();
 
-        AlarmUtil.cancelAlarm(getApplicationContext(), mNotification.getId());
+        Intent alarmIntent = new Intent(getApplicationContext(), AlarmReceiver.class);
+        AlarmUtil.cancelAlarm(getApplicationContext(), alarmIntent, mNotification.getId());
         finish();
     }
 
