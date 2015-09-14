@@ -96,9 +96,8 @@ public class Database extends SQLiteOpenHelper {
 
     public int getLastId() {
         int data = 0;
-        String query = "SELECT " + COL_ID + " FROM " + NOTIFICATION_TABLE + " ORDER BY " + COL_ID + " DESC LIMIT 1";
         SQLiteDatabase database = this.getReadableDatabase();
-        Cursor cursor = database.rawQuery(query, null);
+        Cursor cursor = database.rawQuery("SELECT " + COL_ID + " FROM " + NOTIFICATION_TABLE + " ORDER BY " + COL_ID + " DESC LIMIT 1", null);
         if (cursor != null && cursor.moveToFirst()) {
             data = cursor.getInt(0);
             cursor.close();
@@ -145,8 +144,7 @@ public class Database extends SQLiteOpenHelper {
 
     public Notification getNotification(int id) {
         SQLiteDatabase database = this.getReadableDatabase();
-        String query = "SELECT * FROM " + NOTIFICATION_TABLE + " WHERE " + COL_ID + " = " + id;
-        Cursor cursor = database.rawQuery(query, null);
+        Cursor cursor = database.rawQuery("SELECT * FROM " + NOTIFICATION_TABLE + " WHERE " + COL_ID + " = ? LIMIT 1", new String[] {String.valueOf(id)});
 
         cursor.moveToFirst();
         Notification notification = new Notification();
@@ -176,18 +174,17 @@ public class Database extends SQLiteOpenHelper {
         values.put(COL_NUMBER_SHOWN, notification.getNumberShown());
         values.put(COL_ICON, notification.getIcon());
         values.put(COL_COLOUR, notification.getColour());
-        database.update(NOTIFICATION_TABLE, values, COL_ID + " = " + notification.getId(), null);
+        database.update(NOTIFICATION_TABLE, values, COL_ID + " = ?", new String[] {String.valueOf(notification.getId())});
     }
 
     public void delete(Notification notification) {
         SQLiteDatabase database = this.getReadableDatabase();
-        database.delete(NOTIFICATION_TABLE, COL_ID + "=" + notification.getId(), null);
+        database.delete(NOTIFICATION_TABLE, COL_ID + " = ?", new String[] {String.valueOf(notification.getId())});
     }
 
     public boolean isPresent(int id) {
         SQLiteDatabase database = this.getReadableDatabase();
-        String query = "SELECT * FROM " + NOTIFICATION_TABLE + " WHERE " + COL_ID + " = " + id;
-        Cursor cursor = database.rawQuery(query, null);
+        Cursor cursor = database.rawQuery("SELECT * FROM " + NOTIFICATION_TABLE + " WHERE " + COL_ID + " = ? LIMIT 1", new String[]{String.valueOf(id)});
         boolean result = cursor.moveToFirst();
         cursor.close();
         return result;
@@ -206,9 +203,8 @@ public class Database extends SQLiteOpenHelper {
 
     public List<Icon> getIconList() {
         List<Icon> iconList = new ArrayList<>();
-        String query = "SELECT * FROM " + ICON_TABLE + " ORDER BY " + COL_ICON_USE_FREQUENCY + " DESC";
         SQLiteDatabase database = this.getWritableDatabase();
-        Cursor cursor = database.rawQuery(query, null);
+        Cursor cursor = database.rawQuery("SELECT * FROM " + ICON_TABLE + " ORDER BY " + COL_ICON_USE_FREQUENCY + " DESC", null);
 
         if (cursor.moveToFirst()) {
             do {
@@ -229,6 +225,6 @@ public class Database extends SQLiteOpenHelper {
         values.put(COL_ICON_ID, icon.getId());
         values.put(COL_ICON_NAME, icon.getName());
         values.put(COL_ICON_USE_FREQUENCY, icon.getUseFrequency());
-        database.update(ICON_TABLE, values, COL_ICON_ID + " = " + icon.getId(), null);
+        database.update(ICON_TABLE, values, COL_ICON_ID + " = ?", new String[] {String.valueOf(icon.getId())});
     }
 }
