@@ -11,6 +11,11 @@
     <string name="checkbox_LED">LED</string>
     <string name="checkbox_ongoing">Persistent</string>
     <string name="checkbox_dismiss">Dismiss on tap</string>
+    <string name="snooze">Snooze</string>
+    <string name="snooze_detail">Add a snooze action to the notification</string>
+    <string name="snooze_length">Snooze length</string>
+    <string name="minute">minute</string>
+    <string name="minutes">minutes</string>
 
     <string name="action_settings">Settings</string>
     <string name="action_delete">Delete</string>

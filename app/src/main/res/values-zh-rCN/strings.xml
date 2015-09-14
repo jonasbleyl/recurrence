@@ -1,0 +1,94 @@
+<resources>
+<string name="create_notification">创建通知</string>
+<string name="view_notification">查看通知</string>
+<string name="edit_notification">编辑通知</string>
+<string name="about">关于</string>
+<string name="settings">设置</string>
+
+<string name="preference_notification_category">通知设置</string>
+<string name="checkbox_vibrate">震动</string>
+<string name="checkbox_sound">声音</string>
+<string name="checkbox_LED">呼吸灯</string>
+<string name="checkbox_ongoing">持续</string>
+<string name="snooze">贪睡</string>
+<string name="snooze_detail">在通知中显示贪睡按钮</string>
+<string name="snooze_length">贪睡时间长度</string>
+<string name="minute">分钟后</string>
+<string name="minutes">分钟后</string>
+
+<string name="action_settings">设置</string>
+<string name="action_delete">删除</string>
+<string name="action_edit">编辑</string>
+<string name="action_about">关于</string>
+
+<string name="delete_confirmation">是否删除这个通知？</string>
+<string name="yes">是的</string>
+<string name="no">不</string>
+<string name="ok">确定</string>
+
+<string name="title">标题</string>
+<string name="save_menu">保存</string>
+<string name="time_now">现在</string>
+<string name="date_today">今天</string>
+<string name="times_shown">已重复 %1$d ，共 %2$d 次</string>
+<string name="times_shown_edit">已重复 %1$d</string>
+<string name="forever">长久生效</string>
+<string name="no_repeat">不重复</string>
+<string name="times">时间</string>
+<string name="repeat_notification">重复次数</string>
+<string name="content_hint">添加通知内容</string>
+
+<string name="select_icon">选择一个图标</string>
+<string name="default_icon">默认的图标</string>
+<string name="custom_icon">自定义图标</string>
+
+<string name="select_colour">选择一个颜色</string>
+<string name="default_colour">默认颜色</string>
+<string-array name="colour_names_array">
+<item>默认颜色</item>
+<item>蓝色</item>
+<item>紫色</item>
+<item>红色</item>
+<item>绿色</item>
+<item>橙色</item>
+<item>黄</item>
+<item>粉红色</item>
+</string-array>
+
+<string name="specific_days">每周的特定天</string>
+<string name="repeats_on">重复</string>
+<string-array name="days_array">
+<item>星期一</item>
+<item>星期二</item>
+<item>星期三</item>
+<item>星期四</item>
+<item>星期五</item>
+<item>星期六</item>
+<item>星期日</item>
+</string-array>
+
+<string name="no_active">没有通知</string>
+<string name="no_inactive">没有失效的通知</string>
+
+<string name="toast_past_date">无法设置初试日期</string>
+<string name="toast_higher_number">重复数字太短</string>
+<string name="toast_title_empty">标题不能为空</string>
+
+<string name="libraries">源码</string>
+<string name="rate_app">为应用评分</string>
+<string name="contact">联系</string>
+<string name="version">版本</string>
+
+<string name="thanks_to">鸣谢</string>
+<string name="translator">翻译</string>
+
+<string name="send_email">发送邮件</string>
+
+<string-array name="repeat_array">
+<item>不重复</item>
+<item>每天</item>
+<item>每周</item>
+<item>每月</item>
+<item>每年</item>
+</string-array>
+</resources>

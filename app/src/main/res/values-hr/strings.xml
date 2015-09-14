@@ -1,90 +1,95 @@
 <resources>
-    <string name="create_notification">Stvori obavijest</string>
-    <string name="view_notification">Pogledaj obavijest</string>
-    <string name="edit_notification">Uredi obavijest</string>
-    <string name="about">O aplikaciji</string>
-    <string name="settings">Postavke</string>
+<string name="create_notification">Stvori obavijest</string>
+<string name="view_notification">Pogledaj obavijest</string>
+<string name="edit_notification">Uredi obavijest</string>
+<string name="about">O aplikaciji</string>
+<string name="settings">Postavke</string>
 
-    <string name="preference_notification_category">Obavijesti</string>
-    <string name="checkbox_vibrate">Vibracija</string>
-    <string name="checkbox_sound">Zvuk</string>
-    <string name="checkbox_LED">LED</string>
-    <string name="checkbox_ongoing">Trajno</string>
-    <string name="checkbox_dismiss">Odbaci na dodir</string>
+<string name="preference_notification_category">Obavijesti</string>
+<string name="checkbox_vibrate">Vibracija</string>
+<string name="checkbox_sound">Zvuk</string>
+<string name="checkbox_LED">LED</string>
+<string name="checkbox_ongoing">Trajno</string>
+<string name="checkbox_dismiss">Odbaci na dodir</string>
+<string name="snooze">Odgodi</string>
+<string name="snooze_detail">Dodaj odgode akcije na obavijesti</string>
+<string name="snooze_length">Trajanje odgode alarma</string>
+<string name="minute">minute</string>
+<string name="minutes">minuta</string>
 
-    <string name="action_settings">Postavke</string>
-    <string name="action_delete">Obriši</string>
-    <string name="action_edit">Uredi</string>
-    <string name="action_about">O aplikaciji</string>
+<string name="action_settings">Postavke</string>
+<string name="action_delete">Obriši</string>
+<string name="action_edit">Uredi</string>
+<string name="action_about">O aplikaciji</string>
 
-    <string name="delete_confirmation">Jeste li sigurni da želite obrisati obavijest?</string>
-    <string name="yes">Da</string>
-    <string name="no">Ne</string>
-    <string name="ok">U redu</string>
+<string name="delete_confirmation">Jeste li sigurni da želite obrisati obavijest?</string>
+<string name="yes">Da</string>
+<string name="no">Ne</string>
+<string name="ok">U redu</string>
 
-    <string name="title">Naziv</string>
-    <string name="save_menu">Spremi</string>
-    <string name="time_now">Sada</string>
-    <string name="date_today">Danas</string>
-    <string name="times_shown">Prikazano %1$d od %2$d puta</string>
-    <string name="times_shown_edit">Prikazano %1$d od</string>
-    <string name="forever">Zauvijek</string>
-    <string name="no_repeat">Ne ponavlja se</string>
-    <string name="times">puta</string>
-    <string name="repeat_notification">Broj puta ponavljanja: </string>
-    <string name="content_hint">Sadržaj obavijesti</string>
+<string name="title">Naziv</string>
+<string name="save_menu">Spremi</string>
+<string name="time_now">Sada</string>
+<string name="date_today">Danas</string>
+<string name="times_shown">Prikazano %1$d od %2$d puta</string>
+<string name="times_shown_edit">Prikazano %1$d od</string>
+<string name="forever">Zauvijek</string>
+<string name="no_repeat">Ne ponavlja se</string>
+<string name="times">puta</string>
+<string name="repeat_notification">Broj puta ponavljanja:</string>
+<string name="content_hint">Sadržaj obavijesti</string>
 
-    <string name="select_icon">Odaberi ikonu</string>
-    <string name="default_icon">Zadana ikona</string>
-    <string name="custom_icon">Prilagođena ikona</string>
+<string name="select_icon">Odaberi ikonu</string>
+<string name="default_icon">Zadana ikona</string>
+<string name="custom_icon">Prilagođena ikona</string>
 
-    <string name="select_colour">Odaberi boju</string>
-    <string name="default_colour">Zadana boja</string>
-    <string-array name="colour_names_array">
-        <item>Zadana boja</item>
-        <item>Plava</item>
-        <item>Ljubičasta</item>
-        <item>Crvena</item>
-        <item>Zelena</item>
-        <item>Narančasta</item>
-        <item>Žuta</item>
-        <item>Ružičasta</item>
-    </string-array>
+<string name="select_colour">Odaberi boju</string>
+<string name="default_colour">Zadana boja</string>
+<string-array name="colour_names_array">
+<item>Siva</item>
+<item>Plava</item>
+<item>Ljubičasta</item>
+<item>Crvena</item>
+<item>Zelena</item>
+<item>Narančasta</item>
+<item>Žuta</item>
+<item>Ružičasta</item>
+</string-array>
 
-    <string name="specific_days">Određeni dani u tjednu</string>
-    <string name="repeats_on">Ponavlja se svaki: </string>
-    <string-array name="days_array">
-        <item>Ponedjeljak</item>
-        <item>Utorak</item>
-        <item>Srijeda</item>
-        <item>Četvrtak</item>
-        <item>Petak</item>
-        <item>Subota</item>
-        <item>Nedjelja</item>
-    </string-array>
+<string name="specific_days">Određeni dani u tjednu</string>
+<string name="repeats_on">Ponavlja se svaki:</string>
+<string-array name="days_array">
+<item>Ponedjeljak</item>
+<item>Utorak</item>
+<item>Srijeda</item>
+<item>Četvrtak</item>
+<item>Petak</item>
+<item>Subota</item>
+<item>Nedjelja</item>
+</string-array>
 
-    <string name="no_active">Nema aktivnih obavijesti</string>
-    <string name="no_inactive">Nema neaktivnih obavijesti</string>
+<string name="no_active">Nema aktivnih obavijesti</string>
+<string name="no_inactive">Nema neaktivnih obavijesti</string>
 
-    <string name="toast_past_date">Ne možete postaviti početni datum u prošlosti</string>
-    <string name="toast_higher_number">Broj ponavljanja mora biti veći</string>
-    <string name="toast_title_empty">Naziv ne može biti prazan</string>
+<string name="toast_past_date">Ne možete postaviti početni datum u prošlosti</string>
+<string name="toast_higher_number">Broj ponavljanja mora biti veći</string>
+<string name="toast_title_empty">Naziv ne može biti prazan</string>
 
-    <string name="libraries">Programske knjižnice</string>
-    <string name="rate_app">Ocijenite aplikaciju</string>
-    <string name="contact">Kontakt</string>
-    <string name="version">Verzija</string>
+<string name="libraries">Programske knjižnice</string>
+<string name="rate_app">Ocijenite aplikaciju</string>
+<string name="contact">Kontakt</string>
+<string name="version">Verzija</string>
 
-    <string name="thanks_to">Zahvala</string>
-    <string name="translator">Prevoditelj</string>
+<string name="thanks_to">Zahvala</string>
+<string name="translator">Prevoditelj</string>
 
-    <string name="send_email">Pošalji e-mail</string>
+<string name="send_email">Pošalji e-mail</string>
 
-    <string-array name="repeat_array">
-        <item>Ne ponavlja se</item>
-        <item>Svaki dan</item>
-        <item>Svaki tjedan</item>
-        <item>Svaki mjesec</item>
-        <item>Svaku godinu</item>
-    </string-array>
+<string-array name="repeat_array">
+<item>Ne ponavlja se</item>
+<item>Svaki dan</item>
+<item>Svaki tjedan</item>
+<item>Svaki mjesec</item>
+<item>Svaku godinu</item>
+</string-array>
 </resources>
