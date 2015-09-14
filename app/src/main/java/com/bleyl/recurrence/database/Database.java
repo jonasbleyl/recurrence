@@ -5,13 +5,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-
 import com.bleyl.recurrence.enums.NotificationsType;
 import com.bleyl.recurrence.models.Notification;
-import com.bleyl.recurrence.utils.DateAndTimeUtil;
-
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 public class Database extends SQLiteOpenHelper {
@@ -126,8 +122,7 @@ public class Database extends SQLiteOpenHelper {
 
     public Notification getNotification(int id) {
         SQLiteDatabase database = this.getReadableDatabase();
-        String query = "SELECT * FROM " + NOTIFICATION_TABLE + " WHERE " + COL_ID + " = " + id;
-        Cursor cursor = database.rawQuery(query, null);
+        Cursor cursor = database.rawQuery("SELECT * FROM " + NOTIFICATION_TABLE + " WHERE " + COL_ID + " = ? LIMIT 1", new String[] { String.valueOf(id) });
         cursor.moveToFirst();
         Notification notification = new Notification();
         notification.setId(id);
@@ -158,18 +153,17 @@ public class Database extends SQLiteOpenHelper {
         values.put(COL_ICON_NUMBER, notification.getIconNumber());
         values.put(COL_COLOUR_NUMBER, notification.getColourNumber());
 
-        database.update(NOTIFICATION_TABLE, values, COL_ID + " = " + notification.getId(), null);
+        database.update(NOTIFICATION_TABLE, values, COL_ID + " = ?", new String[] {String.valueOf(notification.getId())});
     }
 
     public void delete(Notification notification) {
         SQLiteDatabase database = this.getReadableDatabase();
-        database.delete(NOTIFICATION_TABLE, COL_ID + "=" + notification.getId(), null);
+        database.delete(NOTIFICATION_TABLE, COL_ID + "= ?", new String[] {String.valueOf(notification.getId())});
     }
 
     public boolean isPresent(int id) {
         SQLiteDatabase database = this.getReadableDatabase();
-        String query = "SELECT * FROM " + NOTIFICATION_TABLE + " WHERE " + COL_ID + " = " + id;
-        Cursor cursor = database.rawQuery(query, null);
+        Cursor cursor = database.rawQuery("SELECT * FROM " + NOTIFICATION_TABLE + " WHERE " + COL_ID + " = ? LIMIT 1", new String[]{String.valueOf(id)});
         boolean result = cursor.moveToFirst();
         cursor.close();
         return result;
