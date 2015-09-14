@@ -8,5 +8,7 @@
     <color name="textLightGray">#757575</color>
     <color name="textGreyHeader">#ff818181</color>
     <color name="notificationContentText">#737373</color>
+    <color name="error">#da1b21</color>
     <color name="iconTint">#757575</color>
+    <color name="default_colour_grey">#9E9E9E</color>
 </resources>

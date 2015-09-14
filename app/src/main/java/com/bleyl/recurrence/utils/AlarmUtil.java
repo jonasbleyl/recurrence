@@ -6,14 +6,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 
-import com.bleyl.recurrence.receivers.AlarmReceiver;
-
 import java.util.Calendar;
 
 public class AlarmUtil {
 
-    public static void setAlarm(Context context, int notificationId, Calendar calendar) {
-        Intent intent = new Intent(context, AlarmReceiver.class);
+    public static void setAlarm(Context context, Intent intent, int notificationId, Calendar calendar) {
         intent.putExtra("NOTIFICATION_ID", notificationId);
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, notificationId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -25,8 +22,7 @@ public class AlarmUtil {
         }
     }
 
-    public static void cancelAlarm(Context context, int notificationId) {
-        Intent intent = new Intent(context, AlarmReceiver.class);
+    public static void cancelAlarm(Context context, Intent intent, int notificationId) {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, notificationId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         alarmManager.cancel(pendingIntent);

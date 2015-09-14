@@ -19,11 +19,12 @@ public class BootReceiver extends BroadcastReceiver {
         Database database = new Database(context.getApplicationContext());
         List<Notification> notificationList = database.getNotificationList(NotificationsType.ACTIVE);
         database.close();
+        Intent alarmIntent = new Intent(context, AlarmReceiver.class);
 
         for (Notification notification : notificationList) {
             Calendar calendar = DateAndTimeUtil.parseDateAndTime(notification.getDateAndTime());
             calendar.set(Calendar.SECOND, 0);
-            AlarmUtil.setAlarm(context, notification.getId(), calendar);
+            AlarmUtil.setAlarm(context, alarmIntent, notification.getId(), calendar);
         }
     }
 }

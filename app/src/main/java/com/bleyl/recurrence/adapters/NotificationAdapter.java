@@ -1,10 +1,13 @@
 package com.bleyl.recurrence.adapters;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bleyl.recurrence.ui.fragments.TabFragment;
@@ -25,6 +28,8 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         public TextView mTitle;
         public TextView mContent;
         public TextView mTextSeparator;
+        public ImageView mIcon;
+        public ImageView mCircle;
         public View mView;
 
         public ViewHolder(final View view) {
@@ -33,6 +38,8 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             mTitle = (TextView) view.findViewById(R.id.title);
             mContent = (TextView) view.findViewById(R.id.content);
             mTextSeparator = (TextView) view.findViewById(R.id.header_separator);
+            mIcon = (ImageView) view.findViewById(R.id.image);
+            mCircle = (ImageView) view.findViewById(R.id.circle);
         }
     }
 
@@ -63,6 +70,10 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
         viewHolder.mTitle.setText(mNotificationList.get(position).getTitle());
         viewHolder.mContent.setText(mNotificationList.get(position).getContent());
+        int iconResId = mContext.getResources().getIdentifier(mNotificationList.get(position).getIcon(), "drawable", mContext.getPackageName());
+        viewHolder.mIcon.setImageResource(iconResId);
+        GradientDrawable bgShape = (GradientDrawable) viewHolder.mCircle.getDrawable();
+        bgShape.setColor(Color.parseColor(mNotificationList.get(position).getColour()));
 
         viewHolder.mView.setOnClickListener(new View.OnClickListener() {
             @Override

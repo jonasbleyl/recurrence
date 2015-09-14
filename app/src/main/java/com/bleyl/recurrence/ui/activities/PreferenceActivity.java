@@ -6,6 +6,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.bleyl.recurrence.R;
+import com.bleyl.recurrence.ui.fragments.PreferenceFragment;
 
 public class PreferenceActivity extends AppCompatActivity {
     @Override
@@ -19,14 +20,6 @@ public class PreferenceActivity extends AppCompatActivity {
         if (getActionBar() != null) getActionBar().setDisplayHomeAsUpEnabled(true);
 
         getFragmentManager().beginTransaction().replace(R.id.content_frame, new PreferenceFragment()).commit();
-    }
-
-    public static class PreferenceFragment extends android.preference.PreferenceFragment {
-        @Override
-        public void onCreate(final Bundle savedInstanceState){
-            super.onCreate(savedInstanceState);
-            addPreferencesFromResource(R.xml.prefs);
-        }
     }
 
     @Override

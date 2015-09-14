@@ -17,6 +17,7 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -24,6 +25,7 @@ import android.widget.TextView;
 import com.bleyl.recurrence.models.Notification;
 import com.bleyl.recurrence.R;
 import com.bleyl.recurrence.database.Database;
+import com.bleyl.recurrence.receivers.AlarmReceiver;
 import com.bleyl.recurrence.utils.AlarmUtil;
 import com.bleyl.recurrence.utils.DateAndTimeUtil;
 
@@ -46,6 +48,8 @@ public class ViewActivity extends AppCompatActivity {
         TextView dateTextView = (TextView) findViewById(R.id.date);
         TextView repeatTextView = (TextView) findViewById(R.id.repeat);
         TextView shownTextView = (TextView) findViewById(R.id.shown);
+        ImageView iconImage = (ImageView) findViewById(R.id.image);
+        ImageView circleImage = (ImageView) findViewById(R.id.circle);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         LinearLayout linearLayout = (LinearLayout) findViewById(R.id.detail_layout);
         View shadowView = findViewById(R.id.toolbarShadow);
@@ -84,6 +88,9 @@ public class ViewActivity extends AppCompatActivity {
             dateTextView.setText(DateAndTimeUtil.toStringReadableDate(calendar));
             String[] repeatTexts = getResources().getStringArray(R.array.repeat_array);
             repeatTextView.setText(repeatTexts[mNotification.getRepeatType()]);
+            int iconResId = getResources().getIdentifier(mNotification.getIcon(), "drawable", getPackageName());
+            iconImage.setImageResource(iconResId);
+            circleImage.setColorFilter(Color.parseColor(mNotification.getColour()));
 
             if (Boolean.parseBoolean(mNotification.getForeverState())) {
                 shownTextView.setText(getResources().getString(R.string.forever));
@@ -149,7 +156,8 @@ public class ViewActivity extends AppCompatActivity {
         database.delete(mNotification);
         database.close();
 
-        AlarmUtil.cancelAlarm(getApplicationContext(), mNotification.getId());
+        Intent alarmIntent = new Intent(getApplicationContext(), AlarmReceiver.class);
+        AlarmUtil.cancelAlarm(getApplicationContext(), alarmIntent, mNotification.getId());
         finish();
     }
 

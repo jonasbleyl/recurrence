@@ -2,15 +2,24 @@ package com.bleyl.recurrence.ui.activities;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.os.Bundle;
+import android.support.annotation.DimenRes;
+import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,18 +30,27 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import com.bleyl.recurrence.adapters.ColoursAdapter;
+import com.bleyl.recurrence.adapters.IconsAdapter;
+import com.bleyl.recurrence.models.Icon;
 import com.bleyl.recurrence.models.Notification;
 import com.bleyl.recurrence.R;
 import com.bleyl.recurrence.database.Database;
+import com.bleyl.recurrence.receivers.AlarmReceiver;
 import com.bleyl.recurrence.utils.AlarmUtil;
 import com.bleyl.recurrence.utils.AnimationUtil;
 import com.bleyl.recurrence.utils.DateAndTimeUtil;
 
+import java.util.Arrays;
 import java.util.Calendar;
 
 public class CreateEditActivity extends AppCompatActivity {
 
     private CoordinatorLayout mCoordinatorLayout;
+    private AlertDialog mIconSelectorDialog;
+    private AlertDialog mColourSelectorDialog;
+    private String[] mColourNames;
+    private String[] mColoursArray;
     private EditText mTitleEditText;
     private EditText mContentEditText;
     private TextView mTimeText;
@@ -45,12 +63,18 @@ public class CreateEditActivity extends AppCompatActivity {
     private View mBottomView;
     private TextView mShowText;
     private TextView mTimesText;
+    private TextView mIconText;
+    private TextView mColourText;
+    private ImageView mImageIconSelect;
+    private ImageView mImageColourSelect;
     private ImageView mImageWarningTime;
     private ImageView mImageWarningDate;
     private ImageView mImageWarningShow;
     private Calendar mCalendar;
     private int mTimesShown;
     private int mRepeatType;
+    private String mIcon;
+    private String mColour;
     private boolean newNotification;
     private int mId;
 
@@ -72,9 +96,16 @@ public class CreateEditActivity extends AppCompatActivity {
         mBottomView = findViewById(R.id.bottomView);
         mShowText = (TextView) findViewById(R.id.show);
         mTimesText = (TextView) findViewById(R.id.times);
+        mIconText = (TextView) findViewById(R.id.selectIconText);
+        mColourText = (TextView) findViewById(R.id.selectColourText);
+        mImageColourSelect = (ImageView) findViewById(R.id.colourIcon);
+        mImageIconSelect = (ImageView) findViewById(R.id.selectedIcon);
         mImageWarningTime = (ImageView) findViewById(R.id.errorTime);
         mImageWarningDate = (ImageView) findViewById(R.id.errorDate);
         mImageWarningShow = (ImageView) findViewById(R.id.errorShow);
+
+        mColourNames = getResources().getStringArray(R.array.colour_names_array);
+        mColoursArray = getResources().getStringArray(R.array.colours_array);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -102,6 +133,8 @@ public class CreateEditActivity extends AppCompatActivity {
         newNotification = true;
         mRepeatType = 0;
         mTimesShown = 0;
+        mIcon = getResources().getString(R.string.default_icon_value);
+        mColour = getResources().getString(R.string.default_colour_value);
     }
 
     public void assignNotificationValues() {
@@ -120,9 +153,22 @@ public class CreateEditActivity extends AppCompatActivity {
         mTimesEditText.setText(Integer.toString(notification.getNumberToShow()));
         mTimesShown = notification.getNumberShown();
         mRepeatType = notification.getRepeatType();
+        mIcon = notification.getIcon();
+        mColour = notification.getColour();
         mTimesText.setVisibility(View.VISIBLE);
         mCalendar.set(Calendar.SECOND, 0);
         newNotification = false;
+
+        if (!getResources().getString(R.string.default_icon).equals(mIcon)) {
+            int iconResId = getResources().getIdentifier(notification.getIcon(), "drawable", getPackageName());
+            mImageIconSelect.setImageResource(iconResId);
+            mIconText.setText(getResources().getString(R.string.custom_icon));
+        }
+
+        if (!getResources().getString(R.string.default_colour).equals(mColour)) {
+            mImageColourSelect.setColorFilter(Color.parseColor(mColour));
+            mColourText.setText(mColourNames[Arrays.asList(mColoursArray).indexOf(mColour)]);
+        }
 
         if (notification.getRepeatType() != 0) {
             mForeverRow.setVisibility(View.VISIBLE);
@@ -161,6 +207,64 @@ public class CreateEditActivity extends AppCompatActivity {
             }
         }, mCalendar.get(Calendar.YEAR), mCalendar.get(Calendar.MONTH), mCalendar.get(Calendar.DAY_OF_MONTH));
         DatePicker.show();
+    }
+
+    public void iconSelector(View view) {
+        CoordinatorLayout coordinatorLayout = (CoordinatorLayout) findViewById(R.id.create_coordinator);
+        LayoutInflater inflater = getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.view_dialog_icons, coordinatorLayout, false);
+
+        RecyclerView recyclerView = (RecyclerView) dialogView.findViewById(R.id.icons_recycler_view);
+        recyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(), getResources().getInteger(R.integer.grid_columns)));
+        ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(getApplicationContext(), R.dimen.item_offset);
+        recyclerView.addItemDecoration(itemDecoration);
+
+        Database database = new Database(this.getApplicationContext());
+        recyclerView.setAdapter(new IconsAdapter(this, R.layout.item_icon_grid, database.getIconList()));
+        database.close();
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getResources().getString(R.string.select_icon));
+        builder.setView(dialogView);
+        mIconSelectorDialog = builder.show();
+    }
+
+    public void iconSelected(int iconResId, Icon icon) {
+        mIcon = icon.getName();
+        if (!mIcon.equals(getResources().getString(R.string.default_icon_value))) {
+            mIconText.setText(getResources().getString(R.string.custom_icon));
+        } else {
+            mIconText.setText(getResources().getString(R.string.default_icon));
+        }
+        mImageIconSelect.setImageResource(iconResId);
+        mIconSelectorDialog.cancel();
+        Database database = new Database(this.getApplicationContext());
+        icon.setUseFrequency(icon.getUseFrequency() + 1);
+        database.updateIcon(icon);
+        database.close();
+    }
+
+    public void colourSelector(View view) {
+        CoordinatorLayout coordinatorLayout = (CoordinatorLayout) findViewById(R.id.create_coordinator);
+        LayoutInflater inflater = getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.view_dialog_colour, coordinatorLayout, false);
+
+        RecyclerView recyclerView = (RecyclerView) dialogView.findViewById(R.id.colours_recycler_view);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(new ColoursAdapter(this, R.layout.item_colour_list, mColoursArray, mColourNames));
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getResources().getString(R.string.select_colour));
+        builder.setView(dialogView);
+        mColourSelectorDialog = builder.show();
+    }
+
+    public void colourSelected(String name, String colour) {
+        mColour = colour;
+        mImageColourSelect.setColorFilter(Color.parseColor(colour));
+        mColourText.setText(name);
+        mColourSelectorDialog.cancel();
     }
 
     public void repeatSelector(View view) {
@@ -215,15 +319,15 @@ public class CreateEditActivity extends AppCompatActivity {
         }
 
         Database database = new Database(this.getApplicationContext());
-        Notification notification = new Notification(mId, title, content, date + time, mRepeatType, forever, timesToShow, mTimesShown);
+        Notification notification = new Notification(mId, title, content, date + time, mRepeatType, forever, timesToShow, mTimesShown, mIcon, mColour);
         if (newNotification) {
             database.add(notification);
         } else {
             database.update(notification);
         }
         database.close();
-
-        AlarmUtil.setAlarm(getApplicationContext(), notification.getId(), mCalendar);
+        Intent alarmIntent = new Intent(getApplicationContext(), AlarmReceiver.class);
+        AlarmUtil.setAlarm(getApplicationContext(), alarmIntent, notification.getId(), mCalendar);
         finish();
     }
 
@@ -290,6 +394,24 @@ public class CreateEditActivity extends AppCompatActivity {
             mImageWarningShow.setVisibility(View.VISIBLE);
         } else {
             saveNotification();
+        }
+    }
+
+    public class ItemOffsetDecoration extends RecyclerView.ItemDecoration {
+        private int mItemOffset;
+
+        public ItemOffsetDecoration(int itemOffset) {
+            mItemOffset = itemOffset;
+        }
+
+        public ItemOffsetDecoration(@NonNull Context context, @DimenRes int itemOffsetId) {
+            this(context.getResources().getDimensionPixelSize(itemOffsetId));
+        }
+
+        @Override
+        public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+            super.getItemOffsets(outRect, view, parent, state);
+            outRect.set(mItemOffset, mItemOffset, mItemOffset, mItemOffset);
         }
     }
 

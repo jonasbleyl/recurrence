@@ -23,4 +23,5 @@
     <dimen name="table_row_view_padding">15dp</dimen>
     <dimen name="text_dialog_padding_side">16dp</dimen>
     <dimen name="dialog_padding_side">24dp</dimen>
+    <dimen name="item_offset">5dp</dimen>
 </resources>

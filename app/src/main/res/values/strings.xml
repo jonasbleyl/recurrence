@@ -10,7 +10,12 @@
     <string name="checkbox_sound">Sound</string>
     <string name="checkbox_LED">LED</string>
     <string name="checkbox_ongoing">Persistent</string>
-    <string name="checkbox_dismiss">Clear on tap</string>
+    <string name="checkbox_dismiss">Dismiss on tap</string>
+    <string name="snooze">Snooze</string>
+    <string name="snooze_detail">Add a snooze action to the notification</string>
+    <string name="snooze_length">Snooze length</string>
+    <string name="minute">minute</string>
+    <string name="minutes">minutes</string>
 
     <string name="action_settings">Settings</string>
     <string name="action_delete">Delete</string>
@@ -33,6 +38,35 @@
     <string name="times">times</string>
     <string name="repeat_notification">Number of times to repeat: </string>
     <string name="content_hint">Add notification content</string>
+
+    <string name="select_icon">Select an icon</string>
+    <string name="default_icon">Default icon</string>
+    <string name="custom_icon">Custom icon</string>
+
+    <string name="select_colour">Select a colour</string>
+    <string name="default_colour">Default colour</string>
+    <string-array name="colour_names_array">
+        <item>Default colour</item>
+        <item>Blue</item>
+        <item>Purple</item>
+        <item>Red</item>
+        <item>Green</item>
+        <item>Orange</item>
+        <item>Yellow</item>
+        <item>Pink</item>
+    </string-array>
+
+    <string name="specific_days">Specific days of the week</string>
+    <string name="repeats_on">Repeats on:</string>
+    <string-array name="days_array">
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
+        <item>Sunday</item>
+    </string-array>
 
     <string name="no_active">No active notifications</string>
     <string name="no_inactive">No inactive notifications</string>

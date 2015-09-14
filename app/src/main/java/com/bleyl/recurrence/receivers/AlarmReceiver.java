@@ -1,23 +1,15 @@
 package com.bleyl.recurrence.receivers;
 
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.preference.PreferenceManager;
-import android.provider.Settings;
-import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.LocalBroadcastManager;
 
 import com.bleyl.recurrence.utils.AlarmUtil;
 import com.bleyl.recurrence.database.Database;
 import com.bleyl.recurrence.models.Notification;
-import com.bleyl.recurrence.R;
 import com.bleyl.recurrence.utils.DateAndTimeUtil;
-import com.bleyl.recurrence.ui.activities.ViewActivity;
+import com.bleyl.recurrence.utils.NotificationUtil;
 
 import java.util.Calendar;
 
@@ -29,45 +21,10 @@ public class AlarmReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         mDatabase = new Database(context.getApplicationContext());
-        updateNotificationShown(intent);
+        mNotification = mDatabase.getNotification(intent.getIntExtra("NOTIFICATION_ID", 0));
+        updateNotificationShown();
 
-        // Create intent for notification onClick behaviour
-        Intent viewIntent = new Intent(context, ViewActivity.class);
-        viewIntent.putExtra("NOTIFICATION_ID", mNotification.getId());
-        PendingIntent pending = PendingIntent.getActivity(context, mNotification.getId(), viewIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
-                .setSmallIcon(R.drawable.ic_notifications_white_24dp)
-                .setStyle(new NotificationCompat.BigTextStyle().bigText(mNotification.getContent()))
-                .setContentTitle(mNotification.getTitle())
-                .setContentText(mNotification.getContent())
-                .setTicker(mNotification.getTitle())
-                .setAutoCancel(true);
-
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-
-        // Set notification preferences options
-        if (prefs.getBoolean("checkBoxSound", true)) {
-            builder.setSound(Settings.System.DEFAULT_NOTIFICATION_URI);
-        }
-        if (prefs.getBoolean("checkBoxLED", true)) {
-            builder.setLights(Color.BLUE, 700, 1500);
-        }
-        if (prefs.getBoolean("checkBoxOngoing", false)) {
-            builder.setOngoing(true);
-        }
-        if (prefs.getBoolean("checkBoxVibrate", true)) {
-            long[] pattern = {0, 300, 0};
-            builder.setVibrate(pattern);
-        }
-        if (prefs.getBoolean("checkBoxDismiss", false)) {
-            builder.setContentIntent(PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT));
-        } else {
-            builder.setContentIntent(pending);
-        }
-
-        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify(mNotification.getId(), builder.build());
+        NotificationUtil.createNotification(context, mNotification, intent);
 
         // Check if new alarm needs to be set
         if (mNotification.getNumberToShow() > mNotification.getNumberShown() || Boolean.parseBoolean(mNotification.getForeverState())) {
@@ -87,7 +44,8 @@ public class AlarmReceiver extends BroadcastReceiver {
             mNotification.setDateAndTime(DateAndTimeUtil.toStringDateAndTime(calendar));
             mDatabase.update(mNotification);
 
-            AlarmUtil.setAlarm(context, mNotification.getId(), calendar);
+            Intent alarmIntent = new Intent(context, AlarmReceiver.class);
+            AlarmUtil.setAlarm(context, alarmIntent, mNotification.getId(), calendar);
         }
         mDatabase.close();
 
@@ -95,8 +53,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         updateLists(context);
     }
 
-    public void updateNotificationShown(Intent intent) {
-        mNotification = mDatabase.getNotification(intent.getIntExtra("NOTIFICATION_ID", 0));
+    public void updateNotificationShown() {
         mNotification.setNumberShown(mNotification.getNumberShown() + 1);
         mDatabase.update(mNotification);
     }

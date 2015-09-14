@@ -19,6 +19,318 @@
         <item>(ZH)</item>
     </string-array>
 
+    <string name="default_colour_value" translatable="false">#9E9E9E</string>
+
+    <string-array name="colours_array" translatable="false">
+        <item>#9E9E9E</item>
+        <item>#2f81b7</item>
+        <item>#8d48ab</item>
+        <item>#be3a31</item>
+        <item>#239f85</item>
+        <item>#e47e30</item>
+        <item>#e1b736</item>
+        <item>#c23b71</item>
+    </string-array>
+
+    <string name="default_icon_value" translatable="false">ic_notifications_white_24dp</string>
+
+    <string-array name="icons_string_array" translatable="false">
+        <item>ic_notifications_white_24dp</item> 
+        <item>ic_account_balance_wallet_white_24dp</item> 
+        <item>ic_local_dining_white_24dp</item>
+           <item>ic_list_white_24dp</item>  
+        <item>ic_favorite_white_24dp</item>
+          <item>ic_android_white_24dp</item>
+           <item>ic_email_white_24dp</item>  
+        <item>ic_chat_bubble_white_24dp</item>
+          <item>ic_forum_white_24dp</item>
+          <item>ic_games_white_24dp</item>  
+        <item>ic_camera_alt_white_24dp</item>
+          <item>ic_call_white_24dp</item>
+           <item>ic_directions_bus_white_24dp</item>  
+        <item>ic_directions_car_white_24dp</item>
+          <item>ic_directions_railway_white_24dp</item>  
+        <item>ic_laptop_chromebook_white_24dp</item>  
+        <item>ic_laptop_mac_white_24dp</item>  
+        <item>ic_code_white_24dp</item>
+          <item>ic_school_white_24dp</item>  
+        <item>ic_local_printshop_white_24dp</item> 
+        <item>ic_delete_white_24dp</item>
+         <item>ic_work_white_24dp</item>
+         <item>ic_shop_white_24dp</item>  
+        <item>ic_shopping_basket_white_24dp</item>
+          <item>ic_shopping_cart_white_24dp</item>
+         <item>ic_airplanemode_active_white_24dp</item>  
+        <item>ic_directions_bike_white_24dp</item>
+          <item>ic_directions_boat_white_24dp</item> 
+        <item>ic_directions_run_white_24dp</item>  
+        <item>ic_directions_subway_white_24dp</item>  
+        <item>ic_directions_walk_white_24dp</item>
+         <item>ic_local_gas_station_white_24dp</item>   
+        <item>ic_account_balance_white_24dp</item>  
+        <item>ic_grade_white_24dp</item>  
+        <item>ic_adb_white_24dp</item>
+         <item>ic_brightness_high_white_24dp</item>
+         <item>ic_audiotrack_white_24dp</item>  
+        <item>ic_headset_white_24dp</item>
+          <item>ic_brush_white_24dp</item>
+          <item>ic_battery_full_white_24dp</item>  
+        <item>ic_cake_white_24dp</item>
+          <item>ic_map_white_24dp</item>
+          <item>ic_movie_white_24dp</item>  
+        <item>ic_camera_enhance_white_24dp</item>
+          <item>ic_content_cut_white_24dp</item>
+          <item>ic_access_time_white_24dp</item>  
+        <item>ic_accessibility_white_24dp</item>
+          <item>ic_account_box_white_24dp</item>  
+        <item>ic_account_circle_white_24dp</item>   
+        <item>ic_add_alert_white_24dp</item>
+          <item>ic_add_circle_white_24dp</item>  
+        <item>ic_add_shopping_cart_white_24dp</item> 
+        <item>ic_add_white_24dp</item>
+          <item>ic_adjust_white_24dp</item>
+          <item>ic_airline_seat_recline_normal_white_24dp</item> 
+        <item>ic_alarm_add_white_24dp</item>  
+        <item>ic_alarm_off_white_24dp</item>  
+        <item>ic_alarm_on_white_24dp</item>
+          <item>ic_alarm_white_24dp</item>
+          <item>ic_album_white_24dp</item>  
+        <item>ic_announcement_white_24dp</item>
+          <item>ic_archive_white_24dp</item>
+          <item>ic_arrow_back_white_24dp</item>  
+        <item>ic_assessment_white_24dp</item>
+          <item>ic_assignment_ind_white_24dp</item>
+          <item>ic_assignment_late_white_24dp</item>  
+        <item>ic_assignment_turned_in_white_24dp</item>  
+        <item>ic_assignment_white_24dp</item>  
+        <item>ic_assistant_white_24dp</item>
+          <item>ic_attach_file_white_24dp</item>  
+        <item>ic_attach_money_white_24dp</item>
+          <item>ic_backspace_white_24dp</item>  
+        <item>ic_backup_white_24dp</item>  
+        <item>ic_battery_alert_white_24dp</item>
+          <item>ic_battery_charging_full_white_24dp</item>
+         <item>ic_beenhere_white_24dp</item>  
+        <item>ic_bluetooth_white_24dp</item>
+          <item>ic_book_white_24dp</item>  
+        <item>ic_bookmark_white_24dp</item>
+          <item>ic_brightness_1_white_24dp</item>
+           <item>ic_broken_image_white_24dp</item>  
+        <item>ic_bug_report_white_24dp</item>
+          <item>ic_wb_sunny_white_24dp</item>
+          <item>ic_build_white_24dp</item>  
+        <item>ic_business_white_24dp</item>
+          <item>ic_call_end_white_24dp</item>
+          <item>ic_call_made_white_24dp</item>  
+        <item>ic_call_merge_white_24dp</item>
+          <item>ic_call_missed_white_24dp</item>  
+        <item>ic_call_received_white_24dp</item>  
+        <item>ic_call_split_white_24dp</item>
+         <item>ic_camera_roll_white_24dp</item>
+          <item>ic_camera_white_24dp</item>  
+        <item>ic_card_giftcard_white_24dp</item>
+          <item>ic_card_travel_white_24dp</item>
+          <item>ic_cast_connected_white_24dp</item> 
+        <item>ic_check_circle_white_24dp</item>
+          <item>ic_chrome_reader_mode_white_24dp</item>
+          <item>ic_clear_white_24dp</item>  
+        <item>ic_close_white_24dp</item>
+          <item>ic_cloud_circle_white_24dp</item>
+          <item>ic_cloud_download_white_24dp</item>  
+        <item>ic_cloud_upload_white_24dp</item>
+          <item>ic_cloud_white_24dp</item>
+          <item>ic_collections_bookmark_white_24dp</item>  
+        <item>ic_collections_white_24dp</item>
+          <item>ic_color_lens_white_24dp</item>
+          <item>ic_colorize_white_24dp</item>  
+        <item>ic_computer_white_24dp</item>
+          <item>ic_confirmation_number_white_24dp</item>
+          <item>ic_contact_phone_white_24dp</item>  
+        <item>ic_contacts_white_24dp</item>
+          <item>ic_content_copy_white_24dp</item>  
+        <item>ic_content_paste_white_24dp</item>
+          <item>ic_create_white_24dp</item>  
+        <item>ic_credit_card_white_24dp</item>  
+        <item>ic_data_usage_white_24dp</item>
+           <item>ic_description_white_24dp</item>  
+        <item>ic_desktop_mac_white_24dp</item>  
+        <item>ic_desktop_windows_white_24dp</item>
+          <item>ic_developer_board_white_24dp</item>
+          <item>ic_devices_white_24dp</item>   
+        <item>ic_directions_white_24dp</item>
+          <item>ic_dns_white_24dp</item>  
+        <item>ic_done_white_24dp</item>  
+        <item>ic_drafts_white_24dp</item>
+          <item>ic_dvr_white_24dp</item>
+          <item>ic_eject_white_24dp</item> 
+        <item>ic_equalizer_white_24dp</item>
+          <item>ic_error_white_24dp</item>  
+        <item>ic_event_seat_white_24dp</item>  
+        <item>ic_explore_white_24dp</item>
+          <item>ic_extension_white_24dp</item>  
+        <item>ic_face_white_24dp</item>  
+        <item>ic_fast_forward_white_24dp</item>
+          <item>ic_fast_rewind_white_24dp</item>  
+        <item>ic_feedback_white_24dp</item>  
+        <item>ic_filter_b_and_w_white_24dp</item>
+          <item>ic_filter_frames_white_24dp</item>
+          <item>ic_filter_hdr_white_24dp</item>  
+        <item>ic_filter_vintage_white_24dp</item>
+          <item>ic_find_in_page_white_24dp</item>  
+        <item>ic_flag_white_24dp</item>  
+        <item>ic_flash_on_white_24dp</item>
+          <item>ic_flight_land_white_24dp</item>  
+        <item>ic_flight_takeoff_white_24dp</item>  
+        <item>ic_folder_shared_white_24dp</item>
+          <item>ic_folder_white_24dp</item>  
+        <item>ic_format_paint_white_24dp</item>  
+        <item>ic_format_quote_white_24dp</item>
+          <item>ic_get_app_white_24dp</item>
+          <item>ic_gps_fixed_white_24dp</item> 
+        <item>ic_group_work_white_24dp</item>
+          <item>ic_headset_mic_white_24dp</item>  
+        <item>ic_hearing_white_24dp</item>  
+        <item>ic_help_white_24dp</item>
+          <item>ic_home_white_24dp</item>  
+        <item>ic_hotel_white_24dp</item>  
+        <item>ic_hourglass_full_white_24dp</item>
+          <item>ic_https_white_24dp</item>
+          <item>ic_import_export_white_24dp</item>  
+        <item>ic_inbox_white_24dp</item>
+          <item>ic_info_white_24dp</item>  
+        <item>ic_insert_chart_white_24dp</item>  
+        <item>ic_insert_emoticon_white_24dp</item>
+          <item>ic_insert_link_white_24dp</item>  
+        <item>ic_insert_photo_white_24dp</item>  
+        <item>ic_invert_colors_white_24dp</item>
+          <item>ic_keyboard_white_24dp</item>  
+        <item>ic_label_white_24dp</item>  
+        <item>ic_language_white_24dp</item>
+          <item>ic_layers_white_24dp</item>  
+        <item>ic_library_add_white_24dp</item>  
+        <item>ic_library_music_white_24dp</item>
+         <item>ic_live_help_white_24dp</item>  
+        <item>ic_local_activity_white_24dp</item>  
+        <item>ic_local_atm_white_24dp</item>
+          <item>ic_local_bar_white_24dp</item>
+          <item>ic_local_cafe_white_24dp</item>  
+        <item>ic_local_florist_white_24dp</item>
+         <item>ic_local_laundry_service_white_24dp</item>  
+        <item>ic_local_library_white_24dp</item>
+          <item>ic_local_mall_white_24dp</item>  
+        <item>ic_local_pizza_white_24dp</item>   
+        <item>ic_local_shipping_white_24dp</item>
+          <item>ic_local_taxi_white_24dp</item>
+          <item>ic_location_city_white_24dp</item>  
+        <item>ic_looks_white_24dp</item>
+          <item>ic_loyalty_white_24dp</item>
+          <item>ic_mail_white_24dp</item>  
+        <item>ic_markunread_mailbox_white_24dp</item>
+          <item>ic_memory_white_24dp</item>
+          <item>ic_mic_white_24dp</item>  
+        <item>ic_more_vert_white_24dp</item>
+          <item>ic_mouse_white_24dp</item>  
+        <item>ic_nature_people_white_24dp</item>  
+        <item>ic_nature_white_24dp</item>
+          <item>ic_navigation_white_24dp</item>
+          <item>ic_new_releases_white_24dp</item>  
+        <item>ic_note_add_white_24dp</item>
+          <item>ic_notifications_off_white_24dp</item>  
+        <item>ic_notifications_paused_white_24dp</item>   
+        <item>ic_open_in_browser_white_24dp</item>
+          <item>ic_open_in_new_white_24dp</item>
+          <item>ic_pause_circle_filled_white_24dp</item>  
+        <item>ic_pause_white_24dp</item>  
+        <item>ic_perm_phone_msg_white_24dp</item>  
+        <item>ic_person_white_24dp</item>
+          <item>ic_play_arrow_white_24dp</item>  
+        <item>ic_play_circle_filled_white_24dp</item>  
+        <item>ic_playlist_add_white_24dp</item>  
+        <item>ic_polymer_white_24dp</item>  
+        <item>ic_print_white_24dp</item>
+          <item>ic_public_white_24dp</item>
+          <item>ic_question_answer_white_24dp</item>  
+        <item>ic_queue_music_white_24dp</item>
+          <item>ic_radio_button_checked_white_24dp</item>
+          <item>ic_radio_white_24dp</item>  
+        <item>ic_receipt_white_24dp</item>
+          <item>ic_recent_actors_white_24dp</item>
+          <item>ic_refresh_white_24dp</item>  
+        <item>ic_remove_circle_white_24dp</item>
+          <item>ic_remove_red_eye_white_24dp</item>
+          <item>ic_reorder_white_24dp</item>  
+        <item>ic_repeat_white_24dp</item>
+          <item>ic_reply_all_white_24dp</item>
+          <item>ic_reply_white_24dp</item>  
+        <item>ic_report_problem_white_24dp</item>
+          <item>ic_report_white_24dp</item>
+          <item>ic_room_white_24dp</item>  
+        <item>ic_router_white_24dp</item>
+          <item>ic_satellite_white_24dp</item>
+          <item>ic_save_white_24dp</item>  
+        <item>ic_scanner_white_24dp</item>
+          <item>ic_sd_storage_white_24dp</item>  
+        <item>ic_search_white_24dp</item>  
+        <item>ic_security_white_24dp</item>
+          <item>ic_send_white_24dp</item>  
+        <item>ic_settings_applications_white_24dp</item>  
+        <item>ic_settings_backup_restore_white_24dp</item>
+          <item>ic_settings_input_antenna_white_24dp</item>  
+        <item>ic_settings_input_hdmi_white_24dp</item>  
+        <item>ic_settings_system_daydream_white_24dp</item>  
+        <item>ic_settings_white_24dp</item>  
+        <item>ic_share_white_24dp</item>  
+        <item>ic_shop_two_white_24dp</item>   
+        <item>ic_shuffle_white_24dp</item>
+          <item>ic_sim_card_white_24dp</item>
+          <item>ic_skip_next_white_24dp</item>  
+        <item>ic_skip_previous_white_24dp</item>
+          <item>ic_snooze_white_24dp</item>
+          <item>ic_speaker_white_24dp</item>  
+        <item>ic_stars_white_24dp</item>
+          <item>ic_stay_current_portrait_white_24dp</item>  
+        <item>ic_stay_primary_portrait_white_24dp</item>
+          <item>ic_stop_white_24dp</item>  
+        <item>ic_storage_white_24dp</item>  
+        <item>ic_store_mall_directory_white_24dp</item>
+          <item>ic_store_white_24dp</item>
+          <item>ic_straighten_white_24dp</item>  
+        <item>ic_style_white_24dp</item>
+          <item>ic_subject_white_24dp</item>  
+        <item>ic_subtitles_white_24dp</item>  
+        <item>ic_supervisor_account_white_24dp</item>
+          <item>ic_swap_vertical_circle_white_24dp</item>
+          <item>ic_theaters_white_24dp</item>  
+        <item>ic_thumb_down_white_24dp</item>
+          <item>ic_thumb_up_white_24dp</item>  
+        <item>ic_thumbs_up_down_white_24dp</item>
+          <item>ic_timelapse_white_24dp</item>  
+        <item>ic_timer_white_24dp</item>  
+        <item>ic_toys_white_24dp</item>
+          <item>ic_track_changes_white_24dp</item>  
+        <item>ic_traffic_white_24dp</item>  
+        <item>ic_trending_down_white_24dp</item>
+          <item>ic_trending_flat_white_24dp</item>  
+        <item>ic_trending_up_white_24dp</item>  
+        <item>ic_tv_white_24dp</item>
+          <item>ic_usb_white_24dp</item>  
+        <item>ic_verified_user_white_24dp</item>  
+        <item>ic_vibration_white_24dp</item>
+          <item>ic_videocam_white_24dp</item>  
+        <item>ic_view_list_white_24dp</item>  
+        <item>ic_visibility_white_24dp</item>
+          <item>ic_voicemail_white_24dp</item>
+          <item>ic_volume_up_white_24dp</item>  
+        <item>ic_vpn_key_white_24dp</item>
+          <item>ic_vpn_lock_white_24dp</item>
+          <item>ic_warning_white_24dp</item>  
+        <item>ic_watch_white_24dp</item>
+         <item>ic_wc_white_24dp</item>  
+        <item>ic_whatshot_white_24dp</item>  
+        <item>ic_wifi_tethering_white_24dp</item>
+          <item>ic_wifi_white_24dp</item> 
+    </string-array>
+
     <string name="tabTitle" translatable="false">PagerSlidingTabStrip</string>
     <string name="tabLink" translatable="false">https://github.com/jpardogo/PagerSlidingTabStrip</string>
     <string name="tabLicense" translatable="false">Copyright 2013 Andreas Stuetz\nLicensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.</string>

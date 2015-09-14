@@ -9,10 +9,12 @@ public class Notification {
     private String mForeverState;
     private int mNumberToShow;
     private int mNumberShown;
+    private String mIcon;
+    private String mColour;
 
     public Notification() {}
 
-    public Notification(int id, String title, String content, String dateAndTime, int repeatType, String foreverState, int numberToShow, int numberShown) {
+    public Notification(int id, String title, String content, String dateAndTime, int repeatType, String foreverState, int numberToShow, int numberShown, String icon, String colour) {
         mId = id;
         mTitle = title;
         mContent = content;
@@ -21,6 +23,8 @@ public class Notification {
         mForeverState = foreverState;
         mNumberToShow = numberToShow;
         mNumberShown = numberShown;
+        mIcon = icon;
+        mColour = colour;
     }
 
     public int getId() {
@@ -93,5 +97,21 @@ public class Notification {
 
     public void setNumberShown(int numberShown) {
         mNumberShown = numberShown;
+    }
+
+    public String getIcon() {
+        return mIcon;
+    }
+
+    public void setIcon(String icon) {
+        mIcon = icon;
+    }
+
+    public String getColour() {
+        return mColour;
+    }
+
+    public void setColour(String colour) {
+        mColour = colour;
     }
 }

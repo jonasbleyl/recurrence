@@ -10,6 +10,12 @@
 <string name="checkbox_sound">Zvuk</string>
 <string name="checkbox_LED">LED</string>
 <string name="checkbox_ongoing">Trajno</string>
+<string name="checkbox_dismiss">Odbaci na dodir</string>
+<string name="snooze">Odgodi</string>
+<string name="snooze_detail">Dodaj odgode akcije na obavijesti</string>
+<string name="snooze_length">Trajanje odgode alarma</string>
+<string name="minute">minute</string>
+<string name="minutes">minuta</string>
 
 <string name="action_settings">Postavke</string>
 <string name="action_delete">Obriši</string>
@@ -32,6 +38,35 @@
 <string name="times">puta</string>
 <string name="repeat_notification">Broj puta ponavljanja:</string>
 <string name="content_hint">Sadržaj obavijesti</string>
+
+<string name="select_icon">Odaberi ikonu</string>
+<string name="default_icon">Zadana ikona</string>
+<string name="custom_icon">Prilagođena ikona</string>
+
+<string name="select_colour">Odaberi boju</string>
+<string name="default_colour">Zadana boja</string>
+<string-array name="colour_names_array">
+<item>Siva</item>
+<item>Plava</item>
+<item>Ljubičasta</item>
+<item>Crvena</item>
+<item>Zelena</item>
+<item>Narančasta</item>
+<item>Žuta</item>
+<item>Ružičasta</item>
+</string-array>
+
+<string name="specific_days">Određeni dani u tjednu</string>
+<string name="repeats_on">Ponavlja se svaki:</string>
+<string-array name="days_array">
+<item>Ponedjeljak</item>
+<item>Utorak</item>
+<item>Srijeda</item>
+<item>Četvrtak</item>
+<item>Petak</item>
+<item>Subota</item>
+<item>Nedjelja</item>
+</string-array>
 
 <string name="no_active">Nema aktivnih obavijesti</string>
 <string name="no_inactive">Nema neaktivnih obavijesti</string>
