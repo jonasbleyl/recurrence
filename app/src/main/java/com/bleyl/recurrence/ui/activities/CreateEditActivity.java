@@ -73,6 +73,7 @@ public class CreateEditActivity extends AppCompatActivity {
     private Calendar mCalendar;
     private int mTimesShown;
     private int mRepeatType;
+    private boolean[] mDaysOfWeek;
     private String mIcon;
     private String mColour;
     private boolean newNotification;
@@ -124,7 +125,8 @@ public class CreateEditActivity extends AppCompatActivity {
     }
 
     public void assignDefaultValues() {
-        if (getSupportActionBar() != null) getSupportActionBar().setTitle(getResources().getString(R.string.create_notification));
+        if (getSupportActionBar() != null)
+            getSupportActionBar().setTitle(getResources().getString(R.string.create_notification));
         Database database = new Database(this.getApplicationContext());
         mId = database.getLastId() + 1;
         database.close();
@@ -133,12 +135,15 @@ public class CreateEditActivity extends AppCompatActivity {
         newNotification = true;
         mRepeatType = 0;
         mTimesShown = 0;
+        mDaysOfWeek = new boolean[7];
+        Arrays.fill(mDaysOfWeek, false);
         mIcon = getResources().getString(R.string.default_icon_value);
         mColour = getResources().getString(R.string.default_colour_value);
     }
 
     public void assignNotificationValues() {
-        if (getSupportActionBar() != null) getSupportActionBar().setTitle(getResources().getString(R.string.edit_notification));
+        if (getSupportActionBar() != null)
+            getSupportActionBar().setTitle(getResources().getString(R.string.edit_notification));
         Database database = new Database(this.getApplicationContext());
         Notification notification = database.getNotification(mId);
         database.close();
@@ -176,6 +181,23 @@ public class CreateEditActivity extends AppCompatActivity {
             mBottomView.setVisibility(View.VISIBLE);
             String[] mRepeatTexts = getResources().getStringArray(R.array.repeat_array);
             mRepeatText.setText(mRepeatTexts[notification.getRepeatType()]);
+        }
+
+        if (notification.getRepeatType() == 5) {
+            mDaysOfWeek = notification.getDaysOfWeek();
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append(getResources().getString(R.string.repeats_on));
+            stringBuilder.append(" ");
+            for (int i = 0; i < mDaysOfWeek.length; i++) {
+                if (mDaysOfWeek[i]) {
+                    stringBuilder.append(getResources().getStringArray(R.array.days_array)[i]);
+                    stringBuilder.append(" ");
+                }
+            }
+            mRepeatText.setText(stringBuilder);
+        } else {
+            mDaysOfWeek = new boolean[7];
+            Arrays.fill(mDaysOfWeek, false);
         }
 
         if (Boolean.parseBoolean(notification.getForeverState())) {
@@ -272,18 +294,61 @@ public class CreateEditActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setItems(repeatArray, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-                if (which == 0) {
-                    mForeverSwitch.setChecked(false);
-                    mForeverRow.setVisibility(View.GONE);
-                    mBottomRow.setVisibility(View.GONE);
-                    mBottomView.setVisibility(View.GONE);
+                if (which == 5) {
+                    daysOfWeekSelector();
                 } else {
+                    if (which == 0) {
+                        mForeverSwitch.setChecked(false);
+                        mForeverRow.setVisibility(View.GONE);
+                        mBottomRow.setVisibility(View.GONE);
+                        mBottomView.setVisibility(View.GONE);
+                    } else {
+                        mForeverRow.setVisibility(View.VISIBLE);
+                        mBottomRow.setVisibility(View.VISIBLE);
+                        mBottomView.setVisibility(View.VISIBLE);
+                    }
+                    mRepeatType = which;
+                    mRepeatText.setText(repeatArray[which]);
+                }
+            }
+        });
+        builder.create();
+        builder.show();
+    }
+
+    public void daysOfWeekSelector() {
+        final boolean[] values = mDaysOfWeek;
+        String[] daysArray = getResources().getStringArray(R.array.days_array);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMultiChoiceItems(daysArray, mDaysOfWeek, new DialogInterface.OnMultiChoiceClickListener() {
+            public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                values[which] = isChecked;
+            }
+        });
+        builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                if (Arrays.toString(values).contains("true")) {
+                    StringBuilder stringBuilder = new StringBuilder();
+                    stringBuilder.append(getResources().getString(R.string.repeats_on));
+                    stringBuilder.append(" ");
+                    for (int i = 0; i < values.length; i++) {
+                        if (values[i]) {
+                            stringBuilder.append(getResources().getStringArray(R.array.days_array)[i]);
+                            stringBuilder.append(" ");
+                        }
+                    }
+                    mRepeatText.setText(stringBuilder);
+                    mDaysOfWeek = values;
+                    mRepeatType = 5;
                     mForeverRow.setVisibility(View.VISIBLE);
                     mBottomRow.setVisibility(View.VISIBLE);
                     mBottomView.setVisibility(View.VISIBLE);
                 }
-                mRepeatType = which;
-                mRepeatText.setText(repeatArray[which]);
+            }
+        });
+        builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                dialog.cancel();
             }
         });
         builder.create();
@@ -324,6 +389,14 @@ public class CreateEditActivity extends AppCompatActivity {
             database.add(notification);
         } else {
             database.update(notification);
+        }
+        if (mRepeatType == 5) {
+            notification.setDaysOfWeek(mDaysOfWeek);
+            if (database.isPresentDaysOfWeek(notification)) {
+                database.updateDaysOfWeek(notification);
+            } else {
+                database.addDaysOfWeek(notification);
+            }
         }
         database.close();
         Intent alarmIntent = new Intent(getApplicationContext(), AlarmReceiver.class);

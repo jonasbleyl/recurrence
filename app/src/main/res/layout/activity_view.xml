@@ -191,6 +191,7 @@
                     android:layout_marginLeft="@dimen/text_view_margin_side"
                     android:layout_marginStart="@dimen/text_view_margin_side"
                     android:textSize="16sp"
+                    android:lineSpacingExtra="4dp"
                     android:layout_gravity="center_vertical"/>
 
             </TableRow>

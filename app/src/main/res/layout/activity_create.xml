@@ -341,6 +341,7 @@
                         android:layout_marginLeft="22dp"
                         android:layout_marginStart="22dp"
                         android:text="@string/no_repeat"
+                        android:lineSpacingExtra="3dp"
                         android:textColor="@android:color/black"
                         android:textSize="16sp" />
 

@@ -11,6 +11,7 @@ public class Notification {
     private int mNumberShown;
     private String mIcon;
     private String mColour;
+    private boolean[] mDaysOfWeek;
 
     public Notification() {}
 
@@ -113,5 +114,13 @@ public class Notification {
 
     public void setColour(String colour) {
         mColour = colour;
+    }
+
+    public boolean[] getDaysOfWeek() {
+        return mDaysOfWeek;
+    }
+
+    public void setDaysOfWeek(boolean[] daysOfWeek) {
+        mDaysOfWeek = daysOfWeek;
     }
 }
