@@ -25,7 +25,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         mNotification = mDatabase.getNotification(intent.getIntExtra("NOTIFICATION_ID", 0));
         updateNotificationShown();
 
-        NotificationUtil.createNotification(context, mNotification, intent);
+        NotificationUtil.createNotification(context, mNotification);
 
         // Check if new alarm needs to be set
         if (mNotification.getNumberToShow() > mNotification.getNumberShown() || Boolean.parseBoolean(mNotification.getForeverState())) {

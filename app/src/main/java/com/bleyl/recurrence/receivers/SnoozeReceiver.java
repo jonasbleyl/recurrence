@@ -13,7 +13,7 @@ public class SnoozeReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         Database database = new Database(context.getApplicationContext());
         Notification notification = database.getNotification(intent.getIntExtra("NOTIFICATION_ID", 0));
-        NotificationUtil.createNotification(context, notification, intent);
+        NotificationUtil.createNotification(context, notification);
         database.close();
     }
 }
