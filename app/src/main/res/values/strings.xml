@@ -21,6 +21,7 @@
     <string name="action_delete">Delete</string>
     <string name="action_edit">Edit</string>
     <string name="action_about">About</string>
+    <string name="action_show_now">Show now</string>
 
     <string name="delete_confirmation">Are you sure you want to delete this notification?</string>
     <string name="yes">Yes</string>
@@ -57,15 +58,6 @@
     </string-array>
 
     <string name="repeats_on">Repeats on:</string>
-    <string-array name="days_array">
-        <item>Sunday</item>
-        <item>Monday</item>
-        <item>Tuesday</item>
-        <item>Wednesday</item>
-        <item>Thursday</item>
-        <item>Friday</item>
-        <item>Saturday</item>
-    </string-array>
 
     <string name="no_active">No active notifications</string>
     <string name="no_inactive">No inactive notifications</string>

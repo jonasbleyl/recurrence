@@ -188,9 +188,10 @@ public class CreateEditActivity extends AppCompatActivity {
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.append(getResources().getString(R.string.repeats_on));
             stringBuilder.append(" ");
+            String[] shortWeekDays = DateAndTimeUtil.getShortWeekDays();
             for (int i = 0; i < mDaysOfWeek.length; i++) {
                 if (mDaysOfWeek[i]) {
-                    stringBuilder.append(getResources().getStringArray(R.array.days_array)[i]);
+                    stringBuilder.append(shortWeekDays[i]);
                     stringBuilder.append(" ");
                 }
             }
@@ -311,21 +312,19 @@ public class CreateEditActivity extends AppCompatActivity {
                     mRepeatText.setText(repeatArray[which]);
                 }
             }
-        });
-        builder.create();
-        builder.show();
+        }).create().show();
     }
 
     public void daysOfWeekSelector() {
         final boolean[] values = mDaysOfWeek;
-        String[] daysArray = getResources().getStringArray(R.array.days_array);
+        final String[] shortWeekDays = DateAndTimeUtil.getShortWeekDays();
+        String[] weekDays = DateAndTimeUtil.getWeekDays();
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMultiChoiceItems(daysArray, mDaysOfWeek, new DialogInterface.OnMultiChoiceClickListener() {
+        builder.setMultiChoiceItems(weekDays, mDaysOfWeek, new DialogInterface.OnMultiChoiceClickListener() {
             public void onClick(DialogInterface dialog, int which, boolean isChecked) {
                 values[which] = isChecked;
             }
-        });
-        builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+        }).setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
                 if (Arrays.toString(values).contains("true")) {
                     StringBuilder stringBuilder = new StringBuilder();
@@ -333,7 +332,7 @@ public class CreateEditActivity extends AppCompatActivity {
                     stringBuilder.append(" ");
                     for (int i = 0; i < values.length; i++) {
                         if (values[i]) {
-                            stringBuilder.append(getResources().getStringArray(R.array.days_array)[i]);
+                            stringBuilder.append(shortWeekDays[i]);
                             stringBuilder.append(" ");
                         }
                     }
@@ -343,16 +342,20 @@ public class CreateEditActivity extends AppCompatActivity {
                     mForeverRow.setVisibility(View.VISIBLE);
                     mBottomRow.setVisibility(View.VISIBLE);
                     mBottomView.setVisibility(View.VISIBLE);
+                } else {
+                    mRepeatType = 0;
+                    mForeverSwitch.setChecked(false);
+                    mForeverRow.setVisibility(View.GONE);
+                    mBottomRow.setVisibility(View.GONE);
+                    mBottomView.setVisibility(View.GONE);
+                    mRepeatText.setText(getResources().getStringArray(R.array.repeat_array)[0]);
                 }
             }
-        });
-        builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+        }).setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
                 dialog.cancel();
             }
-        });
-        builder.create();
-        builder.show();
+        }).create().show();
     }
 
     public void saveNotification() {

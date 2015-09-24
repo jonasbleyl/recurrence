@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.bleyl.recurrence.R;
 
+import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
@@ -17,6 +18,8 @@ public class DateAndTimeUtil {
     private static final SimpleDateFormat READABLE_DATE_FORMAT = new SimpleDateFormat("yyyy/MM/dd", Locale.getDefault());
     private static final SimpleDateFormat TIME_FORMAT = new SimpleDateFormat("HHmm", Locale.getDefault());
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
+    private static final SimpleDateFormat WEEK_DAYS_FORMAT = new SimpleDateFormat("EEEE", Locale.getDefault());
+    private static final SimpleDateFormat SHORT_WEEK_DAYS_FORMAT = new SimpleDateFormat("E", Locale.getDefault());
 
     public static String toStringTime(Calendar calendar) {
         return TIME_FORMAT.format(calendar.getTime());
@@ -62,6 +65,28 @@ public class DateAndTimeUtil {
             e.printStackTrace();
         }
         return calendar;
+    }
+
+    public static String[] getWeekDays() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+        String[] weekDays = new String[7];
+        for (int i = 0; i < 7; i++) {
+            weekDays[i] = WEEK_DAYS_FORMAT.format(calendar.getTime());
+            calendar.add(Calendar.DATE, 1);
+        }
+        return weekDays;
+    }
+
+    public static String[] getShortWeekDays() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+        String[] weekDays = new String[7];
+        for (int i = 0; i < 7; i++) {
+            weekDays[i] = SHORT_WEEK_DAYS_FORMAT.format(calendar.getTime());
+            calendar.add(Calendar.DATE, 1);
+        }
+        return weekDays;
     }
 
     private static Boolean isThisYear(Calendar calendar) {
