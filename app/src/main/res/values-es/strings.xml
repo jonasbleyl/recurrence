@@ -57,18 +57,6 @@
     </string-array>
 
     <string name="repeats_on">Repite en:</string>
-<<<<<<< HEAD
-    <string-array name="days_array">
-        <item>Domingo</item>
-        <item>Lunes</item>
-        <item>Martes</item>
-        <item>Miércoles</item>
-        <item>Jueves</item>
-        <item>Viernes</item>
-        <item>Sábado</item>
-    </string-array>
-=======
->>>>>>> master
 
     <string name="no_active">Ninguna notificación activa</string>
     <string name="no_inactive">Ninguna notificación inactiva</string>

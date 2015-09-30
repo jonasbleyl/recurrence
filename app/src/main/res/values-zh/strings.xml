@@ -55,21 +55,7 @@
         <item>粉红色</item>
     </string-array>
 
-<<<<<<< HEAD
-    <string name="specific_days">每周的特定天</string>
     <string name="repeats_on">重复</string>
-    <string-array name="days_array">
-        <item>星期一</item>
-        <item>星期二</item>
-        <item>星期三</item>
-        <item>星期四</item>
-        <item>星期五</item>
-        <item>星期六</item>
-        <item>星期日</item>
-    </string-array>
-=======
-    <string name="repeats_on">重复</string>
->>>>>>> master
 
     <string name="no_active">没有通知</string>
     <string name="no_inactive">没有失效的通知</string>
@@ -94,9 +80,6 @@
         <item>每周</item>
         <item>每月</item>
         <item>每年</item>
-<<<<<<< HEAD
-=======
         <item>每周的特定天</item>
->>>>>>> master
     </string-array>
 </resources>

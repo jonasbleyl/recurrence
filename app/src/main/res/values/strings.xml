@@ -58,18 +58,6 @@
     </string-array>
 
     <string name="repeats_on">Repeats on:</string>
-<<<<<<< HEAD
-    <string-array name="days_array">
-        <item>Sunday</item>
-        <item>Monday</item>
-        <item>Tuesday</item>
-        <item>Wednesday</item>
-        <item>Thursday</item>
-        <item>Friday</item>
-        <item>Saturday</item>
-    </string-array>
-=======
->>>>>>> master
 
     <string name="no_active">No active notifications</string>
     <string name="no_inactive">No inactive notifications</string>

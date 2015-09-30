@@ -57,18 +57,6 @@
     </string-array>
 
     <string name="repeats_on">Ponavlja se svaki:</string>
-<<<<<<< HEAD
-    <string-array name="days_array">
-        <item>Nedjelja</item>
-        <item>Ponedjeljak</item>
-        <item>Utorak</item>
-        <item>Srijeda</item>
-        <item>Četvrtak</item>
-        <item>Petak</item>
-        <item>Subota</item>
-    </string-array>
-=======
->>>>>>> master
 
     <string name="no_active">Nema aktivnih obavijesti</string>
     <string name="no_inactive">Nema neaktivnih obavijesti</string>
