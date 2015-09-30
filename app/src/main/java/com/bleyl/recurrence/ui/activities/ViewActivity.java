@@ -28,6 +28,7 @@ import com.bleyl.recurrence.database.Database;
 import com.bleyl.recurrence.receivers.AlarmReceiver;
 import com.bleyl.recurrence.utils.AlarmUtil;
 import com.bleyl.recurrence.utils.DateAndTimeUtil;
+import com.bleyl.recurrence.utils.NotificationUtil;
 
 import java.util.Calendar;
 
@@ -94,9 +95,16 @@ public class ViewActivity extends AppCompatActivity {
                 StringBuilder stringBuilder = new StringBuilder();
                 stringBuilder.append(getResources().getString(R.string.repeats_on));
                 stringBuilder.append(" ");
+<<<<<<< HEAD
                 for (int i = 0; i < mNotification.getDaysOfWeek().length; i++) {
                     if (mNotification.getDaysOfWeek()[i]) {
                         stringBuilder.append(getResources().getStringArray(R.array.days_array)[i]);
+=======
+                String[] shortWeekDays = DateAndTimeUtil.getShortWeekDays();
+                for (int i = 0; i < mNotification.getDaysOfWeek().length; i++) {
+                    if (mNotification.getDaysOfWeek()[i]) {
+                        stringBuilder.append(shortWeekDays[i]);
+>>>>>>> master
                         stringBuilder.append(" ");
                     }
                 }
@@ -165,11 +173,14 @@ public class ViewActivity extends AppCompatActivity {
                 .setNegativeButton(getResources().getString(R.string.no), null).show();
     }
 
+    public void actionShowNow() {
+        NotificationUtil.createNotification(this, mNotification);
+    }
+
     public void actionDelete() {
         Database database = new Database(this.getApplicationContext());
         database.delete(mNotification);
         database.close();
-
         Intent alarmIntent = new Intent(getApplicationContext(), AlarmReceiver.class);
         AlarmUtil.cancelAlarm(getApplicationContext(), alarmIntent, mNotification.getId());
         finish();
@@ -206,6 +217,9 @@ public class ViewActivity extends AppCompatActivity {
                 return true;
             case R.id.action_edit:
                 actionEdit();
+                return true;
+            case R.id.action_show_now:
+                actionShowNow();
                 return true;
         }
         return super.onOptionsItemSelected(item);

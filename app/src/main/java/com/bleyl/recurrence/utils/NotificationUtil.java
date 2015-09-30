@@ -17,7 +17,7 @@ import com.bleyl.recurrence.ui.activities.ViewActivity;
 
 public class NotificationUtil {
 
-    public static void createNotification(Context context, Notification notification, Intent intent) {
+    public static void createNotification(Context context, Notification notification) {
         // Create intent for notification onClick behaviour
         Intent viewIntent = new Intent(context, ViewActivity.class);
         viewIntent.putExtra("NOTIFICATION_ID", notification.getId());
@@ -56,7 +56,7 @@ public class NotificationUtil {
             builder.setVibrate(pattern);
         }
         if (sharedPreferences.getBoolean("checkBoxDismiss", false)) {
-            builder.setContentIntent(PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT));
+            builder.setContentIntent(PendingIntent.getActivity(context, 0, new Intent(), PendingIntent.FLAG_CANCEL_CURRENT));
         } else {
             builder.setContentIntent(pending);
         }

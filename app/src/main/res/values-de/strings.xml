@@ -57,6 +57,7 @@
     </string-array>
 
     <string name="repeats_on">Wiederholt sich am:</string>
+<<<<<<< HEAD
     <string-array name="days_array">
         <item>Sonntag</item>
         <item>Montag</item>
@@ -66,6 +67,8 @@
         <item>Freitag</item>
         <item>Samstag</item>
     </string-array>
+=======
+>>>>>>> master
 
     <string name="no_active">Keine aktiven Benachrichtigungen</string>
     <string name="no_inactive">Keine inaktiven Benachrichtigungen</string>
