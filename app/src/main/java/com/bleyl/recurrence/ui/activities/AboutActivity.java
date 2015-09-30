@@ -53,7 +53,7 @@ public class AboutActivity extends AppCompatActivity {
         LayoutInflater inflater = getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.view_dialog_libraries, linearLayout, false);
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.Dialog);
         builder.setTitle(getResources().getString(R.string.libraries));
         builder.setView(dialogView);
         builder.setPositiveButton(getResources().getString(R.string.ok), null);
@@ -83,7 +83,7 @@ public class AboutActivity extends AppCompatActivity {
         String[] contributionTypes = getResources().getStringArray(R.array.contribution_array);
         recyclerView.setAdapter(new ContributionAdapter(this, R.layout.item_contributor_list, contributorNames, contributionTypes));
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.Dialog);
         builder.setTitle(getResources().getString(R.string.thanks_to));
         builder.setView(dialogView);
         builder.setPositiveButton(getResources().getString(R.string.ok), null);

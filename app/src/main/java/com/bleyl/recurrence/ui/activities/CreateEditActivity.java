@@ -246,7 +246,7 @@ public class CreateEditActivity extends AppCompatActivity {
         recyclerView.setAdapter(new IconsAdapter(this, R.layout.item_icon_grid, database.getIconList()));
         database.close();
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.Dialog);
         builder.setTitle(getResources().getString(R.string.select_icon));
         builder.setView(dialogView);
         mIconSelectorDialog = builder.show();
@@ -277,7 +277,7 @@ public class CreateEditActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(new ColoursAdapter(this, R.layout.item_colour_list, mColoursArray, mColourNames));
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.Dialog);
         builder.setTitle(getResources().getString(R.string.select_colour));
         builder.setView(dialogView);
         mColourSelectorDialog = builder.show();
@@ -292,7 +292,7 @@ public class CreateEditActivity extends AppCompatActivity {
 
     public void repeatSelector(View view) {
         final String[] repeatArray = getResources().getStringArray(R.array.repeat_array);
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.Dialog);
         builder.setItems(repeatArray, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 if (which == 5) {
@@ -319,7 +319,7 @@ public class CreateEditActivity extends AppCompatActivity {
         final boolean[] values = mDaysOfWeek;
         final String[] shortWeekDays = DateAndTimeUtil.getShortWeekDays();
         String[] weekDays = DateAndTimeUtil.getWeekDays();
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.Dialog);
         builder.setMultiChoiceItems(weekDays, mDaysOfWeek, new DialogInterface.OnMultiChoiceClickListener() {
             public void onClick(DialogInterface dialog, int which, boolean isChecked) {
                 values[which] = isChecked;

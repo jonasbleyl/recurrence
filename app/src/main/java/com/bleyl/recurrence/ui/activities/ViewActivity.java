@@ -157,7 +157,7 @@ public class ViewActivity extends AppCompatActivity {
     }
 
     public void confirmDelete() {
-        new AlertDialog.Builder(this)
+        new AlertDialog.Builder(this, R.style.Dialog)
                 .setMessage(getResources().getString(R.string.delete_confirmation))
                 .setPositiveButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
