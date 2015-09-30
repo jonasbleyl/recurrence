@@ -32,10 +32,10 @@ import android.widget.TimePicker;
 
 import com.bleyl.recurrence.adapters.ColoursAdapter;
 import com.bleyl.recurrence.adapters.IconsAdapter;
+import com.bleyl.recurrence.database.DatabaseHelper;
 import com.bleyl.recurrence.models.Icon;
 import com.bleyl.recurrence.models.Notification;
 import com.bleyl.recurrence.R;
-import com.bleyl.recurrence.database.Database;
 import com.bleyl.recurrence.receivers.AlarmReceiver;
 import com.bleyl.recurrence.utils.AlarmUtil;
 import com.bleyl.recurrence.utils.AnimationUtil;
@@ -127,8 +127,8 @@ public class CreateEditActivity extends AppCompatActivity {
     public void assignDefaultValues() {
         if (getSupportActionBar() != null)
             getSupportActionBar().setTitle(getResources().getString(R.string.create_notification));
-        Database database = new Database(this.getApplicationContext());
-        mId = database.getLastId() + 1;
+        DatabaseHelper database = DatabaseHelper.getInstance(this);
+        mId = database.getLastNotificationId() + 1;
         database.close();
         mCalendar.set(Calendar.SECOND, 0);
         mTimesEditText.setText("1");
@@ -144,7 +144,7 @@ public class CreateEditActivity extends AppCompatActivity {
     public void assignNotificationValues() {
         if (getSupportActionBar() != null)
             getSupportActionBar().setTitle(getResources().getString(R.string.edit_notification));
-        Database database = new Database(this.getApplicationContext());
+        DatabaseHelper database = DatabaseHelper.getInstance(this);
         Notification notification = database.getNotification(mId);
         database.close();
 
@@ -188,16 +188,10 @@ public class CreateEditActivity extends AppCompatActivity {
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.append(getResources().getString(R.string.repeats_on));
             stringBuilder.append(" ");
-<<<<<<< HEAD
-            for (int i = 0; i < mDaysOfWeek.length; i++) {
-                if (mDaysOfWeek[i]) {
-                    stringBuilder.append(getResources().getStringArray(R.array.days_array)[i]);
-=======
             String[] shortWeekDays = DateAndTimeUtil.getShortWeekDays();
             for (int i = 0; i < mDaysOfWeek.length; i++) {
                 if (mDaysOfWeek[i]) {
                     stringBuilder.append(shortWeekDays[i]);
->>>>>>> master
                     stringBuilder.append(" ");
                 }
             }
@@ -248,7 +242,7 @@ public class CreateEditActivity extends AppCompatActivity {
         ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(getApplicationContext(), R.dimen.item_offset);
         recyclerView.addItemDecoration(itemDecoration);
 
-        Database database = new Database(this.getApplicationContext());
+        DatabaseHelper database = DatabaseHelper.getInstance(this);
         recyclerView.setAdapter(new IconsAdapter(this, R.layout.item_icon_grid, database.getIconList()));
         database.close();
 
@@ -267,7 +261,7 @@ public class CreateEditActivity extends AppCompatActivity {
         }
         mImageIconSelect.setImageResource(iconResId);
         mIconSelectorDialog.cancel();
-        Database database = new Database(this.getApplicationContext());
+        DatabaseHelper database = DatabaseHelper.getInstance(this);
         icon.setUseFrequency(icon.getUseFrequency() + 1);
         database.updateIcon(icon);
         database.close();
@@ -318,27 +312,11 @@ public class CreateEditActivity extends AppCompatActivity {
                     mRepeatText.setText(repeatArray[which]);
                 }
             }
-<<<<<<< HEAD
-        });
-        builder.create();
-        builder.show();
-=======
         }).create().show();
->>>>>>> master
     }
 
     public void daysOfWeekSelector() {
         final boolean[] values = mDaysOfWeek;
-<<<<<<< HEAD
-        String[] daysArray = getResources().getStringArray(R.array.days_array);
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMultiChoiceItems(daysArray, mDaysOfWeek, new DialogInterface.OnMultiChoiceClickListener() {
-            public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-                values[which] = isChecked;
-            }
-        });
-        builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-=======
         final String[] shortWeekDays = DateAndTimeUtil.getShortWeekDays();
         String[] weekDays = DateAndTimeUtil.getWeekDays();
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -347,7 +325,6 @@ public class CreateEditActivity extends AppCompatActivity {
                 values[which] = isChecked;
             }
         }).setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
->>>>>>> master
             public void onClick(DialogInterface dialog, int whichButton) {
                 if (Arrays.toString(values).contains("true")) {
                     StringBuilder stringBuilder = new StringBuilder();
@@ -355,11 +332,7 @@ public class CreateEditActivity extends AppCompatActivity {
                     stringBuilder.append(" ");
                     for (int i = 0; i < values.length; i++) {
                         if (values[i]) {
-<<<<<<< HEAD
-                            stringBuilder.append(getResources().getStringArray(R.array.days_array)[i]);
-=======
                             stringBuilder.append(shortWeekDays[i]);
->>>>>>> master
                             stringBuilder.append(" ");
                         }
                     }
@@ -377,14 +350,6 @@ public class CreateEditActivity extends AppCompatActivity {
                     mBottomView.setVisibility(View.GONE);
                     mRepeatText.setText(getResources().getStringArray(R.array.repeat_array)[0]);
                 }
-<<<<<<< HEAD
-            }
-        });
-        builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-                dialog.cancel();
-=======
->>>>>>> master
             }
         }).setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
@@ -421,16 +386,16 @@ public class CreateEditActivity extends AppCompatActivity {
             timesToShow = mTimesShown + 1;
         }
 
-        Database database = new Database(this.getApplicationContext());
+        DatabaseHelper database = DatabaseHelper.getInstance(this);
         Notification notification = new Notification(mId, title, content, date + time, mRepeatType, forever, timesToShow, mTimesShown, mIcon, mColour);
         if (newNotification) {
-            database.add(notification);
+            database.addNotification(notification);
         } else {
-            database.update(notification);
+            database.updateNotification(notification);
         }
         if (mRepeatType == 5) {
             notification.setDaysOfWeek(mDaysOfWeek);
-            if (database.isPresentDaysOfWeek(notification)) {
+            if (database.isDaysOfWeekPresent(notification)) {
                 database.updateDaysOfWeek(notification);
             } else {
                 database.addDaysOfWeek(notification);

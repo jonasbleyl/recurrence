@@ -14,11 +14,13 @@ import com.bleyl.recurrence.models.Notification;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Database extends SQLiteOpenHelper {
+public class DatabaseHelper extends SQLiteOpenHelper {
+
+    private static DatabaseHelper sInstance;
+    private Context mContext;
 
     private static final int DATABASE_VERSION = 3;
-    private static final String DB_NAME = "RECURRENCE_DB";
-
+    private static final String DATABASE_NAME = "RECURRENCE_DB";
     private static final String NOTIFICATION_TABLE = "NOTIFICATIONS";
     private static final String COL_ID = "ID";
     private static final String COL_TITLE = "TITLE";
@@ -30,12 +32,10 @@ public class Database extends SQLiteOpenHelper {
     private static final String COL_NUMBER_SHOWN = "NUMBER_SHOWN";
     private static final String COL_ICON = "ICON";
     private static final String COL_COLOUR = "COLOUR";
-
     private static final String ICON_TABLE = "ICONS";
     private static final String COL_ICON_ID = "ID";
     private static final String COL_ICON_NAME = "NAME";
     private static final String COL_ICON_USE_FREQUENCY = "USE_FREQUENCY";
-
     private static final String DAYS_OF_WEEK_TABLE = "DAYS_OF_WEEK";
     private static final String COL_SUNDAY = "SUNDAY";
     private static final String COL_MONDAY = "MONDAY";
@@ -44,14 +44,22 @@ public class Database extends SQLiteOpenHelper {
     private static final String COL_THURSDAY = "THURSDAY";
     private static final String COL_FRIDAY = "FRIDAY";
     private static final String COL_SATURDAY = "SATURDAY";
-
     private static final String DEFAULT_ICON = "ic_notifications_white_24dp";
     private static final String DEFAULT_COLOUR = "#9E9E9E";
 
-    private Context mContext;
+    public static synchronized DatabaseHelper getInstance(Context context) {
+        if (sInstance == null) {
+            sInstance = new DatabaseHelper(context.getApplicationContext());
+        }
+        return sInstance;
+    }
 
-    public Database(Context context) {
-        super(context, DB_NAME, null, DATABASE_VERSION);
+    /**
+     * Constructor is private to prevent direct instantiation
+     * Call made to static method getInstance() instead
+     */
+    private DatabaseHelper(Context context) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
         mContext = context;
     }
 
@@ -92,7 +100,11 @@ public class Database extends SQLiteOpenHelper {
             database.execSQL("ALTER TABLE " + NOTIFICATION_TABLE + " ADD " + COL_COLOUR + " TEXT");
             database.execSQL("UPDATE " + NOTIFICATION_TABLE + " SET " + COL_ICON + " = '" + DEFAULT_ICON + "';");
             database.execSQL("UPDATE " + NOTIFICATION_TABLE + " SET " + COL_COLOUR + " = '" + DEFAULT_COLOUR + "';");
-            database.execSQL("CREATE TABLE " + ICON_TABLE + " (" + COL_ICON_ID + " INTEGER PRIMARY KEY, " + COL_ICON_NAME + " TEXT, " + COL_ICON_USE_FREQUENCY + " INTEGER) ");
+            database.execSQL("CREATE TABLE " + ICON_TABLE + " ("
+                    + COL_ICON_ID + " INTEGER PRIMARY KEY, "
+                    + COL_ICON_NAME + " TEXT, "
+                    + COL_ICON_USE_FREQUENCY + " INTEGER) ");
+
             addAllIcons(database);
         }
 
@@ -109,7 +121,7 @@ public class Database extends SQLiteOpenHelper {
         }
     }
 
-    public void add(Notification notification) {
+    public void addNotification(Notification notification) {
         SQLiteDatabase database = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COL_ID, notification.getId());
@@ -125,7 +137,7 @@ public class Database extends SQLiteOpenHelper {
         database.insert(NOTIFICATION_TABLE, null, values);
     }
 
-    public int getLastId() {
+    public int getLastNotificationId() {
         int data = 0;
         SQLiteDatabase database = this.getReadableDatabase();
         Cursor cursor = database.rawQuery("SELECT " + COL_ID + " FROM " + NOTIFICATION_TABLE + " ORDER BY " + COL_ID + " DESC LIMIT 1", null);
@@ -168,16 +180,8 @@ public class Database extends SQLiteOpenHelper {
                 notification.setColour(cursor.getString(9));
 
                 if (notification.getRepeatType() == 5) {
-                    Cursor daysCursor = database.rawQuery("SELECT * FROM " + DAYS_OF_WEEK_TABLE + " WHERE " + COL_ID + " = ? LIMIT 1", new String[]{String.valueOf(notification.getId())});
-                    daysCursor.moveToFirst();
-                    boolean[] daysOfWeek = new boolean[7];
-                    for (int i = 0; i < 7; i++) {
-                        daysOfWeek[i] = Boolean.parseBoolean(daysCursor.getString(i + 1));
-                    }
-                    notification.setDaysOfWeek(daysOfWeek);
-                    daysCursor.close();
+                    getDaysOfWeek(notification, database);
                 }
-
                 notificationList.add(notification);
             } while (cursor.moveToNext());
         }
@@ -204,19 +208,12 @@ public class Database extends SQLiteOpenHelper {
         cursor.close();
 
         if (notification.getRepeatType() == 5) {
-            Cursor daysCursor = database.rawQuery("SELECT * FROM " + DAYS_OF_WEEK_TABLE + " WHERE " + COL_ID + " = ? LIMIT 1", new String[]{String.valueOf(id)});
-            daysCursor.moveToFirst();
-            boolean[] daysOfWeek = new boolean[7];
-            for (int i = 0; i < 7; i++) {
-                daysOfWeek[i] = Boolean.parseBoolean(daysCursor.getString(i + 1));
-            }
-            notification.setDaysOfWeek(daysOfWeek);
-            daysCursor.close();
+            getDaysOfWeek(notification, database);
         }
         return notification;
     }
 
-    public void update(Notification notification) {
+    public void updateNotification(Notification notification) {
         SQLiteDatabase database = this.getReadableDatabase();
         ContentValues values = new ContentValues();
         values.put(COL_TITLE, notification.getTitle());
@@ -231,7 +228,7 @@ public class Database extends SQLiteOpenHelper {
         database.update(NOTIFICATION_TABLE, values, COL_ID + " = ?", new String[]{String.valueOf(notification.getId())});
     }
 
-    public void delete(Notification notification) {
+    public void deleteNotification(Notification notification) {
         SQLiteDatabase database = this.getReadableDatabase();
         if (notification.getRepeatType() == 5) {
             database.delete(DAYS_OF_WEEK_TABLE, COL_ID + " = ?", new String[]{String.valueOf(notification.getId())});
@@ -239,12 +236,23 @@ public class Database extends SQLiteOpenHelper {
         database.delete(NOTIFICATION_TABLE, COL_ID + " = ?", new String[]{String.valueOf(notification.getId())});
     }
 
-    public boolean isPresent(int id) {
+    public boolean isNotificationPresent(int id) {
         SQLiteDatabase database = this.getReadableDatabase();
         Cursor cursor = database.rawQuery("SELECT * FROM " + NOTIFICATION_TABLE + " WHERE " + COL_ID + " = ? LIMIT 1", new String[]{String.valueOf(id)});
         boolean result = cursor.moveToFirst();
         cursor.close();
         return result;
+    }
+
+    private void getDaysOfWeek(Notification notification, SQLiteDatabase database) {
+        Cursor cursor = database.rawQuery("SELECT * FROM " + DAYS_OF_WEEK_TABLE + " WHERE " + COL_ID + " = ? LIMIT 1", new String[]{String.valueOf(notification.getId())});
+        cursor.moveToFirst();
+        boolean[] daysOfWeek = new boolean[7];
+        for (int i = 0; i < 7; i++) {
+            daysOfWeek[i] = Boolean.parseBoolean(cursor.getString(i + 1));
+        }
+        notification.setDaysOfWeek(daysOfWeek);
+        cursor.close();
     }
 
     public void addDaysOfWeek(Notification notification) {
@@ -274,7 +282,7 @@ public class Database extends SQLiteOpenHelper {
         database.update(DAYS_OF_WEEK_TABLE, values, COL_ID + " = ?", new String[]{String.valueOf(notification.getId())});
     }
 
-    public boolean isPresentDaysOfWeek(Notification notification) {
+    public boolean isDaysOfWeekPresent(Notification notification) {
         SQLiteDatabase database = this.getReadableDatabase();
         Cursor cursor = database.rawQuery("SELECT * FROM " + DAYS_OF_WEEK_TABLE + " WHERE " + COL_ID + " = ? LIMIT 1", new String[]{String.valueOf(notification.getId())});
         boolean result = cursor.moveToFirst();
@@ -317,6 +325,6 @@ public class Database extends SQLiteOpenHelper {
         values.put(COL_ICON_ID, icon.getId());
         values.put(COL_ICON_NAME, icon.getName());
         values.put(COL_ICON_USE_FREQUENCY, icon.getUseFrequency());
-        database.update(ICON_TABLE, values, COL_ICON_ID + " = ?", new String[] {String.valueOf(icon.getId())});
+        database.update(ICON_TABLE, values, COL_ICON_ID + " = ?", new String[]{String.valueOf(icon.getId())});
     }
 }

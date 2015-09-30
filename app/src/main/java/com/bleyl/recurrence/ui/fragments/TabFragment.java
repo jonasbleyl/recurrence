@@ -22,8 +22,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.bleyl.recurrence.database.DatabaseHelper;
 import com.bleyl.recurrence.enums.NotificationsType;
-import com.bleyl.recurrence.database.Database;
 import com.bleyl.recurrence.interfaces.RecyclerCallback;
 import com.bleyl.recurrence.models.Notification;
 import com.bleyl.recurrence.R;
@@ -73,7 +73,7 @@ public class TabFragment extends Fragment {
     }
 
     public List<Notification> getListData() {
-        Database database = new Database(sActivity.getApplicationContext());
+        DatabaseHelper database = DatabaseHelper.getInstance(sActivity.getApplicationContext());
         List<Notification> notificationList = database.getNotificationList(mNotificationsType);
         database.close();
         return notificationList;

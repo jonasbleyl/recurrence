@@ -22,9 +22,9 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.bleyl.recurrence.database.DatabaseHelper;
 import com.bleyl.recurrence.models.Notification;
 import com.bleyl.recurrence.R;
-import com.bleyl.recurrence.database.Database;
 import com.bleyl.recurrence.receivers.AlarmReceiver;
 import com.bleyl.recurrence.utils.AlarmUtil;
 import com.bleyl.recurrence.utils.DateAndTimeUtil;
@@ -72,12 +72,12 @@ public class ViewActivity extends AppCompatActivity {
             ViewCompat.setElevation(headerView, getResources().getDimension(R.dimen.toolbar_elevation));
         }
 
-        Database database = new Database(this.getApplicationContext());
+        DatabaseHelper database = DatabaseHelper.getInstance(this);
         Intent intent = getIntent();
         int mNotificationID = intent.getIntExtra("NOTIFICATION_ID", 0);
 
         // Check if notification has been deleted
-        if (database.isPresent(mNotificationID)) {
+        if (database.isNotificationPresent(mNotificationID)) {
             mNotification = database.getNotification(mNotificationID);
             database.close();
 
@@ -95,16 +95,10 @@ public class ViewActivity extends AppCompatActivity {
                 StringBuilder stringBuilder = new StringBuilder();
                 stringBuilder.append(getResources().getString(R.string.repeats_on));
                 stringBuilder.append(" ");
-<<<<<<< HEAD
-                for (int i = 0; i < mNotification.getDaysOfWeek().length; i++) {
-                    if (mNotification.getDaysOfWeek()[i]) {
-                        stringBuilder.append(getResources().getStringArray(R.array.days_array)[i]);
-=======
                 String[] shortWeekDays = DateAndTimeUtil.getShortWeekDays();
                 for (int i = 0; i < mNotification.getDaysOfWeek().length; i++) {
                     if (mNotification.getDaysOfWeek()[i]) {
                         stringBuilder.append(shortWeekDays[i]);
->>>>>>> master
                         stringBuilder.append(" ");
                     }
                 }
@@ -178,8 +172,8 @@ public class ViewActivity extends AppCompatActivity {
     }
 
     public void actionDelete() {
-        Database database = new Database(this.getApplicationContext());
-        database.delete(mNotification);
+        DatabaseHelper database = DatabaseHelper.getInstance(this);
+        database.deleteNotification(mNotification);
         database.close();
         Intent alarmIntent = new Intent(getApplicationContext(), AlarmReceiver.class);
         AlarmUtil.cancelAlarm(getApplicationContext(), alarmIntent, mNotification.getId());
