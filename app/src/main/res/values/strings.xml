@@ -56,16 +56,15 @@
         <item>Pink</item>
     </string-array>
 
-    <string name="specific_days">Specific days of the week</string>
     <string name="repeats_on">Repeats on:</string>
     <string-array name="days_array">
+        <item>Sunday</item>
         <item>Monday</item>
         <item>Tuesday</item>
         <item>Wednesday</item>
         <item>Thursday</item>
         <item>Friday</item>
         <item>Saturday</item>
-        <item>Sunday</item>
     </string-array>
 
     <string name="no_active">No active notifications</string>
@@ -91,5 +90,6 @@
         <item>Every week</item>
         <item>Every month</item>
         <item>Every year</item>
+        <item>Specific days of the week</item>
     </string-array>
 </resources>

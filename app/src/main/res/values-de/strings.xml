@@ -1,95 +1,95 @@
 <resources>
-<string name="create_notification">Benachrichtigung erstellen</string>
-<string name="view_notification">Benachrichtigung ansehen</string>
-<string name="edit_notification">Benachrichtigung bearbeiten</string>
-<string name="about">Über</string>
-<string name="settings">Einstellungen</string>
+    <string name="create_notification">Benachrichtigung erstellen</string>
+    <string name="view_notification">Benachrichtigung ansehen</string>
+    <string name="edit_notification">Benachrichtigung bearbeiten</string>
+    <string name="about">Über</string>
+    <string name="settings">Einstellungen</string>
 
-<string name="preference_notification_category">Benachrichtigungseinstellungen</string>
-<string name="checkbox_vibrate">Vibration</string>
-<string name="checkbox_sound">Ton</string>
-<string name="checkbox_LED">LED</string>
-<string name="checkbox_ongoing">Persistent</string>
-<string name="checkbox_dismiss">Bei Berührung ausblenden</string>
-<string name="snooze">Schlummern</string>
-<string name="snooze_detail">Schlummernfunktion zu Benachrichtigungen hinzufügen</string>
-<string name="snooze_length">Schlummerlänge</string>
-<string name="minute">minute</string>
-<string name="minutes">minuten</string>
+    <string name="preference_notification_category">Benachrichtigungseinstellungen</string>
+    <string name="checkbox_vibrate">Vibration</string>
+    <string name="checkbox_sound">Ton</string>
+    <string name="checkbox_LED">LED</string>
+    <string name="checkbox_ongoing">Persistent</string>
+    <string name="checkbox_dismiss">Bei Berührung ausblenden</string>
+    <string name="snooze">Schlummern</string>
+    <string name="snooze_detail">Schlummernfunktion zu Benachrichtigungen hinzufügen</string>
+    <string name="snooze_length">Schlummerlänge</string>
+    <string name="minute">minute</string>
+    <string name="minutes">minuten</string>
 
-<string name="action_settings">Einstellungen</string>
-<string name="action_delete">Löschen</string>
-<string name="action_edit">Bearbeiten</string>
-<string name="action_about">Über</string>
+    <string name="action_settings">Einstellungen</string>
+    <string name="action_delete">Löschen</string>
+    <string name="action_edit">Bearbeiten</string>
+    <string name="action_about">Über</string>
 
-<string name="delete_confirmation">Sind Sie sicher, dass die Benachrichtigung gelöscht werden soll?</string>
-<string name="yes">Ja</string>
-<string name="no">Nein</string>
-<string name="ok">OK</string>
+    <string name="delete_confirmation">Sind Sie sicher, dass die Benachrichtigung gelöscht werden soll?</string>
+    <string name="yes">Ja</string>
+    <string name="no">Nein</string>
+    <string name="ok">OK</string>
 
-<string name="title">Titel</string>
-<string name="save_menu">Speichern</string>
-<string name="time_now">Jetzt</string>
-<string name="date_today">Heute</string>
-<string name="times_shown">%1$d mal von %2$d mal gezeigt</string>
-<string name="times_shown_edit">%1$d mal von</string>
-<string name="forever">Unendlich</string>
-<string name="no_repeat">Keine Wiederholungen</string>
-<string name="times">mal gezeigt</string>
-<string name="repeat_notification">Anzahl der Wiederholungen:</string>
-<string name="content_hint">Benachrichtigungsinhalt hinzufügen</string>
+    <string name="title">Titel</string>
+    <string name="save_menu">Speichern</string>
+    <string name="time_now">Jetzt</string>
+    <string name="date_today">Heute</string>
+    <string name="times_shown">%1$d mal von %2$d mal gezeigt</string>
+    <string name="times_shown_edit">%1$d mal von</string>
+    <string name="forever">Unendlich</string>
+    <string name="no_repeat">Keine Wiederholungen</string>
+    <string name="times">mal gezeigt</string>
+    <string name="repeat_notification">Anzahl der Wiederholungen:</string>
+    <string name="content_hint">Benachrichtigungsinhalt hinzufügen</string>
 
-<string name="select_icon">Symbol auswählen</string>
-<string name="default_icon">Standardsymbol</string>
-<string name="custom_icon">Benutzerdefiniertes Symbol</string>
+    <string name="select_icon">Symbol auswählen</string>
+    <string name="default_icon">Standardsymbol</string>
+    <string name="custom_icon">Benutzerdefiniertes Symbol</string>
 
-<string name="select_colour">Farbe auswählen</string>
-<string name="default_colour">Standardfarbe</string>
-<string-array name="colour_names_array">
-<item>Standardfarbe</item>
-<item>Blau</item>
-<item>Lila</item>
-<item>Rot</item>
-<item>Grün</item>
-<item>Orange</item>
-<item>Gelb</item>
-<item>Pink</item>
-</string-array>
+    <string name="select_colour">Farbe auswählen</string>
+    <string name="default_colour">Standardfarbe</string>
+    <string-array name="colour_names_array">
+        <item>Standardfarbe</item>
+        <item>Blau</item>
+        <item>Lila</item>
+        <item>Rot</item>
+        <item>Grün</item>
+        <item>Orange</item>
+        <item>Gelb</item>
+        <item>Pink</item>
+    </string-array>
 
-<string name="specific_days">Bestimmte Tage der Woche</string>
-<string name="repeats_on">Wiederholt sich am:</string>
-<string-array name="days_array">
-<item>Montag</item>
-<item>Dienstag</item>
-<item>Mittwoch</item>
-<item>Donnerstag</item>
-<item>Freitag</item>
-<item>Samstag</item>
-<item>Sonntag</item>
-</string-array>
+    <string name="repeats_on">Wiederholt sich am:</string>
+    <string-array name="days_array">
+        <item>Sonntag</item>
+        <item>Montag</item>
+        <item>Dienstag</item>
+        <item>Mittwoch</item>
+        <item>Donnerstag</item>
+        <item>Freitag</item>
+        <item>Samstag</item>
+    </string-array>
 
-<string name="no_active">Keine aktiven Benachrichtigungen</string>
-<string name="no_inactive">Keine inaktiven Benachrichtigungen</string>
+    <string name="no_active">Keine aktiven Benachrichtigungen</string>
+    <string name="no_inactive">Keine inaktiven Benachrichtigungen</string>
 
-<string name="toast_past_date">Startdatum kann nicht in der Vergangenheit liegen</string>
-<string name="toast_higher_number">Anzahl der Wiederholungen muss höher sein</string>
-<string name="toast_title_empty">Titel darf nicht leer sein</string>
+    <string name="toast_past_date">Startdatum kann nicht in der Vergangenheit liegen</string>
+    <string name="toast_higher_number">Anzahl der Wiederholungen muss höher sein</string>
+    <string name="toast_title_empty">Titel darf nicht leer sein</string>
 
-<string name="libraries">Bibliotheken</string>
-<string name="rate_app">App bewerten</string>
-<string name="contact">Kontakt</string>
-<string name="version">Version</string>
+    <string name="libraries">Bibliotheken</string>
+    <string name="rate_app">App bewerten</string>
+    <string name="contact">Kontakt</string>
+    <string name="version">Version</string>
 
-<string name="thanks_to">Dank an</string>
-<string name="translator">Übersetzer</string>
+    <string name="thanks_to">Dank an</string>
+    <string name="translator">Übersetzer</string>
 
-<string name="send_email">E-Mail senden</string>
+    <string name="send_email">E-Mail senden</string>
 
-<string-array name="repeat_array">
-<item>Keine Wiederholung</item>
-<item>Jeden Tag</item>
-<item>Jede Woche</item>
-<item>Jeden Monat</item>
-<item>Jedes Jahr</item>
-</string-array>
+    <string-array name="repeat_array">
+        <item>Keine Wiederholung</item>
+        <item>Jeden Tag</item>
+        <item>Jede Woche</item>
+        <item>Jeden Monat</item>
+        <item>Jedes Jahr</item>
+        <item>Bestimmte Tage der Woche</item>
+    </string-array>
 </resources>

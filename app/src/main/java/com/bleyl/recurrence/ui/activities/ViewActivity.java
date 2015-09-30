@@ -86,11 +86,25 @@ public class ViewActivity extends AppCompatActivity {
             contentTextView.setText(mNotification.getContent());
             timeTextView.setText(DateAndTimeUtil.toStringReadableTime(calendar));
             dateTextView.setText(DateAndTimeUtil.toStringReadableDate(calendar));
-            String[] repeatTexts = getResources().getStringArray(R.array.repeat_array);
-            repeatTextView.setText(repeatTexts[mNotification.getRepeatType()]);
             int iconResId = getResources().getIdentifier(mNotification.getIcon(), "drawable", getPackageName());
             iconImage.setImageResource(iconResId);
             circleImage.setColorFilter(Color.parseColor(mNotification.getColour()));
+
+            if (mNotification.getRepeatType() == 5) {
+                StringBuilder stringBuilder = new StringBuilder();
+                stringBuilder.append(getResources().getString(R.string.repeats_on));
+                stringBuilder.append(" ");
+                for (int i = 0; i < mNotification.getDaysOfWeek().length; i++) {
+                    if (mNotification.getDaysOfWeek()[i]) {
+                        stringBuilder.append(getResources().getStringArray(R.array.days_array)[i]);
+                        stringBuilder.append(" ");
+                    }
+                }
+                repeatTextView.setText(stringBuilder);
+            } else {
+                String[] repeatTexts = getResources().getStringArray(R.array.repeat_array);
+                repeatTextView.setText(repeatTexts[mNotification.getRepeatType()]);
+            }
 
             if (Boolean.parseBoolean(mNotification.getForeverState())) {
                 shownTextView.setText(getResources().getString(R.string.forever));

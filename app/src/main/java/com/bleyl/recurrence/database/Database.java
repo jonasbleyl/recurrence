@@ -16,9 +16,7 @@ import java.util.List;
 
 public class Database extends SQLiteOpenHelper {
 
-    private Context mContext;
-
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
     private static final String DB_NAME = "RECURRENCE_DB";
 
     private static final String NOTIFICATION_TABLE = "NOTIFICATIONS";
@@ -38,8 +36,19 @@ public class Database extends SQLiteOpenHelper {
     private static final String COL_ICON_NAME = "NAME";
     private static final String COL_ICON_USE_FREQUENCY = "USE_FREQUENCY";
 
+    private static final String DAYS_OF_WEEK_TABLE = "DAYS_OF_WEEK";
+    private static final String COL_SUNDAY = "SUNDAY";
+    private static final String COL_MONDAY = "MONDAY";
+    private static final String COL_TUESDAY = "TUESDAY";
+    private static final String COL_WEDNESDAY = "WEDNESDAY";
+    private static final String COL_THURSDAY = "THURSDAY";
+    private static final String COL_FRIDAY = "FRIDAY";
+    private static final String COL_SATURDAY = "SATURDAY";
+
     private static final String DEFAULT_ICON = "ic_notifications_white_24dp";
     private static final String DEFAULT_COLOUR = "#9E9E9E";
+
+    private Context mContext;
 
     public Database(Context context) {
         super(context, DB_NAME, null, DATABASE_VERSION);
@@ -53,7 +62,7 @@ public class Database extends SQLiteOpenHelper {
                 + COL_CONTENT + " TEXT, "
                 + COL_DATE_AND_TIME + " INTEGER, "
                 + COL_REPEAT_TYPE + " INTEGER, "
-                + COL_FOREVER + " BOOLEAN, "
+                + COL_FOREVER + " TEXT, "
                 + COL_NUMBER_TO_SHOW + " INTEGER, "
                 + COL_NUMBER_SHOWN + " INTEGER, "
                 + COL_ICON + " TEXT, "
@@ -63,6 +72,16 @@ public class Database extends SQLiteOpenHelper {
                 + COL_ICON_ID + " INTEGER PRIMARY KEY, "
                 + COL_ICON_NAME + " TEXT, "
                 + COL_ICON_USE_FREQUENCY + " INTEGER) ");
+
+        database.execSQL("CREATE TABLE " + DAYS_OF_WEEK_TABLE + " ("
+                + COL_ID + " INTEGER PRIMARY KEY, "
+                + COL_SUNDAY + " TEXT, "
+                + COL_MONDAY + " TEXT, "
+                + COL_TUESDAY + " TEXT, "
+                + COL_WEDNESDAY + " TEXT, "
+                + COL_THURSDAY + " TEXT, "
+                + COL_FRIDAY + " TEXT, "
+                + COL_SATURDAY + " TEXT) ");
 
         addAllIcons(database);
     }
@@ -75,6 +94,18 @@ public class Database extends SQLiteOpenHelper {
             database.execSQL("UPDATE " + NOTIFICATION_TABLE + " SET " + COL_COLOUR + " = '" + DEFAULT_COLOUR + "';");
             database.execSQL("CREATE TABLE " + ICON_TABLE + " (" + COL_ICON_ID + " INTEGER PRIMARY KEY, " + COL_ICON_NAME + " TEXT, " + COL_ICON_USE_FREQUENCY + " INTEGER) ");
             addAllIcons(database);
+        }
+
+        if (oldVersion < 3) {
+            database.execSQL("CREATE TABLE " + DAYS_OF_WEEK_TABLE + " ("
+                    + COL_ID + " INTEGER PRIMARY KEY, "
+                    + COL_SUNDAY + " TEXT, "
+                    + COL_MONDAY + " TEXT, "
+                    + COL_TUESDAY + " TEXT, "
+                    + COL_WEDNESDAY + " TEXT, "
+                    + COL_THURSDAY + " TEXT, "
+                    + COL_FRIDAY + " TEXT, "
+                    + COL_SATURDAY + " TEXT) ");
         }
     }
 
@@ -135,6 +166,18 @@ public class Database extends SQLiteOpenHelper {
                 notification.setNumberShown(cursor.getInt(7));
                 notification.setIcon(cursor.getString(8));
                 notification.setColour(cursor.getString(9));
+
+                if (notification.getRepeatType() == 5) {
+                    Cursor daysCursor = database.rawQuery("SELECT * FROM " + DAYS_OF_WEEK_TABLE + " WHERE " + COL_ID + " = ? LIMIT 1", new String[]{String.valueOf(notification.getId())});
+                    daysCursor.moveToFirst();
+                    boolean[] daysOfWeek = new boolean[7];
+                    for (int i = 0; i < 7; i++) {
+                        daysOfWeek[i] = Boolean.parseBoolean(daysCursor.getString(i + 1));
+                    }
+                    notification.setDaysOfWeek(daysOfWeek);
+                    daysCursor.close();
+                }
+
                 notificationList.add(notification);
             } while (cursor.moveToNext());
         }
@@ -144,7 +187,7 @@ public class Database extends SQLiteOpenHelper {
 
     public Notification getNotification(int id) {
         SQLiteDatabase database = this.getReadableDatabase();
-        Cursor cursor = database.rawQuery("SELECT * FROM " + NOTIFICATION_TABLE + " WHERE " + COL_ID + " = ? LIMIT 1", new String[] {String.valueOf(id)});
+        Cursor cursor = database.rawQuery("SELECT * FROM " + NOTIFICATION_TABLE + " WHERE " + COL_ID + " = ? LIMIT 1", new String[]{String.valueOf(id)});
 
         cursor.moveToFirst();
         Notification notification = new Notification();
@@ -159,6 +202,17 @@ public class Database extends SQLiteOpenHelper {
         notification.setIcon(cursor.getString(8));
         notification.setColour(cursor.getString(9));
         cursor.close();
+
+        if (notification.getRepeatType() == 5) {
+            Cursor daysCursor = database.rawQuery("SELECT * FROM " + DAYS_OF_WEEK_TABLE + " WHERE " + COL_ID + " = ? LIMIT 1", new String[]{String.valueOf(id)});
+            daysCursor.moveToFirst();
+            boolean[] daysOfWeek = new boolean[7];
+            for (int i = 0; i < 7; i++) {
+                daysOfWeek[i] = Boolean.parseBoolean(daysCursor.getString(i + 1));
+            }
+            notification.setDaysOfWeek(daysOfWeek);
+            daysCursor.close();
+        }
         return notification;
     }
 
@@ -174,17 +228,55 @@ public class Database extends SQLiteOpenHelper {
         values.put(COL_NUMBER_SHOWN, notification.getNumberShown());
         values.put(COL_ICON, notification.getIcon());
         values.put(COL_COLOUR, notification.getColour());
-        database.update(NOTIFICATION_TABLE, values, COL_ID + " = ?", new String[] {String.valueOf(notification.getId())});
+        database.update(NOTIFICATION_TABLE, values, COL_ID + " = ?", new String[]{String.valueOf(notification.getId())});
     }
 
     public void delete(Notification notification) {
         SQLiteDatabase database = this.getReadableDatabase();
-        database.delete(NOTIFICATION_TABLE, COL_ID + " = ?", new String[] {String.valueOf(notification.getId())});
+        if (notification.getRepeatType() == 5) {
+            database.delete(DAYS_OF_WEEK_TABLE, COL_ID + " = ?", new String[]{String.valueOf(notification.getId())});
+        }
+        database.delete(NOTIFICATION_TABLE, COL_ID + " = ?", new String[]{String.valueOf(notification.getId())});
     }
 
     public boolean isPresent(int id) {
         SQLiteDatabase database = this.getReadableDatabase();
         Cursor cursor = database.rawQuery("SELECT * FROM " + NOTIFICATION_TABLE + " WHERE " + COL_ID + " = ? LIMIT 1", new String[]{String.valueOf(id)});
+        boolean result = cursor.moveToFirst();
+        cursor.close();
+        return result;
+    }
+
+    public void addDaysOfWeek(Notification notification) {
+        SQLiteDatabase database = this.getReadableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COL_ID, notification.getId());
+        values.put(COL_SUNDAY, Boolean.toString(notification.getDaysOfWeek()[0]));
+        values.put(COL_MONDAY, Boolean.toString(notification.getDaysOfWeek()[1]));
+        values.put(COL_TUESDAY, Boolean.toString(notification.getDaysOfWeek()[2]));
+        values.put(COL_WEDNESDAY, Boolean.toString(notification.getDaysOfWeek()[3]));
+        values.put(COL_THURSDAY, Boolean.toString(notification.getDaysOfWeek()[4]));
+        values.put(COL_FRIDAY, Boolean.toString(notification.getDaysOfWeek()[5]));
+        values.put(COL_SATURDAY, Boolean.toString(notification.getDaysOfWeek()[6]));
+        database.insert(DAYS_OF_WEEK_TABLE, null, values);
+    }
+
+    public void updateDaysOfWeek(Notification notification) {
+        SQLiteDatabase database = this.getReadableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COL_SUNDAY, Boolean.toString(notification.getDaysOfWeek()[0]));
+        values.put(COL_MONDAY, Boolean.toString(notification.getDaysOfWeek()[1]));
+        values.put(COL_TUESDAY, Boolean.toString(notification.getDaysOfWeek()[2]));
+        values.put(COL_WEDNESDAY, Boolean.toString(notification.getDaysOfWeek()[3]));
+        values.put(COL_THURSDAY, Boolean.toString(notification.getDaysOfWeek()[4]));
+        values.put(COL_FRIDAY, Boolean.toString(notification.getDaysOfWeek()[5]));
+        values.put(COL_SATURDAY, Boolean.toString(notification.getDaysOfWeek()[6]));
+        database.update(DAYS_OF_WEEK_TABLE, values, COL_ID + " = ?", new String[]{String.valueOf(notification.getId())});
+    }
+
+    public boolean isPresentDaysOfWeek(Notification notification) {
+        SQLiteDatabase database = this.getReadableDatabase();
+        Cursor cursor = database.rawQuery("SELECT * FROM " + DAYS_OF_WEEK_TABLE + " WHERE " + COL_ID + " = ? LIMIT 1", new String[]{String.valueOf(notification.getId())});
         boolean result = cursor.moveToFirst();
         cursor.close();
         return result;

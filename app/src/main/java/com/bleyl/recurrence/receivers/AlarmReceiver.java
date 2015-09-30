@@ -17,6 +17,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 
     private Database mDatabase;
     private Notification mNotification;
+    private Calendar mCalendar;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -28,29 +29,50 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         // Check if new alarm needs to be set
         if (mNotification.getNumberToShow() > mNotification.getNumberShown() || Boolean.parseBoolean(mNotification.getForeverState())) {
-            Calendar calendar = Calendar.getInstance();
+            mCalendar = Calendar.getInstance();
 
             switch (mNotification.getRepeatType()) {
-                case 1: calendar.add(Calendar.DATE, 1); break;
-                case 2: calendar.add(Calendar.WEEK_OF_YEAR, 1); break;
-                case 3: calendar.add(Calendar.MONTH, 1); break;
-                case 4: calendar.add(Calendar.YEAR, 1); break;
+                case 1: mCalendar.add(Calendar.DATE, 1); break;
+                case 2: mCalendar.add(Calendar.WEEK_OF_YEAR, 1); break;
+                case 3: mCalendar.add(Calendar.MONTH, 1); break;
+                case 4: mCalendar.add(Calendar.YEAR, 1); break;
+                case 5: setSpecificDayOfWeek(); break;
             }
 
-            calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(mNotification.getTime().substring(0, 2)));
-            calendar.set(Calendar.MINUTE, Integer.parseInt(mNotification.getTime().substring(2, 4)));
-            calendar.set(Calendar.SECOND, 0);
+            mCalendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(mNotification.getTime().substring(0, 2)));
+            mCalendar.set(Calendar.MINUTE, Integer.parseInt(mNotification.getTime().substring(2, 4)));
+            mCalendar.set(Calendar.SECOND, 0);
 
-            mNotification.setDateAndTime(DateAndTimeUtil.toStringDateAndTime(calendar));
+            mNotification.setDateAndTime(DateAndTimeUtil.toStringDateAndTime(mCalendar));
             mDatabase.update(mNotification);
 
             Intent alarmIntent = new Intent(context, AlarmReceiver.class);
-            AlarmUtil.setAlarm(context, alarmIntent, mNotification.getId(), calendar);
+            AlarmUtil.setAlarm(context, alarmIntent, mNotification.getId(), mCalendar);
         }
         mDatabase.close();
 
         // Update lists in tab fragments
         updateLists(context);
+    }
+
+    public void setSpecificDayOfWeek() {
+        int day = getNextSelectedDayOfWeek();
+        if (day <= mCalendar.get(Calendar.DAY_OF_WEEK)) {
+            mCalendar.add(Calendar.WEEK_OF_YEAR, 1);
+        }
+        mCalendar.set(Calendar.DAY_OF_WEEK, day);
+    }
+
+    public int getNextSelectedDayOfWeek() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DATE, 1);
+        for (int i = 0; i < 7; i++) {
+            int position = (i + (calendar.get(Calendar.DAY_OF_WEEK) - 1)) % mNotification.getDaysOfWeek().length;
+            if (mNotification.getDaysOfWeek()[position]) {
+                return position + 1;
+            }
+        }
+        return 0;
     }
 
     public void updateNotificationShown() {
