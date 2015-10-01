@@ -1,10 +1,10 @@
 package com.bleyl.recurrence.utils;
 
 import android.content.Context;
+import android.text.format.DateFormat;
 
 import com.bleyl.recurrence.R;
 
-import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
@@ -14,7 +14,8 @@ public class DateAndTimeUtil {
     private static final SimpleDateFormat DATE_AND_TIME_FORMAT = new SimpleDateFormat("yyyyMMddHHmm", Locale.getDefault());
     private static final SimpleDateFormat READABLE_DAY_MONTH_FORMAT = new SimpleDateFormat("d MMMM", Locale.getDefault());
     private static final SimpleDateFormat READABLE_DAY_MONTH_YEAR_FORMAT = new SimpleDateFormat("d MMMM yyyy", Locale.getDefault());
-    private static final SimpleDateFormat READABLE_TIME_FORMAT = new SimpleDateFormat("HH:mm", Locale.getDefault());
+    private static final SimpleDateFormat READABLE_TIME_24_FORMAT = new SimpleDateFormat("HH:mm", Locale.getDefault());
+    private static final SimpleDateFormat READABLE_TIME_FORMAT = new SimpleDateFormat("h:mm a", Locale.getDefault());
     private static final SimpleDateFormat READABLE_DATE_FORMAT = new SimpleDateFormat("yyyy/MM/dd", Locale.getDefault());
     private static final SimpleDateFormat TIME_FORMAT = new SimpleDateFormat("HHmm", Locale.getDefault());
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
@@ -33,8 +34,12 @@ public class DateAndTimeUtil {
         return READABLE_DATE_FORMAT.format(calendar.getTime());
     }
 
-    public static String toStringReadableTime(Calendar calendar) {
-        return READABLE_TIME_FORMAT.format(calendar.getTime());
+    public static String toStringReadableTime(Calendar calendar, Context context) {
+        if (DateFormat.is24HourFormat(context)) {
+            return READABLE_TIME_24_FORMAT.format(calendar.getTime());
+        } else {
+            return READABLE_TIME_FORMAT.format(calendar.getTime());
+        }
     }
 
     public static Long toLongDateAndTime(Calendar calendar) {

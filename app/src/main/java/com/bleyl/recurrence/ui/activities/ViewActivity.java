@@ -22,9 +22,9 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.bleyl.recurrence.database.DatabaseHelper;
 import com.bleyl.recurrence.models.Notification;
 import com.bleyl.recurrence.R;
-import com.bleyl.recurrence.database.Database;
 import com.bleyl.recurrence.receivers.AlarmReceiver;
 import com.bleyl.recurrence.utils.AlarmUtil;
 import com.bleyl.recurrence.utils.DateAndTimeUtil;
@@ -72,12 +72,12 @@ public class ViewActivity extends AppCompatActivity {
             ViewCompat.setElevation(headerView, getResources().getDimension(R.dimen.toolbar_elevation));
         }
 
-        Database database = new Database(this.getApplicationContext());
+        DatabaseHelper database = DatabaseHelper.getInstance(this);
         Intent intent = getIntent();
         int mNotificationID = intent.getIntExtra("NOTIFICATION_ID", 0);
 
         // Check if notification has been deleted
-        if (database.isPresent(mNotificationID)) {
+        if (database.isNotificationPresent(mNotificationID)) {
             mNotification = database.getNotification(mNotificationID);
             database.close();
 
@@ -85,11 +85,11 @@ public class ViewActivity extends AppCompatActivity {
             Calendar calendar = DateAndTimeUtil.parseDateAndTime(mNotification.getDateAndTime());
             titleTextView.setText(mNotification.getTitle());
             contentTextView.setText(mNotification.getContent());
-            timeTextView.setText(DateAndTimeUtil.toStringReadableTime(calendar));
             dateTextView.setText(DateAndTimeUtil.toStringReadableDate(calendar));
             int iconResId = getResources().getIdentifier(mNotification.getIcon(), "drawable", getPackageName());
             iconImage.setImageResource(iconResId);
             circleImage.setColorFilter(Color.parseColor(mNotification.getColour()));
+            timeTextView.setText(DateAndTimeUtil.toStringReadableTime(calendar, this));
 
             if (mNotification.getRepeatType() == 5) {
                 StringBuilder stringBuilder = new StringBuilder();
@@ -157,7 +157,7 @@ public class ViewActivity extends AppCompatActivity {
     }
 
     public void confirmDelete() {
-        new AlertDialog.Builder(this)
+        new AlertDialog.Builder(this, R.style.Dialog)
                 .setMessage(getResources().getString(R.string.delete_confirmation))
                 .setPositiveButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
@@ -172,8 +172,8 @@ public class ViewActivity extends AppCompatActivity {
     }
 
     public void actionDelete() {
-        Database database = new Database(this.getApplicationContext());
-        database.delete(mNotification);
+        DatabaseHelper database = DatabaseHelper.getInstance(this);
+        database.deleteNotification(mNotification);
         database.close();
         Intent alarmIntent = new Intent(getApplicationContext(), AlarmReceiver.class);
         AlarmUtil.cancelAlarm(getApplicationContext(), alarmIntent, mNotification.getId());

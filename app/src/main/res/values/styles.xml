@@ -5,7 +5,6 @@
         <item name="colorPrimaryDark">@color/primaryDark</item>
         <item name="colorAccent">@color/accent</item>
         <item name="android:colorBackground">@color/background</item>
-        <item name="android:dialogTheme">@style/Dialog</item>
     </style>
     <style name="AppThemeLight" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="windowActionModeOverlay">true</item>
@@ -27,9 +26,7 @@
         <item name="android:layout_marginRight">4dp</item>
         <item name="android:paddingLeft">7dp</item>
     </style>
-    <style name="Dialog" parent="Theme.AppCompat.Light.Dialog">
-        <item name="colorPrimary">@color/primary</item>
-        <item name="colorPrimaryDark">@color/primaryDark</item>
+    <style name="Dialog" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="colorAccent">@color/accent</item>
     </style>
     <style name="ToolbarActionMode" parent="@style/Widget.AppCompat.ActionMode">

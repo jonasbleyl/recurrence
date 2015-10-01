@@ -2,7 +2,7 @@
     <string name="create_notification">Utwórz powiadomienie</string>
     <string name="view_notification">Wyświetl powiadomienie</string>
     <string name="edit_notification">Edytuj powiadomienie</string>
-    <string name="about">O</string>
+    <string name="about">O aplikacji</string>
     <string name="settings">Ustawienia</string>
 
     <string name="preference_notification_category">Preferencje powiadomień</string>
@@ -10,6 +10,10 @@
     <string name="checkbox_sound">Dźwięk</string>
     <string name="checkbox_LED">LED</string>
     <string name="checkbox_ongoing">Trwające</string>
+    <string name="checkbox_dismiss">Anuluj po dotknięciu</string>
+    <string name="snooze">Drzemka</string>
+    <string name="snooze_detail">Dodaj akcję drzemki do powiadomienia</string>
+    <string name="snooze_length">Długość drzemki</string>
     <string name="minute">minuty</string>
     <string name="minutes">minut</string>
 
@@ -17,6 +21,7 @@
     <string name="action_delete">Usuń</string>
     <string name="action_edit">Edytuj</string>
     <string name="action_about">O</string>
+    <string name="action_show_now">Pokaż teraz</string>
 
     <string name="delete_confirmation">Na pewno chcesz usunąć to powiadomienie?</string>
     <string name="yes">Tak</string>
@@ -32,8 +37,27 @@
     <string name="forever">Na zawsze</string>
     <string name="no_repeat">Nie powtarzaj</string>
     <string name="times">razy</string>
-    <string name="repeat_notification">Ilość powtórzeń:</string>
+    <string name="repeat_notification">Ilość powtórzeń: </string>
     <string name="content_hint">Dodaj treść powiadomienia</string>
+
+    <string name="select_icon">Wybierz ikonę</string>
+    <string name="default_icon">Domyslna ikona</string>
+    <string name="custom_icon">Niestandardowa ikona</string>
+
+    <string name="select_colour">Wybierz kolor</string>
+    <string name="default_colour">Domyślny kolor</string>
+    <string-array name="colour_names_array">
+        <item>Domyślny kolor</item>
+        <item>Niebieski</item>
+        <item>Fioletowy</item>
+        <item>Czerwony</item>
+        <item>Zielony</item>
+        <item>Pomarańczowy</item>
+        <item>Żółty</item>
+        <item>Różowy</item>
+    </string-array>
+
+    <string name="repeats_on">Powtarzaj:</string>
 
     <string name="no_active">Brak aktywnych powiadomień</string>
     <string name="no_inactive">Brak nieaktywnych powiadomień</string>
@@ -58,6 +82,6 @@
         <item>Co tydzień</item>
         <item>Co miesiąc</item>
         <item>Co roku</item>
-        <item>Specific days of the week</item>
+        <item>Konkretne dni tygodnia</item>
     </string-array>
 </resources>

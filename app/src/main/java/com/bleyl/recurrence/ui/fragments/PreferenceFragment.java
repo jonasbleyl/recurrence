@@ -7,8 +7,9 @@ import android.preference.Preference;
 import com.bleyl.recurrence.R;
 
 public class PreferenceFragment extends android.preference.PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
+
     @Override
-    public void onCreate(final Bundle savedInstanceState){
+    public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.prefs);
         updatePreferenceSummary();
@@ -18,9 +19,9 @@ public class PreferenceFragment extends android.preference.PreferenceFragment im
         SharedPreferences sharedPreferences = getPreferenceScreen().getSharedPreferences();
         int defaultMinutes = getActivity().getResources().getInteger(R.integer.default_snooze_minutes);
         int minutes = sharedPreferences.getInt("snoozeLength", defaultMinutes);
-        String minutesText =  getActivity().getResources().getQuantityString(R.plurals.time_minute, minutes);
-        Preference pref = findPreference("snoozeLength");
-        pref.setSummary(String.format(minutesText, minutes));
+        String minutesText = getActivity().getResources().getQuantityString(R.plurals.time_minute, minutes);
+        Preference preference = findPreference("snoozeLength");
+        preference.setSummary(String.format(minutesText, minutes));
     }
 
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
@@ -28,14 +29,14 @@ public class PreferenceFragment extends android.preference.PreferenceFragment im
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onStart() {
+        super.onStart();
         getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
+    public void onStop() {
+        super.onStop();
         getPreferenceScreen().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);
     }
 }

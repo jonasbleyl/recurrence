@@ -6,8 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.net.Uri;
 import android.preference.PreferenceManager;
-import android.provider.Settings;
 import android.support.v4.app.NotificationCompat;
 
 import com.bleyl.recurrence.R;
@@ -41,9 +41,9 @@ public class NotificationUtil {
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
 
-        // Set notification preferences options
-        if (sharedPreferences.getBoolean("checkBoxSound", true)) {
-            builder.setSound(Settings.System.DEFAULT_NOTIFICATION_URI);
+        String soundUri = sharedPreferences.getString("NotificationSound", "content://settings/system/notification_sound");
+        if (soundUri.length() != 0) {
+            builder.setSound(Uri.parse(soundUri));
         }
         if (sharedPreferences.getBoolean("checkBoxLED", true)) {
             builder.setLights(Color.BLUE, 700, 1500);

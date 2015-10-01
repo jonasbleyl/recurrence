@@ -5,8 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.content.LocalBroadcastManager;
 
+import com.bleyl.recurrence.database.DatabaseHelper;
 import com.bleyl.recurrence.utils.AlarmUtil;
-import com.bleyl.recurrence.database.Database;
 import com.bleyl.recurrence.models.Notification;
 import com.bleyl.recurrence.utils.DateAndTimeUtil;
 import com.bleyl.recurrence.utils.NotificationUtil;
@@ -15,13 +15,13 @@ import java.util.Calendar;
 
 public class AlarmReceiver extends BroadcastReceiver {
 
-    private Database mDatabase;
+    private DatabaseHelper mDatabase;
     private Notification mNotification;
     private Calendar mCalendar;
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        mDatabase = new Database(context.getApplicationContext());
+        mDatabase = DatabaseHelper.getInstance(context);
         mNotification = mDatabase.getNotification(intent.getIntExtra("NOTIFICATION_ID", 0));
         updateNotificationShown();
 
@@ -44,7 +44,7 @@ public class AlarmReceiver extends BroadcastReceiver {
             mCalendar.set(Calendar.SECOND, 0);
 
             mNotification.setDateAndTime(DateAndTimeUtil.toStringDateAndTime(mCalendar));
-            mDatabase.update(mNotification);
+            mDatabase.updateNotification(mNotification);
 
             Intent alarmIntent = new Intent(context, AlarmReceiver.class);
             AlarmUtil.setAlarm(context, alarmIntent, mNotification.getId(), mCalendar);
@@ -77,7 +77,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 
     public void updateNotificationShown() {
         mNotification.setNumberShown(mNotification.getNumberShown() + 1);
-        mDatabase.update(mNotification);
+        mDatabase.updateNotification(mNotification);
     }
 
     public void updateLists(Context context) {

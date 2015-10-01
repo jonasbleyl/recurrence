@@ -19,6 +19,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -32,10 +33,10 @@ import android.widget.TimePicker;
 
 import com.bleyl.recurrence.adapters.ColoursAdapter;
 import com.bleyl.recurrence.adapters.IconsAdapter;
+import com.bleyl.recurrence.database.DatabaseHelper;
 import com.bleyl.recurrence.models.Icon;
 import com.bleyl.recurrence.models.Notification;
 import com.bleyl.recurrence.R;
-import com.bleyl.recurrence.database.Database;
 import com.bleyl.recurrence.receivers.AlarmReceiver;
 import com.bleyl.recurrence.utils.AlarmUtil;
 import com.bleyl.recurrence.utils.AnimationUtil;
@@ -127,8 +128,8 @@ public class CreateEditActivity extends AppCompatActivity {
     public void assignDefaultValues() {
         if (getSupportActionBar() != null)
             getSupportActionBar().setTitle(getResources().getString(R.string.create_notification));
-        Database database = new Database(this.getApplicationContext());
-        mId = database.getLastId() + 1;
+        DatabaseHelper database = DatabaseHelper.getInstance(this);
+        mId = database.getLastNotificationId() + 1;
         database.close();
         mCalendar.set(Calendar.SECOND, 0);
         mTimesEditText.setText("1");
@@ -144,7 +145,7 @@ public class CreateEditActivity extends AppCompatActivity {
     public void assignNotificationValues() {
         if (getSupportActionBar() != null)
             getSupportActionBar().setTitle(getResources().getString(R.string.edit_notification));
-        Database database = new Database(this.getApplicationContext());
+        DatabaseHelper database = DatabaseHelper.getInstance(this);
         Notification notification = database.getNotification(mId);
         database.close();
 
@@ -153,8 +154,8 @@ public class CreateEditActivity extends AppCompatActivity {
         mCalendar = DateAndTimeUtil.parseDateAndTime(notification.getDateAndTime());
         mTitleEditText.setText(notification.getTitle());
         mContentEditText.setText(notification.getContent());
-        mTimeText.setText(DateAndTimeUtil.toStringReadableTime(mCalendar));
         mDateText.setText(DateAndTimeUtil.toStringReadableDate(mCalendar));
+        mTimeText.setText(DateAndTimeUtil.toStringReadableTime(mCalendar, this));
         mTimesEditText.setText(Integer.toString(notification.getNumberToShow()));
         mTimesShown = notification.getNumberShown();
         mRepeatType = notification.getRepeatType();
@@ -213,9 +214,9 @@ public class CreateEditActivity extends AppCompatActivity {
             public void onTimeSet(TimePicker timePicker, int hour, int minute) {
                 mCalendar.set(Calendar.HOUR_OF_DAY, hour);
                 mCalendar.set(Calendar.MINUTE, minute);
-                mTimeText.setText(DateAndTimeUtil.toStringReadableTime(mCalendar));
+                mTimeText.setText(DateAndTimeUtil.toStringReadableTime(mCalendar, getApplicationContext()));
             }
-        }, mCalendar.get(Calendar.HOUR_OF_DAY), mCalendar.get(Calendar.MINUTE), true);
+        }, mCalendar.get(Calendar.HOUR_OF_DAY), mCalendar.get(Calendar.MINUTE), DateFormat.is24HourFormat(this));
         TimePicker.show();
     }
 
@@ -242,11 +243,11 @@ public class CreateEditActivity extends AppCompatActivity {
         ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(getApplicationContext(), R.dimen.item_offset);
         recyclerView.addItemDecoration(itemDecoration);
 
-        Database database = new Database(this.getApplicationContext());
+        DatabaseHelper database = DatabaseHelper.getInstance(this);
         recyclerView.setAdapter(new IconsAdapter(this, R.layout.item_icon_grid, database.getIconList()));
         database.close();
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.Dialog);
         builder.setTitle(getResources().getString(R.string.select_icon));
         builder.setView(dialogView);
         mIconSelectorDialog = builder.show();
@@ -261,7 +262,7 @@ public class CreateEditActivity extends AppCompatActivity {
         }
         mImageIconSelect.setImageResource(iconResId);
         mIconSelectorDialog.cancel();
-        Database database = new Database(this.getApplicationContext());
+        DatabaseHelper database = DatabaseHelper.getInstance(this);
         icon.setUseFrequency(icon.getUseFrequency() + 1);
         database.updateIcon(icon);
         database.close();
@@ -277,7 +278,7 @@ public class CreateEditActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(new ColoursAdapter(this, R.layout.item_colour_list, mColoursArray, mColourNames));
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.Dialog);
         builder.setTitle(getResources().getString(R.string.select_colour));
         builder.setView(dialogView);
         mColourSelectorDialog = builder.show();
@@ -292,7 +293,7 @@ public class CreateEditActivity extends AppCompatActivity {
 
     public void repeatSelector(View view) {
         final String[] repeatArray = getResources().getStringArray(R.array.repeat_array);
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.Dialog);
         builder.setItems(repeatArray, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 if (which == 5) {
@@ -319,7 +320,7 @@ public class CreateEditActivity extends AppCompatActivity {
         final boolean[] values = mDaysOfWeek;
         final String[] shortWeekDays = DateAndTimeUtil.getShortWeekDays();
         String[] weekDays = DateAndTimeUtil.getWeekDays();
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.Dialog);
         builder.setMultiChoiceItems(weekDays, mDaysOfWeek, new DialogInterface.OnMultiChoiceClickListener() {
             public void onClick(DialogInterface dialog, int which, boolean isChecked) {
                 values[which] = isChecked;
@@ -386,16 +387,16 @@ public class CreateEditActivity extends AppCompatActivity {
             timesToShow = mTimesShown + 1;
         }
 
-        Database database = new Database(this.getApplicationContext());
+        DatabaseHelper database = DatabaseHelper.getInstance(this);
         Notification notification = new Notification(mId, title, content, date + time, mRepeatType, forever, timesToShow, mTimesShown, mIcon, mColour);
         if (newNotification) {
-            database.add(notification);
+            database.addNotification(notification);
         } else {
-            database.update(notification);
+            database.updateNotification(notification);
         }
         if (mRepeatType == 5) {
             notification.setDaysOfWeek(mDaysOfWeek);
-            if (database.isPresentDaysOfWeek(notification)) {
+            if (database.isDaysOfWeekPresent(notification)) {
                 database.updateDaysOfWeek(notification);
             } else {
                 database.addDaysOfWeek(notification);
