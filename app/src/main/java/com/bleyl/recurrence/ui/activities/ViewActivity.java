@@ -9,6 +9,7 @@ import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.format.DateFormat;
 import android.transition.Explode;
 import android.transition.Slide;
 import android.transition.Transition;
@@ -85,11 +86,16 @@ public class ViewActivity extends AppCompatActivity {
             Calendar calendar = DateAndTimeUtil.parseDateAndTime(mNotification.getDateAndTime());
             titleTextView.setText(mNotification.getTitle());
             contentTextView.setText(mNotification.getContent());
-            timeTextView.setText(DateAndTimeUtil.toStringReadableTime(calendar));
             dateTextView.setText(DateAndTimeUtil.toStringReadableDate(calendar));
             int iconResId = getResources().getIdentifier(mNotification.getIcon(), "drawable", getPackageName());
             iconImage.setImageResource(iconResId);
             circleImage.setColorFilter(Color.parseColor(mNotification.getColour()));
+
+            if (DateFormat.is24HourFormat(this)) {
+                timeTextView.setText(DateAndTimeUtil.toStringReadable24Time(calendar));
+            } else {
+                timeTextView.setText(DateAndTimeUtil.toStringReadableTime(calendar));
+            }
 
             if (mNotification.getRepeatType() == 5) {
                 StringBuilder stringBuilder = new StringBuilder();

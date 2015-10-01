@@ -19,6 +19,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -153,7 +154,6 @@ public class CreateEditActivity extends AppCompatActivity {
         mCalendar = DateAndTimeUtil.parseDateAndTime(notification.getDateAndTime());
         mTitleEditText.setText(notification.getTitle());
         mContentEditText.setText(notification.getContent());
-        mTimeText.setText(DateAndTimeUtil.toStringReadableTime(mCalendar));
         mDateText.setText(DateAndTimeUtil.toStringReadableDate(mCalendar));
         mTimesEditText.setText(Integer.toString(notification.getNumberToShow()));
         mTimesShown = notification.getNumberShown();
@@ -163,6 +163,12 @@ public class CreateEditActivity extends AppCompatActivity {
         mTimesText.setVisibility(View.VISIBLE);
         mCalendar.set(Calendar.SECOND, 0);
         newNotification = false;
+
+        if (DateFormat.is24HourFormat(this)) {
+            mTimeText.setText(DateAndTimeUtil.toStringReadable24Time(mCalendar));
+        } else {
+            mTimeText.setText(DateAndTimeUtil.toStringReadableTime(mCalendar));
+        }
 
         if (!getResources().getString(R.string.default_icon).equals(mIcon)) {
             int iconResId = getResources().getIdentifier(notification.getIcon(), "drawable", getPackageName());
@@ -213,9 +219,13 @@ public class CreateEditActivity extends AppCompatActivity {
             public void onTimeSet(TimePicker timePicker, int hour, int minute) {
                 mCalendar.set(Calendar.HOUR_OF_DAY, hour);
                 mCalendar.set(Calendar.MINUTE, minute);
-                mTimeText.setText(DateAndTimeUtil.toStringReadableTime(mCalendar));
+                if (DateFormat.is24HourFormat(getApplicationContext())) {
+                    mTimeText.setText(DateAndTimeUtil.toStringReadable24Time(mCalendar));
+                } else {
+                    mTimeText.setText(DateAndTimeUtil.toStringReadableTime(mCalendar));
+                }
             }
-        }, mCalendar.get(Calendar.HOUR_OF_DAY), mCalendar.get(Calendar.MINUTE), true);
+        }, mCalendar.get(Calendar.HOUR_OF_DAY), mCalendar.get(Calendar.MINUTE), DateFormat.is24HourFormat(this));
         TimePicker.show();
     }
 
