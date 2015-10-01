@@ -1,6 +1,7 @@
 package com.bleyl.recurrence.utils;
 
 import android.content.Context;
+import android.text.format.DateFormat;
 
 import com.bleyl.recurrence.R;
 
@@ -33,12 +34,12 @@ public class DateAndTimeUtil {
         return READABLE_DATE_FORMAT.format(calendar.getTime());
     }
 
-    public static String toStringReadable24Time(Calendar calendar) {
-        return READABLE_TIME_24_FORMAT.format(calendar.getTime());
-    }
-
-    public static String toStringReadableTime(Calendar calendar) {
-        return READABLE_TIME_FORMAT.format(calendar.getTime());
+    public static String toStringReadableTime(Calendar calendar, Context context) {
+        if (DateFormat.is24HourFormat(context)) {
+            return READABLE_TIME_24_FORMAT.format(calendar.getTime());
+        } else {
+            return READABLE_TIME_FORMAT.format(calendar.getTime());
+        }
     }
 
     public static Long toLongDateAndTime(Calendar calendar) {

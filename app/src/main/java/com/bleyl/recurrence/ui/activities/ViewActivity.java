@@ -90,12 +90,7 @@ public class ViewActivity extends AppCompatActivity {
             int iconResId = getResources().getIdentifier(mNotification.getIcon(), "drawable", getPackageName());
             iconImage.setImageResource(iconResId);
             circleImage.setColorFilter(Color.parseColor(mNotification.getColour()));
-
-            if (DateFormat.is24HourFormat(this)) {
-                timeTextView.setText(DateAndTimeUtil.toStringReadable24Time(calendar));
-            } else {
-                timeTextView.setText(DateAndTimeUtil.toStringReadableTime(calendar));
-            }
+            timeTextView.setText(DateAndTimeUtil.toStringReadableTime(calendar, this));
 
             if (mNotification.getRepeatType() == 5) {
                 StringBuilder stringBuilder = new StringBuilder();

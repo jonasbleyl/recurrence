@@ -155,6 +155,7 @@ public class CreateEditActivity extends AppCompatActivity {
         mTitleEditText.setText(notification.getTitle());
         mContentEditText.setText(notification.getContent());
         mDateText.setText(DateAndTimeUtil.toStringReadableDate(mCalendar));
+        mTimeText.setText(DateAndTimeUtil.toStringReadableTime(mCalendar, this));
         mTimesEditText.setText(Integer.toString(notification.getNumberToShow()));
         mTimesShown = notification.getNumberShown();
         mRepeatType = notification.getRepeatType();
@@ -163,12 +164,6 @@ public class CreateEditActivity extends AppCompatActivity {
         mTimesText.setVisibility(View.VISIBLE);
         mCalendar.set(Calendar.SECOND, 0);
         newNotification = false;
-
-        if (DateFormat.is24HourFormat(this)) {
-            mTimeText.setText(DateAndTimeUtil.toStringReadable24Time(mCalendar));
-        } else {
-            mTimeText.setText(DateAndTimeUtil.toStringReadableTime(mCalendar));
-        }
 
         if (!getResources().getString(R.string.default_icon).equals(mIcon)) {
             int iconResId = getResources().getIdentifier(notification.getIcon(), "drawable", getPackageName());
@@ -219,11 +214,7 @@ public class CreateEditActivity extends AppCompatActivity {
             public void onTimeSet(TimePicker timePicker, int hour, int minute) {
                 mCalendar.set(Calendar.HOUR_OF_DAY, hour);
                 mCalendar.set(Calendar.MINUTE, minute);
-                if (DateFormat.is24HourFormat(getApplicationContext())) {
-                    mTimeText.setText(DateAndTimeUtil.toStringReadable24Time(mCalendar));
-                } else {
-                    mTimeText.setText(DateAndTimeUtil.toStringReadableTime(mCalendar));
-                }
+                mTimeText.setText(DateAndTimeUtil.toStringReadableTime(mCalendar, getApplicationContext()));
             }
         }, mCalendar.get(Calendar.HOUR_OF_DAY), mCalendar.get(Calendar.MINUTE), DateFormat.is24HourFormat(this));
         TimePicker.show();
