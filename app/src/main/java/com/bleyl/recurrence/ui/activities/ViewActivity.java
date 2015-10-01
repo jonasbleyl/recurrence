@@ -9,7 +9,6 @@ import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.format.DateFormat;
 import android.transition.Explode;
 import android.transition.Slide;
 import android.transition.Transition;
