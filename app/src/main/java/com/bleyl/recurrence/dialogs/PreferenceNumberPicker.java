@@ -1,4 +1,4 @@
-package com.bleyl.recurrence.views;
+package com.bleyl.recurrence.dialogs;
 
 import android.content.Context;
 import android.content.res.TypedArray;
