@@ -23,11 +23,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.bleyl.recurrence.database.DatabaseHelper;
-import com.bleyl.recurrence.enums.NotificationsType;
+import com.bleyl.recurrence.enums.RemindersType;
 import com.bleyl.recurrence.interfaces.RecyclerCallback;
-import com.bleyl.recurrence.models.Notification;
+import com.bleyl.recurrence.models.Reminder;
 import com.bleyl.recurrence.R;
-import com.bleyl.recurrence.adapters.NotificationAdapter;
+import com.bleyl.recurrence.adapters.ReminderAdapter;
 import com.bleyl.recurrence.ui.activities.ViewActivity;
 
 import java.util.List;
@@ -37,9 +37,9 @@ public class TabFragment extends Fragment {
     private static Activity sActivity;
     private RecyclerView mRecyclerView;
     private TextView mEmptyText;
-    private NotificationAdapter mNotificationAdapter;
-    private List<Notification> mNotificationList;
-    private NotificationsType mNotificationsType;
+    private ReminderAdapter mReminderAdapter;
+    private List<Reminder> mReminderList;
+    private RemindersType mRemindersType;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -57,34 +57,34 @@ public class TabFragment extends Fragment {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(sActivity);
         mRecyclerView.setLayoutManager(layoutManager);
 
-        mNotificationsType = (NotificationsType) this.getArguments().get("TYPE");
-        if (mNotificationsType == NotificationsType.INACTIVE) {
+        mRemindersType = (RemindersType) this.getArguments().get("TYPE");
+        if (mRemindersType == RemindersType.INACTIVE) {
             mEmptyText.setText(getResources().getString(R.string.no_inactive));
         }
 
-        mNotificationList = getListData();
-        mNotificationAdapter = new NotificationAdapter(sActivity, R.layout.item_notification_list, mNotificationList);
-        mRecyclerView.setAdapter(mNotificationAdapter);
+        mReminderList = getListData();
+        mReminderAdapter = new ReminderAdapter(sActivity, R.layout.item_notification_list, mReminderList);
+        mRecyclerView.setAdapter(mReminderAdapter);
 
-        if (mNotificationAdapter.getItemCount() == 0) {
+        if (mReminderAdapter.getItemCount() == 0) {
             mRecyclerView.setVisibility(View.GONE);
             mEmptyText.setVisibility(View.VISIBLE);
         }
     }
 
-    public List<Notification> getListData() {
+    public List<Reminder> getListData() {
         DatabaseHelper database = DatabaseHelper.getInstance(sActivity.getApplicationContext());
-        List<Notification> notificationList = database.getNotificationList(mNotificationsType);
+        List<Reminder> reminderList = database.getNotificationList(mRemindersType);
         database.close();
-        return notificationList;
+        return reminderList;
     }
 
     public void updateList() {
-        mNotificationList.clear();
-        mNotificationList.addAll(getListData());
-        mNotificationAdapter.notifyDataSetChanged();
+        mReminderList.clear();
+        mReminderList.addAll(getListData());
+        mReminderAdapter.notifyDataSetChanged();
 
-        if (mNotificationAdapter.getItemCount() == 0) {
+        if (mReminderAdapter.getItemCount() == 0) {
             mRecyclerView.setVisibility(View.GONE);
             mEmptyText.setVisibility(View.VISIBLE);
         } else {
@@ -93,13 +93,13 @@ public class TabFragment extends Fragment {
         }
     }
 
-    public void startViewerActivity(View view, Notification notification) {
+    public void startViewerActivity(View view, Reminder reminder) {
         Intent intent = new Intent(sActivity, ViewActivity.class);
-        intent.putExtra("NOTIFICATION_ID", notification.getId());
+        intent.putExtra("NOTIFICATION_ID", reminder.getId());
 
         // Add shared element transition animation if on Lollipop or later
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            CardView cardView = (CardView) view.findViewById(R.id.card_view);
+            CardView cardView = (CardView) view.findViewById(R.id.notification_card);
 
             TransitionSet setExit = new TransitionSet();
             Transition transition = new Fade();

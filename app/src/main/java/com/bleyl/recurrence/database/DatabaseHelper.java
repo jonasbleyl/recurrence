@@ -7,9 +7,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.bleyl.recurrence.R;
-import com.bleyl.recurrence.enums.NotificationsType;
+import com.bleyl.recurrence.enums.RemindersType;
 import com.bleyl.recurrence.models.Icon;
-import com.bleyl.recurrence.models.Notification;
+import com.bleyl.recurrence.models.Reminder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -121,19 +121,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    public void addNotification(Notification notification) {
+    public void addNotification(Reminder reminder) {
         SQLiteDatabase database = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(COL_ID, notification.getId());
-        values.put(COL_TITLE, notification.getTitle());
-        values.put(COL_CONTENT, notification.getContent());
-        values.put(COL_DATE_AND_TIME, notification.getDateAndTime());
-        values.put(COL_REPEAT_TYPE, notification.getRepeatType());
-        values.put(COL_FOREVER, notification.getForeverState());
-        values.put(COL_NUMBER_TO_SHOW, notification.getNumberToShow());
-        values.put(COL_NUMBER_SHOWN, notification.getNumberShown());
-        values.put(COL_ICON, notification.getIcon());
-        values.put(COL_COLOUR, notification.getColour());
+        values.put(COL_ID, reminder.getId());
+        values.put(COL_TITLE, reminder.getTitle());
+        values.put(COL_CONTENT, reminder.getContent());
+        values.put(COL_DATE_AND_TIME, reminder.getDateAndTime());
+        values.put(COL_REPEAT_TYPE, reminder.getRepeatType());
+        values.put(COL_FOREVER, reminder.getForeverState());
+        values.put(COL_NUMBER_TO_SHOW, reminder.getNumberToShow());
+        values.put(COL_NUMBER_SHOWN, reminder.getNumberShown());
+        values.put(COL_ICON, reminder.getIcon());
+        values.put(COL_COLOUR, reminder.getColour());
         database.insert(NOTIFICATION_TABLE, null, values);
     }
 
@@ -148,11 +148,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return data;
     }
 
-    public List<Notification> getNotificationList(NotificationsType notificationsType) {
-        List<Notification> notificationList = new ArrayList<>();
+    public List<Reminder> getNotificationList(RemindersType remindersType) {
+        List<Reminder> reminderList = new ArrayList<>();
         String query;
 
-        switch (notificationsType) {
+        switch (remindersType) {
             case ACTIVE:
             default:
                 query = "SELECT * FROM " + NOTIFICATION_TABLE + " WHERE " + COL_NUMBER_SHOWN + " < " + COL_NUMBER_TO_SHOW + " OR " + COL_FOREVER + " = 'true' " + " ORDER BY " + COL_DATE_AND_TIME;
@@ -167,73 +167,73 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
             do {
-                Notification notification = new Notification();
-                notification.setId(cursor.getInt(0));
-                notification.setTitle(cursor.getString(1));
-                notification.setContent(cursor.getString(2));
-                notification.setDateAndTime(cursor.getString(3));
-                notification.setRepeatType(cursor.getInt(4));
-                notification.setForeverState(cursor.getString(5));
-                notification.setNumberToShow(cursor.getInt(6));
-                notification.setNumberShown(cursor.getInt(7));
-                notification.setIcon(cursor.getString(8));
-                notification.setColour(cursor.getString(9));
+                Reminder reminder = new Reminder();
+                reminder.setId(cursor.getInt(0));
+                reminder.setTitle(cursor.getString(1));
+                reminder.setContent(cursor.getString(2));
+                reminder.setDateAndTime(cursor.getString(3));
+                reminder.setRepeatType(cursor.getInt(4));
+                reminder.setForeverState(cursor.getString(5));
+                reminder.setNumberToShow(cursor.getInt(6));
+                reminder.setNumberShown(cursor.getInt(7));
+                reminder.setIcon(cursor.getString(8));
+                reminder.setColour(cursor.getString(9));
 
-                if (notification.getRepeatType() == 5) {
-                    getDaysOfWeek(notification, database);
+                if (reminder.getRepeatType() == 5) {
+                    getDaysOfWeek(reminder, database);
                 }
-                notificationList.add(notification);
+                reminderList.add(reminder);
             } while (cursor.moveToNext());
         }
         cursor.close();
-        return notificationList;
+        return reminderList;
     }
 
-    public Notification getNotification(int id) {
+    public Reminder getNotification(int id) {
         SQLiteDatabase database = this.getReadableDatabase();
         Cursor cursor = database.rawQuery("SELECT * FROM " + NOTIFICATION_TABLE + " WHERE " + COL_ID + " = ? LIMIT 1", new String[]{String.valueOf(id)});
 
         cursor.moveToFirst();
-        Notification notification = new Notification();
-        notification.setId(id);
-        notification.setTitle(cursor.getString(1));
-        notification.setContent(cursor.getString(2));
-        notification.setDateAndTime(cursor.getString(3));
-        notification.setRepeatType(cursor.getInt(4));
-        notification.setForeverState(cursor.getString(5));
-        notification.setNumberToShow(cursor.getInt(6));
-        notification.setNumberShown(cursor.getInt(7));
-        notification.setIcon(cursor.getString(8));
-        notification.setColour(cursor.getString(9));
+        Reminder reminder = new Reminder();
+        reminder.setId(id);
+        reminder.setTitle(cursor.getString(1));
+        reminder.setContent(cursor.getString(2));
+        reminder.setDateAndTime(cursor.getString(3));
+        reminder.setRepeatType(cursor.getInt(4));
+        reminder.setForeverState(cursor.getString(5));
+        reminder.setNumberToShow(cursor.getInt(6));
+        reminder.setNumberShown(cursor.getInt(7));
+        reminder.setIcon(cursor.getString(8));
+        reminder.setColour(cursor.getString(9));
         cursor.close();
 
-        if (notification.getRepeatType() == 5) {
-            getDaysOfWeek(notification, database);
+        if (reminder.getRepeatType() == 5) {
+            getDaysOfWeek(reminder, database);
         }
-        return notification;
+        return reminder;
     }
 
-    public void updateNotification(Notification notification) {
+    public void updateNotification(Reminder reminder) {
         SQLiteDatabase database = this.getReadableDatabase();
         ContentValues values = new ContentValues();
-        values.put(COL_TITLE, notification.getTitle());
-        values.put(COL_CONTENT, notification.getContent());
-        values.put(COL_DATE_AND_TIME, notification.getDateAndTime());
-        values.put(COL_REPEAT_TYPE, notification.getRepeatType());
-        values.put(COL_FOREVER, notification.getForeverState());
-        values.put(COL_NUMBER_TO_SHOW, notification.getNumberToShow());
-        values.put(COL_NUMBER_SHOWN, notification.getNumberShown());
-        values.put(COL_ICON, notification.getIcon());
-        values.put(COL_COLOUR, notification.getColour());
-        database.update(NOTIFICATION_TABLE, values, COL_ID + " = ?", new String[]{String.valueOf(notification.getId())});
+        values.put(COL_TITLE, reminder.getTitle());
+        values.put(COL_CONTENT, reminder.getContent());
+        values.put(COL_DATE_AND_TIME, reminder.getDateAndTime());
+        values.put(COL_REPEAT_TYPE, reminder.getRepeatType());
+        values.put(COL_FOREVER, reminder.getForeverState());
+        values.put(COL_NUMBER_TO_SHOW, reminder.getNumberToShow());
+        values.put(COL_NUMBER_SHOWN, reminder.getNumberShown());
+        values.put(COL_ICON, reminder.getIcon());
+        values.put(COL_COLOUR, reminder.getColour());
+        database.update(NOTIFICATION_TABLE, values, COL_ID + " = ?", new String[]{String.valueOf(reminder.getId())});
     }
 
-    public void deleteNotification(Notification notification) {
+    public void deleteNotification(Reminder reminder) {
         SQLiteDatabase database = this.getReadableDatabase();
-        if (notification.getRepeatType() == 5) {
-            database.delete(DAYS_OF_WEEK_TABLE, COL_ID + " = ?", new String[]{String.valueOf(notification.getId())});
+        if (reminder.getRepeatType() == 5) {
+            database.delete(DAYS_OF_WEEK_TABLE, COL_ID + " = ?", new String[]{String.valueOf(reminder.getId())});
         }
-        database.delete(NOTIFICATION_TABLE, COL_ID + " = ?", new String[]{String.valueOf(notification.getId())});
+        database.delete(NOTIFICATION_TABLE, COL_ID + " = ?", new String[]{String.valueOf(reminder.getId())});
     }
 
     public boolean isNotificationPresent(int id) {
@@ -244,47 +244,47 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return result;
     }
 
-    private void getDaysOfWeek(Notification notification, SQLiteDatabase database) {
-        Cursor cursor = database.rawQuery("SELECT * FROM " + DAYS_OF_WEEK_TABLE + " WHERE " + COL_ID + " = ? LIMIT 1", new String[]{String.valueOf(notification.getId())});
+    private void getDaysOfWeek(Reminder reminder, SQLiteDatabase database) {
+        Cursor cursor = database.rawQuery("SELECT * FROM " + DAYS_OF_WEEK_TABLE + " WHERE " + COL_ID + " = ? LIMIT 1", new String[]{String.valueOf(reminder.getId())});
         cursor.moveToFirst();
         boolean[] daysOfWeek = new boolean[7];
         for (int i = 0; i < 7; i++) {
             daysOfWeek[i] = Boolean.parseBoolean(cursor.getString(i + 1));
         }
-        notification.setDaysOfWeek(daysOfWeek);
+        reminder.setDaysOfWeek(daysOfWeek);
         cursor.close();
     }
 
-    public void addDaysOfWeek(Notification notification) {
+    public void addDaysOfWeek(Reminder reminder) {
         SQLiteDatabase database = this.getReadableDatabase();
         ContentValues values = new ContentValues();
-        values.put(COL_ID, notification.getId());
-        values.put(COL_SUNDAY, Boolean.toString(notification.getDaysOfWeek()[0]));
-        values.put(COL_MONDAY, Boolean.toString(notification.getDaysOfWeek()[1]));
-        values.put(COL_TUESDAY, Boolean.toString(notification.getDaysOfWeek()[2]));
-        values.put(COL_WEDNESDAY, Boolean.toString(notification.getDaysOfWeek()[3]));
-        values.put(COL_THURSDAY, Boolean.toString(notification.getDaysOfWeek()[4]));
-        values.put(COL_FRIDAY, Boolean.toString(notification.getDaysOfWeek()[5]));
-        values.put(COL_SATURDAY, Boolean.toString(notification.getDaysOfWeek()[6]));
+        values.put(COL_ID, reminder.getId());
+        values.put(COL_SUNDAY, Boolean.toString(reminder.getDaysOfWeek()[0]));
+        values.put(COL_MONDAY, Boolean.toString(reminder.getDaysOfWeek()[1]));
+        values.put(COL_TUESDAY, Boolean.toString(reminder.getDaysOfWeek()[2]));
+        values.put(COL_WEDNESDAY, Boolean.toString(reminder.getDaysOfWeek()[3]));
+        values.put(COL_THURSDAY, Boolean.toString(reminder.getDaysOfWeek()[4]));
+        values.put(COL_FRIDAY, Boolean.toString(reminder.getDaysOfWeek()[5]));
+        values.put(COL_SATURDAY, Boolean.toString(reminder.getDaysOfWeek()[6]));
         database.insert(DAYS_OF_WEEK_TABLE, null, values);
     }
 
-    public void updateDaysOfWeek(Notification notification) {
+    public void updateDaysOfWeek(Reminder reminder) {
         SQLiteDatabase database = this.getReadableDatabase();
         ContentValues values = new ContentValues();
-        values.put(COL_SUNDAY, Boolean.toString(notification.getDaysOfWeek()[0]));
-        values.put(COL_MONDAY, Boolean.toString(notification.getDaysOfWeek()[1]));
-        values.put(COL_TUESDAY, Boolean.toString(notification.getDaysOfWeek()[2]));
-        values.put(COL_WEDNESDAY, Boolean.toString(notification.getDaysOfWeek()[3]));
-        values.put(COL_THURSDAY, Boolean.toString(notification.getDaysOfWeek()[4]));
-        values.put(COL_FRIDAY, Boolean.toString(notification.getDaysOfWeek()[5]));
-        values.put(COL_SATURDAY, Boolean.toString(notification.getDaysOfWeek()[6]));
-        database.update(DAYS_OF_WEEK_TABLE, values, COL_ID + " = ?", new String[]{String.valueOf(notification.getId())});
+        values.put(COL_SUNDAY, Boolean.toString(reminder.getDaysOfWeek()[0]));
+        values.put(COL_MONDAY, Boolean.toString(reminder.getDaysOfWeek()[1]));
+        values.put(COL_TUESDAY, Boolean.toString(reminder.getDaysOfWeek()[2]));
+        values.put(COL_WEDNESDAY, Boolean.toString(reminder.getDaysOfWeek()[3]));
+        values.put(COL_THURSDAY, Boolean.toString(reminder.getDaysOfWeek()[4]));
+        values.put(COL_FRIDAY, Boolean.toString(reminder.getDaysOfWeek()[5]));
+        values.put(COL_SATURDAY, Boolean.toString(reminder.getDaysOfWeek()[6]));
+        database.update(DAYS_OF_WEEK_TABLE, values, COL_ID + " = ?", new String[]{String.valueOf(reminder.getId())});
     }
 
-    public boolean isDaysOfWeekPresent(Notification notification) {
+    public boolean isDaysOfWeekPresent(Reminder reminder) {
         SQLiteDatabase database = this.getReadableDatabase();
-        Cursor cursor = database.rawQuery("SELECT * FROM " + DAYS_OF_WEEK_TABLE + " WHERE " + COL_ID + " = ? LIMIT 1", new String[]{String.valueOf(notification.getId())});
+        Cursor cursor = database.rawQuery("SELECT * FROM " + DAYS_OF_WEEK_TABLE + " WHERE " + COL_ID + " = ? LIMIT 1", new String[]{String.valueOf(reminder.getId())});
         boolean result = cursor.moveToFirst();
         cursor.close();
         return result;

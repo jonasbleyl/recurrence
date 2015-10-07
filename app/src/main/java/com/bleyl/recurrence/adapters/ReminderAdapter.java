@@ -11,21 +11,22 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bleyl.recurrence.ui.fragments.TabFragment;
-import com.bleyl.recurrence.models.Notification;
+import com.bleyl.recurrence.models.Reminder;
 import com.bleyl.recurrence.R;
 import com.bleyl.recurrence.utils.DateAndTimeUtil;
 
 import java.util.Calendar;
 import java.util.List;
 
-public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapter.ViewHolder> {
+public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHolder> {
 
     private int mRowLayout;
     private Context mContext;
-    private List<Notification> mNotificationList;
+    private List<Reminder> mReminderList;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView mTitle;
+        public TextView mTime;
         public TextView mContent;
         public TextView mTextSeparator;
         public ImageView mIcon;
@@ -35,18 +36,19 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         public ViewHolder(final View view) {
             super(view);
             mView = view;
-            mTitle = (TextView) view.findViewById(R.id.title);
-            mContent = (TextView) view.findViewById(R.id.content);
+            mTitle = (TextView) view.findViewById(R.id.notification_title);
+            mTime = (TextView) view.findViewById(R.id.notification_time);
+            mContent = (TextView) view.findViewById(R.id.notification_content);
             mTextSeparator = (TextView) view.findViewById(R.id.header_separator);
-            mIcon = (ImageView) view.findViewById(R.id.image);
-            mCircle = (ImageView) view.findViewById(R.id.circle);
+            mIcon = (ImageView) view.findViewById(R.id.notification_icon);
+            mCircle = (ImageView) view.findViewById(R.id.notification_circle);
         }
     }
 
-    public NotificationAdapter(Context context, int rowLayout, List<Notification> notificationList) {
+    public ReminderAdapter(Context context, int rowLayout, List<Reminder> reminderList) {
         mContext = context;
         mRowLayout = rowLayout;
-        mNotificationList = notificationList;
+        mReminderList = reminderList;
     }
 
     @Override
@@ -57,35 +59,35 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
+        Calendar calendar = DateAndTimeUtil.parseDateAndTime(mReminderList.get(position).getDateAndTime());
         // Show header for item if it is the first in date group
-        if (position > 0 && mNotificationList.get(position).getDate().equals(mNotificationList.get(position - 1).getDate()) ) {
+        if (position > 0 && mReminderList.get(position).getDate().equals(mReminderList.get(position - 1).getDate()) ) {
             viewHolder.mTextSeparator.setVisibility(View.GONE);
         } else {
-            // Parse date and get appropriate date format
-            Calendar DateAndTime = DateAndTimeUtil.parseDateAndTime(mNotificationList.get(position).getDateAndTime());
-            String appropriateDate = DateAndTimeUtil.getAppropriateDateFormat(mContext, DateAndTime);
+            String appropriateDate = DateAndTimeUtil.getAppropriateDateFormat(mContext, calendar);
             viewHolder.mTextSeparator.setText(appropriateDate);
             viewHolder.mTextSeparator.setVisibility(View.VISIBLE);
         }
 
-        viewHolder.mTitle.setText(mNotificationList.get(position).getTitle());
-        viewHolder.mContent.setText(mNotificationList.get(position).getContent());
-        int iconResId = mContext.getResources().getIdentifier(mNotificationList.get(position).getIcon(), "drawable", mContext.getPackageName());
+        viewHolder.mTitle.setText(mReminderList.get(position).getTitle());
+        viewHolder.mContent.setText(mReminderList.get(position).getContent());
+        viewHolder.mTime.setText(DateAndTimeUtil.toStringReadableTime(calendar, mContext));
+        int iconResId = mContext.getResources().getIdentifier(mReminderList.get(position).getIcon(), "drawable", mContext.getPackageName());
         viewHolder.mIcon.setImageResource(iconResId);
         GradientDrawable bgShape = (GradientDrawable) viewHolder.mCircle.getDrawable();
-        bgShape.setColor(Color.parseColor(mNotificationList.get(position).getColour()));
+        bgShape.setColor(Color.parseColor(mReminderList.get(position).getColour()));
 
         viewHolder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                     TabFragment fragment = new TabFragment();
-                    fragment.startViewerActivity(view, mNotificationList.get(position));
+                    fragment.startViewerActivity(view, mReminderList.get(position));
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return mNotificationList.size();
+        return mReminderList.size();
     }
 }

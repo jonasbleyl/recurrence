@@ -1,6 +1,6 @@
 package com.bleyl.recurrence.models;
 
-public class Notification {
+public class Reminder {
     private int mId;
     private String mTitle;
     private String mContent;
@@ -13,9 +13,9 @@ public class Notification {
     private String mColour;
     private boolean[] mDaysOfWeek;
 
-    public Notification() {}
+    public Reminder() {}
 
-    public Notification(int id, String title, String content, String dateAndTime, int repeatType, String foreverState, int numberToShow, int numberShown, String icon, String colour) {
+    public Reminder(int id, String title, String content, String dateAndTime, int repeatType, String foreverState, int numberToShow, int numberShown, String icon, String colour) {
         mId = id;
         mTitle = title;
         mContent = content;
@@ -62,10 +62,6 @@ public class Notification {
 
     public String getDate() {
         return mDateAndTime.substring(0, 8);
-    }
-
-    public String getTime() {
-        return mDateAndTime.substring(8, 12);
     }
 
     public int getRepeatType() {
