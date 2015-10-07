@@ -35,7 +35,7 @@ import com.bleyl.recurrence.adapters.ColoursAdapter;
 import com.bleyl.recurrence.adapters.IconsAdapter;
 import com.bleyl.recurrence.database.DatabaseHelper;
 import com.bleyl.recurrence.models.Icon;
-import com.bleyl.recurrence.models.Notification;
+import com.bleyl.recurrence.models.Reminder;
 import com.bleyl.recurrence.R;
 import com.bleyl.recurrence.receivers.AlarmReceiver;
 import com.bleyl.recurrence.utils.AlarmUtil;
@@ -146,27 +146,27 @@ public class CreateEditActivity extends AppCompatActivity {
         if (getSupportActionBar() != null)
             getSupportActionBar().setTitle(getResources().getString(R.string.edit_notification));
         DatabaseHelper database = DatabaseHelper.getInstance(this);
-        Notification notification = database.getNotification(mId);
+        Reminder reminder = database.getNotification(mId);
         database.close();
 
-        mShowText.setText(String.format(getResources().getString(R.string.times_shown_edit), notification.getNumberShown()));
-        mTimesEditText.setText(Integer.toString(notification.getNumberToShow()));
-        mCalendar = DateAndTimeUtil.parseDateAndTime(notification.getDateAndTime());
-        mTitleEditText.setText(notification.getTitle());
-        mContentEditText.setText(notification.getContent());
+        mShowText.setText(String.format(getResources().getString(R.string.times_shown_edit), reminder.getNumberShown()));
+        mTimesEditText.setText(Integer.toString(reminder.getNumberToShow()));
+        mCalendar = DateAndTimeUtil.parseDateAndTime(reminder.getDateAndTime());
+        mTitleEditText.setText(reminder.getTitle());
+        mContentEditText.setText(reminder.getContent());
         mDateText.setText(DateAndTimeUtil.toStringReadableDate(mCalendar));
         mTimeText.setText(DateAndTimeUtil.toStringReadableTime(mCalendar, this));
-        mTimesEditText.setText(Integer.toString(notification.getNumberToShow()));
-        mTimesShown = notification.getNumberShown();
-        mRepeatType = notification.getRepeatType();
-        mIcon = notification.getIcon();
-        mColour = notification.getColour();
+        mTimesEditText.setText(Integer.toString(reminder.getNumberToShow()));
+        mTimesShown = reminder.getNumberShown();
+        mRepeatType = reminder.getRepeatType();
+        mIcon = reminder.getIcon();
+        mColour = reminder.getColour();
         mTimesText.setVisibility(View.VISIBLE);
         mCalendar.set(Calendar.SECOND, 0);
         newNotification = false;
 
         if (!getResources().getString(R.string.default_icon).equals(mIcon)) {
-            int iconResId = getResources().getIdentifier(notification.getIcon(), "drawable", getPackageName());
+            int iconResId = getResources().getIdentifier(reminder.getIcon(), "drawable", getPackageName());
             mImageIconSelect.setImageResource(iconResId);
             mIconText.setText(getResources().getString(R.string.custom_icon));
         }
@@ -176,16 +176,16 @@ public class CreateEditActivity extends AppCompatActivity {
             mColourText.setText(mColourNames[Arrays.asList(mColoursArray).indexOf(mColour)]);
         }
 
-        if (notification.getRepeatType() != 0) {
+        if (reminder.getRepeatType() != 0) {
             mForeverRow.setVisibility(View.VISIBLE);
             mBottomRow.setVisibility(View.VISIBLE);
             mBottomView.setVisibility(View.VISIBLE);
             String[] mRepeatTexts = getResources().getStringArray(R.array.repeat_array);
-            mRepeatText.setText(mRepeatTexts[notification.getRepeatType()]);
+            mRepeatText.setText(mRepeatTexts[reminder.getRepeatType()]);
         }
 
-        if (notification.getRepeatType() == 5) {
-            mDaysOfWeek = notification.getDaysOfWeek();
+        if (reminder.getRepeatType() == 5) {
+            mDaysOfWeek = reminder.getDaysOfWeek();
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.append(getResources().getString(R.string.repeats_on));
             stringBuilder.append(" ");
@@ -202,7 +202,7 @@ public class CreateEditActivity extends AppCompatActivity {
             Arrays.fill(mDaysOfWeek, false);
         }
 
-        if (Boolean.parseBoolean(notification.getForeverState())) {
+        if (Boolean.parseBoolean(reminder.getForeverState())) {
             mForeverSwitch.setChecked(true);
             toggleTextColour();
         }
@@ -388,23 +388,23 @@ public class CreateEditActivity extends AppCompatActivity {
         }
 
         DatabaseHelper database = DatabaseHelper.getInstance(this);
-        Notification notification = new Notification(mId, title, content, date + time, mRepeatType, forever, timesToShow, mTimesShown, mIcon, mColour);
+        Reminder reminder = new Reminder(mId, title, content, date + time, mRepeatType, forever, timesToShow, mTimesShown, mIcon, mColour);
         if (newNotification) {
-            database.addNotification(notification);
+            database.addNotification(reminder);
         } else {
-            database.updateNotification(notification);
+            database.updateNotification(reminder);
         }
         if (mRepeatType == 5) {
-            notification.setDaysOfWeek(mDaysOfWeek);
-            if (database.isDaysOfWeekPresent(notification)) {
-                database.updateDaysOfWeek(notification);
+            reminder.setDaysOfWeek(mDaysOfWeek);
+            if (database.isDaysOfWeekPresent(reminder)) {
+                database.updateDaysOfWeek(reminder);
             } else {
-                database.addDaysOfWeek(notification);
+                database.addDaysOfWeek(reminder);
             }
         }
         database.close();
         Intent alarmIntent = new Intent(getApplicationContext(), AlarmReceiver.class);
-        AlarmUtil.setAlarm(getApplicationContext(), alarmIntent, notification.getId(), mCalendar);
+        AlarmUtil.setAlarm(getApplicationContext(), alarmIntent, reminder.getId(), mCalendar);
         finish();
     }
 
