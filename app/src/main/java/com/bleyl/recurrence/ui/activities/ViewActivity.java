@@ -54,7 +54,7 @@ public class ViewActivity extends AppCompatActivity {
         TextView shownText = (TextView) findViewById(R.id.shown);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         LinearLayout linearLayout = (LinearLayout) findViewById(R.id.detail_layout);
-        View shadowView = findViewById(R.id.toolbarShadow);
+        View shadowView = findViewById(R.id.toolbar_shadow);
         scroll = (ScrollView) findViewById(R.id.scroll);
         headerView = findViewById(R.id.header);
 

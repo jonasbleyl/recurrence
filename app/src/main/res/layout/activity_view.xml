@@ -69,7 +69,7 @@
 
                     <LinearLayout
                         android:layout_height="wrap_content"
-                        android:layout_width="fill_parent"
+                        android:layout_width="match_parent"
                         android:orientation="horizontal">
 
                         <TextView
@@ -111,14 +111,13 @@
     </LinearLayout>
 
     <View
-        android:id="@+id/toolbarShadow"
+        android:id="@+id/toolbar_shadow"
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_shadow_height"
         android:visibility="gone"
         android:background="@drawable/toolbar_shadow"/>
 
     <ScrollView
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/scroll"
         android:background="@android:color/white"
         android:layout_width="match_parent"
@@ -149,9 +148,9 @@
                     android:layout_marginLeft="@dimen/image_margin_side"/>
 
                 <TextView
+                    android:id="@+id/time"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/time"
                     android:textColor="@android:color/black"
                     android:layout_marginLeft="@dimen/text_view_margin_side"
                     android:layout_marginStart="@dimen/text_view_margin_side"
@@ -177,9 +176,9 @@
                     android:layout_marginLeft="@dimen/image_margin_side"/>
 
                 <TextView
+                    android:id="@+id/date"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/date"
                     android:textColor="@android:color/black"
                     android:layout_marginLeft="@dimen/text_view_margin_side"
                     android:layout_marginStart="@dimen/text_view_margin_side"
@@ -205,9 +204,9 @@
                     android:layout_marginLeft="@dimen/image_margin_side"/>
 
                 <TextView
+                    android:id="@+id/repeat"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/repeat"
                     android:textColor="@android:color/black"
                     android:layout_marginLeft="@dimen/text_view_margin_side"
                     android:layout_marginStart="@dimen/text_view_margin_side"
@@ -233,9 +232,9 @@
                     android:layout_marginLeft="@dimen/image_margin_side"/>
 
                 <TextView
+                    android:id="@+id/shown"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/shown"
                     android:textColor="@android:color/black"
                     android:layout_marginLeft="@dimen/text_view_margin_side"
                     android:layout_marginStart="@dimen/text_view_margin_side"

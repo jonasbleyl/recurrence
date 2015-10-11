@@ -10,9 +10,9 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/tab_header"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:id="@+id/tabHeader"
             android:orientation="horizontal"
             android:background="?attr/colorPrimary">
 
@@ -45,7 +45,7 @@
             android:layout_height="match_parent"/>
 
         <View
-            android:id="@+id/toolbarShadow"
+            android:id="@+id/toolbar_shadow"
             android:layout_width="match_parent"
             android:layout_height="@dimen/toolbar_shadow_height"
             android:background="@drawable/toolbar_shadow"
