@@ -1,6 +1,6 @@
 package com.bleyl.recurrence.adapters;
 
-import android.content.Context;
+import android.app.Activity;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.support.v7.widget.RecyclerView;
@@ -21,7 +21,7 @@ import java.util.List;
 public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHolder> {
 
     private int mRowLayout;
-    private Context mContext;
+    private Activity mActivity;
     private List<Reminder> mReminderList;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -45,8 +45,8 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHo
         }
     }
 
-    public ReminderAdapter(Context context, int rowLayout, List<Reminder> reminderList) {
-        mContext = context;
+    public ReminderAdapter(Activity activity, int rowLayout, List<Reminder> reminderList) {
+        mActivity = activity;
         mRowLayout = rowLayout;
         mReminderList = reminderList;
     }
@@ -64,15 +64,15 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHo
         if (position > 0 && mReminderList.get(position).getDate().equals(mReminderList.get(position - 1).getDate()) ) {
             viewHolder.mTextSeparator.setVisibility(View.GONE);
         } else {
-            String appropriateDate = DateAndTimeUtil.getAppropriateDateFormat(mContext, calendar);
+            String appropriateDate = DateAndTimeUtil.getAppropriateDateFormat(mActivity, calendar);
             viewHolder.mTextSeparator.setText(appropriateDate);
             viewHolder.mTextSeparator.setVisibility(View.VISIBLE);
         }
 
         viewHolder.mTitle.setText(mReminderList.get(position).getTitle());
         viewHolder.mContent.setText(mReminderList.get(position).getContent());
-        viewHolder.mTime.setText(DateAndTimeUtil.toStringReadableTime(calendar, mContext));
-        int iconResId = mContext.getResources().getIdentifier(mReminderList.get(position).getIcon(), "drawable", mContext.getPackageName());
+        viewHolder.mTime.setText(DateAndTimeUtil.toStringReadableTime(calendar, mActivity));
+        int iconResId = mActivity.getResources().getIdentifier(mReminderList.get(position).getIcon(), "drawable", mActivity.getPackageName());
         viewHolder.mIcon.setImageResource(iconResId);
         GradientDrawable bgShape = (GradientDrawable) viewHolder.mCircle.getDrawable();
         bgShape.setColor(Color.parseColor(mReminderList.get(position).getColour()));
@@ -81,7 +81,7 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHo
             @Override
             public void onClick(View view) {
                     TabFragment fragment = new TabFragment();
-                    fragment.startViewerActivity(view, mReminderList.get(position));
+                    fragment.startViewerActivity(mActivity, view, mReminderList.get(position));
             }
         });
     }

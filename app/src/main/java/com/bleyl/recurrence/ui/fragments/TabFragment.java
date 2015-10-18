@@ -34,7 +34,7 @@ import java.util.List;
 
 public class TabFragment extends Fragment {
 
-    private static Activity sActivity;
+    private Activity mActivity;
     private RecyclerView mRecyclerView;
     private TextView mEmptyText;
     private ReminderAdapter mReminderAdapter;
@@ -44,8 +44,8 @@ public class TabFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_tabs, container, false);
-        sActivity = getActivity();
-        LocalBroadcastManager.getInstance(sActivity).registerReceiver(messageReceiver, new IntentFilter("BROADCAST_REFRESH"));
+        mActivity = getActivity();
+        LocalBroadcastManager.getInstance(mActivity).registerReceiver(messageReceiver, new IntentFilter("BROADCAST_REFRESH"));
         return view;
     }
 
@@ -54,7 +54,7 @@ public class TabFragment extends Fragment {
         super.onViewCreated(view, bundle);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         mEmptyText = (TextView) view.findViewById(R.id.empty_view);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(sActivity);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(mActivity);
         mRecyclerView.setLayoutManager(layoutManager);
 
         mRemindersType = (RemindersType) this.getArguments().get("TYPE");
@@ -63,7 +63,7 @@ public class TabFragment extends Fragment {
         }
 
         mReminderList = getListData();
-        mReminderAdapter = new ReminderAdapter(sActivity, R.layout.item_notification_list, mReminderList);
+        mReminderAdapter = new ReminderAdapter(mActivity, R.layout.item_notification_list, mReminderList);
         mRecyclerView.setAdapter(mReminderAdapter);
 
         if (mReminderAdapter.getItemCount() == 0) {
@@ -73,7 +73,7 @@ public class TabFragment extends Fragment {
     }
 
     public List<Reminder> getListData() {
-        DatabaseHelper database = DatabaseHelper.getInstance(sActivity.getApplicationContext());
+        DatabaseHelper database = DatabaseHelper.getInstance(mActivity.getApplicationContext());
         List<Reminder> reminderList = database.getNotificationList(mRemindersType);
         database.close();
         return reminderList;
@@ -93,8 +93,8 @@ public class TabFragment extends Fragment {
         }
     }
 
-    public void startViewerActivity(View view, Reminder reminder) {
-        Intent intent = new Intent(sActivity, ViewActivity.class);
+    public void startViewerActivity(Activity activity, View view, Reminder reminder) {
+        Intent intent = new Intent(activity, ViewActivity.class);
         intent.putExtra("NOTIFICATION_ID", reminder.getId());
 
         // Add shared element transition animation if on Lollipop or later
@@ -110,13 +110,13 @@ public class TabFragment extends Fragment {
             transition.setDuration(400);
             setExit.addTransition(transition);
 
-            sActivity.getWindow().setSharedElementsUseOverlay(false);
-            sActivity.getWindow().setReenterTransition(null);
+            activity.getWindow().setSharedElementsUseOverlay(false);
+            activity.getWindow().setReenterTransition(null);
 
-            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(sActivity, cardView, "cardTransition");
-            ActivityCompat.startActivity(sActivity, intent, options.toBundle());
+            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(activity, cardView, "cardTransition");
+            ActivityCompat.startActivity(activity, intent, options.toBundle());
 
-            ((RecyclerCallback) sActivity).hideFab();
+            ((RecyclerCallback) activity).hideFab();
         } else {
             view.getContext().startActivity(intent);
         }
@@ -137,7 +137,7 @@ public class TabFragment extends Fragment {
 
     @Override
     public void onDestroy() {
-        LocalBroadcastManager.getInstance(sActivity).unregisterReceiver(messageReceiver);
+        LocalBroadcastManager.getInstance(mActivity).unregisterReceiver(messageReceiver);
         super.onDestroy();
     }
 }
