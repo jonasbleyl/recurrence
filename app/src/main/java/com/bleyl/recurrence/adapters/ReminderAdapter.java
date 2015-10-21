@@ -1,16 +1,25 @@
 package com.bleyl.recurrence.adapters;
 
 import android.app.Activity;
+import android.app.ActivityOptions;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
+import android.os.Build;
+import android.support.v4.app.ActivityCompat;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.transition.Fade;
+import android.transition.Transition;
+import android.transition.TransitionSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bleyl.recurrence.ui.fragments.TabFragment;
+import com.bleyl.recurrence.interfaces.RecyclerCallback;
+import com.bleyl.recurrence.ui.activities.ViewActivity;
 import com.bleyl.recurrence.models.Reminder;
 import com.bleyl.recurrence.R;
 import com.bleyl.recurrence.utils.DateAndTimeUtil;
@@ -80,8 +89,32 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHo
         viewHolder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    TabFragment fragment = new TabFragment();
-                    fragment.startViewerActivity(mActivity, view, mReminderList.get(position));
+                Intent intent = new Intent(mActivity, ViewActivity.class);
+                intent.putExtra("NOTIFICATION_ID", mReminderList.get(position).getId());
+
+                // Add shared element transition animation if on Lollipop or later
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    CardView cardView = (CardView) view.findViewById(R.id.notification_card);
+
+                    TransitionSet setExit = new TransitionSet();
+                    Transition transition = new Fade();
+                    transition.excludeTarget(android.R.id.statusBarBackground, true);
+                    transition.excludeTarget(android.R.id.navigationBarBackground, true);
+                    transition.excludeTarget(R.id.fab_button, true);
+                    transition.excludeTarget(R.id.recycler_view, true);
+                    transition.setDuration(400);
+                    setExit.addTransition(transition);
+
+                    mActivity.getWindow().setSharedElementsUseOverlay(false);
+                    mActivity.getWindow().setReenterTransition(null);
+
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(mActivity, cardView, "cardTransition");
+                    ActivityCompat.startActivity(mActivity, intent, options.toBundle());
+
+                    ((RecyclerCallback) mActivity).hideFab();
+                } else {
+                    view.getContext().startActivity(intent);
+                }
             }
         });
     }
