@@ -9,7 +9,7 @@
     <string name="checkbox_vibrate">Rezgés</string>
     <string name="checkbox_sound">Hang</string>
     <string name="checkbox_LED">Led</string>
-    <string name="checkbox_ongoing">Állandó</string>
+    <string name="checkbox_ongoing">Állandóan kint</string>
     <string name="checkbox_dismiss">Érintésre elutasít</string>
     <string name="snooze">Szundi</string>
     <string name="snooze_detail">Szundi hozzáadása az értesítéshez</string>
@@ -33,10 +33,10 @@
     <string name="time_now">Most</string>
     <string name="date_today">Ma</string>
     <string name="times_shown">Eddig mutatva %1$d alkalommal %2$d alkalomból</string>
-    <string name="times_shown_edit">Mutatva %1$d alkalomból</string>
+    <string name="times_shown_edit">Mutatva %1$d alkalommal</string>
     <string name="forever">Vég nélkül</string>
-    <string name="no_repeat">Ne ismételje</string>
-    <string name="times">idő</string>
+    <string name="no_repeat">Egyszeri alkalom</string>
+    <string name="times">alkalomból</string>
     <string name="repeat_notification">Ismétlődések száma</string>
     <string name="content_hint">Értesítés leírása</string>
 
@@ -57,7 +57,7 @@
         <item>Rózsaszín</item>
     </string-array>
 
-    <string name="repeats_on">Ismételve</string>
+    <string name="repeats_on">Ismételődés:</string>
 
     <string name="no_active">Nincs aktív értesítés</string>
     <string name="no_inactive">Nincs inaktív értesítés</string>
