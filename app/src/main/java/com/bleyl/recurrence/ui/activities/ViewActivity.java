@@ -23,7 +23,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.bleyl.recurrence.database.DatabaseHelper;
-import com.bleyl.recurrence.models.Notification;
+import com.bleyl.recurrence.models.Reminder;
 import com.bleyl.recurrence.R;
 import com.bleyl.recurrence.receivers.AlarmReceiver;
 import com.bleyl.recurrence.utils.AlarmUtil;
@@ -34,7 +34,7 @@ import java.util.Calendar;
 
 public class ViewActivity extends AppCompatActivity {
 
-    private Notification mNotification;
+    private Reminder mReminder;
     private ScrollView scroll;
     private View headerView;
 
@@ -43,17 +43,18 @@ public class ViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view);
 
-        TextView titleTextView = (TextView) findViewById(R.id.title);
-        TextView contentTextView = (TextView) findViewById(R.id.content);
-        TextView timeTextView = (TextView) findViewById(R.id.time);
-        TextView dateTextView = (TextView) findViewById(R.id.date);
-        TextView repeatTextView = (TextView) findViewById(R.id.repeat);
-        TextView shownTextView = (TextView) findViewById(R.id.shown);
-        ImageView iconImage = (ImageView) findViewById(R.id.image);
-        ImageView circleImage = (ImageView) findViewById(R.id.circle);
+        TextView notificationTitleText = (TextView) findViewById(R.id.notification_title);
+        TextView notificationTimeText = (TextView) findViewById(R.id.notification_time);
+        TextView contentText = (TextView) findViewById(R.id.notification_content);
+        ImageView iconImage = (ImageView) findViewById(R.id.notification_icon);
+        ImageView circleImage = (ImageView) findViewById(R.id.notification_circle);
+        TextView timeText = (TextView) findViewById(R.id.time);
+        TextView dateText = (TextView) findViewById(R.id.date);
+        TextView repeatText = (TextView) findViewById(R.id.repeat);
+        TextView shownText = (TextView) findViewById(R.id.shown);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         LinearLayout linearLayout = (LinearLayout) findViewById(R.id.detail_layout);
-        View shadowView = findViewById(R.id.toolbarShadow);
+        View shadowView = findViewById(R.id.toolbar_shadow);
         scroll = (ScrollView) findViewById(R.id.scroll);
         headerView = findViewById(R.id.header);
 
@@ -78,41 +79,43 @@ public class ViewActivity extends AppCompatActivity {
 
         // Check if notification has been deleted
         if (database.isNotificationPresent(mNotificationID)) {
-            mNotification = database.getNotification(mNotificationID);
+            mReminder = database.getNotification(mNotificationID);
             database.close();
 
             // Assign notification values to views
-            Calendar calendar = DateAndTimeUtil.parseDateAndTime(mNotification.getDateAndTime());
-            titleTextView.setText(mNotification.getTitle());
-            contentTextView.setText(mNotification.getContent());
-            dateTextView.setText(DateAndTimeUtil.toStringReadableDate(calendar));
-            int iconResId = getResources().getIdentifier(mNotification.getIcon(), "drawable", getPackageName());
+            Calendar calendar = DateAndTimeUtil.parseDateAndTime(mReminder.getDateAndTime());
+            notificationTitleText.setText(mReminder.getTitle());
+            contentText.setText(mReminder.getContent());
+            dateText.setText(DateAndTimeUtil.toStringReadableDate(calendar));
+            int iconResId = getResources().getIdentifier(mReminder.getIcon(), "drawable", getPackageName());
             iconImage.setImageResource(iconResId);
-            circleImage.setColorFilter(Color.parseColor(mNotification.getColour()));
-            timeTextView.setText(DateAndTimeUtil.toStringReadableTime(calendar, this));
+            circleImage.setColorFilter(Color.parseColor(mReminder.getColour()));
+            String readableTime = DateAndTimeUtil.toStringReadableTime(calendar, this);
+            timeText.setText(readableTime);
+            notificationTimeText.setText(readableTime);
 
-            if (mNotification.getRepeatType() == 5) {
+            if (mReminder.getRepeatType() == 5) {
                 StringBuilder stringBuilder = new StringBuilder();
                 stringBuilder.append(getResources().getString(R.string.repeats_on));
                 stringBuilder.append(" ");
                 String[] shortWeekDays = DateAndTimeUtil.getShortWeekDays();
-                for (int i = 0; i < mNotification.getDaysOfWeek().length; i++) {
-                    if (mNotification.getDaysOfWeek()[i]) {
+                for (int i = 0; i < mReminder.getDaysOfWeek().length; i++) {
+                    if (mReminder.getDaysOfWeek()[i]) {
                         stringBuilder.append(shortWeekDays[i]);
                         stringBuilder.append(" ");
                     }
                 }
-                repeatTextView.setText(stringBuilder);
+                repeatText.setText(stringBuilder);
             } else {
                 String[] repeatTexts = getResources().getStringArray(R.array.repeat_array);
-                repeatTextView.setText(repeatTexts[mNotification.getRepeatType()]);
+                repeatText.setText(repeatTexts[mReminder.getRepeatType()]);
             }
 
-            if (Boolean.parseBoolean(mNotification.getForeverState())) {
-                shownTextView.setText(getResources().getString(R.string.forever));
+            if (Boolean.parseBoolean(mReminder.getForeverState())) {
+                shownText.setText(getResources().getString(R.string.forever));
             } else {
-                String shown = (getResources().getString(R.string.times_shown, mNotification.getNumberShown(), mNotification.getNumberToShow()));
-                shownTextView.setText(shown);
+                String shown = (getResources().getString(R.string.times_shown, mReminder.getNumberShown(), mReminder.getNumberToShow()));
+                shownText.setText(shown);
             }
         } else {
             database.close();
@@ -168,21 +171,21 @@ public class ViewActivity extends AppCompatActivity {
     }
 
     public void actionShowNow() {
-        NotificationUtil.createNotification(this, mNotification);
+        NotificationUtil.createNotification(this, mReminder);
     }
 
     public void actionDelete() {
         DatabaseHelper database = DatabaseHelper.getInstance(this);
-        database.deleteNotification(mNotification);
+        database.deleteNotification(mReminder);
         database.close();
         Intent alarmIntent = new Intent(getApplicationContext(), AlarmReceiver.class);
-        AlarmUtil.cancelAlarm(getApplicationContext(), alarmIntent, mNotification.getId());
+        AlarmUtil.cancelAlarm(getApplicationContext(), alarmIntent, mReminder.getId());
         finish();
     }
 
     public void actionEdit() {
         Intent intent = new Intent(this, CreateEditActivity.class);
-        intent.putExtra("NOTIFICATION_ID", mNotification.getId());
+        intent.putExtra("NOTIFICATION_ID", mReminder.getId());
         startActivity(intent);
         finish();
     }

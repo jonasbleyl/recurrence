@@ -5,9 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.bleyl.recurrence.database.DatabaseHelper;
-import com.bleyl.recurrence.enums.NotificationsType;
+import com.bleyl.recurrence.enums.RemindersType;
 import com.bleyl.recurrence.utils.AlarmUtil;
-import com.bleyl.recurrence.models.Notification;
+import com.bleyl.recurrence.models.Reminder;
 import com.bleyl.recurrence.utils.DateAndTimeUtil;
 
 import java.util.Calendar;
@@ -17,14 +17,14 @@ public class BootReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         DatabaseHelper database = DatabaseHelper.getInstance(context);
-        List<Notification> notificationList = database.getNotificationList(NotificationsType.ACTIVE);
+        List<Reminder> reminderList = database.getNotificationList(RemindersType.ACTIVE);
         database.close();
         Intent alarmIntent = new Intent(context, AlarmReceiver.class);
 
-        for (Notification notification : notificationList) {
-            Calendar calendar = DateAndTimeUtil.parseDateAndTime(notification.getDateAndTime());
+        for (Reminder reminder : reminderList) {
+            Calendar calendar = DateAndTimeUtil.parseDateAndTime(reminder.getDateAndTime());
             calendar.set(Calendar.SECOND, 0);
-            AlarmUtil.setAlarm(context, alarmIntent, notification.getId(), calendar);
+            AlarmUtil.setAlarm(context, alarmIntent, reminder.getId(), calendar);
         }
     }
 }

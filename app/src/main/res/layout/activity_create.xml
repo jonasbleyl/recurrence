@@ -39,7 +39,6 @@
                 android:paddingTop="4dp">
 
                 <TextView
-                    android:id="@+id/textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingBottom="2dp"
@@ -48,7 +47,7 @@
                     android:textColor="@android:color/white" />
 
                 <EditText
-                    android:id="@+id/notificationTitle"
+                    android:id="@+id/notification_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textCapSentences"
@@ -61,7 +60,7 @@
         </LinearLayout>
 
         <View
-            android:id="@+id/toolbarShadow"
+            android:id="@+id/toolbar_shadow"
             android:layout_width="match_parent"
             android:layout_height="@dimen/toolbar_shadow_height"
             android:layout_marginBottom="@dimen/toolbar_shadow_adjust"
@@ -96,7 +95,7 @@
                         android:src="@drawable/ic_subject_white_24dp"/>
 
                     <EditText
-                        android:id="@+id/notificationContent"
+                        android:id="@+id/notification_content"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -119,7 +118,7 @@
                     android:background="@color/lightGray" />
 
                 <TableRow
-                    android:id="@+id/timeRow"
+                    android:id="@+id/time_row"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="?attr/selectableItemBackground"
@@ -131,7 +130,7 @@
                     android:weightSum="1">
 
                     <ImageView
-                        android:id="@+id/timeImage"
+                        android:id="@+id/time_image"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/image_margin_side"
@@ -157,7 +156,7 @@
                         android:weightSum="1">
 
                         <ImageView
-                            android:id="@+id/errorTime"
+                            android:id="@+id/error_time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:src="@drawable/ic_error_white_24dp"
@@ -176,7 +175,7 @@
                     android:background="@color/lightGray" />
 
                 <TableRow
-                    android:id="@+id/dateRow"
+                    android:id="@+id/date_row"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="?attr/selectableItemBackground"
@@ -213,7 +212,7 @@
                         android:weightSum="1">
 
                         <ImageView
-                            android:id="@+id/errorDate"
+                            android:id="@+id/error_date"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:src="@drawable/ic_error_white_24dp"
@@ -232,7 +231,7 @@
                     android:background="@color/lightGray" />
 
                 <TableRow
-                    android:id="@+id/iconSelect"
+                    android:id="@+id/icon_select"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="?attr/selectableItemBackground"
@@ -244,7 +243,7 @@
                     android:weightSum="1">
 
                     <ImageView
-                        android:id="@+id/selectedIcon"
+                        android:id="@+id/selected_icon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/image_margin_side"
@@ -253,7 +252,7 @@
                         android:src="@drawable/ic_notifications_white_24dp"/>
 
                     <TextView
-                        android:id="@+id/selectIconText"
+                        android:id="@+id/select_icon_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -273,7 +272,7 @@
                     android:background="@color/lightGray" />
 
                 <TableRow
-                    android:id="@+id/colourSelect"
+                    android:id="@+id/colour_select"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="?attr/selectableItemBackground"
@@ -285,7 +284,7 @@
                     android:weightSum="1">
 
                     <ImageView
-                        android:id="@+id/colourIcon"
+                        android:id="@+id/colour_icon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/image_margin_side"
@@ -294,7 +293,7 @@
                         android:src="@drawable/ic_color_lens_white_24dp"/>
 
                     <TextView
-                        android:id="@+id/selectColourText"
+                        android:id="@+id/select_colour_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -314,7 +313,7 @@
                     android:background="@color/lightGray" />
 
                 <TableRow
-                    android:id="@+id/repeatDayRow"
+                    android:id="@+id/repeat_day_row"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="?attr/selectableItemBackground"
@@ -334,7 +333,7 @@
                         android:src="@drawable/ic_refresh_white_24dp"/>
 
                     <TextView
-                        android:id="@+id/repeatDay"
+                        android:id="@+id/repeat_day"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -355,7 +354,7 @@
                     android:background="@color/lightGray" />
 
                 <TableRow
-                    android:id="@+id/foreverRow"
+                    android:id="@+id/forever_row"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="?attr/selectableItemBackground"
@@ -388,7 +387,7 @@
                         android:textSize="16sp" />
 
                     <android.support.v7.widget.SwitchCompat
-                        android:id="@+id/switchToggle"
+                        android:id="@+id/switch_toggle"
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -399,7 +398,7 @@
                 </TableRow>
 
                 <TableRow
-                    android:id="@+id/bottomRow"
+                    android:id="@+id/bottom_row"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingBottom="12dp"
@@ -424,7 +423,7 @@
                             android:textSize="16sp" />
 
                         <EditText
-                            android:id="@+id/showTimesNumber"
+                            android:id="@+id/show_times_number"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center"
@@ -455,7 +454,7 @@
                         android:weightSum="1">
 
                         <ImageView
-                            android:id="@+id/errorShow"
+                            android:id="@+id/error_show"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:src="@drawable/ic_error_white_24dp"
@@ -467,7 +466,7 @@
                 </TableRow>
 
                 <View
-                    android:id="@+id/bottomView"
+                    android:id="@+id/bottom_view"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/line_separator_height"
                     android:layout_marginBottom="16dp"

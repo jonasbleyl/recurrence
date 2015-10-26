@@ -26,7 +26,7 @@
             android:key="checkBoxSnooze"
             android:title="@string/snooze"
             android:summary="@string/snooze_detail"/>
-        <com.bleyl.recurrence.views.PreferenceNumberPicker
+        <com.bleyl.recurrence.dialogs.PreferenceNumberPicker
             android:key="snoozeLength"
             android:title="@string/snooze_length"
             android:defaultValue="@integer/default_snooze_minutes"/>

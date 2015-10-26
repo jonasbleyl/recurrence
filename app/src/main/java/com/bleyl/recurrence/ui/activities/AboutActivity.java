@@ -59,7 +59,7 @@ public class AboutActivity extends AppCompatActivity {
         builder.setPositiveButton(getResources().getString(R.string.ok), null);
         builder.show();
 
-        dialogView.findViewById(R.id.tabLink).setOnClickListener(new View.OnClickListener() {
+        dialogView.findViewById(R.id.tab_link).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String url = getResources().getString(R.string.tabLink);

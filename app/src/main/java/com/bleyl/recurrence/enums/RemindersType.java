@@ -1,6 +1,6 @@
 package com.bleyl.recurrence.enums;
 
-public enum NotificationsType {
+public enum RemindersType {
     ACTIVE,
     INACTIVE
 }

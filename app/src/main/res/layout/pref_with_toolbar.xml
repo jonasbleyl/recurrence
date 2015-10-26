@@ -14,7 +14,7 @@
         android:theme="@style/Toolbar"/>
 
     <View
-        android:id="@+id/toolbarShadow"
+        android:id="@+id/toolbar_shadow"
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_shadow_height"
         android:layout_marginBottom="@dimen/toolbar_shadow_adjust"

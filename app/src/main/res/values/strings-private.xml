@@ -10,6 +10,7 @@
         <item>TykTak</item>
         <item>Ivica Jeđud</item>
         <item>Fan Guan</item>
+        <item>Tibor Barczi</item>
     </string-array>
 
     <string-array name="contribution_array" translatable="false">
@@ -17,6 +18,7 @@
         <item>(PL)</item>
         <item>(HR)</item>
         <item>(ZH)</item>
+        <item>(HU)</item>
     </string-array>
 
     <string name="default_colour_value" translatable="false">#9E9E9E</string>
@@ -163,8 +165,8 @@
         <item>ic_drafts_white_24dp</item>
           <item>ic_dvr_white_24dp</item>
           <item>ic_eject_white_24dp</item> 
-        <item>ic_equalizer_white_24dp</item>
-          <item>ic_error_white_24dp</item>  
+        <item>ic_equalizer_white_24dp</item>  
+        <item>ic_error_white_24dp</item>  
         <item>ic_event_seat_white_24dp</item>  
         <item>ic_explore_white_24dp</item>
           <item>ic_extension_white_24dp</item>  
@@ -213,8 +215,8 @@
         <item>ic_local_activity_white_24dp</item>  
         <item>ic_local_atm_white_24dp</item>
           <item>ic_local_bar_white_24dp</item>
-          <item>ic_local_cafe_white_24dp</item>  
-        <item>ic_local_florist_white_24dp</item>
+          <item>ic_local_cafe_white_24dp</item>
+          <item>ic_local_florist_white_24dp</item>
          <item>ic_local_laundry_service_white_24dp</item>  
         <item>ic_local_library_white_24dp</item>
           <item>ic_local_mall_white_24dp</item>  
