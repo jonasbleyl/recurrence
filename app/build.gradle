@@ -8,8 +8,8 @@ android {
         applicationId "com.bleyl.recurrence"
         minSdkVersion 15
         targetSdkVersion 23
-        versionCode 12
-        versionName "1.2"
+        versionCode 13
+        versionName "1.2.1"
     }
     buildTypes {
         release {
