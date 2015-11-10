@@ -1,0 +1,87 @@
+<resources>
+    <string name="create_notification">Criar Notificação</string>
+    <string name="view_notification">Ver Notificação</string>
+    <string name="edit_notification">Editar Notificação</string>
+    <string name="about">Sobre</string>
+    <string name="settings">Configurações</string>
+
+    <string name="preference_notification_category">Preferências da Notificação</string>
+    <string name="checkbox_vibrate">Vibração</string>
+    <string name="checkbox_sound">Som</string>
+    <string name="checkbox_LED">LED</string>
+    <string name="checkbox_ongoing">Persistente</string>
+    <string name="checkbox_dismiss">Dispensar ao tocar</string>
+    <string name="snooze">Soneca</string>
+    <string name="snooze_detail">Adiciona a função de colocar a adiar a notificação</string>
+    <string name="snooze_length">Duração da soneca</string>
+    <string name="minute">minuto</string>
+    <string name="minutes">minutos</string>
+
+    <string name="action_settings">Configurações</string>
+    <string name="action_delete">Excluir</string>
+    <string name="action_edit">Editar</string>
+    <string name="action_about">Sobre</string>
+    <string name="action_show_now">Mostrar agora</string>
+
+    <string name="delete_confirmation">Tem certeza que você quer excluir essa notificação?</string>
+    <string name="yes">Sim</string>
+    <string name="no">Não</string>
+    <string name="ok">Ok</string>
+
+    <string name="title">Titulo</string>
+    <string name="save_menu">Salvar</string>
+    <string name="time_now">Agora</string>
+    <string name="date_today">Hoje</string>
+    <string name="times_shown">Mostrada %1$d de %2$d vezes</string>
+    <string name="times_shown_edit">Mostrada %1$d de</string>
+    <string name="forever">Para sempre</string>
+    <string name="no_repeat">Não repitir</string>
+    <string name="times">vezes</string>
+    <string name="repeat_notification">Número de vezes para repitir:</string>
+    <string name="content_hint">Adicione o conteúdo da notificação</string>
+
+    <string name="select_icon">Selecione um icone</string>
+    <string name="default_icon">Icone padrão</string>
+    <string name="custom_icon">Icone personalizado</string>
+
+    <string name="select_colour">Selecione uma cor</string>
+    <string name="default_colour">Cor padrão</string>
+    <string-array name="colour_names_array">
+        <item>Cor Padrão</item>
+        <item>Azul</item>
+        <item>Roxo</item>
+        <item>Vermelho</item>
+        <item>Verde</item>
+        <item>Laranja</item>
+        <item>Amarelo</item>
+        <item>Rosa</item>
+    </string-array>
+
+    <string name="repeats_on">Repete em:</string>
+
+    <string name="no_active">Nenhuma notificação ativa</string>
+    <string name="no_inactive">Nenhuma notificação inativa</string>
+
+    <string name="toast_past_date">Não é possivel selecionar uma data no passado</string>
+    <string name="toast_higher_number">O número de repetições deve ser maior</string>
+    <string name="toast_title_empty">O título não pode estar vazio</string>
+
+    <string name="libraries">Bibliotecas</string>
+    <string name="rate_app">Dê uma nota ao app</string>
+    <string name="contact">Contato</string>
+    <string name="version">Versão</string>
+
+    <string name="thanks_to">Agradecimentos</string>
+    <string name="translator">Tradutor</string>
+
+    <string name="send_email">Enviar email</string>
+
+    <string-array name="repeat_array">
+        <item>Não repete</item>
+        <item>Todo dia</item>
+        <item>Toda semana</item>
+        <item>Todo mês</item>
+        <item>Todo ano</item>
+        <item>Dia específico da semana</item>
+    </string-array>
+</resources>

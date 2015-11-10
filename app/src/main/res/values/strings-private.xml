@@ -11,14 +11,16 @@
         <item>Ivica Jeđud</item>
         <item>Fan Guan</item>
         <item>Tibor Barczi</item>
+        <item>Sérgio Polo</item>
     </string-array>
 
     <string-array name="contribution_array" translatable="false">
         <item>(GE)</item>
         <item>(PL)</item>
         <item>(HR)</item>
-        <item>(ZH)</item>
+        <item>(ZH-CN)</item>
         <item>(HU)</item>
+        <item>(PT-BR)</item>
     </string-array>
 
     <string name="default_colour_value" translatable="false">#9E9E9E</string>

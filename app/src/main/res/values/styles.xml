@@ -1,4 +1,15 @@
 <resources>
+    <style name="StartTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="windowActionModeOverlay">true</item>
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primaryDark</item>
+        <item name="colorAccent">@color/accent</item>
+        <item name="android:colorBackground">@color/background</item>
+        <item name="android:windowTitleSize">?attr/actionBarSize</item>
+        <item name="android:windowTitleStyle">@style/CustomWindowTitle</item>
+        <item name="android:windowTitleBackgroundStyle">@style/CustomWindowTitleBackground</item>
+        <item name="android:windowNoTitle">false</item>
+    </style>
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="windowActionModeOverlay">true</item>
         <item name="colorPrimary">@color/primary</item>
@@ -31,5 +42,15 @@
     </style>
     <style name="ToolbarActionMode" parent="@style/Widget.AppCompat.ActionMode">
         <item name="background">@color/primary</item>
+    </style>
+    <style name="CustomWindowTitleBackground">
+        <item name="android:background">@color/primary</item>
+    </style>
+    <style name="CustomWindowTitle">
+        <item name="android:singleLine">true</item>
+        <item name="android:textAppearance">@style/CustomWindowTitleText</item>
+    </style>
+    <style name="CustomWindowTitleText">
+        <item name="android:textColor">@android:color/transparent</item>
     </style>
 </resources>

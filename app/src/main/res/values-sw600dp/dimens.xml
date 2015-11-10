@@ -8,4 +8,5 @@
     <dimen name="create_scroll_view_padding">16dp</dimen>
     <dimen name="view_header_padding_bottom">5dp</dimen>
     <dimen name="fab_recycler_view_padding">120dp</dimen>
+    <dimen name="toolbar_placeholder_height">64dp</dimen>
 </resources>
