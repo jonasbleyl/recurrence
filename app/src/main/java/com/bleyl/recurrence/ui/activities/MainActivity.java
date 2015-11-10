@@ -13,6 +13,7 @@ import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 
 import com.astuetz.PagerSlidingTabStrip;
 import com.bleyl.recurrence.R;
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerCallback 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
