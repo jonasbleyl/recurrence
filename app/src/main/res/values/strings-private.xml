@@ -12,6 +12,7 @@
         <item>Fan Guan</item>
         <item>Tibor Barczi</item>
         <item>Sérgio Polo</item>
+        <item>Alberto Nicoletti</item>
     </string-array>
 
     <string-array name="contribution_array" translatable="false">
@@ -21,6 +22,7 @@
         <item>(ZH-CN)</item>
         <item>(HU)</item>
         <item>(PT-BR)</item>
+        <item>(IT)</item>
     </string-array>
 
     <string name="default_colour_value" translatable="false">#9E9E9E</string>
