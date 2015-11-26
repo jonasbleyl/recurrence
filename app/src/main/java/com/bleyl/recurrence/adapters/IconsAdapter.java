@@ -13,6 +13,9 @@ import com.bleyl.recurrence.ui.activities.CreateEditActivity;
 
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 public class IconsAdapter extends RecyclerView.Adapter<IconsAdapter.ViewHolder>{
 
     private int mRowLayout;
@@ -20,13 +23,13 @@ public class IconsAdapter extends RecyclerView.Adapter<IconsAdapter.ViewHolder>{
     private List<Icon> mIconList;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public ImageView mImageView;
+        @Bind(R.id.icon) ImageView mImageView;
         private View mView;
 
         public ViewHolder(final View view) {
             super(view);
             mView = view;
-            mImageView = (ImageView) view.findViewById(R.id.icon);
+            ButterKnife.bind(this, view);
         }
     }
 

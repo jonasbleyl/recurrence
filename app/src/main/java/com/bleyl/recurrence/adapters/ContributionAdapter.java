@@ -9,6 +9,9 @@ import android.widget.TextView;
 
 import com.bleyl.recurrence.R;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 public class ContributionAdapter extends RecyclerView.Adapter<ContributionAdapter.ViewHolder> {
 
     private int mRowLayout;
@@ -17,13 +20,12 @@ public class ContributionAdapter extends RecyclerView.Adapter<ContributionAdapte
     private String[] mContributionTypes;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView mName;
-        public TextView mType;
+        @Bind(R.id.contributor_name) TextView mName;
+        @Bind(R.id.contribution_type) TextView mType;
 
         public ViewHolder(final View view) {
             super(view);
-            mName = (TextView) view.findViewById(R.id.contributor_name);
-            mType = (TextView) view.findViewById(R.id.contribution_type);
+            ButterKnife.bind(this, view);
         }
     }
 

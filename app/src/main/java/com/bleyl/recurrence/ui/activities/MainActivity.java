@@ -12,7 +12,6 @@ import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.Window;
 
 import com.astuetz.PagerSlidingTabStrip;
@@ -21,9 +20,17 @@ import com.bleyl.recurrence.adapters.ViewPageAdapter;
 import com.bleyl.recurrence.interfaces.RecyclerCallback;
 import com.bleyl.recurrence.receivers.BootReceiver;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 public class MainActivity extends AppCompatActivity implements RecyclerCallback {
 
-    private FloatingActionButton mFloatingActionButton;
+    @Bind(R.id.tabs) PagerSlidingTabStrip mPagerSlidingTabStrip;
+    @Bind(R.id.toolbar) Toolbar mToolbar;
+    @Bind(R.id.viewpager) ViewPager mViewPager;
+    @Bind(R.id.fab_button) FloatingActionButton mFloatingActionButton;
+
     private boolean mFabIsHidden = false;
 
     @Override
@@ -31,29 +38,19 @@ public class MainActivity extends AppCompatActivity implements RecyclerCallback 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
 
-        PagerSlidingTabStrip pagerSlidingTabStrip = (PagerSlidingTabStrip) findViewById(R.id.tabs);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        setSupportActionBar(mToolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle(null);
         }
 
         ViewPageAdapter adapter = new ViewPageAdapter(getSupportFragmentManager(), getApplicationContext());
-        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
-        viewPager.setAdapter(adapter);
+        mViewPager.setAdapter(adapter);
 
-        pagerSlidingTabStrip.setViewPager(viewPager);
+        mPagerSlidingTabStrip.setViewPager(mViewPager);
         int pageMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4, getResources().getDisplayMetrics());
-        viewPager.setPageMargin(pageMargin);
-
-        mFloatingActionButton = (FloatingActionButton) findViewById(R.id.fab_button);
-        mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                fabClicked();
-            }
-        });
+        mViewPager.setPageMargin(pageMargin);
 
         SharedPreferences sharedPreferences = getSharedPreferences("first_run_preferences", Context.MODE_PRIVATE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && sharedPreferences.getBoolean("FirstRun", true)) {
@@ -63,6 +60,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerCallback 
         }
     }
 
+    @OnClick(R.id.fab_button)
     public void fabClicked() {
         Intent intent = new Intent(this, CreateEditActivity.class);
         startActivity(intent);

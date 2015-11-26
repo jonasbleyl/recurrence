@@ -18,20 +18,25 @@ import com.bleyl.recurrence.BuildConfig;
 import com.bleyl.recurrence.R;
 import com.bleyl.recurrence.adapters.ContributionAdapter;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 public class AboutActivity extends AppCompatActivity {
+
+    @Bind(R.id.version) TextView mVersionText;
+    @Bind(R.id.toolbar) Toolbar mToolbar;
+    @Bind(R.id.root) LinearLayout mLinearLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
-
-        TextView versionText = (TextView) findViewById(R.id.version);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
+        ButterKnife.bind(this);
+        setSupportActionBar(mToolbar);
+        mToolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
         if (getActionBar() != null) getActionBar().setDisplayHomeAsUpEnabled(true);
 
-        versionText.setText(getResources().getString(R.string.version) + " " + BuildConfig.VERSION_NAME);
+        mVersionText.setText(getResources().getString(R.string.version) + " " + BuildConfig.VERSION_NAME);
     }
 
     public void launchEmail(View view) {
@@ -49,9 +54,8 @@ public class AboutActivity extends AppCompatActivity {
     }
 
     public void showLibrariesDialog(View view) {
-        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.root);
         LayoutInflater inflater = getLayoutInflater();
-        View dialogView = inflater.inflate(R.layout.view_dialog_libraries, linearLayout, false);
+        View dialogView = inflater.inflate(R.layout.view_dialog_libraries, mLinearLayout, false);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.Dialog);
         builder.setTitle(getResources().getString(R.string.libraries));
@@ -62,7 +66,17 @@ public class AboutActivity extends AppCompatActivity {
         dialogView.findViewById(R.id.tab_link).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = getResources().getString(R.string.tabLink);
+                String url = getResources().getString(R.string.tab_link);
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(url));
+                startActivity(intent);
+            }
+        });
+
+        dialogView.findViewById(R.id.butter_knife_link).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = getResources().getString(R.string.butter_knife_link);
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse(url));
                 startActivity(intent);
@@ -71,9 +85,8 @@ public class AboutActivity extends AppCompatActivity {
     }
 
     public void showContributorsDialog(View view) {
-        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.root);
         LayoutInflater inflater = getLayoutInflater();
-        View dialogView = inflater.inflate(R.layout.view_dialog_contributors, linearLayout, false);
+        View dialogView = inflater.inflate(R.layout.view_dialog_contributors, mLinearLayout, false);
 
         RecyclerView recyclerView = (RecyclerView) dialogView.findViewById(R.id.contributors_recycler_view);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);

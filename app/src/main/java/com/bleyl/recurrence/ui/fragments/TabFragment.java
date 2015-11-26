@@ -24,11 +24,15 @@ import com.bleyl.recurrence.adapters.ReminderAdapter;
 
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 public class TabFragment extends Fragment {
 
+    @Bind(R.id.recycler_view) RecyclerView mRecyclerView;
+    @Bind(R.id.empty_view) TextView mEmptyText;
+
     private Activity mActivity;
-    private RecyclerView mRecyclerView;
-    private TextView mEmptyText;
     private ReminderAdapter mReminderAdapter;
     private List<Reminder> mReminderList;
     private RemindersType mRemindersType;
@@ -44,8 +48,7 @@ public class TabFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle bundle) {
         super.onViewCreated(view, bundle);
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
-        mEmptyText = (TextView) view.findViewById(R.id.empty_view);
+        ButterKnife.bind(this, view);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(mActivity);
         mRecyclerView.setLayoutManager(layoutManager);
 
