@@ -43,14 +43,13 @@
             android:theme="@style/AppThemeLight">
         </activity>
 
-        <receiver android:name=".receivers.AlarmReceiver" >
-        </receiver>
+        <receiver android:name=".receivers.AlarmReceiver" />
 
-        <receiver android:name=".receivers.SnoozeActionReceiver" >
-        </receiver>
+        <receiver android:name=".receivers.SnoozeActionReceiver" />
 
-        <receiver android:name=".receivers.SnoozeReceiver" >
-        </receiver>
+        <receiver android:name=".receivers.SnoozeReceiver" />
+
+        <receiver android:name=".receivers.DismissReceiver" />
 
         <receiver
             android:name=".receivers.BootReceiver"

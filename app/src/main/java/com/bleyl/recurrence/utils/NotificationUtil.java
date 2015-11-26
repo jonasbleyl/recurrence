@@ -14,6 +14,7 @@ import android.support.v4.app.NotificationCompat;
 
 import com.bleyl.recurrence.R;
 import com.bleyl.recurrence.models.Reminder;
+import com.bleyl.recurrence.receivers.DismissReceiver;
 import com.bleyl.recurrence.receivers.SnoozeActionReceiver;
 import com.bleyl.recurrence.ui.activities.ViewActivity;
 
@@ -39,6 +40,7 @@ public class NotificationUtil {
                 .setContentTitle(reminder.getTitle())
                 .setContentText(reminder.getContent())
                 .setTicker(reminder.getTitle())
+                .setContentIntent(pending)
                 .setAutoCancel(true);
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
@@ -57,10 +59,11 @@ public class NotificationUtil {
             long[] pattern = {0, 300, 0};
             builder.setVibrate(pattern);
         }
-        if (sharedPreferences.getBoolean("checkBoxDismiss", false)) {
-            builder.setContentIntent(PendingIntent.getActivity(context, 0, new Intent(), PendingIntent.FLAG_CANCEL_CURRENT));
-        } else {
-            builder.setContentIntent(pending);
+        if (sharedPreferences.getBoolean("checkBoxMarkAsDone", false)) {
+            Intent intent = new Intent(context, DismissReceiver.class);
+            intent.putExtra("NOTIFICATION_ID", reminder.getId());
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, reminder.getId(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
+            builder.addAction(R.drawable.ic_done_white_24dp, context.getResources().getString(R.string.mark_as_done), pendingIntent);
         }
         if (sharedPreferences.getBoolean("checkBoxSnooze", false)) {
             builder.addAction(R.drawable.ic_snooze_white_24dp, context.getResources().getString(R.string.snooze), pendingSnooze);
