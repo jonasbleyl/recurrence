@@ -45,32 +45,35 @@ import com.bleyl.recurrence.utils.DateAndTimeUtil;
 import java.util.Arrays;
 import java.util.Calendar;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 public class CreateEditActivity extends AppCompatActivity {
 
-    private CoordinatorLayout mCoordinatorLayout;
+    @Bind(R.id.create_coordinator) CoordinatorLayout mCoordinatorLayout;
+    @Bind(R.id.notification_title) EditText mTitleEditText;
+    @Bind(R.id.notification_content) EditText mContentEditText;
+    @Bind(R.id.time) TextView mTimeText;
+    @Bind(R.id.date) TextView mDateText;
+    @Bind(R.id.repeat_day) TextView mRepeatText;
+    @Bind(R.id.switch_toggle) SwitchCompat mForeverSwitch;
+    @Bind(R.id.show_times_number) EditText mTimesEditText;
+    @Bind(R.id.forever_row) TableRow mForeverRow;
+    @Bind(R.id.bottom_row) TableRow mBottomRow;
+    @Bind(R.id.bottom_view) View mBottomView;
+    @Bind(R.id.show) TextView mShowText;
+    @Bind(R.id.times) TextView mTimesText;
+    @Bind(R.id.select_icon_text) TextView mIconText;
+    @Bind(R.id.select_colour_text) TextView mColourText;
+    @Bind(R.id.colour_icon) ImageView mImageColourSelect;
+    @Bind(R.id.selected_icon) ImageView mImageIconSelect;
+    @Bind(R.id.error_time) ImageView mImageWarningTime;
+    @Bind(R.id.error_date) ImageView mImageWarningDate;
+    @Bind(R.id.error_show) ImageView mImageWarningShow;
+    @Bind(R.id.toolbar) Toolbar mToolbar;
+
     private AlertDialog mIconSelectorDialog;
     private AlertDialog mColourSelectorDialog;
-    private String[] mColourNames;
-    private String[] mColoursArray;
-    private EditText mTitleEditText;
-    private EditText mContentEditText;
-    private TextView mTimeText;
-    private TextView mDateText;
-    private TextView mRepeatText;
-    private SwitchCompat mForeverSwitch;
-    private EditText mTimesEditText;
-    private TableRow mForeverRow;
-    private TableRow mBottomRow;
-    private View mBottomView;
-    private TextView mShowText;
-    private TextView mTimesText;
-    private TextView mIconText;
-    private TextView mColourText;
-    private ImageView mImageIconSelect;
-    private ImageView mImageColourSelect;
-    private ImageView mImageWarningTime;
-    private ImageView mImageWarningDate;
-    private ImageView mImageWarningShow;
     private Calendar mCalendar;
     private int mTimesShown;
     private int mRepeatType;
@@ -79,40 +82,21 @@ public class CreateEditActivity extends AppCompatActivity {
     private String mColour;
     private boolean newNotification;
     private int mId;
+    private String[] mColourNames;
+    private String[] mColoursArray;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create);
+        ButterKnife.bind(this);
 
-        mCoordinatorLayout = (CoordinatorLayout) findViewById(R.id.create_coordinator);
-        mTitleEditText = (EditText) findViewById(R.id.notification_title);
-        mContentEditText = (EditText) findViewById(R.id.notification_content);
-        mTimeText = (TextView) findViewById(R.id.time);
-        mDateText = (TextView) findViewById(R.id.date);
-        mRepeatText = (TextView) findViewById(R.id.repeat_day);
-        mForeverSwitch = (SwitchCompat) findViewById(R.id.switch_toggle);
-        mTimesEditText = (EditText) findViewById(R.id.show_times_number);
-        mForeverRow = (TableRow) findViewById(R.id.forever_row);
-        mBottomRow = (TableRow) findViewById(R.id.bottom_row);
-        mBottomView = findViewById(R.id.bottom_view);
-        mShowText = (TextView) findViewById(R.id.show);
-        mTimesText = (TextView) findViewById(R.id.times);
-        mIconText = (TextView) findViewById(R.id.select_icon_text);
-        mColourText = (TextView) findViewById(R.id.select_colour_text);
-        mImageColourSelect = (ImageView) findViewById(R.id.colour_icon);
-        mImageIconSelect = (ImageView) findViewById(R.id.selected_icon);
-        mImageWarningTime = (ImageView) findViewById(R.id.error_time);
-        mImageWarningDate = (ImageView) findViewById(R.id.error_date);
-        mImageWarningShow = (ImageView) findViewById(R.id.error_show);
+        setSupportActionBar(mToolbar);
+        mToolbar.setNavigationIcon(R.drawable.ic_close_white_24dp);
+        if (getActionBar() != null) getActionBar().setDisplayHomeAsUpEnabled(true);
 
         mColourNames = getResources().getStringArray(R.array.colour_names_array);
         mColoursArray = getResources().getStringArray(R.array.colours_array);
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        toolbar.setNavigationIcon(R.drawable.ic_close_white_24dp);
-        if (getActionBar() != null) getActionBar().setDisplayHomeAsUpEnabled(true);
 
         mCalendar = Calendar.getInstance();
         mId = getIntent().getIntExtra("NOTIFICATION_ID", 0);
@@ -121,7 +105,7 @@ public class CreateEditActivity extends AppCompatActivity {
         if (mId == 0) {
             assignDefaultValues();
         } else {
-            assignNotificationValues();
+            assignReminderValues();
         }
     }
 
@@ -142,7 +126,7 @@ public class CreateEditActivity extends AppCompatActivity {
         mColour = getResources().getString(R.string.default_colour_value);
     }
 
-    public void assignNotificationValues() {
+    public void assignReminderValues() {
         if (getSupportActionBar() != null)
             getSupportActionBar().setTitle(getResources().getString(R.string.edit_notification));
         DatabaseHelper database = DatabaseHelper.getInstance(this);
@@ -361,10 +345,6 @@ public class CreateEditActivity extends AppCompatActivity {
 
     public void saveNotification() {
         Calendar nowCalendar = Calendar.getInstance();
-        String title = mTitleEditText.getText().toString();
-        String content = mContentEditText.getText().toString();
-        String forever = Boolean.toString(mForeverSwitch.isChecked());
-        int timesToShow = Integer.parseInt(mTimesEditText.getText().toString());
 
         // Assign time depending on whether a value was selected
         String time;
@@ -383,12 +363,24 @@ public class CreateEditActivity extends AppCompatActivity {
         }
 
         // Show notification once if set to not repeat
+        int timesToShow = Integer.parseInt(mTimesEditText.getText().toString());
         if (mRepeatType == 0) {
             timesToShow = mTimesShown + 1;
         }
 
         DatabaseHelper database = DatabaseHelper.getInstance(this);
-        Reminder reminder = new Reminder(mId, title, content, date + time, mRepeatType, forever, timesToShow, mTimesShown, mIcon, mColour);
+        Reminder reminder = new Reminder()
+                .setId(mId)
+                .setTitle(mTitleEditText.getText().toString())
+                .setContent(mContentEditText.getText().toString())
+                .setDateAndTime(date + time)
+                .setRepeatType(mRepeatType)
+                .setForeverState(Boolean.toString(mForeverSwitch.isChecked()))
+                .setNumberToShow(timesToShow)
+                .setNumberShown(mTimesShown)
+                .setIcon(mIcon)
+                .setColour(mColour);
+
         if (newNotification) {
             database.addNotification(reminder);
         } else {

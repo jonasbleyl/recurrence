@@ -13,6 +13,9 @@ import android.widget.TextView;
 import com.bleyl.recurrence.R;
 import com.bleyl.recurrence.ui.activities.CreateEditActivity;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 public class ColoursAdapter extends RecyclerView.Adapter<ColoursAdapter.ViewHolder>{
 
     private int mRowLayout;
@@ -21,15 +24,14 @@ public class ColoursAdapter extends RecyclerView.Adapter<ColoursAdapter.ViewHold
     private String[] mColourNames;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public ImageView mColourView;
-        public TextView mColourText;
+        @Bind(R.id.colour_circle) ImageView mColourView;
+        @Bind(R.id.colour_name) TextView mColourText;
         private View mView;
 
         public ViewHolder(final View view) {
             super(view);
             mView = view;
-            mColourView = (ImageView) view.findViewById(R.id.colour_circle);
-            mColourText = (TextView) view.findViewById(R.id.colour_name);
+            ButterKnife.bind(this, view);
         }
     }
 

@@ -6,6 +6,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 
+import com.bleyl.recurrence.database.DatabaseHelper;
+import com.bleyl.recurrence.models.Reminder;
+import com.bleyl.recurrence.receivers.AlarmReceiver;
+
 import java.util.Calendar;
 
 public class AlarmUtil {
@@ -26,5 +30,36 @@ public class AlarmUtil {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, notificationId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         alarmManager.cancel(pendingIntent);
+    }
+
+    public static void setNextAlarm(Context context, Reminder reminder, DatabaseHelper database, Calendar calendar) {
+        switch (reminder.getRepeatType()) {
+            case 1: calendar.add(Calendar.DATE, 1); break;
+            case 2: calendar.add(Calendar.WEEK_OF_YEAR, 1); break;
+            case 3: calendar.add(Calendar.MONTH, 1); break;
+            case 4: calendar.add(Calendar.YEAR, 1); break;
+            case 5:
+                Calendar weekCalendar = (Calendar) calendar.clone();
+                weekCalendar.add(Calendar.DATE, 1);
+                for (int i = 0; i < 7; i++) {
+                    int position = (i + (weekCalendar.get(Calendar.DAY_OF_WEEK) - 1)) % 7;
+                    if (reminder.getDaysOfWeek()[position]) {
+                        calendar.add(Calendar.DATE, i + 1);
+                        break;
+                    }
+                }
+                break;
+        }
+
+        Calendar timeCalendar = DateAndTimeUtil.parseDateAndTime(reminder.getDateAndTime());
+        calendar.set(Calendar.HOUR_OF_DAY, timeCalendar.get(Calendar.HOUR_OF_DAY));
+        calendar.set(Calendar.MINUTE, timeCalendar.get(Calendar.MINUTE));
+        calendar.set(Calendar.SECOND, 0);
+
+        reminder.setDateAndTime(DateAndTimeUtil.toStringDateAndTime(calendar));
+        database.updateNotification(reminder);
+
+        Intent alarmIntent = new Intent(context, AlarmReceiver.class);
+        setAlarm(context, alarmIntent, reminder.getId(), calendar);
     }
 }

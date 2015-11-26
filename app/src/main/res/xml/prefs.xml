@@ -20,8 +20,9 @@
             android:key="checkBoxOngoing"
             android:title="@string/checkbox_ongoing"/>
         <CheckBoxPreference
-            android:key="checkBoxDismiss"
-            android:title="@string/checkbox_dismiss"/>
+            android:key="checkBoxMarkAsDone"
+            android:title="@string/mark_as_done"
+            android:summary="@string/mark_as_done_detail"/>
         <CheckBoxPreference
             android:key="checkBoxSnooze"
             android:title="@string/snooze"

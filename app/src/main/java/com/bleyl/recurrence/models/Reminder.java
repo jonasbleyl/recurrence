@@ -13,51 +13,40 @@ public class Reminder {
     private String mColour;
     private boolean[] mDaysOfWeek;
 
-    public Reminder() {}
-
-    public Reminder(int id, String title, String content, String dateAndTime, int repeatType, String foreverState, int numberToShow, int numberShown, String icon, String colour) {
-        mId = id;
-        mTitle = title;
-        mContent = content;
-        mDateAndTime = dateAndTime;
-        mRepeatType = repeatType;
-        mForeverState = foreverState;
-        mNumberToShow = numberToShow;
-        mNumberShown = numberShown;
-        mIcon = icon;
-        mColour = colour;
-    }
-
     public int getId() {
         return mId;
     }
 
-    public void setId(int id) {
+    public Reminder setId(int id) {
         mId = id;
+        return this;
     }
 
     public String getTitle() {
         return mTitle;
     }
 
-    public void setTitle(String title) {
+    public Reminder setTitle(String title) {
         mTitle = title;
+        return this;
     }
 
     public String getContent() {
         return mContent;
     }
 
-    public void setContent(String content) {
+    public Reminder setContent(String content) {
         mContent = content;
+        return this;
     }
 
     public String getDateAndTime() {
         return mDateAndTime;
     }
 
-    public void setDateAndTime(String dateAndTime) {
+    public Reminder setDateAndTime(String dateAndTime) {
         mDateAndTime = dateAndTime;
+        return this;
     }
 
     public String getDate() {
@@ -68,55 +57,62 @@ public class Reminder {
         return mRepeatType;
     }
 
-    public void setRepeatType(int repeatType) {
+    public Reminder setRepeatType(int repeatType) {
         mRepeatType = repeatType;
+        return this;
     }
 
     public String getForeverState() {
         return mForeverState;
     }
 
-    public void setForeverState(String foreverState) {
+    public Reminder setForeverState(String foreverState) {
         mForeverState = foreverState;
+        return this;
     }
 
     public int getNumberToShow() {
         return mNumberToShow;
     }
 
-    public void setNumberToShow(int numberToShow) {
+    public Reminder setNumberToShow(int numberToShow) {
         mNumberToShow = numberToShow;
+        return this;
     }
 
     public int getNumberShown() {
         return mNumberShown;
     }
 
-    public void setNumberShown(int numberShown) {
+    public Reminder setNumberShown(int numberShown) {
         mNumberShown = numberShown;
+        return this;
     }
 
     public String getIcon() {
         return mIcon;
     }
 
-    public void setIcon(String icon) {
+    public Reminder setIcon(String icon) {
         mIcon = icon;
+        return this;
     }
 
     public String getColour() {
         return mColour;
     }
 
-    public void setColour(String colour) {
+    public Reminder setColour(String colour) {
         mColour = colour;
+        return this;
     }
 
     public boolean[] getDaysOfWeek() {
         return mDaysOfWeek;
     }
 
-    public void setDaysOfWeek(boolean[] daysOfWeek) {
+    public Reminder setDaysOfWeek(boolean[] daysOfWeek) {
         mDaysOfWeek = daysOfWeek;
+        return this;
     }
 }

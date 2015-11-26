@@ -10,7 +10,6 @@
     <string name="checkbox_sound">Dźwięk</string>
     <string name="checkbox_LED">LED</string>
     <string name="checkbox_ongoing">Trwające</string>
-    <string name="checkbox_dismiss">Anuluj po dotknięciu</string>
     <string name="snooze">Drzemka</string>
     <string name="snooze_detail">Dodaj akcję drzemki do powiadomienia</string>
     <string name="snooze_length">Długość drzemki</string>

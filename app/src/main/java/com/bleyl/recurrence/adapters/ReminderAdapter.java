@@ -27,6 +27,9 @@ import com.bleyl.recurrence.utils.DateAndTimeUtil;
 import java.util.Calendar;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHolder> {
 
     private int mRowLayout;
@@ -34,23 +37,18 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHo
     private List<Reminder> mReminderList;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView mTitle;
-        public TextView mTime;
-        public TextView mContent;
-        public TextView mTextSeparator;
-        public ImageView mIcon;
-        public ImageView mCircle;
-        public View mView;
+        @Bind(R.id.notification_title) TextView mTitle;
+        @Bind(R.id.notification_time) TextView mTime;
+        @Bind(R.id.notification_content) TextView mContent;
+        @Bind(R.id.header_separator) TextView mTextSeparator;
+        @Bind(R.id.notification_icon) ImageView mIcon;
+        @Bind(R.id.notification_circle) ImageView mCircle;
+        private View mView;
 
         public ViewHolder(final View view) {
             super(view);
             mView = view;
-            mTitle = (TextView) view.findViewById(R.id.notification_title);
-            mTime = (TextView) view.findViewById(R.id.notification_time);
-            mContent = (TextView) view.findViewById(R.id.notification_content);
-            mTextSeparator = (TextView) view.findViewById(R.id.header_separator);
-            mIcon = (ImageView) view.findViewById(R.id.notification_icon);
-            mCircle = (ImageView) view.findViewById(R.id.notification_circle);
+            ButterKnife.bind(this, view);
         }
     }
 
