@@ -10,7 +10,6 @@
     <string name="checkbox_sound">Ton</string>
     <string name="checkbox_LED">LED</string>
     <string name="checkbox_ongoing">Persistent</string>
-    <string name="checkbox_dismiss">Bei Berührung ausblenden</string>
     <string name="snooze">Schlummern</string>
     <string name="snooze_detail">Schlummernfunktion zu Benachrichtigungen hinzufügen</string>
     <string name="snooze_length">Schlummerlänge</string>
@@ -21,6 +20,7 @@
     <string name="action_delete">Löschen</string>
     <string name="action_edit">Bearbeiten</string>
     <string name="action_about">Über</string>
+    <string name="action_show_now">Jetzt zeigen</string>
 
     <string name="delete_confirmation">Sind Sie sicher, dass die Benachrichtigung gelöscht werden soll?</string>
     <string name="yes">Ja</string>

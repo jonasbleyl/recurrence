@@ -10,7 +10,6 @@
     <string name="checkbox_sound">Sonar</string>
     <string name="checkbox_LED">LED</string>
     <string name="checkbox_ongoing">Persistente</string>
-    <string name="checkbox_dismiss">Eliminar al toque</string>
     <string name="snooze">Silenciar</string>
     <string name="snooze_detail">Añadir una acción de repetición a la notificación</string>
     <string name="snooze_length">Repetir alarma después dé</string>

@@ -10,7 +10,6 @@
     <string name="checkbox_sound">Zvuk</string>
     <string name="checkbox_LED">LED</string>
     <string name="checkbox_ongoing">Trajno</string>
-    <string name="checkbox_dismiss">Odbaci na dodir</string>
     <string name="snooze">Odgodi</string>
     <string name="snooze_detail">Dodaj odgode akcije na obavijesti</string>
     <string name="snooze_length">Trajanje odgode alarma</string>

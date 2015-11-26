@@ -10,9 +10,8 @@
     <string name="checkbox_sound">Som</string>
     <string name="checkbox_LED">LED</string>
     <string name="checkbox_ongoing">Persistente</string>
-    <string name="checkbox_dismiss">Dispensar ao tocar</string>
     <string name="snooze">Soneca</string>
-    <string name="snooze_detail">Adiciona a função de colocar a adiar a notificação</string>
+    <string name="snooze_detail">Adiciona a função de adiar a notificação</string>
     <string name="snooze_length">Duração da soneca</string>
     <string name="minute">minuto</string>
     <string name="minutes">minutos</string>
@@ -28,19 +27,19 @@
     <string name="no">Não</string>
     <string name="ok">Ok</string>
 
-    <string name="title">Titulo</string>
+    <string name="title">Título</string>
     <string name="save_menu">Salvar</string>
     <string name="time_now">Agora</string>
     <string name="date_today">Hoje</string>
     <string name="times_shown">Mostrada %1$d de %2$d vezes</string>
     <string name="times_shown_edit">Mostrada %1$d de</string>
     <string name="forever">Para sempre</string>
-    <string name="no_repeat">Não repitir</string>
+    <string name="no_repeat">Não repetir</string>
     <string name="times">vezes</string>
-    <string name="repeat_notification">Número de vezes para repitir:</string>
+    <string name="repeat_notification">Número de vezes para repetir:</string>
     <string name="content_hint">Adicione o conteúdo da notificação</string>
 
-    <string name="select_icon">Selecione um icone</string>
+    <string name="select_icon">Selecione um ícone</string>
     <string name="default_icon">Icone padrão</string>
     <string name="custom_icon">Icone personalizado</string>
 
@@ -62,7 +61,7 @@
     <string name="no_active">Nenhuma notificação ativa</string>
     <string name="no_inactive">Nenhuma notificação inativa</string>
 
-    <string name="toast_past_date">Não é possivel selecionar uma data no passado</string>
+    <string name="toast_past_date">Não é possível selecionar uma data no passado</string>
     <string name="toast_higher_number">O número de repetições deve ser maior</string>
     <string name="toast_title_empty">O título não pode estar vazio</string>
 
@@ -77,7 +76,7 @@
     <string name="send_email">Enviar email</string>
 
     <string-array name="repeat_array">
-        <item>Não repete</item>
+        <item>Não repetir</item>
         <item>Todo dia</item>
         <item>Toda semana</item>
         <item>Todo mês</item>

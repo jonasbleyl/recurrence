@@ -10,7 +10,6 @@
     <string name="checkbox_sound">Suono</string>
     <string name="checkbox_LED">LED</string>
     <string name="checkbox_ongoing">Notifica persistente</string>
-    <string name="checkbox_dismiss">Scarta con un singolo "tap"</string>
     <string name="snooze">Snooze</string>
     <string name="snooze_detail">Aggiungi la funzione "snooze" al promemoria</string>
     <string name="snooze_length">Imposta "snooze"</string>

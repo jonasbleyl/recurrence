@@ -10,7 +10,6 @@
     <string name="checkbox_sound">Hang</string>
     <string name="checkbox_LED">Led</string>
     <string name="checkbox_ongoing">Állandóan kint</string>
-    <string name="checkbox_dismiss">Érintésre elutasít</string>
     <string name="snooze">Szundi</string>
     <string name="snooze_detail">Szundi hozzáadása az értesítéshez</string>
     <string name="snooze_length">Szundi hossza</string>
