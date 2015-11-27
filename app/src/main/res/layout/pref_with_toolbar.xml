@@ -8,14 +8,13 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
-        android:minHeight="?attr/actionBarSize"
         app:popupTheme="@style/Theme.AppCompat.Light.DarkActionBar"
         android:theme="@style/Toolbar"/>
 
     <View
-        android:id="@+id/toolbarShadow"
+        android:id="@+id/toolbar_shadow"
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_shadow_height"
         android:layout_marginBottom="@dimen/toolbar_shadow_adjust"
@@ -24,6 +23,8 @@
     <FrameLayout
         android:id="@+id/content_frame"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:paddingLeft="@dimen/list_padding"
+        android:paddingRight="@dimen/list_padding"/>
 
 </LinearLayout>

@@ -4,13 +4,15 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application android:allowBackup="true"
+        android:fullBackupContent="@xml/backup_scheme"
         android:label="@string/app_name"
         android:icon="@mipmap/ic_launcher"
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".ui.MainActivity"
-            android:label="@string/app_name" >
+            android:name=".ui.activities.MainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/StartTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -18,57 +20,39 @@
         </activity>
 
         <activity
-            android:name=".ui.CreateActivity"
-            android:label="@string/create_notification"
+            android:name=".ui.activities.CreateEditActivity"
             android:theme="@style/AppThemeLight"
             android:configChanges="orientation|screenSize">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.MainActivity" />
         </activity>
 
         <activity
-            android:name=".ui.ViewActivity"
+            android:name=".ui.activities.ViewActivity"
             android:label="@string/view_notification"
-            android:theme="@style/AppTheme">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.MainActivity" />
+            android:theme="@style/AppThemeLight">
         </activity>
 
         <activity
-            android:name=".ui.EditActivity"
-            android:label="@string/edit_notification"
-            android:theme="@style/AppThemeLight"
-            android:configChanges="orientation|screenSize">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.MainActivity" />
-        </activity>
-
-        <activity
-            android:name=".ui.PreferenceActivity"
+            android:name=".ui.activities.PreferenceActivity"
             android:label="@string/settings"
             android:theme="@style/AppTheme">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.MainActivity" />
         </activity>
 
         <activity
-            android:name=".ui.AboutActivity"
+            android:name=".ui.activities.AboutActivity"
             android:label="@string/about"
             android:theme="@style/AppThemeLight">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.MainActivity" />
         </activity>
 
-        <receiver android:name=".receiver.AlarmReceiver" >
-        </receiver>
+        <receiver android:name=".receivers.AlarmReceiver" />
+
+        <receiver android:name=".receivers.SnoozeActionReceiver" />
+
+        <receiver android:name=".receivers.SnoozeReceiver" />
+
+        <receiver android:name=".receivers.DismissReceiver" />
 
         <receiver
-            android:name=".receiver.BootReceiver"
+            android:name=".receivers.BootReceiver"
             android:enabled="true" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />

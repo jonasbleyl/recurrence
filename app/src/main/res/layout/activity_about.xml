@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="ContentDescription"
     android:orientation="vertical"
     android:id="@+id/root"
     android:layout_width="match_parent"
@@ -9,14 +11,13 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
-        android:minHeight="?attr/actionBarSize"
         app:popupTheme="@style/Theme.AppCompat.Light.DarkActionBar"
         android:theme="@style/Toolbar" />
 
     <View
-        android:id="@+id/toolbarShadow"
+        android:id="@+id/toolbar_shadow"
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_shadow_height"
         android:layout_marginBottom="@dimen/toolbar_shadow_adjust"
@@ -31,6 +32,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/list_padding"
+            android:paddingRight="@dimen/list_padding"
+            android:paddingBottom="16dp"
             android:orientation="vertical">
 
             <LinearLayout
@@ -48,7 +52,6 @@
                     android:gravity="center">
 
                     <ImageView
-                        android:contentDescription="@string/app_icon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@mipmap/ic_launcher"/>
@@ -141,7 +144,7 @@
             </TableRow>
 
             <View
-                android:id="@+id/viewDate"
+                android:id="@+id/view_date"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/line_separator_height"
                 android:layout_marginLeft="@dimen/line_separator_margin_side"
@@ -161,6 +164,34 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/libraries"
+                    android:textColor="@android:color/black"
+                    android:layout_marginLeft="@dimen/text_about_margin_side"
+                    android:layout_marginRight="@dimen/text_about_margin_side"
+                    android:textSize="16sp"
+                    android:layout_gravity="center_vertical"/>
+
+            </TableRow>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/line_separator_height"
+                android:layout_marginLeft="@dimen/line_separator_margin_side"
+                android:layout_marginRight="@dimen/line_separator_margin_side"
+                android:background="@color/lightGray"/>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/table_row_about_padding"
+                android:background="?attr/selectableItemBackground"
+                android:paddingBottom="@dimen/table_row_about_padding"
+                android:weightSum="1"
+                android:onClick="showContributorsDialog">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/thanks_to"
                     android:textColor="@android:color/black"
                     android:layout_marginLeft="@dimen/text_about_margin_side"
                     android:layout_marginRight="@dimen/text_about_margin_side"

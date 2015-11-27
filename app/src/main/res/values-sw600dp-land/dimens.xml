@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="list_padding">140dp</dimen>
+    <dimen name="card_view_margin">145dp</dimen>
+    <dimen name="fab_recycler_view_padding">32dp</dimen>
+</resources>

@@ -1,0 +1,55 @@
+package com.bleyl.recurrence.adapters;
+
+import android.content.Context;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.bleyl.recurrence.R;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
+public class ContributionAdapter extends RecyclerView.Adapter<ContributionAdapter.ViewHolder> {
+
+    private int mRowLayout;
+    private Context mContext;
+    private String[] mContributorNames;
+    private String[] mContributionTypes;
+
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        @Bind(R.id.contributor_name) TextView mName;
+        @Bind(R.id.contribution_type) TextView mType;
+
+        public ViewHolder(final View view) {
+            super(view);
+            ButterKnife.bind(this, view);
+        }
+    }
+
+    public ContributionAdapter(Context context, int rowLayout, String[] contributorNames, String[] contributionTypes) {
+        mContext = context;
+        mRowLayout = rowLayout;
+        mContributorNames = contributorNames;
+        mContributionTypes = contributionTypes;
+    }
+
+    @Override
+    public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(mRowLayout, viewGroup, false);
+        return new ViewHolder(v);
+    }
+
+    @Override
+    public void onBindViewHolder(ViewHolder viewHolder, int position) {
+        viewHolder.mName.setText(mContributorNames[position]);
+        viewHolder.mType.setText(mContext.getResources().getString(R.string.translator) + " " + mContributionTypes[position]);
+    }
+
+    @Override
+    public int getItemCount() {
+        return mContributorNames.length;
+    }
+}

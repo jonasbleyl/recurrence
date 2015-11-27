@@ -1,4 +1,10 @@
 <resources>
+    <dimen name="title_side_padding">16dp</dimen>
+    <dimen name="list_padding">0dp</dimen>
+    <dimen name="tabs_padding">8dp</dimen>
+    <dimen name="card_view_margin">5dp</dimen>
+    <dimen name="view_header_padding_bottom">0dp</dimen>
+    <dimen name="create_scroll_view_padding">0dp</dimen>
     <dimen name="toolbar_elevation">4dp</dimen>
     <dimen name="toolbar_shadow_height">10dp</dimen>
     <dimen name="toolbar_shadow_adjust">-10dp</dimen>
@@ -8,11 +14,16 @@
     <dimen name="line_separator_margin_side_large">64dp</dimen>
     <dimen name="line_separator_margin_side">8dp</dimen>
     <dimen name="image_margin_side">16dp</dimen>
+    <dimen name="view_image_margin_side">26dp</dimen>
     <dimen name="text_margin_side">22dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="fab_recycler_view_padding">88dp</dimen>
     <dimen name="table_row_about_padding">18dp</dimen>
     <dimen name="text_about_margin_side">22dp</dimen>
-    <dimen name="text_view_margin_side">28dp</dimen>
+    <dimen name="text_view_margin_side">20dp</dimen>
     <dimen name="table_row_view_padding">15dp</dimen>
     <dimen name="text_dialog_padding_side">16dp</dimen>
+    <dimen name="dialog_padding_side">24dp</dimen>
+    <dimen name="item_offset">5dp</dimen>
+    <dimen name="toolbar_placeholder_height">56dp</dimen>
 </resources>

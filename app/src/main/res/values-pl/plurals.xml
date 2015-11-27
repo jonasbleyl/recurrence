@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="time_minute">
+        <item quantity="other">%d minut</item>
+        <item quantity="many">%d minut</item>
+        <item quantity="few">%d minuty</item>
+        <item quantity="one">%d minuta</item>
+    </plurals>
+</resources>

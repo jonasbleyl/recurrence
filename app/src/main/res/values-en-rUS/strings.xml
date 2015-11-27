@@ -1,0 +1,14 @@
+<resources>
+    <string name="select_colour">Select a color</string>
+    <string name="default_colour">Default color</string>
+    <string-array name="colour_names_array">
+        <item>Default color</item>
+        <item>Blue</item>
+        <item>Purple</item>
+        <item>Red</item>
+        <item>Green</item>
+        <item>Orange</item>
+        <item>Yellow</item>
+        <item>Pink</item>
+    </string-array>
+</resources>

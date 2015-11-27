@@ -5,17 +5,31 @@
         <CheckBoxPreference
             android:defaultValue="true"
             android:key="checkBoxVibrate"
-            android:title="@string/checkbox_vibrate" />
-        <CheckBoxPreference
-            android:defaultValue="true"
-            android:key="checkBoxSound"
-            android:title="@string/checkbox_sound" />
+            android:title="@string/checkbox_vibrate"/>
+        <RingtonePreference
+            android:showDefault="true"
+            android:key="NotificationSound"
+            android:title="@string/checkbox_sound"
+            android:defaultValue="content://settings/system/notification_sound"
+            android:ringtoneType="notification" />
         <CheckBoxPreference
             android:defaultValue="true"
             android:key="checkBoxLED"
-            android:title="@string/checkbox_LED" />
+            android:title="@string/checkbox_LED"/>
         <CheckBoxPreference
             android:key="checkBoxOngoing"
-            android:title="@string/checkbox_ongoing" />
+            android:title="@string/checkbox_ongoing"/>
+        <CheckBoxPreference
+            android:key="checkBoxMarkAsDone"
+            android:title="@string/mark_as_done"
+            android:summary="@string/mark_as_done_detail"/>
+        <CheckBoxPreference
+            android:key="checkBoxSnooze"
+            android:title="@string/snooze"
+            android:summary="@string/snooze_detail"/>
+        <com.bleyl.recurrence.dialogs.PreferenceNumberPicker
+            android:key="snoozeLength"
+            android:title="@string/snooze_length"
+            android:defaultValue="@integer/default_snooze_minutes"/>
     </PreferenceCategory>
 </PreferenceScreen>
