@@ -24,6 +24,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -127,6 +128,9 @@ public class CreateEditActivity extends AppCompatActivity {
     }
 
     public void assignReminderValues() {
+        // Prevent keyboard from opening automatically
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
         if (getSupportActionBar() != null)
             getSupportActionBar().setTitle(getResources().getString(R.string.edit_notification));
         DatabaseHelper database = DatabaseHelper.getInstance(this);
