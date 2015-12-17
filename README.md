@@ -4,7 +4,7 @@ https://play.google.com/store/apps/details?id=com.bleyl.recurrence
 
 <img src="https://raw.githubusercontent.com/JonasBleyl/Recurrence/master/app/src/main/ic_launcher-web.png" width="256">
 
-<img src="https://lh3.googleusercontent.com/qEubXFLM0UP7O_vmUDZ6Zx40MZxPRJG_7v-6qdBdIXZT7n4js53-VPIj9dcJ_3-XPY4=h2000" width="310">　　<img src="https://lh3.googleusercontent.com/jJTzT-7Kord0AAysJ8UXGRcEwipEUEBYq4A7m5NiRQc0_h_C0YnIZP2rn1b8M2DMtl6c=h2000" width="310">
+<img src="https://lh3.googleusercontent.com/WlWqY_GJ_s3Ismcz6uxzzWDgikRix_71uzh-2vy8o02JVkPdXpyzMw2DVKpOQl9e-I8=h2000" width="310">　　<img src="https://lh3.googleusercontent.com/QPJtO4Q9383FzQwh4B-IgLJNFZ2ac_3wEKH9bUgtQhdK6_mcSIgJwQjp1xI1zD_uZ4E2=h2000" width="310">
 
 
 License
