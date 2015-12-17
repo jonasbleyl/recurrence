@@ -12,8 +12,11 @@ public class SnoozeReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         DatabaseHelper database = DatabaseHelper.getInstance(context);
-        Reminder reminder = database.getNotification(intent.getIntExtra("NOTIFICATION_ID", 0));
-        NotificationUtil.createNotification(context, reminder);
+        int reminderId = intent.getIntExtra("NOTIFICATION_ID", 0);
+        if (reminderId != 0) {
+            Reminder reminder = database.getNotification(reminderId);
+            NotificationUtil.createNotification(context, reminder);
+        }
         database.close();
     }
 }
