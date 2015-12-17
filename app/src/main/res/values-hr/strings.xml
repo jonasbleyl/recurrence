@@ -15,11 +15,15 @@
     <string name="snooze_length">Trajanje odgode alarma</string>
     <string name="minute">minute</string>
     <string name="minutes">minuta</string>
+    <string name="mark_as_done">Označi kao obavljeno</string>
+    <string name="mark_as_done_detail">Dodaj \"Označi kao obavljeno\" gumb u obavijesti</string>
 
     <string name="action_settings">Postavke</string>
     <string name="action_delete">Obriši</string>
     <string name="action_edit">Uredi</string>
     <string name="action_about">O aplikaciji</string>
+    <string name="action_show_now">Prikaži sada</string>
+    <string name="action_mark_as_done">Označi kao obavljeno</string>
 
     <string name="delete_confirmation">Jeste li sigurni da želite obrisati obavijest?</string>
     <string name="yes">Da</string>
@@ -63,6 +67,7 @@
     <string name="toast_past_date">Ne možete postaviti početni datum u prošlosti</string>
     <string name="toast_higher_number">Broj ponavljanja mora biti veći</string>
     <string name="toast_title_empty">Naziv ne može biti prazan</string>
+    <string name="toast_mark_as_done">Sljedeći podsjetnik označen kao obavljen</string>
 
     <string name="libraries">Programske knjižnice</string>
     <string name="rate_app">Ocijenite aplikaciju</string>
