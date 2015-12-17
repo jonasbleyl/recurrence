@@ -15,12 +15,15 @@
     <string name="snooze_length">Schlummerlänge</string>
     <string name="minute">minute</string>
     <string name="minutes">minuten</string>
+    <string name="mark_as_done">Als erledigt markieren</string>
+    <string name="mark_as_done_detail">\"Als erledigt markieren\"-Aktion zu Benachrichtigung hinzufügen</string>
 
     <string name="action_settings">Einstellungen</string>
     <string name="action_delete">Löschen</string>
     <string name="action_edit">Bearbeiten</string>
     <string name="action_about">Über</string>
     <string name="action_show_now">Jetzt zeigen</string>
+    <string name="action_mark_as_done">Als erledigt markieren</string>
 
     <string name="delete_confirmation">Sind Sie sicher, dass die Benachrichtigung gelöscht werden soll?</string>
     <string name="yes">Ja</string>
@@ -64,6 +67,7 @@
     <string name="toast_past_date">Startdatum kann nicht in der Vergangenheit liegen</string>
     <string name="toast_higher_number">Anzahl der Wiederholungen muss höher sein</string>
     <string name="toast_title_empty">Titel darf nicht leer sein</string>
+    <string name="toast_mark_as_done">Nächste Erinnerung als erledigt markiert</string>
 
     <string name="libraries">Bibliotheken</string>
     <string name="rate_app">App bewerten</string>

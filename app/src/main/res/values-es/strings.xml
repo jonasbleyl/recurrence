@@ -15,11 +15,15 @@
     <string name="snooze_length">Repetir alarma después dé</string>
     <string name="minute">minuto</string>
     <string name="minutes">minutos</string>
+    <string name="mark_as_done">Marcar como completo</string>
+    <string name="mark_as_done_detail">Añadir un \"Marcar como completo\" acción a la notificación</string>
 
     <string name="action_settings">Ajustes</string>
     <string name="action_delete">Borrar</string>
     <string name="action_edit">Modificar</string>
     <string name="action_about">Acerca de</string>
+    <string name="action_show_now">Mostrar ahora</string>
+    <string name="action_mark_as_done">Marcar como completo</string>
 
     <string name="delete_confirmation">¿Estás seguro que quieres borrar esta notificación?</string>
     <string name="yes">Sí</string>
@@ -63,6 +67,7 @@
     <string name="toast_past_date">No se puede elegir una fecha inicial en el pasado</string>
     <string name="toast_higher_number">Número que debe repetirse tiene que ser mayor</string>
     <string name="toast_title_empty">El título no puede estar vacío</string>
+    <string name="toast_mark_as_done">Siguiente recordatorio marcado como completo.</string>
 
     <string name="libraries">Bibliotecas</string>
     <string name="rate_app">Calificar aplicación</string>
