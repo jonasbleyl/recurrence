@@ -8,6 +8,7 @@ import android.support.v4.content.LocalBroadcastManager;
 import com.bleyl.recurrence.database.DatabaseHelper;
 import com.bleyl.recurrence.utils.AlarmUtil;
 import com.bleyl.recurrence.models.Reminder;
+import com.bleyl.recurrence.utils.NagUtil;
 import com.bleyl.recurrence.utils.NotificationUtil;
 
 import java.util.Calendar;
@@ -27,6 +28,8 @@ public class AlarmReceiver extends BroadcastReceiver {
         if (reminder.getNumberToShow() > reminder.getNumberShown() || Boolean.parseBoolean(reminder.getForeverState())) {
             AlarmUtil.setNextAlarm(context, reminder, database, Calendar.getInstance());
         }
+
+        NagUtil.setNextNag(context, reminder, Calendar.getInstance());
 
         // Update lists in tab fragments
         updateLists(context);

@@ -6,7 +6,10 @@ import android.content.Intent;
 
 import com.bleyl.recurrence.database.DatabaseHelper;
 import com.bleyl.recurrence.models.Reminder;
+import com.bleyl.recurrence.utils.NagUtil;
 import com.bleyl.recurrence.utils.NotificationUtil;
+
+import java.util.Calendar;
 
 public class SnoozeReceiver extends BroadcastReceiver {
     @Override
@@ -16,6 +19,7 @@ public class SnoozeReceiver extends BroadcastReceiver {
         if (reminderId != 0) {
             Reminder reminder = database.getNotification(reminderId);
             NotificationUtil.createNotification(context, reminder);
+            NagUtil.setNextNag(context, reminder, Calendar.getInstance());
         }
         database.close();
     }
