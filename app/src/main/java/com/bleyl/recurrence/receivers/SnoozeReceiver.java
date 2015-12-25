@@ -19,7 +19,9 @@ public class SnoozeReceiver extends BroadcastReceiver {
         if (reminderId != 0) {
             Reminder reminder = database.getNotification(reminderId);
             NotificationUtil.createNotification(context, reminder);
-            NagUtil.setNextNag(context, reminder, Calendar.getInstance());
+            if (reminder.getNagTimer() != 0) {
+                NagUtil.setNextNag(context, reminder, Calendar.getInstance());
+            }
         }
         database.close();
     }

@@ -5,6 +5,7 @@ public class Reminder {
     private String mTitle;
     private String mContent;
     private String mDateAndTime;
+    private int mNagTimer;
     private int mRepeatType;
     private String mForeverState;
     private int mNumberToShow;
@@ -46,6 +47,15 @@ public class Reminder {
 
     public Reminder setDateAndTime(String dateAndTime) {
         mDateAndTime = dateAndTime;
+        return this;
+    }
+
+    public int getNagTimer() {
+        return mNagTimer;
+    }
+
+    public Reminder setNagTimer(int nagTimer) {
+        mNagTimer = nagTimer;
         return this;
     }
 

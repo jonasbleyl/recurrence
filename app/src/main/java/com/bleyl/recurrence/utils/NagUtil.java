@@ -12,7 +12,7 @@ import java.util.Calendar;
 
 public class NagUtil {
     public static void setNextNag(Context context, Reminder reminder, Calendar calendar) {
-        calendar.add(Calendar.SECOND, 15);
+        calendar.add(Calendar.SECOND, reminder.getNagTimer());
 
         Intent nagIntent = new Intent(context, NagReceiver.class);
         AlarmUtil.setAlarm(context, nagIntent, reminder.getId(), calendar);

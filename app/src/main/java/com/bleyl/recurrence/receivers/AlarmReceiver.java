@@ -29,7 +29,10 @@ public class AlarmReceiver extends BroadcastReceiver {
             AlarmUtil.setNextAlarm(context, reminder, database, Calendar.getInstance());
         }
 
-        NagUtil.setNextNag(context, reminder, Calendar.getInstance());
+        // Check if the alarm has a nag timer
+        if (reminder.getNagTimer() != 0) {
+            NagUtil.setNextNag(context, reminder, Calendar.getInstance());
+        }
 
         // Update lists in tab fragments
         updateLists(context);

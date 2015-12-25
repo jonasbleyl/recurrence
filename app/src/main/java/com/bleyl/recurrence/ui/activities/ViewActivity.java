@@ -46,6 +46,7 @@ public class ViewActivity extends AppCompatActivity {
     @Bind(R.id.notification_circle) ImageView mCircleImage;
     @Bind(R.id.time) TextView mTimeText;
     @Bind(R.id.date) TextView mDateText;
+    @Bind(R.id.nag) TextView mNagText;
     @Bind(R.id.repeat) TextView mRepeatText;
     @Bind(R.id.shown) TextView mShownText;
     @Bind(R.id.toolbar) Toolbar mToolbar;
@@ -109,6 +110,13 @@ public class ViewActivity extends AppCompatActivity {
         String readableTime = DateAndTimeUtil.toStringReadableTime(calendar, this);
         mTimeText.setText(readableTime);
         mNotificationTimeText.setText(readableTime);
+
+        if (mReminder.getNagTimer() == 0) {
+            mNagText.setText(getResources().getString(R.string.no_nag));
+        }
+        else {
+            mNagText.setText(String.format("%d %s", mReminder.getNagTimer(), getResources().getString(R.string.seconds)));
+        }
 
         if (mReminder.getRepeatType() == 5) {
             StringBuilder stringBuilder = new StringBuilder();

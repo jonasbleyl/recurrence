@@ -26,6 +26,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COL_TITLE = "TITLE";
     private static final String COL_CONTENT = "CONTENT";
     private static final String COL_DATE_AND_TIME = "DATE_AND_TIME";
+    private static final String COL_NAG_TIMER = "NAG_TIMER";
     private static final String COL_REPEAT_TYPE = "REPEAT_TYPE";
     private static final String COL_FOREVER = "FOREVER";
     private static final String COL_NUMBER_TO_SHOW = "NUMBER_TO_SHOW";
@@ -69,6 +70,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + COL_TITLE + " TEXT, "
                 + COL_CONTENT + " TEXT, "
                 + COL_DATE_AND_TIME + " INTEGER, "
+                + COL_NAG_TIMER + " INTEGER, "
                 + COL_REPEAT_TYPE + " INTEGER, "
                 + COL_FOREVER + " TEXT, "
                 + COL_NUMBER_TO_SHOW + " INTEGER, "
@@ -128,6 +130,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COL_TITLE, reminder.getTitle());
         values.put(COL_CONTENT, reminder.getContent());
         values.put(COL_DATE_AND_TIME, reminder.getDateAndTime());
+        values.put(COL_NAG_TIMER, reminder.getNagTimer());
         values.put(COL_REPEAT_TYPE, reminder.getRepeatType());
         values.put(COL_FOREVER, reminder.getForeverState());
         values.put(COL_NUMBER_TO_SHOW, reminder.getNumberToShow());
@@ -172,12 +175,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 reminder.setTitle(cursor.getString(1));
                 reminder.setContent(cursor.getString(2));
                 reminder.setDateAndTime(cursor.getString(3));
-                reminder.setRepeatType(cursor.getInt(4));
-                reminder.setForeverState(cursor.getString(5));
-                reminder.setNumberToShow(cursor.getInt(6));
-                reminder.setNumberShown(cursor.getInt(7));
-                reminder.setIcon(cursor.getString(8));
-                reminder.setColour(cursor.getString(9));
+                reminder.setNagTimer(cursor.getInt(4));
+                reminder.setRepeatType(cursor.getInt(5));
+                reminder.setForeverState(cursor.getString(6));
+                reminder.setNumberToShow(cursor.getInt(7));
+                reminder.setNumberShown(cursor.getInt(8));
+                reminder.setIcon(cursor.getString(9));
+                reminder.setColour(cursor.getString(10));
 
                 if (reminder.getRepeatType() == 5) {
                     getDaysOfWeek(reminder, database);
@@ -199,12 +203,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         reminder.setTitle(cursor.getString(1));
         reminder.setContent(cursor.getString(2));
         reminder.setDateAndTime(cursor.getString(3));
-        reminder.setRepeatType(cursor.getInt(4));
-        reminder.setForeverState(cursor.getString(5));
-        reminder.setNumberToShow(cursor.getInt(6));
-        reminder.setNumberShown(cursor.getInt(7));
-        reminder.setIcon(cursor.getString(8));
-        reminder.setColour(cursor.getString(9));
+        reminder.setNagTimer(cursor.getInt(4));
+        reminder.setRepeatType(cursor.getInt(5));
+        reminder.setForeverState(cursor.getString(6));
+        reminder.setNumberToShow(cursor.getInt(7));
+        reminder.setNumberShown(cursor.getInt(8));
+        reminder.setIcon(cursor.getString(9));
+        reminder.setColour(cursor.getString(10));
         cursor.close();
 
         if (reminder.getRepeatType() == 5) {
@@ -219,6 +224,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COL_TITLE, reminder.getTitle());
         values.put(COL_CONTENT, reminder.getContent());
         values.put(COL_DATE_AND_TIME, reminder.getDateAndTime());
+        values.put(COL_NAG_TIMER, reminder.getNagTimer());
         values.put(COL_REPEAT_TYPE, reminder.getRepeatType());
         values.put(COL_FOREVER, reminder.getForeverState());
         values.put(COL_NUMBER_TO_SHOW, reminder.getNumberToShow());
