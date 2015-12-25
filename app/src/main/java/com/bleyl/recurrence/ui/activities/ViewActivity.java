@@ -115,7 +115,7 @@ public class ViewActivity extends AppCompatActivity {
             mNagText.setText(getResources().getString(R.string.no_nag));
         }
         else {
-            mNagText.setText(String.format("%d %s", mReminder.getNagTimer(), getResources().getString(R.string.seconds)));
+            mNagText.setText(String.format("%d %s", mReminder.getNagTimer(), getResources().getString(R.string.minutes)));
         }
 
         if (mReminder.getRepeatType() == 5) {
