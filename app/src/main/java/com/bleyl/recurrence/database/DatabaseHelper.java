@@ -19,7 +19,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static DatabaseHelper sInstance;
     private Context mContext;
 
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 4;
     private static final String DATABASE_NAME = "RECURRENCE_DB";
     private static final String NOTIFICATION_TABLE = "NOTIFICATIONS";
     private static final String COL_ID = "ID";
@@ -47,6 +47,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COL_SATURDAY = "SATURDAY";
     private static final String DEFAULT_ICON = "ic_notifications_white_24dp";
     private static final String DEFAULT_COLOUR = "#9E9E9E";
+    private static final String COL_ACTIVE_STATE = "ACTIVE_STATE";
 
     public static synchronized DatabaseHelper getInstance(Context context) {
         if (sInstance == null) {
@@ -76,7 +77,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + COL_NUMBER_TO_SHOW + " INTEGER, "
                 + COL_NUMBER_SHOWN + " INTEGER, "
                 + COL_ICON + " TEXT, "
-                + COL_COLOUR + " TEXT) ");
+                + COL_COLOUR + " TEXT, "
+                + COL_ACTIVE_STATE + " BOOLEAN) ");
 
         database.execSQL("CREATE TABLE " + ICON_TABLE + " ("
                 + COL_ICON_ID + " INTEGER PRIMARY KEY, "
@@ -121,6 +123,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     + COL_FRIDAY + " TEXT, "
                     + COL_SATURDAY + " TEXT) ");
         }
+
+        if (oldVersion < 4) {
+            database.execSQL("ALTER TABLE " + NOTIFICATION_TABLE + " ADD " + COL_NAG_TIMER + " INTEGER");
+            database.execSQL("ALTER TABLE " + NOTIFICATION_TABLE + " ADD " + COL_ACTIVE_STATE + " BOOLEAN");
+            database.execSQL("UPDATE " + NOTIFICATION_TABLE + " SET " + COL_NAG_TIMER + " = 0;");
+            database.execSQL("UPDATE " + NOTIFICATION_TABLE + " SET " + COL_ACTIVE_STATE + " = FALSE;");
+        }
     }
 
     public void addNotification(Reminder reminder) {
@@ -137,6 +146,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COL_NUMBER_SHOWN, reminder.getNumberShown());
         values.put(COL_ICON, reminder.getIcon());
         values.put(COL_COLOUR, reminder.getColour());
+        values.put(COL_ACTIVE_STATE, reminder.getActiveState());
         database.insert(NOTIFICATION_TABLE, null, values);
     }
 
@@ -182,6 +192,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 reminder.setNumberShown(cursor.getInt(8));
                 reminder.setIcon(cursor.getString(9));
                 reminder.setColour(cursor.getString(10));
+                reminder.setActiveState(cursor.getString(11));
 
                 if (reminder.getRepeatType() == 5) {
                     getDaysOfWeek(reminder, database);
@@ -210,6 +221,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         reminder.setNumberShown(cursor.getInt(8));
         reminder.setIcon(cursor.getString(9));
         reminder.setColour(cursor.getString(10));
+        reminder.setActiveState(cursor.getString(11));
         cursor.close();
 
         if (reminder.getRepeatType() == 5) {
@@ -231,6 +243,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COL_NUMBER_SHOWN, reminder.getNumberShown());
         values.put(COL_ICON, reminder.getIcon());
         values.put(COL_COLOUR, reminder.getColour());
+        values.put(COL_ACTIVE_STATE, reminder.getActiveState());
         database.update(NOTIFICATION_TABLE, values, COL_ID + " = ?", new String[]{String.valueOf(reminder.getId())});
     }
 

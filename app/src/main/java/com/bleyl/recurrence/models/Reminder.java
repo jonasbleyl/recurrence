@@ -13,6 +13,7 @@ public class Reminder {
     private String mIcon;
     private String mColour;
     private boolean[] mDaysOfWeek;
+    private String mActiveState;
 
     public int getId() {
         return mId;
@@ -123,6 +124,15 @@ public class Reminder {
 
     public Reminder setDaysOfWeek(boolean[] daysOfWeek) {
         mDaysOfWeek = daysOfWeek;
+        return this;
+    }
+
+    public String getActiveState() {
+        return mActiveState;
+    }
+
+    public Reminder setActiveState(String state) {
+        mActiveState = state;
         return this;
     }
 }

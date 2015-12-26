@@ -114,6 +114,30 @@
 
             </android.support.v7.widget.CardView>
 
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/notification_actions"
+                android:visibility="gone">
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/mark_as_done"
+                    android:id="@+id/done_button"
+                    android:layout_weight="1"
+                    android:onClick="actionDismiss" />
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/snooze"
+                    android:id="@+id/snooze_button"
+                    android:layout_weight="1"
+                    android:onClick="actionSnooze" />
+            </LinearLayout>
+
         </LinearLayout>
 
         <View

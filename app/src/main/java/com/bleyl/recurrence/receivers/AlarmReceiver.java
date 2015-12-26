@@ -34,8 +34,11 @@ public class AlarmReceiver extends BroadcastReceiver {
             NagUtil.setNextNag(context, reminder, Calendar.getInstance());
         }
 
+        reminder.setActiveState(Boolean.toString(true));
+
         // Update lists in tab fragments
         updateLists(context);
+        database.updateNotification(reminder);
         database.close();
     }
 

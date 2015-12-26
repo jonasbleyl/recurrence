@@ -82,7 +82,6 @@ public class NotificationUtil {
     }
 
     public static void cancelNotification(Context context, int notificationId) {
-        NagUtil.cancelNag(context, notificationId);
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.cancel(notificationId);
     }

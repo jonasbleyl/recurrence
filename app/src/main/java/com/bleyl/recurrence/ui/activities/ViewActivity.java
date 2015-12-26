@@ -1,10 +1,14 @@
 package com.bleyl.recurrence.ui.activities;
 
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.ViewCompat;
@@ -28,8 +32,11 @@ import com.bleyl.recurrence.database.DatabaseHelper;
 import com.bleyl.recurrence.models.Reminder;
 import com.bleyl.recurrence.R;
 import com.bleyl.recurrence.receivers.AlarmReceiver;
+import com.bleyl.recurrence.receivers.DismissReceiver;
+import com.bleyl.recurrence.receivers.SnoozeReceiver;
 import com.bleyl.recurrence.utils.AlarmUtil;
 import com.bleyl.recurrence.utils.DateAndTimeUtil;
+import com.bleyl.recurrence.utils.NagUtil;
 import com.bleyl.recurrence.utils.NotificationUtil;
 
 import java.util.Calendar;
@@ -55,6 +62,7 @@ public class ViewActivity extends AppCompatActivity {
     @Bind(R.id.scroll) ScrollView mScrollView;
     @Bind(R.id.header) View mHeaderView;
     @Bind(R.id.view_coordinator) CoordinatorLayout mCoordinatorLayout;
+    @Bind(R.id.notification_actions) LinearLayout mNotificationActions;
 
     private Reminder mReminder;
     private boolean mHideMarkAsDone;
@@ -89,6 +97,9 @@ public class ViewActivity extends AppCompatActivity {
         if (database.isNotificationPresent(mNotificationID)) {
             mReminder = database.getNotification(mNotificationID);
             database.close();
+            if (Boolean.parseBoolean(mReminder.getActiveState())) {
+                mNotificationActions.setVisibility(View.VISIBLE);
+            }
             assignReminderValues();
 
         } else {
@@ -229,6 +240,40 @@ public class ViewActivity extends AppCompatActivity {
         assignReminderValues();
         database.close();
         Snackbar.make(mCoordinatorLayout, getResources().getString(R.string.toast_mark_as_done), Snackbar.LENGTH_SHORT).show();
+    }
+
+    public void actionDismiss(View view) {
+        Context context = view.getContext();
+        int notificationId = mReminder.getId();
+
+        NagUtil.cancelNag(context, notificationId);
+        NotificationUtil.cancelNotification(context, notificationId);
+
+        DatabaseHelper database = DatabaseHelper.getInstance(context);
+        Reminder reminder = database.getNotification(notificationId);
+        reminder.setActiveState(Boolean.toString(false));
+        database.updateNotification(reminder);
+        database.close();
+
+        returnHome();
+    }
+
+    public void actionSnooze(View view) {
+        Context context = view.getContext();
+        int notificationId = mReminder.getId();
+        NotificationUtil.cancelNotification(context, notificationId);
+        NagUtil.cancelNag(context, notificationId);
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        int defaultMinutes = context.getResources().getInteger(R.integer.default_snooze_minutes);
+        int snoozeLength = sharedPreferences.getInt("snoozeLength", defaultMinutes);
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.MINUTE, snoozeLength);
+
+        Intent alarmIntent = new Intent(context, SnoozeReceiver.class);
+        AlarmUtil.setAlarm(context, alarmIntent, notificationId, calendar);
+
+        returnHome();
     }
 
     public void returnHome() {

@@ -423,7 +423,8 @@ public class CreateEditActivity extends AppCompatActivity {
                 .setNumberToShow(timesToShow)
                 .setNumberShown(mTimesShown)
                 .setIcon(mIcon)
-                .setColour(mColour);
+                .setColour(mColour)
+                .setActiveState(Boolean.toString(false));
 
         if (newNotification) {
             database.addNotification(reminder);
