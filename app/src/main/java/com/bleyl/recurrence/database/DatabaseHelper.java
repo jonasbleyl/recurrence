@@ -127,8 +127,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if (oldVersion < 4) {
             database.execSQL("ALTER TABLE " + NOTIFICATION_TABLE + " ADD " + COL_NAG_TIMER + " INTEGER");
             database.execSQL("ALTER TABLE " + NOTIFICATION_TABLE + " ADD " + COL_ACTIVE_STATE + " BOOLEAN");
-            database.execSQL("UPDATE " + NOTIFICATION_TABLE + " SET " + COL_NAG_TIMER + " = 0;");
-            database.execSQL("UPDATE " + NOTIFICATION_TABLE + " SET " + COL_ACTIVE_STATE + " = FALSE;");
+            database.execSQL("UPDATE " + NOTIFICATION_TABLE + " SET " + COL_NAG_TIMER + " = '0';");
+            database.execSQL("UPDATE " + NOTIFICATION_TABLE + " SET " + COL_ACTIVE_STATE + " = 'FALSE';");
         }
     }
 
