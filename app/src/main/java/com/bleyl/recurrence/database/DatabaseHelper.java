@@ -33,6 +33,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COL_NUMBER_SHOWN = "NUMBER_SHOWN";
     private static final String COL_ICON = "ICON";
     private static final String COL_COLOUR = "COLOUR";
+    private static final String COL_ACTIVE_STATE = "ACTIVE_STATE";
     private static final String ICON_TABLE = "ICONS";
     private static final String COL_ICON_ID = "ID";
     private static final String COL_ICON_NAME = "NAME";
@@ -47,7 +48,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COL_SATURDAY = "SATURDAY";
     private static final String DEFAULT_ICON = "ic_notifications_white_24dp";
     private static final String DEFAULT_COLOUR = "#9E9E9E";
-    private static final String COL_ACTIVE_STATE = "ACTIVE_STATE";
 
     public static synchronized DatabaseHelper getInstance(Context context) {
         if (sInstance == null) {
@@ -126,7 +126,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         if (oldVersion < 4) {
             database.execSQL("ALTER TABLE " + NOTIFICATION_TABLE + " ADD " + COL_NAG_TIMER + " INTEGER");
-            database.execSQL("ALTER TABLE " + NOTIFICATION_TABLE + " ADD " + COL_ACTIVE_STATE + " BOOLEAN");
+            database.execSQL("ALTER TABLE " + NOTIFICATION_TABLE + " ADD " + COL_ACTIVE_STATE + " INTEGER");
             database.execSQL("UPDATE " + NOTIFICATION_TABLE + " SET " + COL_NAG_TIMER + " = 0;");
             database.execSQL("UPDATE " + NOTIFICATION_TABLE + " SET " + COL_ACTIVE_STATE + " = 0;");
         }
