@@ -25,9 +25,9 @@ public class AlarmReceiver extends BroadcastReceiver {
         NotificationUtil.createNotification(context, reminder);
 
         // Check if new alarm needs to be set
-        if (reminder.getNumberToShow() > reminder.getNumberShown() || Boolean.parseBoolean(reminder.getForeverState())) {
+        /*if (reminder.getNumberToShow() > reminder.getNumberShown() || Boolean.parseBoolean(reminder.getForeverState())) {
             AlarmUtil.setNextAlarm(context, reminder, database, Calendar.getInstance());
-        }
+        }*/
 
         // Check if the alarm has a nag timer
         if (reminder.getNagTimer() != 0) {

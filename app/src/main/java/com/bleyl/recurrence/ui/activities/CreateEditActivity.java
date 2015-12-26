@@ -309,7 +309,7 @@ public class CreateEditActivity extends AppCompatActivity {
                     mNagText.setText(getResources().getString(R.string.no_nag));
                 }
                 else {
-                    mNagText.setText(String.format("%d %s", mNagTimer, getResources().getString(R.string.minutes)));
+                    mNagText.setText(getResources().getQuantityString(R.plurals.time_minute, mNagTimer,mNagTimer));
                 }
             }
         });

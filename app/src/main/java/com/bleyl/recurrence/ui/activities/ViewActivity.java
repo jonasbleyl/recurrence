@@ -62,7 +62,6 @@ public class ViewActivity extends AppCompatActivity {
     @Bind(R.id.notification_actions) LinearLayout mNotificationActions;
 
     private Reminder mReminder;
-    private boolean mHideMarkAsDone;
     private boolean mReminderChanged = false;
 
     @Override
@@ -119,11 +118,12 @@ public class ViewActivity extends AppCompatActivity {
         mTimeText.setText(readableTime);
         mNotificationTimeText.setText(readableTime);
 
-        if (mReminder.getNagTimer() == 0) {
+        int nagTimer = mReminder.getNagTimer();
+        if (nagTimer == 0) {
             mNagText.setText(getResources().getString(R.string.no_nag));
         }
         else {
-            mNagText.setText(String.format("%d %s", mReminder.getNagTimer(), getResources().getString(R.string.minutes)));
+            mNagText.setText(getResources().getQuantityString(R.plurals.time_minute, nagTimer, nagTimer));
         }
 
         if (mReminder.getRepeatType() == 5) {
@@ -150,9 +150,6 @@ public class ViewActivity extends AppCompatActivity {
             mShownText.setText(shown);
         }
 
-        // Hide "Mark as done" action if reminder is inactive
-        mHideMarkAsDone = mReminder.getNumberToShow() <= mReminder.getNumberShown()
-                && !Boolean.parseBoolean(mReminder.getForeverState());
         invalidateOptionsMenu();
     }
 
@@ -222,23 +219,6 @@ public class ViewActivity extends AppCompatActivity {
         finish();
     }
 
-    public void actionMarkAsDone() {
-        mReminderChanged = true;
-        DatabaseHelper database = DatabaseHelper.getInstance(this);
-        // Check whether next alarm needs to be set
-        if (mReminder.getNumberShown() + 1 != mReminder.getNumberToShow() || Boolean.parseBoolean(mReminder.getForeverState())) {
-            AlarmUtil.setNextAlarm(this, mReminder, database, DateAndTimeUtil.parseDateAndTime(mReminder.getDateAndTime()));
-        } else {
-            Intent alarmIntent = new Intent(getApplicationContext(), AlarmReceiver.class);
-            AlarmUtil.cancelAlarm(getApplicationContext(), alarmIntent, mReminder.getId());
-        }
-        mReminder.setNumberShown(mReminder.getNumberShown() + 1);
-        database.updateNotification(mReminder);
-        assignReminderValues();
-        database.close();
-        Snackbar.make(mCoordinatorLayout, getResources().getString(R.string.toast_mark_as_done), Snackbar.LENGTH_SHORT).show();
-    }
-
     public void actionDismiss(View view) {
         Context context = getApplicationContext();
         Intent intent = new Intent(context, DismissReceiver.class);
@@ -278,9 +258,6 @@ public class ViewActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_viewer, menu);
-        if (mHideMarkAsDone) {
-            menu.findItem(R.id.action_mark_as_done).setVisible(false);
-        }
         return true;
     }
 
@@ -304,9 +281,6 @@ public class ViewActivity extends AppCompatActivity {
                 return true;
             case R.id.action_edit:
                 actionEdit();
-                return true;
-            case R.id.action_mark_as_done:
-                actionMarkAsDone();
                 return true;
             case R.id.action_show_now:
                 actionShowNow();

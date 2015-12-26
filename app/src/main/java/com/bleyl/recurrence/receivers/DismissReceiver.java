@@ -8,8 +8,11 @@ import android.content.Intent;
 
 import com.bleyl.recurrence.database.DatabaseHelper;
 import com.bleyl.recurrence.models.Reminder;
+import com.bleyl.recurrence.utils.AlarmUtil;
 import com.bleyl.recurrence.utils.NagUtil;
 import com.bleyl.recurrence.utils.NotificationUtil;
+
+import java.util.Calendar;
 
 public class DismissReceiver extends BroadcastReceiver {
 
@@ -27,6 +30,12 @@ public class DismissReceiver extends BroadcastReceiver {
         DatabaseHelper database = DatabaseHelper.getInstance(context);
         Reminder reminder = database.getNotification(notificationId);
         reminder.setActiveState(Boolean.toString(false));
+
+        // Check if new alarm needs to be set
+        if (reminder.getNumberToShow() > reminder.getNumberShown() || Boolean.parseBoolean(reminder.getForeverState())) {
+            AlarmUtil.setNextAlarm(context, reminder, database, Calendar.getInstance());
+        }
+
         database.updateNotification(reminder);
         database.close();
     }
