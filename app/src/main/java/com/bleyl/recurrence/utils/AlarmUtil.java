@@ -31,8 +31,9 @@ public class AlarmUtil {
     public static void cancelAlarm(Context context, Intent intent, int notificationId) {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, notificationId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        NagUtil.cancelNag(context, notificationId);
         alarmManager.cancel(pendingIntent);
+
+        NagUtil.cancelNag(context, notificationId);
     }
 
     public static void setNextAlarm(Context context, Reminder reminder, DatabaseHelper database, Calendar calendar) {

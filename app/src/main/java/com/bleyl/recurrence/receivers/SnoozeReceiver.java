@@ -15,9 +15,9 @@ public class SnoozeReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         DatabaseHelper database = DatabaseHelper.getInstance(context);
-        int reminderId = intent.getIntExtra("NOTIFICATION_ID", 0);
-        if (reminderId != 0) {
-            Reminder reminder = database.getNotification(reminderId);
+        Reminder reminder = database.getNotification(intent.getIntExtra("NOTIFICATION_ID", 0));
+        int reminderId = reminder.getId();
+        if (reminderId != 0 && Boolean.parseBoolean(reminder.getActiveState())) {
             NotificationUtil.createNotification(context, reminder);
             if (reminder.getNagTimer() != 0) {
                 NagUtil.setNextNag(context, reminder, Calendar.getInstance());

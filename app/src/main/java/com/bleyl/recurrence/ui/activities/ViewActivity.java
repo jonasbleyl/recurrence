@@ -33,6 +33,7 @@ import com.bleyl.recurrence.models.Reminder;
 import com.bleyl.recurrence.R;
 import com.bleyl.recurrence.receivers.AlarmReceiver;
 import com.bleyl.recurrence.receivers.DismissReceiver;
+import com.bleyl.recurrence.receivers.SnoozeActionReceiver;
 import com.bleyl.recurrence.receivers.SnoozeReceiver;
 import com.bleyl.recurrence.utils.AlarmUtil;
 import com.bleyl.recurrence.utils.DateAndTimeUtil;
@@ -243,37 +244,32 @@ public class ViewActivity extends AppCompatActivity {
     }
 
     public void actionDismiss(View view) {
-        Context context = view.getContext();
-        int notificationId = mReminder.getId();
-
-        NagUtil.cancelNag(context, notificationId);
-        NotificationUtil.cancelNotification(context, notificationId);
-
-        DatabaseHelper database = DatabaseHelper.getInstance(context);
-        Reminder reminder = database.getNotification(notificationId);
-        reminder.setActiveState(Boolean.toString(false));
-        database.updateNotification(reminder);
-        database.close();
-
-        returnHome();
+        Context context = getApplicationContext();
+        Intent intent = new Intent(context, DismissReceiver.class);
+        int reminderId = mReminder.getId();
+        intent.putExtra("NOTIFICATION_ID", reminderId);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, reminderId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        try {
+            pendingIntent.send();
+        } catch (PendingIntent.CanceledException e) {
+            e.printStackTrace();
+        }
+        finish();
     }
 
     public void actionSnooze(View view) {
-        Context context = view.getContext();
-        int notificationId = mReminder.getId();
-        NotificationUtil.cancelNotification(context, notificationId);
-        NagUtil.cancelNag(context, notificationId);
+        Context context = getApplicationContext();
+        int reminderId = mReminder.getId();
 
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        int defaultMinutes = context.getResources().getInteger(R.integer.default_snooze_minutes);
-        int snoozeLength = sharedPreferences.getInt("snoozeLength", defaultMinutes);
-        Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.MINUTE, snoozeLength);
-
-        Intent alarmIntent = new Intent(context, SnoozeReceiver.class);
-        AlarmUtil.setAlarm(context, alarmIntent, notificationId, calendar);
-
-        returnHome();
+        Intent snoozeIntent = new Intent(context, SnoozeActionReceiver.class);
+        snoozeIntent.putExtra("NOTIFICATION_ID", reminderId);
+        PendingIntent pendingSnooze = PendingIntent.getBroadcast(context, reminderId, snoozeIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        try {
+            pendingSnooze.send();
+        } catch (PendingIntent.CanceledException e) {
+            e.printStackTrace();
+        }
+        finish();
     }
 
     public void returnHome() {
