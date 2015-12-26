@@ -29,7 +29,7 @@ public class DismissReceiver extends BroadcastReceiver {
 
         DatabaseHelper database = DatabaseHelper.getInstance(context);
         Reminder reminder = database.getNotification(notificationId);
-        reminder.setActiveState(Boolean.toString(false));
+        reminder.setActiveState(0);
 
         // Check if new alarm needs to be set
         if (reminder.getNumberToShow() > reminder.getNumberShown() || Boolean.parseBoolean(reminder.getForeverState())) {

@@ -93,7 +93,7 @@ public class ViewActivity extends AppCompatActivity {
         if (database.isNotificationPresent(mNotificationID)) {
             mReminder = database.getNotification(mNotificationID);
             database.close();
-            if (Boolean.parseBoolean(mReminder.getActiveState())) {
+            if (mReminder.getActiveState() == 1) {
                 mNotificationActions.setVisibility(View.VISIBLE);
             }
             assignReminderValues();

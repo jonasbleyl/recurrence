@@ -424,7 +424,7 @@ public class CreateEditActivity extends AppCompatActivity {
                 .setNumberShown(mTimesShown)
                 .setIcon(mIcon)
                 .setColour(mColour)
-                .setActiveState(Boolean.toString(false));
+                .setActiveState(0);
 
         if (newNotification) {
             database.addNotification(reminder);
