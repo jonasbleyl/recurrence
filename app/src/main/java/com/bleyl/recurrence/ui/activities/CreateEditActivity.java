@@ -120,7 +120,7 @@ public class CreateEditActivity extends AppCompatActivity {
         mId = database.getLastNotificationId() + 1;
         database.close();
         mCalendar.set(Calendar.SECOND, 0);
-        mNagTimer = 0;
+        mNagTimer = getResources().getInteger(R.integer.default_nag_minutes);
         mTimesEditText.setText("1");
         newNotification = true;
         mRepeatType = 0;
