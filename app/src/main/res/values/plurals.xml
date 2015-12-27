@@ -4,4 +4,8 @@
         <item quantity="other">%d minutes</item>
         <item quantity="one">%d minute</item>
     </plurals>
+    <plurals name="time_second">
+        <item quantity="other">%d seconds</item>
+        <item quantity="one">%d second</item>
+    </plurals>
 </resources>
