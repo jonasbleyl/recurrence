@@ -15,8 +15,11 @@ import android.support.v4.app.NotificationCompat;
 import com.bleyl.recurrence.R;
 import com.bleyl.recurrence.models.Reminder;
 import com.bleyl.recurrence.receivers.DismissReceiver;
+import com.bleyl.recurrence.receivers.NagReceiver;
 import com.bleyl.recurrence.receivers.SnoozeActionReceiver;
 import com.bleyl.recurrence.ui.activities.ViewActivity;
+
+import java.util.Calendar;
 
 public class NotificationUtil {
 
@@ -44,6 +47,19 @@ public class NotificationUtil {
                 .setAutoCancel(true);
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+
+        if (sharedPreferences.getBoolean("naggingReminder", true)) {
+            Intent swipeIntent = new Intent(context, DismissReceiver.class);
+            swipeIntent.putExtra("NOTIFICATION_ID", reminder.getId());
+            PendingIntent pendingDismiss = PendingIntent.getBroadcast(context, reminder.getId(), swipeIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            builder.setDeleteIntent(pendingDismiss);
+
+            Calendar calendar = Calendar.getInstance();
+            calendar.add(Calendar.MINUTE, sharedPreferences.getInt("nagMinutes", context.getResources().getInteger(R.integer.default_nag_minutes)));
+            calendar.add(Calendar.SECOND, sharedPreferences.getInt("nagSeconds", context.getResources().getInteger(R.integer.default_nag_seconds)));
+            Intent alarmIntent = new Intent(context, NagReceiver.class);
+            AlarmUtil.setAlarm(context, alarmIntent, reminder.getId(), calendar);
+        }
 
         String soundUri = sharedPreferences.getString("NotificationSound", "content://settings/system/notification_sound");
         if (soundUri.length() != 0) {
