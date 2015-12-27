@@ -9,6 +9,7 @@ import com.bleyl.recurrence.models.Reminder;
 import com.bleyl.recurrence.utils.NotificationUtil;
 
 public class SnoozeReceiver extends BroadcastReceiver {
+
     @Override
     public void onReceive(Context context, Intent intent) {
         DatabaseHelper database = DatabaseHelper.getInstance(context);
