@@ -51,6 +51,8 @@
 
         <receiver android:name=".receivers.DismissReceiver" />
 
+        <receiver android:name=".receivers.NagReceiver" />
+
         <receiver
             android:name=".receivers.BootReceiver"
             android:enabled="true" >
