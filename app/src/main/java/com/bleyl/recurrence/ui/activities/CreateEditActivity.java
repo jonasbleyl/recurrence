@@ -171,7 +171,7 @@ public class CreateEditActivity extends AppCompatActivity {
             mIconText.setText(getResources().getString(R.string.custom_icon));
         }
 
-        if (!getResources().getString(R.string.default_colour).equals(mColour)) {
+        if (!getResources().getString(R.string.default_colour_value).equals(mColour)) {
             mImageColourSelect.setColorFilter(Color.parseColor(mColour));
             mColourText.setText(mColourNames[Arrays.asList(mColoursArray).indexOf(mColour)]);
         }
