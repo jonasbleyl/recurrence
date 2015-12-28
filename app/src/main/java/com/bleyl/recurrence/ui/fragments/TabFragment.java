@@ -13,14 +13,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.TextView;
 
+import com.bleyl.recurrence.R;
+import com.bleyl.recurrence.adapters.ReminderAdapter;
 import com.bleyl.recurrence.database.DatabaseHelper;
 import com.bleyl.recurrence.enums.RemindersType;
 import com.bleyl.recurrence.models.Reminder;
-import com.bleyl.recurrence.R;
-import com.bleyl.recurrence.adapters.ReminderAdapter;
 
 import java.util.List;
 

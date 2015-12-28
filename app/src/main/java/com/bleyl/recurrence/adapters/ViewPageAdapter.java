@@ -12,9 +12,9 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.astuetz.PagerSlidingTabStrip;
+import com.bleyl.recurrence.R;
 import com.bleyl.recurrence.enums.RemindersType;
 import com.bleyl.recurrence.ui.fragments.TabFragment;
-import com.bleyl.recurrence.R;
 
 public class ViewPageAdapter extends FragmentPagerAdapter implements PagerSlidingTabStrip.CustomTabProvider {
 

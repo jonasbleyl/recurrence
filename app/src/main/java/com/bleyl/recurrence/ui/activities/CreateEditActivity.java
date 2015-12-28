@@ -33,12 +33,12 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import com.bleyl.recurrence.R;
 import com.bleyl.recurrence.adapters.ColoursAdapter;
 import com.bleyl.recurrence.adapters.IconsAdapter;
 import com.bleyl.recurrence.database.DatabaseHelper;
 import com.bleyl.recurrence.models.Icon;
 import com.bleyl.recurrence.models.Reminder;
-import com.bleyl.recurrence.R;
 import com.bleyl.recurrence.receivers.AlarmReceiver;
 import com.bleyl.recurrence.utils.AlarmUtil;
 import com.bleyl.recurrence.utils.AnimationUtil;

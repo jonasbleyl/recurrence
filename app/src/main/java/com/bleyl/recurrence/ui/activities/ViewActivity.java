@@ -8,7 +8,6 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -26,9 +25,9 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.bleyl.recurrence.R;
 import com.bleyl.recurrence.database.DatabaseHelper;
 import com.bleyl.recurrence.models.Reminder;
-import com.bleyl.recurrence.R;
 import com.bleyl.recurrence.receivers.AlarmReceiver;
 import com.bleyl.recurrence.receivers.DismissReceiver;
 import com.bleyl.recurrence.receivers.SnoozeActionReceiver;
