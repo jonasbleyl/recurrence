@@ -5,6 +5,7 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.content.LocalBroadcastManager;
 
 import com.bleyl.recurrence.database.DatabaseHelper;
 import com.bleyl.recurrence.models.Reminder;
@@ -35,6 +36,10 @@ public class DismissReceiver extends BroadcastReceiver {
         if (reminder.getNumberToShow() > reminder.getNumberShown() || Boolean.parseBoolean(reminder.getForeverState())) {
             AlarmUtil.setNextAlarm(context, reminder, database, Calendar.getInstance());
         }
+
+        Intent localIntent = new Intent("dismissReminder");
+        localIntent.putExtra("NOTIFICATION_ID", 0);
+        LocalBroadcastManager.getInstance(context).sendBroadcast(localIntent);
 
         database.updateNotification(reminder);
         database.close();

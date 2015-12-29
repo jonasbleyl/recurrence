@@ -1,13 +1,16 @@
 package com.bleyl.recurrence.ui.activities;
 
 import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -57,7 +60,6 @@ public class ViewActivity extends AppCompatActivity {
     @Bind(R.id.toolbar_shadow) View mShadowView;
     @Bind(R.id.scroll) ScrollView mScrollView;
     @Bind(R.id.header) View mHeaderView;
-    @Bind(R.id.view_coordinator) CoordinatorLayout mCoordinatorLayout;
     @Bind(R.id.notification_actions) LinearLayout mNotificationActions;
 
     private Reminder mReminder;
@@ -95,6 +97,8 @@ public class ViewActivity extends AppCompatActivity {
             if (mReminder.getActiveState() == 1) {
                 mNotificationActions.setVisibility(View.VISIBLE);
             }
+            LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver, new IntentFilter("dismissReminder"));
+
             assignReminderValues();
 
         } else {
@@ -103,6 +107,20 @@ public class ViewActivity extends AppCompatActivity {
             returnHome();
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver);
+        super.onDestroy();
+    }
+
+    private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getIntExtra("NOTIFICATION_ID", 0) == mReminder.getId())
+                mNotificationActions.setVisibility(View.GONE);
+        }
+    };
 
     public void assignReminderValues() {
         // Assign notification values to views
