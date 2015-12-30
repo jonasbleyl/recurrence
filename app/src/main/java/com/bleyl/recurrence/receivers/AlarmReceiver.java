@@ -6,8 +6,8 @@ import android.content.Intent;
 import android.support.v4.content.LocalBroadcastManager;
 
 import com.bleyl.recurrence.database.DatabaseHelper;
-import com.bleyl.recurrence.utils.AlarmUtil;
 import com.bleyl.recurrence.models.Reminder;
+import com.bleyl.recurrence.utils.NagUtil;
 import com.bleyl.recurrence.utils.NotificationUtil;
 
 import java.util.Calendar;
@@ -24,12 +24,20 @@ public class AlarmReceiver extends BroadcastReceiver {
         NotificationUtil.createNotification(context, reminder);
 
         // Check if new alarm needs to be set
-        if (reminder.getNumberToShow() > reminder.getNumberShown() || Boolean.parseBoolean(reminder.getForeverState())) {
+        /*if (reminder.getNumberToShow() > reminder.getNumberShown() || Boolean.parseBoolean(reminder.getForeverState())) {
             AlarmUtil.setNextAlarm(context, reminder, database, Calendar.getInstance());
+        }*/
+
+        // Check if the alarm has a nag timer
+        if (reminder.getNagTimer() != 0) {
+            NagUtil.setNextNag(context, reminder, Calendar.getInstance());
         }
+
+        reminder.setActiveState(1);
 
         // Update lists in tab fragments
         updateLists(context);
+        database.updateNotification(reminder);
         database.close();
     }
 

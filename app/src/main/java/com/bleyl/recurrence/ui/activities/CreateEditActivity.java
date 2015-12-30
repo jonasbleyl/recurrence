@@ -19,6 +19,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -32,12 +33,12 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import com.bleyl.recurrence.R;
 import com.bleyl.recurrence.adapters.ColoursAdapter;
 import com.bleyl.recurrence.adapters.IconsAdapter;
 import com.bleyl.recurrence.database.DatabaseHelper;
 import com.bleyl.recurrence.models.Icon;
 import com.bleyl.recurrence.models.Reminder;
-import com.bleyl.recurrence.R;
 import com.bleyl.recurrence.receivers.AlarmReceiver;
 import com.bleyl.recurrence.utils.AlarmUtil;
 import com.bleyl.recurrence.utils.AnimationUtil;
@@ -56,6 +57,7 @@ public class CreateEditActivity extends AppCompatActivity {
     @Bind(R.id.notification_content) EditText mContentEditText;
     @Bind(R.id.time) TextView mTimeText;
     @Bind(R.id.date) TextView mDateText;
+    @Bind(R.id.nag_text) TextView mNagText;
     @Bind(R.id.repeat_day) TextView mRepeatText;
     @Bind(R.id.switch_toggle) SwitchCompat mForeverSwitch;
     @Bind(R.id.show_times_number) EditText mTimesEditText;
@@ -76,6 +78,7 @@ public class CreateEditActivity extends AppCompatActivity {
     private AlertDialog mIconSelectorDialog;
     private AlertDialog mColourSelectorDialog;
     private Calendar mCalendar;
+    private int mNagTimer;
     private int mTimesShown;
     private int mRepeatType;
     private boolean[] mDaysOfWeek;
@@ -117,6 +120,7 @@ public class CreateEditActivity extends AppCompatActivity {
         mId = database.getLastNotificationId() + 1;
         database.close();
         mCalendar.set(Calendar.SECOND, 0);
+        mNagTimer = getResources().getInteger(R.integer.default_nag_minutes);
         mTimesEditText.setText("1");
         newNotification = true;
         mRepeatType = 0;
@@ -145,6 +149,7 @@ public class CreateEditActivity extends AppCompatActivity {
         mDateText.setText(DateAndTimeUtil.toStringReadableDate(mCalendar));
         mTimeText.setText(DateAndTimeUtil.toStringReadableTime(mCalendar, this));
         mTimesEditText.setText(Integer.toString(reminder.getNumberToShow()));
+        mNagTimer = reminder.getNagTimer();
         mTimesShown = reminder.getNumberShown();
         mRepeatType = reminder.getRepeatType();
         mIcon = reminder.getIcon();
@@ -153,13 +158,20 @@ public class CreateEditActivity extends AppCompatActivity {
         mCalendar.set(Calendar.SECOND, 0);
         newNotification = false;
 
+        if (mNagTimer == 0) {
+            mNagText.setText(getResources().getString(R.string.no_nag));
+        }
+        else {
+            mNagText.setText(String.format("%d %s", mNagTimer, getResources().getString(R.string.minutes)));
+        }
+
         if (!getResources().getString(R.string.default_icon).equals(mIcon)) {
             int iconResId = getResources().getIdentifier(reminder.getIcon(), "drawable", getPackageName());
             mImageIconSelect.setImageResource(iconResId);
             mIconText.setText(getResources().getString(R.string.custom_icon));
         }
 
-        if (!getResources().getString(R.string.default_colour).equals(mColour)) {
+        if (!getResources().getString(R.string.default_colour_value).equals(mColour)) {
             mImageColourSelect.setColorFilter(Color.parseColor(mColour));
             mColourText.setText(mColourNames[Arrays.asList(mColoursArray).indexOf(mColour)]);
         }
@@ -279,6 +291,33 @@ public class CreateEditActivity extends AppCompatActivity {
         mColourSelectorDialog.cancel();
     }
 
+    public void nagTimerSelector(View view) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.Dialog);
+        builder.setTitle("Nagging Timer");
+        builder.setMessage(R.string.zero_to_disable);
+
+        final EditText mValueNag = new EditText(getApplicationContext());
+        mValueNag.setInputType(InputType.TYPE_CLASS_NUMBER);
+        mValueNag.setTextColor(getResources().getColor(R.color.textLightGray));
+        mValueNag.setText(Integer.toString(mNagTimer));
+
+        builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                mNagTimer = Integer.parseInt(mValueNag.getText().toString());
+                if (mNagTimer == 0) {
+                    mNagText.setText(getResources().getString(R.string.no_nag));
+                }
+                else {
+                    mNagText.setText(getResources().getQuantityString(R.plurals.time_minute, mNagTimer,mNagTimer));
+                }
+            }
+        });
+        builder.setNegativeButton(R.string.cancel, null);
+        builder.setView(mValueNag);
+        builder.create().show();
+    }
+
     public void repeatSelector(View view) {
         final String[] repeatArray = getResources().getStringArray(R.array.repeat_array);
         AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.Dialog);
@@ -378,12 +417,14 @@ public class CreateEditActivity extends AppCompatActivity {
                 .setTitle(mTitleEditText.getText().toString())
                 .setContent(mContentEditText.getText().toString())
                 .setDateAndTime(date + time)
+                .setNagTimer(mNagTimer)
                 .setRepeatType(mRepeatType)
                 .setForeverState(Boolean.toString(mForeverSwitch.isChecked()))
                 .setNumberToShow(timesToShow)
                 .setNumberShown(mTimesShown)
                 .setIcon(mIcon)
-                .setColour(mColour);
+                .setColour(mColour)
+                .setActiveState(0);
 
         if (newNotification) {
             database.addNotification(reminder);

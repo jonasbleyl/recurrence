@@ -8,6 +8,7 @@ import android.preference.PreferenceManager;
 
 import com.bleyl.recurrence.R;
 import com.bleyl.recurrence.utils.AlarmUtil;
+import com.bleyl.recurrence.utils.NagUtil;
 import com.bleyl.recurrence.utils.NotificationUtil;
 
 import java.util.Calendar;
@@ -17,6 +18,7 @@ public class SnoozeActionReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         int notificationId = intent.getIntExtra("NOTIFICATION_ID", 0);
         NotificationUtil.cancelNotification(context, notificationId);
+        NagUtil.cancelNag(context, notificationId);
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         int defaultMinutes = context.getResources().getInteger(R.integer.default_snooze_minutes);

@@ -231,6 +231,47 @@
                     android:background="@color/lightGray" />
 
                 <TableRow
+                    android:id="@+id/nag_row"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackground"
+                    android:paddingBottom="18dp"
+                    android:paddingEnd="@dimen/table_row_default_padding_side"
+                    android:paddingRight="@dimen/table_row_default_padding_side"
+                    android:paddingTop="@dimen/table_row_default_padding_top"
+                    android:weightSum="1"
+                    android:onClick="nagTimerSelector">
+
+                    <ImageView
+                        android:id="@+id/nag_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/image_margin_side"
+                        android:layout_marginStart="@dimen/image_margin_side"
+                        android:tint="@color/iconTint"
+                        android:src="@drawable/ic_refresh_white_24dp"/>
+
+                    <TextView
+                        android:id="@+id/nag_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="22dp"
+                        android:layout_marginStart="22dp"
+                        android:text="@string/no_nag"
+                        android:textColor="@android:color/black"
+                        android:textSize="16sp"/>
+
+                </TableRow>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/line_separator_height"
+                    android:layout_marginLeft="@dimen/line_separator_margin_side_large"
+                    android:layout_marginStart="@dimen/line_separator_margin_side_large"
+                    android:background="@color/lightGray" />
+
+                <TableRow
                     android:id="@+id/icon_select"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -330,7 +371,7 @@
                         android:layout_marginLeft="@dimen/image_margin_side"
                         android:layout_marginStart="@dimen/image_margin_side"
                         android:tint="@color/iconTint"
-                        android:src="@drawable/ic_refresh_white_24dp"/>
+                        android:src="@drawable/ic_repeat_white_24dp"/>
 
                     <TextView
                         android:id="@+id/repeat_day"

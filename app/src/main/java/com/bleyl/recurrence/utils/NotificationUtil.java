@@ -41,7 +41,12 @@ public class NotificationUtil {
                 .setContentText(reminder.getContent())
                 .setTicker(reminder.getTitle())
                 .setContentIntent(pending)
-                .setAutoCancel(true);
+                .setAutoCancel(false);
+
+        Intent swipeIntent = new Intent(context, DismissReceiver.class);
+        swipeIntent.putExtra("NOTIFICATION_ID", reminder.getId());
+        PendingIntent pendingDismiss = PendingIntent.getBroadcast(context, reminder.getId(), swipeIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        builder.setDeleteIntent(pendingDismiss);
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
 

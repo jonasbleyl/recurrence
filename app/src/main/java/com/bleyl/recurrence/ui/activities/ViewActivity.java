@@ -1,12 +1,16 @@
 package com.bleyl.recurrence.ui.activities;
 
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.Snackbar;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -24,10 +28,12 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.bleyl.recurrence.R;
 import com.bleyl.recurrence.database.DatabaseHelper;
 import com.bleyl.recurrence.models.Reminder;
-import com.bleyl.recurrence.R;
 import com.bleyl.recurrence.receivers.AlarmReceiver;
+import com.bleyl.recurrence.receivers.DismissReceiver;
+import com.bleyl.recurrence.receivers.SnoozeActionReceiver;
 import com.bleyl.recurrence.utils.AlarmUtil;
 import com.bleyl.recurrence.utils.DateAndTimeUtil;
 import com.bleyl.recurrence.utils.NotificationUtil;
@@ -46,6 +52,7 @@ public class ViewActivity extends AppCompatActivity {
     @Bind(R.id.notification_circle) ImageView mCircleImage;
     @Bind(R.id.time) TextView mTimeText;
     @Bind(R.id.date) TextView mDateText;
+    @Bind(R.id.nag) TextView mNagText;
     @Bind(R.id.repeat) TextView mRepeatText;
     @Bind(R.id.shown) TextView mShownText;
     @Bind(R.id.toolbar) Toolbar mToolbar;
@@ -53,10 +60,9 @@ public class ViewActivity extends AppCompatActivity {
     @Bind(R.id.toolbar_shadow) View mShadowView;
     @Bind(R.id.scroll) ScrollView mScrollView;
     @Bind(R.id.header) View mHeaderView;
-    @Bind(R.id.view_coordinator) CoordinatorLayout mCoordinatorLayout;
+    @Bind(R.id.notification_actions) LinearLayout mNotificationActions;
 
     private Reminder mReminder;
-    private boolean mHideMarkAsDone;
     private boolean mReminderChanged = false;
 
     @Override
@@ -88,6 +94,11 @@ public class ViewActivity extends AppCompatActivity {
         if (database.isNotificationPresent(mNotificationID)) {
             mReminder = database.getNotification(mNotificationID);
             database.close();
+            if (mReminder.getActiveState() == 1) {
+                mNotificationActions.setVisibility(View.VISIBLE);
+            }
+            LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver, new IntentFilter("dismissReminder"));
+
             assignReminderValues();
 
         } else {
@@ -96,6 +107,20 @@ public class ViewActivity extends AppCompatActivity {
             returnHome();
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver);
+        super.onDestroy();
+    }
+
+    private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getIntExtra("NOTIFICATION_ID", 0) == mReminder.getId())
+                mNotificationActions.setVisibility(View.GONE);
+        }
+    };
 
     public void assignReminderValues() {
         // Assign notification values to views
@@ -109,6 +134,14 @@ public class ViewActivity extends AppCompatActivity {
         String readableTime = DateAndTimeUtil.toStringReadableTime(calendar, this);
         mTimeText.setText(readableTime);
         mNotificationTimeText.setText(readableTime);
+
+        int nagTimer = mReminder.getNagTimer();
+        if (nagTimer == 0) {
+            mNagText.setText(getResources().getString(R.string.no_nag));
+        }
+        else {
+            mNagText.setText(getResources().getQuantityString(R.plurals.time_minute, nagTimer, nagTimer));
+        }
 
         if (mReminder.getRepeatType() == 5) {
             StringBuilder stringBuilder = new StringBuilder();
@@ -134,9 +167,6 @@ public class ViewActivity extends AppCompatActivity {
             mShownText.setText(shown);
         }
 
-        // Hide "Mark as done" action if reminder is inactive
-        mHideMarkAsDone = mReminder.getNumberToShow() <= mReminder.getNumberShown()
-                && !Boolean.parseBoolean(mReminder.getForeverState());
         invalidateOptionsMenu();
     }
 
@@ -206,21 +236,33 @@ public class ViewActivity extends AppCompatActivity {
         finish();
     }
 
-    public void actionMarkAsDone() {
-        mReminderChanged = true;
-        DatabaseHelper database = DatabaseHelper.getInstance(this);
-        // Check whether next alarm needs to be set
-        if (mReminder.getNumberShown() + 1 != mReminder.getNumberToShow() || Boolean.parseBoolean(mReminder.getForeverState())) {
-            AlarmUtil.setNextAlarm(this, mReminder, database, DateAndTimeUtil.parseDateAndTime(mReminder.getDateAndTime()));
-        } else {
-            Intent alarmIntent = new Intent(getApplicationContext(), AlarmReceiver.class);
-            AlarmUtil.cancelAlarm(getApplicationContext(), alarmIntent, mReminder.getId());
+    public void actionDismiss(View view) {
+        Context context = getApplicationContext();
+        Intent intent = new Intent(context, DismissReceiver.class);
+        int reminderId = mReminder.getId();
+        intent.putExtra("NOTIFICATION_ID", reminderId);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, reminderId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        try {
+            pendingIntent.send();
+        } catch (PendingIntent.CanceledException e) {
+            e.printStackTrace();
         }
-        mReminder.setNumberShown(mReminder.getNumberShown() + 1);
-        database.updateNotification(mReminder);
-        assignReminderValues();
-        database.close();
-        Snackbar.make(mCoordinatorLayout, getResources().getString(R.string.toast_mark_as_done), Snackbar.LENGTH_SHORT).show();
+        finish();
+    }
+
+    public void actionSnooze(View view) {
+        Context context = getApplicationContext();
+        int reminderId = mReminder.getId();
+
+        Intent snoozeIntent = new Intent(context, SnoozeActionReceiver.class);
+        snoozeIntent.putExtra("NOTIFICATION_ID", reminderId);
+        PendingIntent pendingSnooze = PendingIntent.getBroadcast(context, reminderId, snoozeIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        try {
+            pendingSnooze.send();
+        } catch (PendingIntent.CanceledException e) {
+            e.printStackTrace();
+        }
+        finish();
     }
 
     public void returnHome() {
@@ -233,9 +275,6 @@ public class ViewActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_viewer, menu);
-        if (mHideMarkAsDone) {
-            menu.findItem(R.id.action_mark_as_done).setVisible(false);
-        }
         return true;
     }
 
@@ -259,9 +298,6 @@ public class ViewActivity extends AppCompatActivity {
                 return true;
             case R.id.action_edit:
                 actionEdit();
-                return true;
-            case R.id.action_mark_as_done:
-                actionMarkAsDone();
                 return true;
             case R.id.action_show_now:
                 actionShowNow();

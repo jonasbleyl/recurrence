@@ -19,19 +19,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static DatabaseHelper sInstance;
     private Context mContext;
 
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 4;
     private static final String DATABASE_NAME = "RECURRENCE_DB";
     private static final String NOTIFICATION_TABLE = "NOTIFICATIONS";
     private static final String COL_ID = "ID";
     private static final String COL_TITLE = "TITLE";
     private static final String COL_CONTENT = "CONTENT";
     private static final String COL_DATE_AND_TIME = "DATE_AND_TIME";
+    private static final String COL_NAG_TIMER = "NAG_TIMER";
     private static final String COL_REPEAT_TYPE = "REPEAT_TYPE";
     private static final String COL_FOREVER = "FOREVER";
     private static final String COL_NUMBER_TO_SHOW = "NUMBER_TO_SHOW";
     private static final String COL_NUMBER_SHOWN = "NUMBER_SHOWN";
     private static final String COL_ICON = "ICON";
     private static final String COL_COLOUR = "COLOUR";
+    private static final String COL_ACTIVE_STATE = "ACTIVE_STATE";
     private static final String ICON_TABLE = "ICONS";
     private static final String COL_ICON_ID = "ID";
     private static final String COL_ICON_NAME = "NAME";
@@ -69,12 +71,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + COL_TITLE + " TEXT, "
                 + COL_CONTENT + " TEXT, "
                 + COL_DATE_AND_TIME + " INTEGER, "
+                + COL_NAG_TIMER + " INTEGER, "
                 + COL_REPEAT_TYPE + " INTEGER, "
                 + COL_FOREVER + " TEXT, "
                 + COL_NUMBER_TO_SHOW + " INTEGER, "
                 + COL_NUMBER_SHOWN + " INTEGER, "
                 + COL_ICON + " TEXT, "
-                + COL_COLOUR + " TEXT) ");
+                + COL_COLOUR + " TEXT, "
+                + COL_ACTIVE_STATE + " INTEGER) ");
 
         database.execSQL("CREATE TABLE " + ICON_TABLE + " ("
                 + COL_ICON_ID + " INTEGER PRIMARY KEY, "
@@ -119,6 +123,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     + COL_FRIDAY + " TEXT, "
                     + COL_SATURDAY + " TEXT) ");
         }
+
+        if (oldVersion < 4) {
+            database.execSQL("ALTER TABLE " + NOTIFICATION_TABLE + " ADD " + COL_NAG_TIMER + " INTEGER");
+            database.execSQL("ALTER TABLE " + NOTIFICATION_TABLE + " ADD " + COL_ACTIVE_STATE + " INTEGER");
+            database.execSQL("UPDATE " + NOTIFICATION_TABLE + " SET " + COL_NAG_TIMER + " = 0;");
+            database.execSQL("UPDATE " + NOTIFICATION_TABLE + " SET " + COL_ACTIVE_STATE + " = 0;");
+        }
     }
 
     public void addNotification(Reminder reminder) {
@@ -128,12 +139,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COL_TITLE, reminder.getTitle());
         values.put(COL_CONTENT, reminder.getContent());
         values.put(COL_DATE_AND_TIME, reminder.getDateAndTime());
+        values.put(COL_NAG_TIMER, reminder.getNagTimer());
         values.put(COL_REPEAT_TYPE, reminder.getRepeatType());
         values.put(COL_FOREVER, reminder.getForeverState());
         values.put(COL_NUMBER_TO_SHOW, reminder.getNumberToShow());
         values.put(COL_NUMBER_SHOWN, reminder.getNumberShown());
         values.put(COL_ICON, reminder.getIcon());
         values.put(COL_COLOUR, reminder.getColour());
+        values.put(COL_ACTIVE_STATE, reminder.getActiveState());
         database.insert(NOTIFICATION_TABLE, null, values);
     }
 
@@ -168,16 +181,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
                 Reminder reminder = new Reminder();
-                reminder.setId(cursor.getInt(0));
-                reminder.setTitle(cursor.getString(1));
-                reminder.setContent(cursor.getString(2));
-                reminder.setDateAndTime(cursor.getString(3));
-                reminder.setRepeatType(cursor.getInt(4));
-                reminder.setForeverState(cursor.getString(5));
-                reminder.setNumberToShow(cursor.getInt(6));
-                reminder.setNumberShown(cursor.getInt(7));
-                reminder.setIcon(cursor.getString(8));
-                reminder.setColour(cursor.getString(9));
+                reminder.setId(cursor.getInt(cursor.getColumnIndexOrThrow(COL_ID)));
+                reminder.setTitle(cursor.getString(cursor.getColumnIndexOrThrow(COL_TITLE)));
+                reminder.setContent(cursor.getString(cursor.getColumnIndexOrThrow(COL_CONTENT)));
+                reminder.setDateAndTime(cursor.getString(cursor.getColumnIndexOrThrow(COL_DATE_AND_TIME)));
+                reminder.setNagTimer(cursor.getInt(cursor.getColumnIndexOrThrow(COL_NAG_TIMER)));
+                reminder.setRepeatType(cursor.getInt(cursor.getColumnIndexOrThrow(COL_REPEAT_TYPE)));
+                reminder.setForeverState(cursor.getString(cursor.getColumnIndexOrThrow(COL_FOREVER)));
+                reminder.setNumberToShow(cursor.getInt(cursor.getColumnIndexOrThrow(COL_NUMBER_TO_SHOW)));
+                reminder.setNumberShown(cursor.getInt(cursor.getColumnIndexOrThrow(COL_NUMBER_SHOWN)));
+                reminder.setIcon(cursor.getString(cursor.getColumnIndexOrThrow(COL_ICON)));
+                reminder.setColour(cursor.getString(cursor.getColumnIndexOrThrow(COL_COLOUR)));
+                reminder.setActiveState(cursor.getInt(cursor.getColumnIndexOrThrow(COL_ACTIVE_STATE)));
 
                 if (reminder.getRepeatType() == 5) {
                     getDaysOfWeek(reminder, database);
@@ -196,15 +211,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cursor.moveToFirst();
         Reminder reminder = new Reminder();
         reminder.setId(id);
-        reminder.setTitle(cursor.getString(1));
-        reminder.setContent(cursor.getString(2));
-        reminder.setDateAndTime(cursor.getString(3));
-        reminder.setRepeatType(cursor.getInt(4));
-        reminder.setForeverState(cursor.getString(5));
-        reminder.setNumberToShow(cursor.getInt(6));
-        reminder.setNumberShown(cursor.getInt(7));
-        reminder.setIcon(cursor.getString(8));
-        reminder.setColour(cursor.getString(9));
+        reminder.setTitle(cursor.getString(cursor.getColumnIndexOrThrow(COL_TITLE)));
+        reminder.setContent(cursor.getString(cursor.getColumnIndexOrThrow(COL_CONTENT)));
+        reminder.setDateAndTime(cursor.getString(cursor.getColumnIndexOrThrow(COL_DATE_AND_TIME)));
+        reminder.setNagTimer(cursor.getInt(cursor.getColumnIndexOrThrow(COL_NAG_TIMER)));
+        reminder.setRepeatType(cursor.getInt(cursor.getColumnIndexOrThrow(COL_REPEAT_TYPE)));
+        reminder.setForeverState(cursor.getString(cursor.getColumnIndexOrThrow(COL_FOREVER)));
+        reminder.setNumberToShow(cursor.getInt(cursor.getColumnIndexOrThrow(COL_NUMBER_TO_SHOW)));
+        reminder.setNumberShown(cursor.getInt(cursor.getColumnIndexOrThrow(COL_NUMBER_SHOWN)));
+        reminder.setIcon(cursor.getString(cursor.getColumnIndexOrThrow(COL_ICON)));
+        reminder.setColour(cursor.getString(cursor.getColumnIndexOrThrow(COL_COLOUR)));
+        reminder.setActiveState(cursor.getInt(cursor.getColumnIndexOrThrow(COL_ACTIVE_STATE)));
         cursor.close();
 
         if (reminder.getRepeatType() == 5) {
@@ -219,12 +236,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COL_TITLE, reminder.getTitle());
         values.put(COL_CONTENT, reminder.getContent());
         values.put(COL_DATE_AND_TIME, reminder.getDateAndTime());
+        values.put(COL_NAG_TIMER, reminder.getNagTimer());
         values.put(COL_REPEAT_TYPE, reminder.getRepeatType());
         values.put(COL_FOREVER, reminder.getForeverState());
         values.put(COL_NUMBER_TO_SHOW, reminder.getNumberToShow());
         values.put(COL_NUMBER_SHOWN, reminder.getNumberShown());
         values.put(COL_ICON, reminder.getIcon());
         values.put(COL_COLOUR, reminder.getColour());
+        values.put(COL_ACTIVE_STATE, reminder.getActiveState());
         database.update(NOTIFICATION_TABLE, values, COL_ID + " = ?", new String[]{String.valueOf(reminder.getId())});
     }
 

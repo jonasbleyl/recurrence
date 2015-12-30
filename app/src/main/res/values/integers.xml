@@ -3,4 +3,5 @@
     <integer name="animation_shake_duration">1000</integer>
     <integer name="grid_columns">5</integer>
     <integer name="default_snooze_minutes">5</integer>
+    <integer name="default_nag_minutes">0</integer>
 </resources>
