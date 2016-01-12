@@ -99,11 +99,8 @@ public class ViewActivity extends AppCompatActivity {
         if (database.isNotificationPresent(mReminderId)) {
             mReminder = database.getNotification(mReminderId);
             database.close();
-            assignReminderValues();
-
         } else {
             database.close();
-            // Return home as this notification has been deleted
             returnHome();
         }
     }
@@ -241,9 +238,18 @@ public class ViewActivity extends AppCompatActivity {
         finish();
     }
 
+    public void updateReminder() {
+        mReminderChanged = true;
+        DatabaseHelper database = DatabaseHelper.getInstance(this);
+        mReminder = database.getNotification(mReminder.getId());
+        database.close();
+        assignReminderValues();
+    }
+
     @Override
     public void onResume() {
         LocalBroadcastManager.getInstance(this).registerReceiver(messageReceiver, new IntentFilter("BROADCAST_REFRESH"));
+        updateReminder();
         super.onResume();
     }
 
@@ -256,11 +262,7 @@ public class ViewActivity extends AppCompatActivity {
     private BroadcastReceiver messageReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            mReminderChanged = true;
-            DatabaseHelper database = DatabaseHelper.getInstance(context);
-            mReminder = database.getNotification(mReminder.getId());
-            database.close();
-            assignReminderValues();
+            updateReminder();
         }
     };
 
