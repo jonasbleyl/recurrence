@@ -24,7 +24,7 @@ public class SnoozeActionReceiver extends BroadcastReceiver {
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.MINUTE, snoozeLength);
 
-        if (PreferenceManager.getDefaultSharedPreferences(context).getBoolean("naggingReminder", true)) {
+        if (PreferenceManager.getDefaultSharedPreferences(context).getBoolean("checkBoxNagging", false)) {
             Intent alarmIntent = new Intent(context, NagReceiver.class);
             AlarmUtil.cancelAlarm(context, alarmIntent, reminderId);
         }

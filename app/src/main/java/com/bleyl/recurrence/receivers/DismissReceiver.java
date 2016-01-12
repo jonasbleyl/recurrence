@@ -15,7 +15,7 @@ public class DismissReceiver extends BroadcastReceiver {
         int reminderId = intent.getIntExtra("NOTIFICATION_ID", 0);
         NotificationUtil.cancelNotification(context, reminderId);
 
-        if (PreferenceManager.getDefaultSharedPreferences(context).getBoolean("naggingReminder", true)) {
+        if (PreferenceManager.getDefaultSharedPreferences(context).getBoolean("checkBoxNagging", false)) {
             Intent alarmIntent = new Intent(context, NagReceiver.class);
             AlarmUtil.cancelAlarm(context, alarmIntent, reminderId);
         }
