@@ -19,7 +19,7 @@ public class PreferenceNumberPicker extends DialogPreference {
 
     public PreferenceNumberPicker(Context context, AttributeSet attrs) {
         super(context, attrs);
-        setDialogLayoutResource(R.layout.pref_number_picker);
+        setDialogLayoutResource(R.layout.pref_nag_number_picker);
     }
 
     @Override

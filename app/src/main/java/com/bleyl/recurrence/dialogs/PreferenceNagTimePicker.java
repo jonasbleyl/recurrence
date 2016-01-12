@@ -21,7 +21,7 @@ public class PreferenceNagTimePicker extends DialogPreference{
 
     public PreferenceNagTimePicker(Context context, AttributeSet attrs) {
         super(context, attrs);
-        setDialogLayoutResource(R.layout.pref_number_picker);
+        setDialogLayoutResource(R.layout.pref_nag_number_picker);
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         setPersistent(false);
     }
@@ -29,15 +29,34 @@ public class PreferenceNagTimePicker extends DialogPreference{
     @Override
     protected void onBindDialogView(View view) {
         super.onBindDialogView(view);
+        setUpMinutePicker(view);
+        setUpSecondPicker(view);
+    }
+
+    protected void setUpMinutePicker(View view) {
         mMinutePicker = (NumberPicker) view.findViewById(R.id.minutes_picker);
         mMinutePicker.setMaxValue(MAX_VALUE);
         mMinutePicker.setMinValue(MIN_VALUE);
         mMinutePicker.setValue(mSharedPreferences.getInt("nagMinutes", getContext().getResources().getInteger(R.integer.default_nag_minutes)));
 
+        String[] minuteValues = new String[61];
+        for (int i = 0; i < minuteValues.length; i++) {
+            minuteValues[i] = String.format(getContext().getResources().getQuantityString(R.plurals.time_minute, i), i);
+        }
+        mMinutePicker.setDisplayedValues(minuteValues);
+    }
+
+    protected void setUpSecondPicker(View view) {
         mSecondPicker = (NumberPicker) view.findViewById(R.id.seconds_picker);
         mSecondPicker.setMaxValue(MAX_VALUE);
         mSecondPicker.setMinValue(MIN_VALUE);
         mSecondPicker.setValue(mSharedPreferences.getInt("nagSeconds", getContext().getResources().getInteger(R.integer.default_nag_seconds)));
+
+        String[] secondValues = new String[61];
+        for (int i = 0; i < secondValues.length; i++) {
+            secondValues[i] = String.format(getContext().getResources().getQuantityString(R.plurals.time_second, i), i);
+        }
+        mSecondPicker.setDisplayedValues(secondValues);
     }
 
     @Override
