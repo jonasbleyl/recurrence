@@ -41,7 +41,6 @@ public class TabFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_tabs, container, false);
         mActivity = getActivity();
-        LocalBroadcastManager.getInstance(mActivity).registerReceiver(messageReceiver, new IntentFilter("BROADCAST_REFRESH"));
         return view;
     }
 
@@ -97,13 +96,14 @@ public class TabFragment extends Fragment {
 
     @Override
     public void onResume() {
-        super.onResume();
+        LocalBroadcastManager.getInstance(mActivity).registerReceiver(messageReceiver, new IntentFilter("BROADCAST_REFRESH"));
         updateList();
+        super.onResume();
     }
 
     @Override
-    public void onDestroy() {
+    public void onPause() {
         LocalBroadcastManager.getInstance(mActivity).unregisterReceiver(messageReceiver);
-        super.onDestroy();
+        super.onPause();
     }
 }
