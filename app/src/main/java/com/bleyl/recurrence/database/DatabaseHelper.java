@@ -168,16 +168,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
                 Reminder reminder = new Reminder();
-                reminder.setId(cursor.getInt(0));
-                reminder.setTitle(cursor.getString(1));
-                reminder.setContent(cursor.getString(2));
-                reminder.setDateAndTime(cursor.getString(3));
-                reminder.setRepeatType(cursor.getInt(4));
-                reminder.setForeverState(cursor.getString(5));
-                reminder.setNumberToShow(cursor.getInt(6));
-                reminder.setNumberShown(cursor.getInt(7));
-                reminder.setIcon(cursor.getString(8));
-                reminder.setColour(cursor.getString(9));
+                reminder.setId(cursor.getInt(cursor.getColumnIndexOrThrow(COL_ID)));
+                reminder.setTitle(cursor.getString(cursor.getColumnIndexOrThrow(COL_TITLE)));
+                reminder.setContent(cursor.getString(cursor.getColumnIndexOrThrow(COL_CONTENT)));
+                reminder.setDateAndTime(cursor.getString(cursor.getColumnIndexOrThrow(COL_DATE_AND_TIME)));
+                reminder.setRepeatType(cursor.getInt(cursor.getColumnIndexOrThrow(COL_REPEAT_TYPE)));
+                reminder.setForeverState(cursor.getString(cursor.getColumnIndexOrThrow(COL_FOREVER)));
+                reminder.setNumberToShow(cursor.getInt(cursor.getColumnIndexOrThrow(COL_NUMBER_TO_SHOW)));
+                reminder.setNumberShown(cursor.getInt(cursor.getColumnIndexOrThrow(COL_NUMBER_SHOWN)));
+                reminder.setIcon(cursor.getString(cursor.getColumnIndexOrThrow(COL_ICON)));
+                reminder.setColour(cursor.getString(cursor.getColumnIndexOrThrow(COL_COLOUR)));
 
                 if (reminder.getRepeatType() == 5) {
                     getDaysOfWeek(reminder, database);
@@ -196,15 +196,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cursor.moveToFirst();
         Reminder reminder = new Reminder();
         reminder.setId(id);
-        reminder.setTitle(cursor.getString(1));
-        reminder.setContent(cursor.getString(2));
-        reminder.setDateAndTime(cursor.getString(3));
-        reminder.setRepeatType(cursor.getInt(4));
-        reminder.setForeverState(cursor.getString(5));
-        reminder.setNumberToShow(cursor.getInt(6));
-        reminder.setNumberShown(cursor.getInt(7));
-        reminder.setIcon(cursor.getString(8));
-        reminder.setColour(cursor.getString(9));
+        reminder.setTitle(cursor.getString(cursor.getColumnIndexOrThrow(COL_TITLE)));
+        reminder.setContent(cursor.getString(cursor.getColumnIndexOrThrow(COL_CONTENT)));
+        reminder.setDateAndTime(cursor.getString(cursor.getColumnIndexOrThrow(COL_DATE_AND_TIME)));
+        reminder.setRepeatType(cursor.getInt(cursor.getColumnIndexOrThrow(COL_REPEAT_TYPE)));
+        reminder.setForeverState(cursor.getString(cursor.getColumnIndexOrThrow(COL_FOREVER)));
+        reminder.setNumberToShow(cursor.getInt(cursor.getColumnIndexOrThrow(COL_NUMBER_TO_SHOW)));
+        reminder.setNumberShown(cursor.getInt(cursor.getColumnIndexOrThrow(COL_NUMBER_SHOWN)));
+        reminder.setIcon(cursor.getString(cursor.getColumnIndexOrThrow(COL_ICON)));
+        reminder.setColour(cursor.getString(cursor.getColumnIndexOrThrow(COL_COLOUR)));
         cursor.close();
 
         if (reminder.getRepeatType() == 5) {
