@@ -5,7 +5,16 @@
     android:gravity="center">
 
     <NumberPicker
-        android:id="@+id/number_picker"
+        android:id="@+id/minutes_picker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <Space
+        android:layout_width="16dp"
+        android:layout_height="0dp"/>
+
+    <NumberPicker
+        android:id="@+id/seconds_picker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 

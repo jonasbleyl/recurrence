@@ -31,5 +31,12 @@
             android:key="snoozeLength"
             android:title="@string/snooze_length"
             android:defaultValue="@integer/default_snooze_minutes"/>
+        <CheckBoxPreference
+            android:key="checkBoxNagging"
+            android:title="@string/nagging_reminder"
+            android:summary="@string/nagging_detail"/>
+        <com.bleyl.recurrence.dialogs.PreferenceNagTimePicker
+            android:key="nagInterval"
+            android:title="@string/nagging_interval"/>
     </PreferenceCategory>
 </PreferenceScreen>

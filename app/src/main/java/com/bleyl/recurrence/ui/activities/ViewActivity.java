@@ -1,12 +1,16 @@
 package com.bleyl.recurrence.ui.activities;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -28,6 +32,7 @@ import com.bleyl.recurrence.database.DatabaseHelper;
 import com.bleyl.recurrence.models.Reminder;
 import com.bleyl.recurrence.R;
 import com.bleyl.recurrence.receivers.AlarmReceiver;
+import com.bleyl.recurrence.receivers.DismissReceiver;
 import com.bleyl.recurrence.utils.AlarmUtil;
 import com.bleyl.recurrence.utils.DateAndTimeUtil;
 import com.bleyl.recurrence.utils.NotificationUtil;
@@ -64,8 +69,6 @@ public class ViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view);
         ButterKnife.bind(this);
-
-        // Setup the shared element transitions for this activity
         setupTransitions();
 
         setSupportActionBar(mToolbar);
@@ -82,17 +85,22 @@ public class ViewActivity extends AppCompatActivity {
 
         DatabaseHelper database = DatabaseHelper.getInstance(this);
         Intent intent = getIntent();
-        int mNotificationID = intent.getIntExtra("NOTIFICATION_ID", 0);
+        int mReminderId = intent.getIntExtra("NOTIFICATION_ID", 0);
+
+        // Arrived to activity from notification on click
+        // Cancel notification and nag alarm
+        if (intent.getBooleanExtra("NOTIFICATION_DISMISS", false)) {
+            Intent dismissIntent = new Intent().setClass(this, DismissReceiver.class);
+            dismissIntent.putExtra("NOTIFICATION_ID", mReminderId);
+            sendBroadcast(intent);
+        }
 
         // Check if notification has been deleted
-        if (database.isNotificationPresent(mNotificationID)) {
-            mReminder = database.getNotification(mNotificationID);
+        if (database.isNotificationPresent(mReminderId)) {
+            mReminder = database.getNotification(mReminderId);
             database.close();
-            assignReminderValues();
-
         } else {
             database.close();
-            // Return home as this notification has been deleted
             returnHome();
         }
     }
@@ -229,6 +237,34 @@ public class ViewActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
+    public void updateReminder() {
+        mReminderChanged = true;
+        DatabaseHelper database = DatabaseHelper.getInstance(this);
+        mReminder = database.getNotification(mReminder.getId());
+        database.close();
+        assignReminderValues();
+    }
+
+    @Override
+    public void onResume() {
+        LocalBroadcastManager.getInstance(this).registerReceiver(messageReceiver, new IntentFilter("BROADCAST_REFRESH"));
+        updateReminder();
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(messageReceiver);
+        super.onPause();
+    }
+
+    private BroadcastReceiver messageReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            updateReminder();
+        }
+    };
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

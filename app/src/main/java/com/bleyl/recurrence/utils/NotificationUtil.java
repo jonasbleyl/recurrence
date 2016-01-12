@@ -15,8 +15,11 @@ import android.support.v4.app.NotificationCompat;
 import com.bleyl.recurrence.R;
 import com.bleyl.recurrence.models.Reminder;
 import com.bleyl.recurrence.receivers.DismissReceiver;
+import com.bleyl.recurrence.receivers.NagReceiver;
 import com.bleyl.recurrence.receivers.SnoozeActionReceiver;
 import com.bleyl.recurrence.ui.activities.ViewActivity;
+
+import java.util.Calendar;
 
 public class NotificationUtil {
 
@@ -24,6 +27,7 @@ public class NotificationUtil {
         // Create intent for notification onClick behaviour
         Intent viewIntent = new Intent(context, ViewActivity.class);
         viewIntent.putExtra("NOTIFICATION_ID", reminder.getId());
+        viewIntent.putExtra("NOTIFICATION_DISMISS", true);
         PendingIntent pending = PendingIntent.getActivity(context, reminder.getId(), viewIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         // Create intent for notification snooze click behaviour
@@ -40,10 +44,22 @@ public class NotificationUtil {
                 .setContentTitle(reminder.getTitle())
                 .setContentText(reminder.getContent())
                 .setTicker(reminder.getTitle())
-                .setContentIntent(pending)
-                .setAutoCancel(true);
+                .setContentIntent(pending);
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+
+        if (sharedPreferences.getBoolean("checkBoxNagging", false)) {
+            Intent swipeIntent = new Intent(context, DismissReceiver.class);
+            swipeIntent.putExtra("NOTIFICATION_ID", reminder.getId());
+            PendingIntent pendingDismiss = PendingIntent.getBroadcast(context, reminder.getId(), swipeIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            builder.setDeleteIntent(pendingDismiss);
+
+            Calendar calendar = Calendar.getInstance();
+            calendar.add(Calendar.MINUTE, sharedPreferences.getInt("nagMinutes", context.getResources().getInteger(R.integer.default_nag_minutes)));
+            calendar.add(Calendar.SECOND, sharedPreferences.getInt("nagSeconds", context.getResources().getInteger(R.integer.default_nag_seconds)));
+            Intent alarmIntent = new Intent(context, NagReceiver.class);
+            AlarmUtil.setAlarm(context, alarmIntent, reminder.getId(), calendar);
+        }
 
         String soundUri = sharedPreferences.getString("NotificationSound", "content://settings/system/notification_sound");
         if (soundUri.length() != 0) {
