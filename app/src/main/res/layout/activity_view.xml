@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/card_view_margin"
                 android:layout_marginRight="@dimen/card_view_margin"
-                android:layout_marginBottom="6dp"
+                android:layout_marginBottom="14dp"
                 card_view:cardCornerRadius="3dp"
                 card_view:cardUseCompatPadding="true">
 
