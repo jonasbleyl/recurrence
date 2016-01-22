@@ -35,12 +35,18 @@ public class AlarmUtil {
     }
 
     public static void setNextAlarm(Context context, Reminder reminder, DatabaseHelper database, Calendar calendar) {
+        Calendar timeCalendar = DateAndTimeUtil.parseDateAndTime(reminder.getDateAndTime());
+        calendar.set(Calendar.HOUR_OF_DAY, timeCalendar.get(Calendar.HOUR_OF_DAY));
+        calendar.set(Calendar.MINUTE, timeCalendar.get(Calendar.MINUTE));
+        calendar.set(Calendar.SECOND, 0);
+
         switch (reminder.getRepeatType()) {
-            case 1: calendar.add(Calendar.DATE, 1); break;
-            case 2: calendar.add(Calendar.WEEK_OF_YEAR, 1); break;
-            case 3: calendar.add(Calendar.MONTH, 1); break;
-            case 4: calendar.add(Calendar.YEAR, 1); break;
-            case 5:
+            case 1: calendar.add(Calendar.HOUR, reminder.getInterval()); break;
+            case 2: calendar.add(Calendar.DATE, reminder.getInterval()); break;
+            case 3: calendar.add(Calendar.WEEK_OF_YEAR, reminder.getInterval()); break;
+            case 4: calendar.add(Calendar.MONTH, reminder.getInterval()); break;
+            case 5: calendar.add(Calendar.YEAR, reminder.getInterval()); break;
+            case 6:
                 Calendar weekCalendar = (Calendar) calendar.clone();
                 weekCalendar.add(Calendar.DATE, 1);
                 for (int i = 0; i < 7; i++) {
@@ -53,13 +59,8 @@ public class AlarmUtil {
                 break;
         }
 
-        Calendar timeCalendar = DateAndTimeUtil.parseDateAndTime(reminder.getDateAndTime());
-        calendar.set(Calendar.HOUR_OF_DAY, timeCalendar.get(Calendar.HOUR_OF_DAY));
-        calendar.set(Calendar.MINUTE, timeCalendar.get(Calendar.MINUTE));
-        calendar.set(Calendar.SECOND, 0);
-
         reminder.setDateAndTime(DateAndTimeUtil.toStringDateAndTime(calendar));
-        database.updateNotification(reminder);
+        database.addNotification(reminder);
 
         Intent alarmIntent = new Intent(context, AlarmReceiver.class);
         setAlarm(context, alarmIntent, reminder.getId(), calendar);

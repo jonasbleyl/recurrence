@@ -63,6 +63,8 @@
     </string-array>
 
     <string name="repeats_on">Repeats on:</string>
+    <string name="repeat_every">Repeat every</string>
+    <string name="repeats_every">Repeats every: %1$d %2$s</string>
 
     <string name="no_active">No active notifications</string>
     <string name="no_inactive">No inactive notifications</string>
@@ -84,10 +86,12 @@
 
     <string-array name="repeat_array">
         <item>Does not repeat</item>
+        <item>Every hour</item>
         <item>Every day</item>
         <item>Every week</item>
         <item>Every month</item>
         <item>Every year</item>
         <item>Specific days of the week</item>
+        <item>Advanced</item>
     </string-array>
 </resources>
