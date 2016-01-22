@@ -5,17 +5,19 @@
     android:gravity="center">
 
     <NumberPicker
-        android:id="@+id/minutes_picker"
+        android:id="@+id/picker1"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:descendantFocusability="blocksDescendants"/>
 
     <Space
         android:layout_width="16dp"
         android:layout_height="0dp"/>
 
     <NumberPicker
-        android:id="@+id/seconds_picker"
+        android:id="@+id/picker2"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:descendantFocusability="blocksDescendants"/>
 
 </LinearLayout>

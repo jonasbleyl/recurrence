@@ -21,7 +21,7 @@ public class PreferenceNagTimePicker extends DialogPreference{
 
     public PreferenceNagTimePicker(Context context, AttributeSet attrs) {
         super(context, attrs);
-        setDialogLayoutResource(R.layout.pref_nag_number_picker);
+        setDialogLayoutResource(R.layout.number_picker);
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         setPersistent(false);
     }
@@ -34,7 +34,7 @@ public class PreferenceNagTimePicker extends DialogPreference{
     }
 
     protected void setUpMinutePicker(View view) {
-        mMinutePicker = (NumberPicker) view.findViewById(R.id.minutes_picker);
+        mMinutePicker = (NumberPicker) view.findViewById(R.id.picker1);
         mMinutePicker.setMaxValue(MAX_VALUE);
         mMinutePicker.setMinValue(MIN_VALUE);
         mMinutePicker.setValue(mSharedPreferences.getInt("nagMinutes", getContext().getResources().getInteger(R.integer.default_nag_minutes)));
@@ -47,7 +47,7 @@ public class PreferenceNagTimePicker extends DialogPreference{
     }
 
     protected void setUpSecondPicker(View view) {
-        mSecondPicker = (NumberPicker) view.findViewById(R.id.seconds_picker);
+        mSecondPicker = (NumberPicker) view.findViewById(R.id.picker2);
         mSecondPicker.setMaxValue(MAX_VALUE);
         mSecondPicker.setMinValue(MIN_VALUE);
         mSecondPicker.setValue(mSharedPreferences.getInt("nagSeconds", getContext().getResources().getInteger(R.integer.default_nag_seconds)));
@@ -62,9 +62,11 @@ public class PreferenceNagTimePicker extends DialogPreference{
     @Override
     protected void onDialogClosed(boolean positiveResult) {
         super.onDialogClosed(positiveResult);
-        SharedPreferences.Editor editor = mSharedPreferences.edit();
-        editor.putInt("nagMinutes", mMinutePicker.getValue());
-        editor.putInt("nagSeconds", mSecondPicker.getValue());
-        editor.apply();
+        if (positiveResult) {
+            SharedPreferences.Editor editor = mSharedPreferences.edit();
+            editor.putInt("nagMinutes", mMinutePicker.getValue());
+            editor.putInt("nagSeconds", mSecondPicker.getValue());
+            editor.apply();
+        }
     }
 }
