@@ -77,7 +77,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <TableRow
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingBottom="@dimen/table_row_default_horizontal_padding"
@@ -108,7 +108,7 @@
                         android:textColorHint="@color/textLightGray"
                         android:textSize="16sp" />
 
-                </TableRow>
+                </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
@@ -117,12 +117,11 @@
                     android:layout_marginStart="@dimen/line_separator_margin_side_large"
                     android:background="@color/lightGray" />
 
-                <TableRow
+                <LinearLayout
                     android:id="@+id/time_row"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="?attr/selectableItemBackground"
-                    android:onClick="timePicker"
                     android:paddingBottom="@dimen/table_row_default_horizontal_padding"
                     android:paddingEnd="@dimen/table_row_default_padding_side"
                     android:paddingRight="@dimen/table_row_default_padding_side"
@@ -149,7 +148,7 @@
                         android:textColor="@android:color/black"
                         android:textSize="16sp" />
 
-                    <TableRow
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="end"
@@ -163,9 +162,9 @@
                             android:tint="@color/error"
                             android:visibility="gone" />
 
-                    </TableRow>
+                    </LinearLayout>
 
-                </TableRow>
+                </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
@@ -174,12 +173,11 @@
                     android:layout_marginStart="@dimen/line_separator_margin_side_large"
                     android:background="@color/lightGray" />
 
-                <TableRow
+                <LinearLayout
                     android:id="@+id/date_row"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="?attr/selectableItemBackground"
-                    android:onClick="datePicker"
                     android:paddingBottom="@dimen/table_row_default_horizontal_padding"
                     android:paddingEnd="@dimen/table_row_default_padding_side"
                     android:paddingRight="@dimen/table_row_default_padding_side"
@@ -205,7 +203,7 @@
                         android:textColor="@android:color/black"
                         android:textSize="16sp" />
 
-                    <TableRow
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="end"
@@ -219,9 +217,9 @@
                             android:tint="@color/error"
                             android:visibility="gone" />
 
-                    </TableRow>
+                    </LinearLayout>
 
-                </TableRow>
+                </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
@@ -230,12 +228,11 @@
                     android:layout_marginStart="@dimen/line_separator_margin_side_large"
                     android:background="@color/lightGray" />
 
-                <TableRow
+                <LinearLayout
                     android:id="@+id/icon_select"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="?attr/selectableItemBackground"
-                    android:onClick="iconSelector"
                     android:paddingBottom="@dimen/table_row_default_horizontal_padding"
                     android:paddingEnd="@dimen/table_row_default_padding_side"
                     android:paddingRight="@dimen/table_row_default_padding_side"
@@ -262,7 +259,7 @@
                         android:textColor="@android:color/black"
                         android:textSize="16sp" />
 
-                </TableRow>
+                </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
@@ -271,7 +268,7 @@
                     android:layout_marginStart="@dimen/line_separator_margin_side_large"
                     android:background="@color/lightGray" />
 
-                <TableRow
+                <LinearLayout
                     android:id="@+id/colour_select"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -302,7 +299,7 @@
                         android:textColor="@android:color/black"
                         android:textSize="16sp" />
 
-                </TableRow>
+                </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
@@ -311,12 +308,11 @@
                     android:layout_marginStart="@dimen/line_separator_margin_side_large"
                     android:background="@color/lightGray" />
 
-                <TableRow
-                    android:id="@+id/repeat_day_row"
+                <LinearLayout
+                    android:id="@+id/repeat_row"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="?attr/selectableItemBackground"
-                    android:onClick="repeatSelector"
                     android:paddingBottom="@dimen/table_row_default_horizontal_padding"
                     android:paddingEnd="@dimen/table_row_default_padding_side"
                     android:paddingRight="@dimen/table_row_default_padding_side"
@@ -343,7 +339,7 @@
                         android:textColor="@android:color/black"
                         android:textSize="16sp" />
 
-                </TableRow>
+                </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
@@ -352,7 +348,7 @@
                     android:layout_marginStart="@dimen/line_separator_margin_side_large"
                     android:background="@color/lightGray" />
 
-                <TableRow
+                <LinearLayout
                     android:id="@+id/forever_row"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -394,9 +390,9 @@
                         android:onClick="switchClicked"
                         app:showText="false" />
 
-                </TableRow>
+                </LinearLayout>
 
-                <TableRow
+                <LinearLayout
                     android:id="@+id/bottom_row"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -432,6 +428,7 @@
                             android:paddingLeft="12dp"
                             android:paddingRight="12dp"
                             android:textColorHighlight="@color/accentLight"
+                            android:text="@string/one"
                             android:textSize="16sp" />
 
                         <TextView
@@ -445,7 +442,7 @@
 
                     </LinearLayout>
 
-                    <TableRow
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="end"
@@ -460,9 +457,9 @@
                             android:tint="@color/error"
                             android:visibility="gone" />
 
-                    </TableRow>
+                    </LinearLayout>
 
-                </TableRow>
+                </LinearLayout>
 
                 <View
                     android:id="@+id/bottom_view"

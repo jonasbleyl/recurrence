@@ -138,7 +138,7 @@
                 android:paddingRight="@dimen/list_padding"
                 android:orientation="vertical">
 
-                <TableRow
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingTop="@dimen/table_row_view_padding"
@@ -163,9 +163,9 @@
                         android:textSize="16sp"
                         android:layout_gravity="center_vertical"/>
 
-                </TableRow>
+                </LinearLayout>
 
-                <TableRow
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingTop="@dimen/table_row_view_padding"
@@ -191,9 +191,9 @@
                         android:textSize="16sp"
                         android:layout_gravity="center_vertical"/>
 
-                </TableRow>
+                </LinearLayout>
 
-                <TableRow
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingTop="@dimen/table_row_view_padding"
@@ -220,9 +220,9 @@
                         android:lineSpacingExtra="4dp"
                         android:layout_gravity="center_vertical"/>
 
-                </TableRow>
+                </LinearLayout>
 
-                <TableRow
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingTop="@dimen/table_row_view_padding"
@@ -248,7 +248,7 @@
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1" />
 
-                </TableRow>
+                </LinearLayout>
 
             </LinearLayout>
 
