@@ -5,38 +5,17 @@
     <string name="email" translatable="false">bleyl.android@gmail.com</string>
     <string name="app_url" translatable="false">https://play.google.com/store/apps/details?id=com.bleyl.recurrence</string>
 
-    <string-array name="contributors_array" translatable="false">
-        <item>Robert Ehrhardt</item>
-        <item>TykTak</item>
-        <item>Ivica Jeđud</item>
-        <item>Fan Guan</item>
-        <item>Tibor Barczi</item>
-        <item>Sérgio Polo</item>
-        <item>Alberto Nicoletti</item>
-    </string-array>
+    <string name="one" translatable="false">1</string>
 
-    <string-array name="contribution_array" translatable="false">
-        <item>(GE)</item>
-        <item>(PL)</item>
-        <item>(HR)</item>
-        <item>(ZH-CN)</item>
-        <item>(HU)</item>
-        <item>(PT-BR)</item>
-        <item>(IT)</item>
-    </string-array>
+    <string name="contributor_one" translatable="false">Robert Ehrhardt</string>
+    <string name="contributor_two" translatable="false">TykTak</string>
+    <string name="contributor_three" translatable="false">Ivica Jeđud</string>
+    <string name="contributor_four" translatable="false">Fan Guan</string>
+    <string name="contributor_five" translatable="false">Tibor Barczi</string>
+    <string name="contributor_six" translatable="false">Sérgio Polo</string>
+    <string name="contributor_seven" translatable="false">Alberto Nicoletti</string>
 
-    <string name="default_colour_value" translatable="false">#9E9E9E</string>
-
-    <string-array name="colours_array" translatable="false">
-        <item>#9E9E9E</item>
-        <item>#2f81b7</item>
-        <item>#8d48ab</item>
-        <item>#be3a31</item>
-        <item>#239f85</item>
-        <item>#e47e30</item>
-        <item>#e1b736</item>
-        <item>#c23b71</item>
-    </string-array>
+    <string name="default_colour_value" translatable="false">#8e8e8e</string>
 
     <string name="default_icon_value" translatable="false">ic_notifications_white_24dp</string>
 
@@ -344,4 +323,8 @@
     <string name="butter_knife_title" translatable="false">Butter Knife</string>
     <string name="butter_knife_link" translatable="false">https://github.com/JakeWharton/butterknife</string>
     <string name="butter_knife_license" translatable="false">Copyright 2013 Jake Wharton\nLicensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.</string>
+
+    <string name="material_dialogs_title" translatable="false">Material Dialogs</string>
+    <string name="material_dialogs_link" translatable="false">https://github.com/afollestad/material-dialogs</string>
+    <string name="material_dialogs_license" translatable="false">The MIT License (MIT)\nCopyright 2015 Aidan Michael Follestad\nPermission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:\nThe above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.\nTHE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</string>
 </resources>

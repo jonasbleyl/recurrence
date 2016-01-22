@@ -5,8 +5,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -16,7 +14,6 @@ import android.widget.TextView;
 
 import com.bleyl.recurrence.BuildConfig;
 import com.bleyl.recurrence.R;
-import com.bleyl.recurrence.adapters.ContributionAdapter;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -82,19 +79,21 @@ public class AboutActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        dialogView.findViewById(R.id.material_dialogs_link).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = getResources().getString(R.string.material_dialogs_link);
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(url));
+                startActivity(intent);
+            }
+        });
     }
 
     public void showContributorsDialog(View view) {
         LayoutInflater inflater = getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.view_dialog_contributors, mLinearLayout, false);
-
-        RecyclerView recyclerView = (RecyclerView) dialogView.findViewById(R.id.contributors_recycler_view);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-
-        String[] contributorNames = getResources().getStringArray(R.array.contributors_array);
-        String[] contributionTypes = getResources().getStringArray(R.array.contribution_array);
-        recyclerView.setAdapter(new ContributionAdapter(this, R.layout.item_contributor_list, contributorNames, contributionTypes));
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.Dialog);
         builder.setTitle(getResources().getString(R.string.thanks_to));
