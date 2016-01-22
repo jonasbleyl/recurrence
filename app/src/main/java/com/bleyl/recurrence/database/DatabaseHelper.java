@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.bleyl.recurrence.R;
 import com.bleyl.recurrence.enums.RemindersType;
+import com.bleyl.recurrence.models.Colour;
 import com.bleyl.recurrence.models.Icon;
 import com.bleyl.recurrence.models.Reminder;
 
@@ -19,8 +20,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static DatabaseHelper sInstance;
     private Context mContext;
 
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 4;
     private static final String DATABASE_NAME = "RECURRENCE_DB";
+
     private static final String NOTIFICATION_TABLE = "NOTIFICATIONS";
     private static final String COL_ID = "ID";
     private static final String COL_TITLE = "TITLE";
@@ -32,10 +34,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COL_NUMBER_SHOWN = "NUMBER_SHOWN";
     private static final String COL_ICON = "ICON";
     private static final String COL_COLOUR = "COLOUR";
+    private static final String COL_INTERVAL = "INTERVAL";
+
     private static final String ICON_TABLE = "ICONS";
     private static final String COL_ICON_ID = "ID";
     private static final String COL_ICON_NAME = "NAME";
     private static final String COL_ICON_USE_FREQUENCY = "USE_FREQUENCY";
+
     private static final String DAYS_OF_WEEK_TABLE = "DAYS_OF_WEEK";
     private static final String COL_SUNDAY = "SUNDAY";
     private static final String COL_MONDAY = "MONDAY";
@@ -44,8 +49,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COL_THURSDAY = "THURSDAY";
     private static final String COL_FRIDAY = "FRIDAY";
     private static final String COL_SATURDAY = "SATURDAY";
+
+    private static final String PICKER_COLOUR_TABLE = "PICKER_COLOURS";
+    private static final String COL_PICKER_COLOUR = "COLOUR";
+    private static final String COL_PICKER_DATE_AND_TIME = "DATE_AND_TIME";
+
     private static final String DEFAULT_ICON = "ic_notifications_white_24dp";
-    private static final String DEFAULT_COLOUR = "#9E9E9E";
+    private static final String DEFAULT_COLOUR = "#8E8E8E";
+    private static final String OLD_COLOUR = "#9E9E9E";
 
     public static synchronized DatabaseHelper getInstance(Context context) {
         if (sInstance == null) {
@@ -74,7 +85,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + COL_NUMBER_TO_SHOW + " INTEGER, "
                 + COL_NUMBER_SHOWN + " INTEGER, "
                 + COL_ICON + " TEXT, "
-                + COL_COLOUR + " TEXT) ");
+                + COL_COLOUR + " TEXT, "
+                + COL_INTERVAL + " INTEGER) ");
 
         database.execSQL("CREATE TABLE " + ICON_TABLE + " ("
                 + COL_ICON_ID + " INTEGER PRIMARY KEY, "
@@ -91,13 +103,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + COL_FRIDAY + " TEXT, "
                 + COL_SATURDAY + " TEXT) ");
 
+        database.execSQL("CREATE TABLE " + PICKER_COLOUR_TABLE + " ("
+                + COL_PICKER_COLOUR + " INTEGER PRIMARY KEY, "
+                + COL_PICKER_DATE_AND_TIME + " INTEGER) ");
+
         addAllIcons(database);
+        addAllColours(database);
     }
 
     public void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion) {
         if (oldVersion < 2) {
-            database.execSQL("ALTER TABLE " + NOTIFICATION_TABLE + " ADD " + COL_ICON + " TEXT");
-            database.execSQL("ALTER TABLE " + NOTIFICATION_TABLE + " ADD " + COL_COLOUR + " TEXT");
+            database.execSQL("ALTER TABLE " + NOTIFICATION_TABLE + " ADD " + COL_ICON + " TEXT;");
+            database.execSQL("ALTER TABLE " + NOTIFICATION_TABLE + " ADD " + COL_COLOUR + " TEXT;");
             database.execSQL("UPDATE " + NOTIFICATION_TABLE + " SET " + COL_ICON + " = '" + DEFAULT_ICON + "';");
             database.execSQL("UPDATE " + NOTIFICATION_TABLE + " SET " + COL_COLOUR + " = '" + DEFAULT_COLOUR + "';");
             database.execSQL("CREATE TABLE " + ICON_TABLE + " ("
@@ -119,6 +136,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     + COL_FRIDAY + " TEXT, "
                     + COL_SATURDAY + " TEXT) ");
         }
+
+        if (oldVersion < 4) {
+            database.execSQL("ALTER TABLE " + NOTIFICATION_TABLE + " ADD " + COL_INTERVAL + " INTEGER;");
+            database.execSQL("UPDATE " + NOTIFICATION_TABLE + " SET " + COL_INTERVAL + " = 1;");
+            database.execSQL("UPDATE " + NOTIFICATION_TABLE + " SET " + COL_COLOUR + " = '" + DEFAULT_COLOUR + "' WHERE "
+                    + COL_COLOUR + " == '" + OLD_COLOUR + "';");
+            database.execSQL("UPDATE " + NOTIFICATION_TABLE + " SET " + COL_REPEAT_TYPE + " = " + COL_REPEAT_TYPE + " + 1 WHERE "
+                    + COL_REPEAT_TYPE + " != 0");
+            database.execSQL("CREATE TABLE " + PICKER_COLOUR_TABLE + " ("
+                    + COL_PICKER_COLOUR + " INTEGER PRIMARY KEY, "
+                    + COL_PICKER_DATE_AND_TIME + " INTEGER);");
+
+            addAllColours(database);
+        }
     }
 
     public void addNotification(Reminder reminder) {
@@ -134,7 +165,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COL_NUMBER_SHOWN, reminder.getNumberShown());
         values.put(COL_ICON, reminder.getIcon());
         values.put(COL_COLOUR, reminder.getColour());
-        database.insert(NOTIFICATION_TABLE, null, values);
+        values.put(COL_INTERVAL, reminder.getInterval());
+        database.replace(NOTIFICATION_TABLE, null, values);
     }
 
     public int getLastNotificationId() {
@@ -178,8 +210,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 reminder.setNumberShown(cursor.getInt(cursor.getColumnIndexOrThrow(COL_NUMBER_SHOWN)));
                 reminder.setIcon(cursor.getString(cursor.getColumnIndexOrThrow(COL_ICON)));
                 reminder.setColour(cursor.getString(cursor.getColumnIndexOrThrow(COL_COLOUR)));
+                reminder.setInterval(cursor.getInt(cursor.getColumnIndexOrThrow(COL_INTERVAL)));
 
-                if (reminder.getRepeatType() == 5) {
+                if (reminder.getRepeatType() == 6) {
                     getDaysOfWeek(reminder, database);
                 }
                 reminderList.add(reminder);
@@ -205,32 +238,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         reminder.setNumberShown(cursor.getInt(cursor.getColumnIndexOrThrow(COL_NUMBER_SHOWN)));
         reminder.setIcon(cursor.getString(cursor.getColumnIndexOrThrow(COL_ICON)));
         reminder.setColour(cursor.getString(cursor.getColumnIndexOrThrow(COL_COLOUR)));
+        reminder.setInterval(cursor.getInt(cursor.getColumnIndexOrThrow(COL_INTERVAL)));
         cursor.close();
 
-        if (reminder.getRepeatType() == 5) {
+        if (reminder.getRepeatType() == 6) {
             getDaysOfWeek(reminder, database);
         }
         return reminder;
     }
 
-    public void updateNotification(Reminder reminder) {
-        SQLiteDatabase database = this.getReadableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(COL_TITLE, reminder.getTitle());
-        values.put(COL_CONTENT, reminder.getContent());
-        values.put(COL_DATE_AND_TIME, reminder.getDateAndTime());
-        values.put(COL_REPEAT_TYPE, reminder.getRepeatType());
-        values.put(COL_FOREVER, reminder.getForeverState());
-        values.put(COL_NUMBER_TO_SHOW, reminder.getNumberToShow());
-        values.put(COL_NUMBER_SHOWN, reminder.getNumberShown());
-        values.put(COL_ICON, reminder.getIcon());
-        values.put(COL_COLOUR, reminder.getColour());
-        database.update(NOTIFICATION_TABLE, values, COL_ID + " = ?", new String[]{String.valueOf(reminder.getId())});
-    }
-
     public void deleteNotification(Reminder reminder) {
         SQLiteDatabase database = this.getReadableDatabase();
-        if (reminder.getRepeatType() == 5) {
+        if (reminder.getRepeatType() == 6) {
             database.delete(DAYS_OF_WEEK_TABLE, COL_ID + " = ?", new String[]{String.valueOf(reminder.getId())});
         }
         database.delete(NOTIFICATION_TABLE, COL_ID + " = ?", new String[]{String.valueOf(reminder.getId())});
@@ -309,9 +328,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
                 Icon icon = new Icon();
-                icon.setId(cursor.getInt(0));
-                icon.setName(cursor.getString(1));
-                icon.setUseFrequency(cursor.getInt(2));
+                icon.setId(cursor.getInt(cursor.getColumnIndexOrThrow(COL_ICON_ID)));
+                icon.setName(cursor.getString(cursor.getColumnIndexOrThrow(COL_ICON_NAME)));
+                icon.setUseFrequency(cursor.getInt(cursor.getColumnIndexOrThrow(COL_ICON_USE_FREQUENCY)));
                 iconList.add(icon);
             } while (cursor.moveToNext());
         }
@@ -326,5 +345,45 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COL_ICON_NAME, icon.getName());
         values.put(COL_ICON_USE_FREQUENCY, icon.getUseFrequency());
         database.update(ICON_TABLE, values, COL_ICON_ID + " = ?", new String[]{String.valueOf(icon.getId())});
+    }
+
+    public int[] getColoursArray() {
+        SQLiteDatabase database = this.getWritableDatabase();
+        Cursor cursor = database.rawQuery("SELECT " + COL_PICKER_COLOUR + " FROM " + PICKER_COLOUR_TABLE + " WHERE " + COL_PICKER_COLOUR + " != -7434610 ORDER BY " + COL_PICKER_DATE_AND_TIME + " DESC LIMIT 14", null);
+
+        int[] colours;
+        if (cursor.getCount() < 15) {
+            colours = new int[cursor.getCount() + 1];
+        } else {
+            colours = new int[15];
+        }
+
+        int i = 0;
+        colours[i] = -7434610;
+        if (cursor.moveToFirst()) {
+            do {
+                colours[++i] = cursor.getInt(cursor.getColumnIndexOrThrow(COL_PICKER_COLOUR));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return colours;
+    }
+
+    public void addColour(Colour colour) {
+        SQLiteDatabase database = this.getReadableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COL_PICKER_COLOUR, colour.getColour());
+        values.put(COL_PICKER_DATE_AND_TIME, colour.getDateAndTime());
+        database.replace(PICKER_COLOUR_TABLE, null, values);
+    }
+
+    private void addAllColours(SQLiteDatabase database) {
+        int[] colours = mContext.getResources().getIntArray(R.array.int_colours_array);
+        for(int colour : colours) {
+            ContentValues values = new ContentValues();
+            values.put(COL_PICKER_COLOUR, colour);
+            values.put(COL_PICKER_DATE_AND_TIME, 0);
+            database.insert(PICKER_COLOUR_TABLE, null, values);
+        }
     }
 }

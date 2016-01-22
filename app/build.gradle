@@ -30,4 +30,7 @@ dependencies {
     compile 'com.android.support:cardview-v7:23.1.1'
     compile 'com.android.support:recyclerview-v7:23.1.1'
     compile 'com.jakewharton:butterknife:7.0.1'
+    compile('com.github.afollestad.material-dialogs:commons:0.8.5.3@aar') {
+        transitive = true
+    }
 }
