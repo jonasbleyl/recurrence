@@ -8,8 +8,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bleyl.recurrence.R;
+import com.bleyl.recurrence.database.DatabaseHelper;
+import com.bleyl.recurrence.dialogs.IconPicker;
 import com.bleyl.recurrence.models.Icon;
-import com.bleyl.recurrence.ui.activities.CreateEditActivity;
 
 import java.util.List;
 
@@ -20,6 +21,7 @@ public class IconsAdapter extends RecyclerView.Adapter<IconsAdapter.ViewHolder>{
 
     private int mRowLayout;
     private Context mContext;
+    private IconPicker mIconPicker;
     private List<Icon> mIconList;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -33,8 +35,9 @@ public class IconsAdapter extends RecyclerView.Adapter<IconsAdapter.ViewHolder>{
         }
     }
 
-    public IconsAdapter(Context context, int rowLayout, List<Icon> iconList) {
+    public IconsAdapter(Context context, IconPicker iconPicker, int rowLayout, List<Icon> iconList) {
         mContext = context;
+        mIconPicker = iconPicker;
         mRowLayout = rowLayout;
         mIconList = iconList;
     }
@@ -58,7 +61,19 @@ public class IconsAdapter extends RecyclerView.Adapter<IconsAdapter.ViewHolder>{
         viewHolder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((CreateEditActivity) mContext).iconSelected(iconResId, mIconList.get(position));
+                DatabaseHelper database = DatabaseHelper.getInstance(mContext);
+                mIconList.get(position).setUseFrequency(mIconList.get(position).getUseFrequency() + 1);
+                database.updateIcon(mIconList.get(position));
+                database.close();
+
+                String name = mIconList.get(position).getName();
+                if (!name.equals(mContext.getResources().getString(R.string.default_icon_value))) {
+                    name = mContext.getResources().getString(R.string.custom_icon);
+                } else {
+                    name = mContext.getResources().getString(R.string.default_icon);
+                }
+
+                ((IconPicker.IconSelectionListener) mContext).onIconSelect(mIconPicker, name, iconResId);
             }
         });
     }
