@@ -1,4 +1,4 @@
-package com.bleyl.recurrence.ui.activities;
+package com.bleyl.recurrence.activities;
 
 import android.content.Context;
 import android.content.Intent;

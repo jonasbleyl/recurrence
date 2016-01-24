@@ -17,7 +17,7 @@ import com.bleyl.recurrence.models.Reminder;
 import com.bleyl.recurrence.receivers.DismissReceiver;
 import com.bleyl.recurrence.receivers.NagReceiver;
 import com.bleyl.recurrence.receivers.SnoozeActionReceiver;
-import com.bleyl.recurrence.ui.activities.ViewActivity;
+import com.bleyl.recurrence.activities.ViewActivity;
 
 import java.util.Calendar;
 

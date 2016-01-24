@@ -19,7 +19,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bleyl.recurrence.interfaces.RecyclerCallback;
-import com.bleyl.recurrence.ui.activities.ViewActivity;
+import com.bleyl.recurrence.activities.ViewActivity;
 import com.bleyl.recurrence.models.Reminder;
 import com.bleyl.recurrence.R;
 import com.bleyl.recurrence.utils.DateAndTimeUtil;

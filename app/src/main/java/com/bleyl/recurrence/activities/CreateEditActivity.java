@@ -1,4 +1,4 @@
-package com.bleyl.recurrence.ui.activities;
+package com.bleyl.recurrence.activities;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -141,9 +141,7 @@ public class CreateEditActivity extends AppCompatActivity implements ColorChoose
         }
 
         if (reminder.getRepeatType() != 0) {
-            mForeverRow.setVisibility(View.VISIBLE);
-            mBottomRow.setVisibility(View.VISIBLE);
-            mBottomView.setVisibility(View.VISIBLE);
+            showFrequency(true);
             String[] mRepeatTexts = getResources().getStringArray(R.array.repeat_array);
             mRepeatText.setText(mRepeatTexts[reminder.getRepeatType()]);
         }
@@ -206,7 +204,7 @@ public class CreateEditActivity extends AppCompatActivity implements ColorChoose
     }
 
     @Override
-    public void onIconSelect(DialogFragment dialogFragment, String iconName, int iconResId) {
+    public void onIconSelection(DialogFragment dialogFragment, String iconName, int iconResId) {
         mIconText.setText(iconName);
         mImageIconSelect.setImageResource(iconResId);
         dialogFragment.dismiss();
@@ -242,7 +240,7 @@ public class CreateEditActivity extends AppCompatActivity implements ColorChoose
     }
 
     @Override
-    public void onRepeatSelected(DialogFragment dialog, int which, String repeatText) {
+    public void onRepeatSelection(DialogFragment dialog, int which, String repeatText) {
         mInterval = 1;
         mRepeatType = which;
         mRepeatText.setText(repeatText);
@@ -262,7 +260,7 @@ public class CreateEditActivity extends AppCompatActivity implements ColorChoose
     }
 
     @Override
-    public void onAdvancedRepeatSelected(int type, int interval, String repeatText) {
+    public void onAdvancedRepeatSelection(int type, int interval, String repeatText) {
         mRepeatType = type;
         mInterval = interval;
         mRepeatText.setText(repeatText);
@@ -288,15 +286,12 @@ public class CreateEditActivity extends AppCompatActivity implements ColorChoose
 
         if (mRepeatType == 6) {
             reminder.setDaysOfWeek(mDaysOfWeek);
-            if (database.isDaysOfWeekPresent(reminder)) {
-                database.updateDaysOfWeek(reminder);
-            } else {
-                database.addDaysOfWeek(reminder);
-            }
+            database.addDaysOfWeek(reminder);
         }
+
         database.close();
-        Intent alarmIntent = new Intent(getApplicationContext(), AlarmReceiver.class);
-        AlarmUtil.setAlarm(getApplicationContext(), alarmIntent, reminder.getId(), mCalendar);
+        Intent alarmIntent = new Intent(this, AlarmReceiver.class);
+        AlarmUtil.setAlarm(this, alarmIntent, reminder.getId(), mCalendar);
         finish();
     }
 
@@ -350,7 +345,7 @@ public class CreateEditActivity extends AppCompatActivity implements ColorChoose
             // Check if title is empty
         } else if (mTitleEditText.getText().toString().trim().isEmpty()) {
             Snackbar.make(mCoordinatorLayout, getResources().getString(R.string.toast_title_empty), Snackbar.LENGTH_SHORT).show();
-            AnimationUtil.shakeView(mTitleEditText, getApplicationContext());
+            AnimationUtil.shakeView(mTitleEditText, this);
 
             // Check if times to show notification is too low
         } else if (mTimesToShow <= mTimesShown && !mForeverSwitch.isChecked()) {

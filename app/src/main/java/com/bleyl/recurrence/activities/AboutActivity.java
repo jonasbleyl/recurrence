@@ -1,4 +1,4 @@
-package com.bleyl.recurrence.ui.activities;
+package com.bleyl.recurrence.activities;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -33,7 +33,7 @@ public class AboutActivity extends AppCompatActivity {
         mToolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
         if (getActionBar() != null) getActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mVersionText.setText(getResources().getString(R.string.version) + " " + BuildConfig.VERSION_NAME);
+        mVersionText.setText(BuildConfig.VERSION_NAME);
     }
 
     public void launchEmail(View view) {

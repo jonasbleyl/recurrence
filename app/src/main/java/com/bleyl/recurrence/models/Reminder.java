@@ -12,7 +12,6 @@ public class Reminder {
     private String mIcon;
     private String mColour;
     private boolean[] mDaysOfWeek;
-
     private int mInterval;
 
     public int getId() {

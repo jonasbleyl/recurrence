@@ -1,4 +1,4 @@
-package com.bleyl.recurrence.ui.fragments;
+package com.bleyl.recurrence.fragments;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;

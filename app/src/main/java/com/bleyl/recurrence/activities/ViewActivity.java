@@ -1,4 +1,4 @@
-package com.bleyl.recurrence.ui.activities;
+package com.bleyl.recurrence.activities;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -74,6 +74,7 @@ public class ViewActivity extends AppCompatActivity {
         setSupportActionBar(mToolbar);
         mToolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
         if (getActionBar() != null) getActionBar().setDisplayHomeAsUpEnabled(true);
+        if (getSupportActionBar() != null) getSupportActionBar().setTitle(null);
 
         // Add drawable shadow and adjust layout if build version is before lollipop
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
@@ -118,7 +119,7 @@ public class ViewActivity extends AppCompatActivity {
         mTimeText.setText(readableTime);
         mNotificationTimeText.setText(readableTime);
 
-        if (mReminder.getRepeatType() == 5) {
+        if (mReminder.getRepeatType() == 6) {
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.append(getResources().getString(R.string.repeats_on));
             stringBuilder.append(" ");
@@ -223,9 +224,10 @@ public class ViewActivity extends AppCompatActivity {
         } else {
             Intent alarmIntent = new Intent(getApplicationContext(), AlarmReceiver.class);
             AlarmUtil.cancelAlarm(getApplicationContext(), alarmIntent, mReminder.getId());
+            mReminder.setDateAndTime(DateAndTimeUtil.toStringDateAndTime(Calendar.getInstance()));
         }
         mReminder.setNumberShown(mReminder.getNumberShown() + 1);
-        database.updateNotification(mReminder);
+        database.addNotification(mReminder);
         assignReminderValues();
         database.close();
         Snackbar.make(mCoordinatorLayout, getResources().getString(R.string.toast_mark_as_done), Snackbar.LENGTH_SHORT).show();
@@ -239,7 +241,6 @@ public class ViewActivity extends AppCompatActivity {
     }
 
     public void updateReminder() {
-        mReminderChanged = true;
         DatabaseHelper database = DatabaseHelper.getInstance(this);
         mReminder = database.getNotification(mReminder.getId());
         database.close();
@@ -262,6 +263,7 @@ public class ViewActivity extends AppCompatActivity {
     private BroadcastReceiver messageReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
+            mReminderChanged = true;
             updateReminder();
         }
     };

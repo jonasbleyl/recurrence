@@ -1,4 +1,4 @@
-package com.bleyl.recurrence.ui.activities;
+package com.bleyl.recurrence.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -6,7 +6,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.bleyl.recurrence.R;
-import com.bleyl.recurrence.ui.fragments.PreferenceFragment;
+import com.bleyl.recurrence.fragments.PreferenceFragment;
 
 public class PreferenceActivity extends AppCompatActivity {
     @Override
