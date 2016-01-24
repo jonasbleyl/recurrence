@@ -15,7 +15,7 @@ import com.bleyl.recurrence.R;
 public class AdvancedRepeatSelector extends DialogFragment {
 
     public interface AdvancedRepeatSelectionListener {
-        void onAdvancedRepeatSelected(int type, int interval, String repeatText);
+        void onAdvancedRepeatSelection(int type, int interval, String repeatText);
     }
 
     AdvancedRepeatSelectionListener mListener;
@@ -55,7 +55,7 @@ public class AdvancedRepeatSelector extends DialogFragment {
             public void onClick(DialogInterface dialog, int which) {
                 String repeatType = repeatPicker.getDisplayedValues()[repeatPicker.getValue()];
                 String text = String.format(getResources().getString(R.string.repeats_every), numberPicker.getValue(), repeatType);
-                mListener.onAdvancedRepeatSelected(repeatPicker.getValue() + 1, numberPicker.getValue(), text);
+                mListener.onAdvancedRepeatSelection(repeatPicker.getValue() + 1, numberPicker.getValue(), text);
             }
         });
 

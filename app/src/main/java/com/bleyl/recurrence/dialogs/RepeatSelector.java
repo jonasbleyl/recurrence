@@ -13,7 +13,7 @@ import com.bleyl.recurrence.R;
 public class RepeatSelector extends DialogFragment {
 
     public interface RepeatSelectionListener {
-        void onRepeatSelected(DialogFragment dialog, int interval, String repeatText);
+        void onRepeatSelection(DialogFragment dialog, int interval, String repeatText);
     }
 
     RepeatSelectionListener mListener;
@@ -37,7 +37,7 @@ public class RepeatSelector extends DialogFragment {
                     DialogFragment advancedDialog = new AdvancedRepeatSelector();
                     advancedDialog.show(getActivity().getSupportFragmentManager(), "AdvancedSelector");
                 } else {
-                    mListener.onRepeatSelected(RepeatSelector.this, which, repeatArray[which]);
+                    mListener.onRepeatSelection(RepeatSelector.this, which, repeatArray[which]);
                 }
             }
         });

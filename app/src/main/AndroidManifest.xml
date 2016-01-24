@@ -12,7 +12,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".ui.activities.MainActivity"
+            android:name=".activities.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/StartTheme">
             <intent-filter>
@@ -22,22 +22,22 @@
         </activity>
 
         <activity
-            android:name=".ui.activities.CreateEditActivity"
+            android:name=".activities.CreateEditActivity"
             android:theme="@style/AppThemeLight"
             android:configChanges="orientation|screenSize"/>
 
         <activity
-            android:name=".ui.activities.ViewActivity"
+            android:name=".activities.ViewActivity"
             android:label="@string/view_notification"
             android:theme="@style/AppThemeLight"/>
 
         <activity
-            android:name=".ui.activities.PreferenceActivity"
+            android:name=".activities.PreferenceActivity"
             android:label="@string/settings"
             android:theme="@style/AppTheme"/>
 
         <activity
-            android:name=".ui.activities.AboutActivity"
+            android:name=".activities.AboutActivity"
             android:label="@string/about"
             android:theme="@style/AppThemeLight"/>
 

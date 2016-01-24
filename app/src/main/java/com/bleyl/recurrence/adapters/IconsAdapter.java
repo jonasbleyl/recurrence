@@ -73,7 +73,7 @@ public class IconsAdapter extends RecyclerView.Adapter<IconsAdapter.ViewHolder>{
                     name = mContext.getResources().getString(R.string.default_icon);
                 }
 
-                ((IconPicker.IconSelectionListener) mContext).onIconSelect(mIconPicker, name, iconResId);
+                ((IconPicker.IconSelectionListener) mContext).onIconSelection(mIconPicker, name, iconResId);
             }
         });
     }

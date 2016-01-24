@@ -21,7 +21,7 @@ import com.bleyl.recurrence.database.DatabaseHelper;
 public class IconPicker extends DialogFragment {
 
     public interface IconSelectionListener {
-        void onIconSelect(DialogFragment dialog, String iconName, int iconResId);
+        void onIconSelection(DialogFragment dialog, String iconName, int iconResId);
     }
 
     IconSelectionListener mListener;
