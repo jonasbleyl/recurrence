@@ -194,7 +194,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 break;
         }
 
-        SQLiteDatabase database = this.getWritableDatabase();
+        SQLiteDatabase database = this.getReadableDatabase();
         Cursor cursor = database.rawQuery(query, null);
 
         if (cursor.moveToFirst()) {
@@ -248,7 +248,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public void deleteNotification(Reminder reminder) {
-        SQLiteDatabase database = this.getReadableDatabase();
+        SQLiteDatabase database = this.getWritableDatabase();
         if (reminder.getRepeatType() == 6) {
             database.delete(DAYS_OF_WEEK_TABLE, COL_ID + " = ?", new String[]{String.valueOf(reminder.getId())});
         }
@@ -275,7 +275,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public void addDaysOfWeek(Reminder reminder) {
-        SQLiteDatabase database = this.getReadableDatabase();
+        SQLiteDatabase database = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COL_ID, reminder.getId());
         values.put(COL_SUNDAY, Boolean.toString(reminder.getDaysOfWeek()[0]));
@@ -285,28 +285,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COL_THURSDAY, Boolean.toString(reminder.getDaysOfWeek()[4]));
         values.put(COL_FRIDAY, Boolean.toString(reminder.getDaysOfWeek()[5]));
         values.put(COL_SATURDAY, Boolean.toString(reminder.getDaysOfWeek()[6]));
-        database.insert(DAYS_OF_WEEK_TABLE, null, values);
-    }
-
-    public void updateDaysOfWeek(Reminder reminder) {
-        SQLiteDatabase database = this.getReadableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(COL_SUNDAY, Boolean.toString(reminder.getDaysOfWeek()[0]));
-        values.put(COL_MONDAY, Boolean.toString(reminder.getDaysOfWeek()[1]));
-        values.put(COL_TUESDAY, Boolean.toString(reminder.getDaysOfWeek()[2]));
-        values.put(COL_WEDNESDAY, Boolean.toString(reminder.getDaysOfWeek()[3]));
-        values.put(COL_THURSDAY, Boolean.toString(reminder.getDaysOfWeek()[4]));
-        values.put(COL_FRIDAY, Boolean.toString(reminder.getDaysOfWeek()[5]));
-        values.put(COL_SATURDAY, Boolean.toString(reminder.getDaysOfWeek()[6]));
-        database.update(DAYS_OF_WEEK_TABLE, values, COL_ID + " = ?", new String[]{String.valueOf(reminder.getId())});
-    }
-
-    public boolean isDaysOfWeekPresent(Reminder reminder) {
-        SQLiteDatabase database = this.getReadableDatabase();
-        Cursor cursor = database.rawQuery("SELECT * FROM " + DAYS_OF_WEEK_TABLE + " WHERE " + COL_ID + " = ? LIMIT 1", new String[]{String.valueOf(reminder.getId())});
-        boolean result = cursor.moveToFirst();
-        cursor.close();
-        return result;
+        database.replace(DAYS_OF_WEEK_TABLE, null, values);
     }
 
     private void addAllIcons(SQLiteDatabase database) {
@@ -322,7 +301,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public List<Icon> getIconList() {
         List<Icon> iconList = new ArrayList<>();
-        SQLiteDatabase database = this.getWritableDatabase();
+        SQLiteDatabase database = this.getReadableDatabase();
         Cursor cursor = database.rawQuery("SELECT * FROM " + ICON_TABLE + " ORDER BY " + COL_ICON_USE_FREQUENCY + " DESC", null);
 
         if (cursor.moveToFirst()) {
@@ -339,7 +318,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public void updateIcon(Icon icon) {
-        SQLiteDatabase database = this.getReadableDatabase();
+        SQLiteDatabase database = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COL_ICON_ID, icon.getId());
         values.put(COL_ICON_NAME, icon.getName());
@@ -348,7 +327,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public int[] getColoursArray() {
-        SQLiteDatabase database = this.getWritableDatabase();
+        SQLiteDatabase database = this.getReadableDatabase();
         Cursor cursor = database.rawQuery("SELECT " + COL_PICKER_COLOUR + " FROM " + PICKER_COLOUR_TABLE + " WHERE " + COL_PICKER_COLOUR + " != -7434610 ORDER BY " + COL_PICKER_DATE_AND_TIME + " DESC LIMIT 14", null);
 
         int[] colours;
@@ -370,7 +349,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public void addColour(Colour colour) {
-        SQLiteDatabase database = this.getReadableDatabase();
+        SQLiteDatabase database = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COL_PICKER_COLOUR, colour.getColour());
         values.put(COL_PICKER_DATE_AND_TIME, colour.getDateAndTime());
