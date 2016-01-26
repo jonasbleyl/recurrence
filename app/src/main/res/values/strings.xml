@@ -74,6 +74,8 @@
     <string name="toast_title_empty">Title cannot be empty</string>
     <string name="toast_mark_as_done">Marked next reminder as done</string>
 
+    <string name="add_reminder">Add reminder</string>
+
     <string name="libraries">Libraries</string>
     <string name="rate_app">Rate app</string>
     <string name="contact">Contact</string>
