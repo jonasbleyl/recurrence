@@ -19,7 +19,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         DatabaseHelper database = DatabaseHelper.getInstance(context);
         Reminder reminder = database.getNotification(intent.getIntExtra("NOTIFICATION_ID", 0));
         reminder.setNumberShown(reminder.getNumberShown() + 1);
-        database.updateNotification(reminder);
+        database.addNotification(reminder);
 
         NotificationUtil.createNotification(context, reminder);
 

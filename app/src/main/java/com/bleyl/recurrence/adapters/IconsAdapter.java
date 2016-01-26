@@ -66,14 +66,14 @@ public class IconsAdapter extends RecyclerView.Adapter<IconsAdapter.ViewHolder>{
                 database.updateIcon(mIconList.get(position));
                 database.close();
 
-                String name = mIconList.get(position).getName();
-                if (!name.equals(mContext.getResources().getString(R.string.default_icon_value))) {
+                String name;
+                if (!iconName.equals(mContext.getResources().getString(R.string.default_icon_value))) {
                     name = mContext.getResources().getString(R.string.custom_icon);
                 } else {
                     name = mContext.getResources().getString(R.string.default_icon);
                 }
 
-                ((IconPicker.IconSelectionListener) mContext).onIconSelection(mIconPicker, name, iconResId);
+                ((IconPicker.IconSelectionListener) mContext).onIconSelection(mIconPicker, iconName, name, iconResId);
             }
         });
     }

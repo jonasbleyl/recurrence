@@ -204,10 +204,11 @@ public class CreateEditActivity extends AppCompatActivity implements ColorChoose
     }
 
     @Override
-    public void onIconSelection(DialogFragment dialogFragment, String iconName, int iconResId) {
-        mIconText.setText(iconName);
+    public void onIconSelection(DialogFragment dialog, String iconName, String iconType, int iconResId) {
+        mIcon = iconName;
+        mIconText.setText(iconType);
         mImageIconSelect.setImageResource(iconResId);
-        dialogFragment.dismiss();
+        dialog.dismiss();
     }
 
     @OnClick(R.id.colour_select)
