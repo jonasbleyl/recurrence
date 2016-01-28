@@ -309,9 +309,9 @@ public class CreateEditActivity extends AppCompatActivity implements ColorChoose
 
     public void toggleTextColour() {
         if (mForeverSwitch.isChecked()) {
-            AnimationUtil.shrinkView(mBottomRow, this);
+            mBottomRow.setVisibility(View.GONE);
         } else {
-            AnimationUtil.expandView(mBottomRow, this);
+            mBottomRow.setVisibility(View.VISIBLE);
         }
     }
 
