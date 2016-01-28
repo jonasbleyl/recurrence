@@ -36,6 +36,7 @@ import com.bleyl.recurrence.receivers.DismissReceiver;
 import com.bleyl.recurrence.utils.AlarmUtil;
 import com.bleyl.recurrence.utils.DateAndTimeUtil;
 import com.bleyl.recurrence.utils.NotificationUtil;
+import com.bleyl.recurrence.utils.TextFormatUtil;
 
 import java.util.Calendar;
 
@@ -107,45 +108,34 @@ public class ViewActivity extends AppCompatActivity {
     }
 
     public void assignReminderValues() {
-        // Assign notification values to views
         Calendar calendar = DateAndTimeUtil.parseDateAndTime(mReminder.getDateAndTime());
         mNotificationTitleText.setText(mReminder.getTitle());
         mContentText.setText(mReminder.getContent());
         mDateText.setText(DateAndTimeUtil.toStringReadableDate(calendar));
-        int iconResId = getResources().getIdentifier(mReminder.getIcon(), "drawable", getPackageName());
-        mIconImage.setImageResource(iconResId);
+        mIconImage.setImageResource(getResources().getIdentifier(mReminder.getIcon(), "drawable", getPackageName()));
         mCircleImage.setColorFilter(Color.parseColor(mReminder.getColour()));
         String readableTime = DateAndTimeUtil.toStringReadableTime(calendar, this);
         mTimeText.setText(readableTime);
         mNotificationTimeText.setText(readableTime);
 
         if (mReminder.getRepeatType() == 6) {
-            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append(getResources().getString(R.string.repeats_on));
-            stringBuilder.append(" ");
-            String[] shortWeekDays = DateAndTimeUtil.getShortWeekDays();
-            for (int i = 0; i < mReminder.getDaysOfWeek().length; i++) {
-                if (mReminder.getDaysOfWeek()[i]) {
-                    stringBuilder.append(shortWeekDays[i]);
-                    stringBuilder.append(" ");
-                }
-            }
-            mRepeatText.setText(stringBuilder);
+            mRepeatText.setText(TextFormatUtil.formatDaysOfWeekText(this, mReminder.getDaysOfWeek()));
         } else {
-            String[] repeatTexts = getResources().getStringArray(R.array.repeat_array);
-            mRepeatText.setText(repeatTexts[mReminder.getRepeatType()]);
+            if (mReminder.getInterval() > 1) {
+                mRepeatText.setText(TextFormatUtil.formatAdvancedRepeatText(this, mReminder.getRepeatType(), mReminder.getInterval()));
+            } else {
+                mRepeatText.setText(getResources().getStringArray(R.array.repeat_array)[mReminder.getRepeatType()]);
+            }
         }
 
         if (Boolean.parseBoolean(mReminder.getForeverState())) {
             mShownText.setText(getResources().getString(R.string.forever));
         } else {
-            String shown = (getResources().getString(R.string.times_shown, mReminder.getNumberShown(), mReminder.getNumberToShow()));
-            mShownText.setText(shown);
+            mShownText.setText(getResources().getString(R.string.times_shown, mReminder.getNumberShown(), mReminder.getNumberToShow()));
         }
 
         // Hide "Mark as done" action if reminder is inactive
-        mHideMarkAsDone = mReminder.getNumberToShow() <= mReminder.getNumberShown()
-                && !Boolean.parseBoolean(mReminder.getForeverState());
+        mHideMarkAsDone = mReminder.getNumberToShow() <= mReminder.getNumberShown() && !Boolean.parseBoolean(mReminder.getForeverState());
         invalidateOptionsMenu();
     }
 

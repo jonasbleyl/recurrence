@@ -135,15 +135,17 @@ public class CreateEditActivity extends AppCompatActivity implements ColorChoose
         mTimesText.setVisibility(View.VISIBLE);
 
         if (!getResources().getString(R.string.default_icon).equals(mIcon)) {
-            int iconResId = getResources().getIdentifier(reminder.getIcon(), "drawable", getPackageName());
-            mImageIconSelect.setImageResource(iconResId);
+            mImageIconSelect.setImageResource(getResources().getIdentifier(reminder.getIcon(), "drawable", getPackageName()));
             mIconText.setText(getResources().getString(R.string.custom_icon));
         }
 
         if (reminder.getRepeatType() != 0) {
+            if (reminder.getInterval() > 1) {
+                mRepeatText.setText(TextFormatUtil.formatAdvancedRepeatText(this, mRepeatType, mInterval));
+            } else {
+                mRepeatText.setText(getResources().getStringArray(R.array.repeat_array)[reminder.getRepeatType()]);
+            }
             showFrequency(true);
-            String[] mRepeatTexts = getResources().getStringArray(R.array.repeat_array);
-            mRepeatText.setText(mRepeatTexts[reminder.getRepeatType()]);
         }
 
         if (reminder.getRepeatType() == 6) {

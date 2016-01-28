@@ -19,4 +19,17 @@ public class TextFormatUtil {
         }
         return stringBuilder.toString();
     }
+
+    public static String formatAdvancedRepeatText(Context context, int repeatType, int interval) {
+        String typeText;
+        switch (repeatType) {
+            default:
+            case 1: typeText = context.getResources().getQuantityString(R.plurals.hour, interval); break;
+            case 2: typeText = context.getResources().getQuantityString(R.plurals.day, interval); break;
+            case 3: typeText = context.getResources().getQuantityString(R.plurals.week, interval); break;
+            case 4: typeText = context.getResources().getQuantityString(R.plurals.month, interval); break;
+            case 5: typeText = context.getResources().getQuantityString(R.plurals.year, interval); break;
+        }
+        return String.format(context.getResources().getString(R.string.repeats_every), interval, typeText);
+    }
 }
