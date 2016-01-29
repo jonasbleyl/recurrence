@@ -8,6 +8,10 @@
         <item quantity="other">%d seconds</item>
         <item quantity="one">%d second</item>
     </plurals>
+    <plurals name="time_hour">
+        <item quantity="other">%d hours</item>
+        <item quantity="one">%d hour</item>
+    </plurals>
     <plurals name="hour">
         <item quantity="other">hours</item>
         <item quantity="one">hour</item>

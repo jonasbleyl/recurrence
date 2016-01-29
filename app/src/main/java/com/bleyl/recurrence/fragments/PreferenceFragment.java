@@ -17,10 +17,6 @@ public class PreferenceFragment extends android.preference.PreferenceFragment im
 
     public void updatePreferenceSummary() {
         SharedPreferences sharedPreferences = getPreferenceScreen().getSharedPreferences();
-        // Set snooze preference summary
-        int snoozeMinutes = sharedPreferences.getInt("snoozeLength", getActivity().getResources().getInteger(R.integer.default_snooze_minutes));
-        Preference snoozePreference = findPreference("snoozeLength");
-        snoozePreference.setSummary(String.format(getActivity().getResources().getQuantityString(R.plurals.time_minute, snoozeMinutes), snoozeMinutes));
 
         // Set nagging preference summary
         int nagMinutes = sharedPreferences.getInt("nagMinutes", getActivity().getResources().getInteger(R.integer.default_nag_minutes));

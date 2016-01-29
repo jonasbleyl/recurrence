@@ -42,9 +42,15 @@
             android:theme="@style/AppThemeLight"/>
 
         <activity
-            android:name=".widgets.CreateEditShortcut"
+            android:name=".activities.SnoozeDialogActivity"
             android:taskAffinity=""
             android:theme="@style/AppThemeTransparent"
+            android:excludeFromRecents="true"/>
+
+        <activity
+            android:name=".widgets.CreateEditShortcut"
+            android:taskAffinity=""
+            android:theme="@style/AppThemeDialog"
             android:configChanges="orientation|screenSize"
             android:excludeFromRecents="true">
             <intent-filter>
