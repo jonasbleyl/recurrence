@@ -16,6 +16,7 @@
         <item name="colorPrimaryDark">@color/primaryDark</item>
         <item name="colorAccent">@color/accent</item>
         <item name="android:colorBackground">@color/background</item>
+        <item name="android:dividerHeight">@dimen/line_separator_height</item>
     </style>
     <style name="AppThemeLight" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="windowActionModeOverlay">true</item>
