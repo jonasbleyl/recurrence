@@ -1,7 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="about">O aplikacji</string>
     <string name="settings">Ustawienia</string>
-
     <string name="preference_notification_category">Preferencje powiadomień</string>
     <string name="checkbox_vibrate">Wibracja</string>
     <string name="checkbox_sound">Dźwięk</string>
@@ -12,18 +12,15 @@
     <string name="snooze_length">Długość drzemki</string>
     <string name="minute">minuty</string>
     <string name="minutes">minut</string>
-
     <string name="action_settings">Ustawienia</string>
     <string name="action_delete">Usuń</string>
     <string name="action_edit">Edytuj</string>
     <string name="action_about">O</string>
     <string name="action_show_now">Pokaż teraz</string>
-
     <string name="delete_confirmation">Na pewno chcesz usunąć to powiadomienie?</string>
     <string name="yes">Tak</string>
     <string name="no">Nie</string>
     <string name="ok">OK</string>
-
     <string name="title">Tytuł</string>
     <string name="save_menu">Zapisz</string>
     <string name="time_now">Teraz</string>
@@ -35,37 +32,27 @@
     <string name="times">razy</string>
     <string name="repeat_notification">Ilość powtórzeń: </string>
     <string name="content_hint">Dodaj treść powiadomienia</string>
-
     <string name="select_icon">Wybierz ikonę</string>
     <string name="default_icon">Domyslna ikona</string>
     <string name="custom_icon">Niestandardowa ikona</string>
-
     <string name="select_colour">Wybierz kolor</string>
     <string name="default_colour">Domyślny kolor</string>
-
     <string name="repeats_on">Powtarzaj:</string>
     <string name="repeat_every">Cyklicznie co</string>
     <string name="repeats_every">Powtarza co: %1$d %2$s</string>
-
     <string name="no_active">Brak aktywnych powiadomień</string>
     <string name="no_inactive">Brak nieaktywnych powiadomień</string>
-
     <string name="toast_past_date">Nie można ustawić początkowej daty w przeszłości</string>
     <string name="toast_higher_number">Ilość powtórzeń musi być większa</string>
     <string name="toast_title_empty">Tytuł nie może być pusty</string>
-
     <string name="add_reminder">Dodaj przypomnienie</string>
-
     <string name="libraries">Biblioteki</string>
     <string name="rate_app">Oceń aplikację</string>
     <string name="contact">Kontakt</string>
     <string name="version">Wersja</string>
-
     <string name="thanks_to">Podziękowania</string>
     <string name="translator">Tłumacz</string>
-
     <string name="send_email">Wyślij email</string>
-
     <string-array name="repeat_array">
         <item>Nie powtarzaj</item>
         <item>Co godzinę</item>

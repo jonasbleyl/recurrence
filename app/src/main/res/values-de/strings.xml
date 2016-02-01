@@ -1,7 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="about">Über</string>
     <string name="settings">Einstellungen</string>
-
     <string name="preference_notification_category">Benachrichtigungseinstellungen</string>
     <string name="checkbox_vibrate">Vibration</string>
     <string name="checkbox_sound">Ton</string>
@@ -14,19 +14,16 @@
     <string name="minutes">minuten</string>
     <string name="mark_as_done">Als erledigt markieren</string>
     <string name="mark_as_done_detail">\"Als erledigt markieren\"-Aktion zu Benachrichtigung hinzufügen</string>
-
     <string name="action_settings">Einstellungen</string>
     <string name="action_delete">Löschen</string>
     <string name="action_edit">Bearbeiten</string>
     <string name="action_about">Über</string>
     <string name="action_show_now">Jetzt zeigen</string>
     <string name="action_mark_as_done">Als erledigt markieren</string>
-
     <string name="delete_confirmation">Sind Sie sicher, dass die Benachrichtigung gelöscht werden soll?</string>
     <string name="yes">Ja</string>
     <string name="no">Nein</string>
     <string name="ok">OK</string>
-
     <string name="title">Titel</string>
     <string name="save_menu">Speichern</string>
     <string name="time_now">Jetzt</string>
@@ -38,38 +35,28 @@
     <string name="times">mal gezeigt</string>
     <string name="repeat_notification">Anzahl der Wiederholungen:</string>
     <string name="content_hint">Benachrichtigungsinhalt hinzufügen</string>
-
     <string name="select_icon">Symbol auswählen</string>
     <string name="default_icon">Standardsymbol</string>
     <string name="custom_icon">Benutzerdefiniertes Symbol</string>
-
     <string name="select_colour">Farbe auswählen</string>
     <string name="default_colour">Standardfarbe</string>
-
     <string name="repeats_on">Wiederholt sich am:</string>
     <string name="repeat_every">Wiederholen jede</string>
     <string name="repeats_every">Wiederholt sich alle: %1$d %2$s</string>
-
     <string name="no_active">Keine aktiven Benachrichtigungen</string>
     <string name="no_inactive">Keine inaktiven Benachrichtigungen</string>
-
     <string name="toast_past_date">Startdatum kann nicht in der Vergangenheit liegen</string>
     <string name="toast_higher_number">Anzahl der Wiederholungen muss höher sein</string>
     <string name="toast_title_empty">Titel darf nicht leer sein</string>
     <string name="toast_mark_as_done">Nächste Erinnerung als erledigt markiert</string>
-
     <string name="add_reminder">Erinnerung hinzufügen</string>
-
     <string name="libraries">Bibliotheken</string>
     <string name="rate_app">App bewerten</string>
     <string name="contact">Kontakt</string>
     <string name="version">Version</string>
-
     <string name="thanks_to">Dank an</string>
     <string name="translator">Übersetzer</string>
-
     <string name="send_email">E-Mail senden</string>
-
     <string-array name="repeat_array">
         <item>Keine Wiederholung</item>
         <item>Jede Stunde</item>

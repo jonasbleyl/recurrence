@@ -1,7 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="about">Info</string>
     <string name="settings">Impostazioni</string>
-
     <string name="preference_notification_category">Preferenze</string>
     <string name="checkbox_vibrate">Vibrazione</string>
     <string name="checkbox_sound">Suono</string>
@@ -14,18 +14,15 @@
     <string name="minutes">minuti</string>
     <string name="mark_as_done">Segna come già fatto</string>
     <string name="mark_as_done_detail">Aggiungi un \"Segna come fatto\" azione alla notifica</string>
-
     <string name="action_settings">Impostazioni</string>
     <string name="action_delete">Cancella</string>
     <string name="action_edit">Mostra</string>
     <string name="action_about">Info</string>
     <string name="action_show_now">Mostra adesso</string>
-
     <string name="delete_confirmation">Sei sicuro di voler cancellare questo promemoria?</string>
     <string name="yes">Si</string>
     <string name="no">No</string>
     <string name="ok">Ok</string>
-
     <string name="title">Oggetto</string>
     <string name="save_menu">Salva</string>
     <string name="time_now">Ora</string>
@@ -37,38 +34,28 @@
     <string name="times">volte</string>
     <string name="repeat_notification">Ripetizione della notifica</string>
     <string name="content_hint">Aggiungi le note al promemoria</string>
-
     <string name="select_icon">Seleziona un\'icona</string>
     <string name="default_icon">Icona di default</string>
     <string name="custom_icon">Icona personalizzata</string>
-
     <string name="select_colour">Seleziona un colore</string>
     <string name="default_colour">Colore di default</string>
-
     <string name="repeats_on">Ripeti il:</string>
     <string name="repeat_every">Ripetere ogni</string>
     <string name="repeats_every">Si ripete ogni: %1$d %2$s</string>
-
     <string name="no_active">Nessun promemoria definito</string>
     <string name="no_inactive">Nessun promemoria </string>
-
     <string name="toast_past_date">La data impostata è antecedente a quella corrente!</string>
     <string name="toast_higher_number">Il numero di ripetizioni deve essere maggiore!</string>
     <string name="toast_title_empty">Il campo \"Oggetto\" non può essere vuoto!</string>
     <string name="toast_mark_as_done">Contrassegnato prossimo promemoria come fare</string>
-
     <string name="add_reminder">Aggiungi promemoria</string>
-
     <string name="libraries">Librerie</string>
     <string name="rate_app">Valuta l\'app</string>
     <string name="contact">Contatto</string>
     <string name="version">Versione</string>
-
     <string name="thanks_to">Grazie a</string>
     <string name="translator">Traduttore</string>
-
     <string name="send_email">Invia e-mail</string>
-
     <string-array name="repeat_array">
         <item>Nessuna ripetizione</item>
         <item>Ogni ora</item>
