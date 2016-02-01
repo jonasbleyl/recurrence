@@ -354,7 +354,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="?attr/selectableItemBackground"
-                    android:onClick="toggleSwitch"
                     android:paddingBottom="@dimen/table_row_default_horizontal_padding"
                     android:paddingEnd="@dimen/table_row_default_padding_side"
                     android:paddingRight="@dimen/table_row_default_padding_side"
@@ -388,7 +387,6 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
-                        android:onClick="switchClicked"
                         app:showText="false" />
 
                 </LinearLayout>

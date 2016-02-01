@@ -155,7 +155,7 @@ public class CreateEditActivity extends AppCompatActivity implements ColorChoose
 
         if (Boolean.parseBoolean(reminder.getForeverState())) {
             mForeverSwitch.setChecked(true);
-            toggleTextColour();
+            mBottomRow.setVisibility(View.GONE);
         }
     }
 
@@ -298,16 +298,18 @@ public class CreateEditActivity extends AppCompatActivity implements ColorChoose
         finish();
     }
 
-    public void toggleSwitch(View view) {
+    @OnClick(R.id.forever_row)
+    public void toggleSwitch() {
         mForeverSwitch.toggle();
-        toggleTextColour();
+        if (mForeverSwitch.isChecked()) {
+            mBottomRow.setVisibility(View.GONE);
+        } else {
+            mBottomRow.setVisibility(View.VISIBLE);
+        }
     }
 
-    public void switchClicked(View view) {
-        toggleTextColour();
-    }
-
-    public void toggleTextColour() {
+    @OnClick(R.id.switch_toggle)
+    public void switchClicked() {
         if (mForeverSwitch.isChecked()) {
             mBottomRow.setVisibility(View.GONE);
         } else {
@@ -316,6 +318,9 @@ public class CreateEditActivity extends AppCompatActivity implements ColorChoose
     }
 
     public void validateInput() {
+        mImageWarningShow.setVisibility(View.GONE);
+        mImageWarningTime.setVisibility(View.GONE);
+        mImageWarningDate.setVisibility(View.GONE);
         Calendar nowCalendar = Calendar.getInstance();
 
         if (mTimeText.getText().equals(getResources().getString(R.string.time_now))) {

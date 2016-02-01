@@ -33,6 +33,7 @@ import com.bleyl.recurrence.models.Reminder;
 import com.bleyl.recurrence.R;
 import com.bleyl.recurrence.receivers.AlarmReceiver;
 import com.bleyl.recurrence.receivers.DismissReceiver;
+import com.bleyl.recurrence.receivers.SnoozeReceiver;
 import com.bleyl.recurrence.utils.AlarmUtil;
 import com.bleyl.recurrence.utils.DateAndTimeUtil;
 import com.bleyl.recurrence.utils.NotificationUtil;
@@ -63,7 +64,7 @@ public class ViewActivity extends AppCompatActivity {
 
     private Reminder mReminder;
     private boolean mHideMarkAsDone;
-    private boolean mReminderChanged = false;
+    private boolean mReminderChanged;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -194,7 +195,9 @@ public class ViewActivity extends AppCompatActivity {
         database.deleteNotification(mReminder);
         database.close();
         Intent alarmIntent = new Intent(getApplicationContext(), AlarmReceiver.class);
-        AlarmUtil.cancelAlarm(getApplicationContext(), alarmIntent, mReminder.getId());
+        AlarmUtil.cancelAlarm(this, alarmIntent, mReminder.getId());
+        Intent snoozeIntent = new Intent(getApplicationContext(), SnoozeReceiver.class);
+        AlarmUtil.cancelAlarm(this, snoozeIntent, mReminder.getId());
         finish();
     }
 
@@ -213,7 +216,7 @@ public class ViewActivity extends AppCompatActivity {
             AlarmUtil.setNextAlarm(this, mReminder, database, DateAndTimeUtil.parseDateAndTime(mReminder.getDateAndTime()));
         } else {
             Intent alarmIntent = new Intent(getApplicationContext(), AlarmReceiver.class);
-            AlarmUtil.cancelAlarm(getApplicationContext(), alarmIntent, mReminder.getId());
+            AlarmUtil.cancelAlarm(this, alarmIntent, mReminder.getId());
             mReminder.setDateAndTime(DateAndTimeUtil.toStringDateAndTime(Calendar.getInstance()));
         }
         mReminder.setNumberShown(mReminder.getNumberShown() + 1);
