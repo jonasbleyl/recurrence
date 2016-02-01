@@ -4,4 +4,32 @@
         <item quantity="one">%d perc</item>
         <item quantity="other">%d perc</item>
     </plurals>
+    <plurals name="time_second">
+        <item quantity="other">%d másodperc</item>
+        <item quantity="one">%d másodperc</item>
+    </plurals>
+    <plurals name="time_hour">
+        <item quantity="other">%d órát</item>
+        <item quantity="one">%d óra</item>
+    </plurals>
+    <plurals name="hour">
+        <item quantity="other">órát</item>
+        <item quantity="one">óra</item>
+    </plurals>
+    <plurals name="day">
+        <item quantity="other">nap</item>
+        <item quantity="one">nap</item>
+    </plurals>
+    <plurals name="week">
+        <item quantity="other">hete</item>
+        <item quantity="one">hét</item>
+    </plurals>
+    <plurals name="month">
+        <item quantity="other">hónappal</item>
+        <item quantity="one">hónap</item>
+    </plurals>
+    <plurals name="year">
+        <item quantity="other">éve</item>
+        <item quantity="one">év</item>
+    </plurals>
 </resources>

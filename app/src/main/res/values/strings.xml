@@ -1,7 +1,4 @@
 <resources>
-    <string name="create_notification">Create Notification</string>
-    <string name="view_notification">View Notification</string>
-    <string name="edit_notification">Edit Notification</string>
     <string name="about">About</string>
     <string name="settings">Settings</string>
 
@@ -51,16 +48,6 @@
 
     <string name="select_colour">Select a colour</string>
     <string name="default_colour">Default colour</string>
-    <string-array name="colour_names_array">
-        <item>Default colour</item>
-        <item>Blue</item>
-        <item>Purple</item>
-        <item>Red</item>
-        <item>Green</item>
-        <item>Orange</item>
-        <item>Yellow</item>
-        <item>Pink</item>
-    </string-array>
 
     <string name="repeats_on">Repeats on:</string>
     <string name="repeat_every">Repeat every</string>

@@ -33,7 +33,7 @@ public class AdvancedRepeatSelector extends DialogFragment {
         builder.setTitle(R.string.repeat_every);
 
         final NumberPicker numberPicker = (NumberPicker) view.findViewById(R.id.picker1);
-        numberPicker.setMinValue(1);
+        numberPicker.setMinValue(2);
         numberPicker.setMaxValue(999);
         numberPicker.setWrapSelectorWheel(false);
 

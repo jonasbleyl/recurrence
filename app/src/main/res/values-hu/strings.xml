@@ -1,7 +1,4 @@
 <resources>
-    <string name="create_notification">Értesítés létrehozása</string>
-    <string name="view_notification">Értesítés megtekintése</string>
-    <string name="edit_notification">Értesítés szerkesztése</string>
     <string name="about">Névjegy</string>
     <string name="settings">Beállítások</string>
 
@@ -45,18 +42,10 @@
 
     <string name="select_colour">Színválasztás</string>
     <string name="default_colour">Alapértelmezett szín</string>
-    <string-array name="colour_names_array">
-        <item>Alapértelmezett szín</item>
-        <item>Kék</item>
-        <item>Lila</item>
-        <item>Piros</item>
-        <item>Zöld</item>
-        <item>Narancssárga</item>
-        <item>Citromsárga</item>
-        <item>Rózsaszín</item>
-    </string-array>
 
     <string name="repeats_on">Ismételődés:</string>
+    <string name="repeat_every">Ismétlés</string>
+    <string name="repeats_every">Ismétlődik: %1$d %2$s</string>
 
     <string name="no_active">Nincs aktív értesítés</string>
     <string name="no_inactive">Nincs inaktív értesítés</string>
@@ -64,6 +53,8 @@
     <string name="toast_past_date">A kezdési dátum nem lehet múltbéli</string>
     <string name="toast_higher_number">Az ismétlődések számának magasabbnak kell lennie</string>
     <string name="toast_title_empty">Megnevezés nem lehet üres</string>
+
+    <string name="add_reminder">Add emlékeztető</string>
 
     <string name="libraries">Program könyvtár</string>
     <string name="rate_app">Értékeld az alkalmazást</string>
@@ -77,10 +68,12 @@
 
     <string-array name="repeat_array">
         <item>Ne ismétlődjön</item>
+        <item>Minden óra</item>
         <item>Minden nap</item>
         <item>Minden héten</item>
         <item>Minden hónapban</item>
         <item>Minden évben</item>
         <item>A hét valamelyik napján</item>
+        <item>Fejlett</item>
     </string-array>
 </resources>

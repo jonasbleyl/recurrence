@@ -4,4 +4,32 @@
         <item quantity="other">%d minutos</item>
         <item quantity="one">%d minuto</item>
     </plurals>
+    <plurals name="time_second">
+        <item quantity="other">%d segundos</item>
+        <item quantity="one">%d segundo</item>
+    </plurals>
+    <plurals name="time_hour">
+        <item quantity="other">%d horas</item>
+        <item quantity="one">%d hora</item>
+    </plurals>
+    <plurals name="hour">
+        <item quantity="other">horas</item>
+        <item quantity="one">hora</item>
+    </plurals>
+    <plurals name="day">
+        <item quantity="other">días</item>
+        <item quantity="one">día</item>
+    </plurals>
+    <plurals name="week">
+        <item quantity="other">semanas</item>
+        <item quantity="one">semana</item>
+    </plurals>
+    <plurals name="month">
+        <item quantity="other">meses</item>
+        <item quantity="one">mes</item>
+    </plurals>
+    <plurals name="year">
+        <item quantity="other">años</item>
+        <item quantity="one">año</item>
+    </plurals>
 </resources>

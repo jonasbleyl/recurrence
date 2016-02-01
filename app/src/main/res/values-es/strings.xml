@@ -1,7 +1,4 @@
 <resources>
-    <string name="create_notification">Crear Notificación</string>
-    <string name="view_notification">Ver Notificación</string>
-    <string name="edit_notification">Modificar Notificación</string>
     <string name="about">Acerca de</string>
     <string name="settings">Ajustes</string>
 
@@ -17,6 +14,9 @@
     <string name="minutes">minutos</string>
     <string name="mark_as_done">Marcar como completo</string>
     <string name="mark_as_done_detail">Añadir un \"Marcar como completo\" acción a la notificación</string>
+    <string name="nagging_reminder">Recordatorio persistente</string>
+    <string name="nagging_detail">Continuamente notificarle de la notificación actual hasta que se descarta</string>
+    <string name="nagging_interval">Intervalo de recordatorio persistente</string>
 
     <string name="action_settings">Ajustes</string>
     <string name="action_delete">Borrar</string>
@@ -48,18 +48,10 @@
 
     <string name="select_colour">Seleccione un color</string>
     <string name="default_colour">Color defecto</string>
-    <string-array name="colour_names_array">
-        <item>Color defecto</item>
-        <item>Azul</item>
-        <item>Morado</item>
-        <item>Rojo</item>
-        <item>Verde</item>
-        <item>Naranja</item>
-        <item>Amarillo</item>
-        <item>Rosa</item>
-    </string-array>
 
     <string name="repeats_on">Repite en:</string>
+    <string name="repeat_every">Repetir cada</string>
+    <string name="repeats_every">Repite cada: %1$d %2$s</string>
 
     <string name="no_active">Ninguna notificación activa</string>
     <string name="no_inactive">Ninguna notificación inactiva</string>
@@ -68,6 +60,8 @@
     <string name="toast_higher_number">Número que debe repetirse tiene que ser mayor</string>
     <string name="toast_title_empty">El título no puede estar vacío</string>
     <string name="toast_mark_as_done">Siguiente recordatorio marcado como completo.</string>
+
+    <string name="add_reminder">Añadir recordatorio</string>
 
     <string name="libraries">Bibliotecas</string>
     <string name="rate_app">Calificar aplicación</string>
@@ -81,10 +75,12 @@
 
     <string-array name="repeat_array">
         <item>No se repita</item>
+        <item>Cada hora</item>
         <item>Cada día</item>
         <item>Cada semana</item>
         <item>Cada mes</item>
         <item>Cada año</item>
         <item>Días específicos de la semana</item>
+        <item>Avanzado</item>
     </string-array>
 </resources>

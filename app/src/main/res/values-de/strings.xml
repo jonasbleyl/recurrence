@@ -1,7 +1,4 @@
 <resources>
-    <string name="create_notification">Benachrichtigung erstellen</string>
-    <string name="view_notification">Benachrichtigung ansehen</string>
-    <string name="edit_notification">Benachrichtigung bearbeiten</string>
     <string name="about">Über</string>
     <string name="settings">Einstellungen</string>
 
@@ -48,18 +45,10 @@
 
     <string name="select_colour">Farbe auswählen</string>
     <string name="default_colour">Standardfarbe</string>
-    <string-array name="colour_names_array">
-        <item>Standardfarbe</item>
-        <item>Blau</item>
-        <item>Lila</item>
-        <item>Rot</item>
-        <item>Grün</item>
-        <item>Orange</item>
-        <item>Gelb</item>
-        <item>Pink</item>
-    </string-array>
 
     <string name="repeats_on">Wiederholt sich am:</string>
+    <string name="repeat_every">Wiederholen jede</string>
+    <string name="repeats_every">Wiederholt sich alle: %1$d %2$s</string>
 
     <string name="no_active">Keine aktiven Benachrichtigungen</string>
     <string name="no_inactive">Keine inaktiven Benachrichtigungen</string>
@@ -68,6 +57,8 @@
     <string name="toast_higher_number">Anzahl der Wiederholungen muss höher sein</string>
     <string name="toast_title_empty">Titel darf nicht leer sein</string>
     <string name="toast_mark_as_done">Nächste Erinnerung als erledigt markiert</string>
+
+    <string name="add_reminder">Erinnerung hinzufügen</string>
 
     <string name="libraries">Bibliotheken</string>
     <string name="rate_app">App bewerten</string>
@@ -81,10 +72,12 @@
 
     <string-array name="repeat_array">
         <item>Keine Wiederholung</item>
+        <item>Jede Stunde</item>
         <item>Jeden Tag</item>
         <item>Jede Woche</item>
         <item>Jeden Monat</item>
         <item>Jedes Jahr</item>
         <item>Bestimmte Tage der Woche</item>
+        <item>Erweiterte</item>
     </string-array>
 </resources>

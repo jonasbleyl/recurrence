@@ -1,7 +1,4 @@
 <resources>
-    <string name="create_notification">Utwórz powiadomienie</string>
-    <string name="view_notification">Wyświetl powiadomienie</string>
-    <string name="edit_notification">Edytuj powiadomienie</string>
     <string name="about">O aplikacji</string>
     <string name="settings">Ustawienia</string>
 
@@ -45,18 +42,10 @@
 
     <string name="select_colour">Wybierz kolor</string>
     <string name="default_colour">Domyślny kolor</string>
-    <string-array name="colour_names_array">
-        <item>Domyślny kolor</item>
-        <item>Niebieski</item>
-        <item>Fioletowy</item>
-        <item>Czerwony</item>
-        <item>Zielony</item>
-        <item>Pomarańczowy</item>
-        <item>Żółty</item>
-        <item>Różowy</item>
-    </string-array>
 
     <string name="repeats_on">Powtarzaj:</string>
+    <string name="repeat_every">Cyklicznie co</string>
+    <string name="repeats_every">Powtarza co: %1$d %2$s</string>
 
     <string name="no_active">Brak aktywnych powiadomień</string>
     <string name="no_inactive">Brak nieaktywnych powiadomień</string>
@@ -64,6 +53,8 @@
     <string name="toast_past_date">Nie można ustawić początkowej daty w przeszłości</string>
     <string name="toast_higher_number">Ilość powtórzeń musi być większa</string>
     <string name="toast_title_empty">Tytuł nie może być pusty</string>
+
+    <string name="add_reminder">Dodaj przypomnienie</string>
 
     <string name="libraries">Biblioteki</string>
     <string name="rate_app">Oceń aplikację</string>
@@ -77,10 +68,12 @@
 
     <string-array name="repeat_array">
         <item>Nie powtarzaj</item>
+        <item>Co godzinę</item>
         <item>Codziennie</item>
         <item>Co tydzień</item>
         <item>Co miesiąc</item>
         <item>Co roku</item>
         <item>Konkretne dni tygodnia</item>
+        <item>Zaawansowane</item>
     </string-array>
 </resources>

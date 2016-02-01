@@ -1,7 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <plurals name="time_minute">
-        <item quantity="other">%d minuten</item>
-        <item quantity="one">%d minute</item>
+        <item quantity="other">%d Minuten</item>
+        <item quantity="one">%d Minute</item>
+    </plurals>
+    <plurals name="time_second">
+        <item quantity="other">%d Sekunden</item>
+        <item quantity="one">%d Sekunde</item>
+    </plurals>
+    <plurals name="time_hour">
+        <item quantity="other">%d Stunden</item>
+        <item quantity="one">%d Stunde</item>
+    </plurals>
+    <plurals name="hour">
+        <item quantity="other">Stunden</item>
+        <item quantity="one">Stunde</item>
+    </plurals>
+    <plurals name="day">
+        <item quantity="other">Tage</item>
+        <item quantity="one">Tag</item>
+    </plurals>
+    <plurals name="week">
+        <item quantity="other">Wochen</item>
+        <item quantity="one">Woche</item>
+    </plurals>
+    <plurals name="month">
+        <item quantity="other">Monate</item>
+        <item quantity="one">Monat</item>
+    </plurals>
+    <plurals name="year">
+        <item quantity="other">Jahre</item>
+        <item quantity="one">Jahr</item>
     </plurals>
 </resources>

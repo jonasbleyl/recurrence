@@ -1,7 +1,4 @@
 <resources>
-    <string name="create_notification">创建通知</string>
-    <string name="view_notification">查看通知</string>
-    <string name="edit_notification">编辑通知</string>
     <string name="about">关于</string>
     <string name="settings">设置</string>
 
@@ -44,16 +41,6 @@
 
     <string name="select_colour">选择一个颜色</string>
     <string name="default_colour">默认颜色</string>
-    <string-array name="colour_names_array">
-        <item>默认颜色</item>
-        <item>蓝色</item>
-        <item>紫色</item>
-        <item>红色</item>
-        <item>绿色</item>
-        <item>橙色</item>
-        <item>黄</item>
-        <item>粉红色</item>
-    </string-array>
 
     <string name="repeats_on">重复</string>
 
@@ -76,10 +63,12 @@
 
     <string-array name="repeat_array">
         <item>不重复</item>
+        <item>每隔一小时</item>
         <item>每天</item>
         <item>每周</item>
         <item>每月</item>
         <item>每年</item>
         <item>每周的特定天</item>
+        <item>高级</item>
     </string-array>
 </resources>

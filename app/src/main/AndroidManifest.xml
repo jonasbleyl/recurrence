@@ -28,7 +28,6 @@
 
         <activity
             android:name=".activities.ViewActivity"
-            android:label="@string/view_notification"
             android:theme="@style/AppThemeLight"/>
 
         <activity

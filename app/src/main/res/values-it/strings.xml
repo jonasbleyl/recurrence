@@ -1,7 +1,4 @@
 <resources>
-    <string name="create_notification">Imposta promemoria</string>
-    <string name="view_notification">Mostra promemoria</string>
-    <string name="edit_notification">Modifica promemoria</string>
     <string name="about">Info</string>
     <string name="settings">Impostazioni</string>
 
@@ -11,10 +8,12 @@
     <string name="checkbox_LED">LED</string>
     <string name="checkbox_ongoing">Notifica persistente</string>
     <string name="snooze">Snooze</string>
-    <string name="snooze_detail">Aggiungi la funzione "snooze" al promemoria</string>
-    <string name="snooze_length">Imposta "snooze"</string>
+    <string name="snooze_detail">Aggiungi la funzione \"snooze\" al promemoria</string>
+    <string name="snooze_length">Imposta \"snooze\"</string>
     <string name="minute">minuto</string>
     <string name="minutes">minuti</string>
+    <string name="mark_as_done">Segna come già fatto</string>
+    <string name="mark_as_done_detail">Aggiungi un \"Segna come fatto\" azione alla notifica</string>
 
     <string name="action_settings">Impostazioni</string>
     <string name="action_delete">Cancella</string>
@@ -45,25 +44,20 @@
 
     <string name="select_colour">Seleziona un colore</string>
     <string name="default_colour">Colore di default</string>
-    <string-array name="colour_names_array">
-        <item>Colore di default</item>
-        <item>Blu</item>
-        <item>Viola</item>
-        <item>Rosso</item>
-        <item>Verde</item>
-        <item>Arancio</item>
-        <item>Giallo</item>
-        <item>Rosa</item>
-    </string-array>
 
     <string name="repeats_on">Ripeti il:</string>
+    <string name="repeat_every">Ripetere ogni</string>
+    <string name="repeats_every">Si ripete ogni: %1$d %2$s</string>
 
     <string name="no_active">Nessun promemoria definito</string>
     <string name="no_inactive">Nessun promemoria </string>
 
     <string name="toast_past_date">La data impostata è antecedente a quella corrente!</string>
     <string name="toast_higher_number">Il numero di ripetizioni deve essere maggiore!</string>
-    <string name="toast_title_empty">Il campo "Oggetto" non può essere vuoto!</string>
+    <string name="toast_title_empty">Il campo \"Oggetto\" non può essere vuoto!</string>
+    <string name="toast_mark_as_done">Contrassegnato prossimo promemoria come fare</string>
+
+    <string name="add_reminder">Aggiungi promemoria</string>
 
     <string name="libraries">Librerie</string>
     <string name="rate_app">Valuta l\'app</string>
@@ -77,10 +71,12 @@
 
     <string-array name="repeat_array">
         <item>Nessuna ripetizione</item>
+        <item>Ogni ora</item>
         <item>Ogni giorno</item>
         <item>Ogni settimana</item>
         <item>Ogni mese</item>
         <item>Ogni anno</item>
         <item>Specifica i giorni della settimana</item>
+        <item>Avanzato</item>
     </string-array>
 </resources>

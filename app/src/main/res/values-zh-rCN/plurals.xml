@@ -1,6 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <plurals name="time_minute">
-        <item quantity="other">%d 分钟后</item>
+        <item quantity="other">%d分钟后</item>
+    </plurals>
+    <plurals name="time_second">
+        <item quantity="other">%d秒。</item>
+    </plurals>
+    <plurals name="time_hour">
+        <item quantity="other">%d小时。</item>
+    </plurals>
+    <plurals name="hour">
+        <item quantity="other">小时。</item>
+    </plurals>
+    <plurals name="day">
+        <item quantity="other">天。</item>
+    </plurals>
+    <plurals name="week">
+        <item quantity="other">周。</item>
+    </plurals>
+    <plurals name="month">
+        <item quantity="other">个月。</item>
+    </plurals>
+    <plurals name="year">
+        <item quantity="other">年。</item>
     </plurals>
 </resources>
