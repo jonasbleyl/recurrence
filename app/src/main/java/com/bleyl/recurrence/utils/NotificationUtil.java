@@ -44,8 +44,7 @@ public class NotificationUtil {
                 .setContentTitle(reminder.getTitle())
                 .setContentText(reminder.getContent())
                 .setTicker(reminder.getTitle())
-                .setContentIntent(pending)
-                .setAutoCancel(true);
+                .setContentIntent(pending);
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
 

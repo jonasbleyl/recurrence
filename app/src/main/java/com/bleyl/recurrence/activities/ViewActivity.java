@@ -95,7 +95,7 @@ public class ViewActivity extends AppCompatActivity {
         if (intent.getBooleanExtra("NOTIFICATION_DISMISS", false)) {
             Intent dismissIntent = new Intent().setClass(this, DismissReceiver.class);
             dismissIntent.putExtra("NOTIFICATION_ID", mReminderId);
-            sendBroadcast(intent);
+            sendBroadcast(dismissIntent);
         }
 
         // Check if notification has been deleted
