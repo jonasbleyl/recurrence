@@ -19,8 +19,8 @@ public class PreferenceFragment extends android.preference.PreferenceFragment im
         SharedPreferences sharedPreferences = getPreferenceScreen().getSharedPreferences();
 
         // Set nagging preference summary
-        int nagMinutes = sharedPreferences.getInt("nagMinutes", getActivity().getResources().getInteger(R.integer.default_nag_minutes));
-        int nagSeconds = sharedPreferences.getInt("nagSeconds", getActivity().getResources().getInteger(R.integer.default_nag_seconds));
+        int nagMinutes = sharedPreferences.getInt("nagMinutes", getResources().getInteger(R.integer.default_nag_minutes));
+        int nagSeconds = sharedPreferences.getInt("nagSeconds", getResources().getInteger(R.integer.default_nag_seconds));
         Preference nagPreference = findPreference("nagInterval");
         String nagMinutesText = String.format(getActivity().getResources().getQuantityString(R.plurals.time_minute, nagMinutes), nagMinutes);
         String nagSecondsText = String.format(getActivity().getResources().getQuantityString(R.plurals.time_second, nagSeconds), nagSeconds);

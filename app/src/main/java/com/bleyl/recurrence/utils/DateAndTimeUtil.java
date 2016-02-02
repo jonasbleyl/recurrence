@@ -58,7 +58,7 @@ public class DateAndTimeUtil {
     public static String getAppropriateDateFormat(Context context, Calendar calendar) {
         if (isThisYear(calendar)) {
             if (isThisMonth(calendar) && isThisDayOfMonth(calendar)) {
-                return context.getResources().getString(R.string.date_today);
+                return context.getString(R.string.date_today);
             } else {
                 return READABLE_DAY_MONTH_FORMAT.format(calendar.getTime());
             }

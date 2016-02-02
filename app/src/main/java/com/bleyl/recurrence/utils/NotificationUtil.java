@@ -79,10 +79,10 @@ public class NotificationUtil {
             Intent intent = new Intent(context, DismissReceiver.class);
             intent.putExtra("NOTIFICATION_ID", reminder.getId());
             PendingIntent pendingIntent = PendingIntent.getBroadcast(context, reminder.getId(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
-            builder.addAction(R.drawable.ic_done_white_24dp, context.getResources().getString(R.string.mark_as_done), pendingIntent);
+            builder.addAction(R.drawable.ic_done_white_24dp, context.getString(R.string.mark_as_done), pendingIntent);
         }
         if (sharedPreferences.getBoolean("checkBoxSnooze", false)) {
-            builder.addAction(R.drawable.ic_snooze_white_24dp, context.getResources().getString(R.string.snooze), pendingSnooze);
+            builder.addAction(R.drawable.ic_snooze_white_24dp, context.getString(R.string.snooze), pendingSnooze);
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             builder.setPriority(Notification.PRIORITY_HIGH);

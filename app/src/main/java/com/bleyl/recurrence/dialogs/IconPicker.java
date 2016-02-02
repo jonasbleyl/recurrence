@@ -47,7 +47,7 @@ public class IconPicker extends DialogFragment {
         database.close();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.Dialog);
-        builder.setTitle(getResources().getString(R.string.select_icon));
+        builder.setTitle(R.string.select_icon);
         builder.setView(dialogView);
         return builder.create();
     }

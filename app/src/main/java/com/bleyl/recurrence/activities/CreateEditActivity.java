@@ -94,8 +94,8 @@ public class CreateEditActivity extends AppCompatActivity implements ColorChoose
         if (getSupportActionBar() != null) getSupportActionBar().setTitle(null);
 
         mCalendar = Calendar.getInstance();
-        mIcon = getResources().getString(R.string.default_icon_value);
-        mColour = getResources().getString(R.string.default_colour_value);
+        mIcon = getString(R.string.default_icon_value);
+        mColour = getString(R.string.default_colour_value);
         mId = getIntent().getIntExtra("NOTIFICATION_ID", 0);
 
         // Check whether to edit or create a new notification
@@ -124,7 +124,7 @@ public class CreateEditActivity extends AppCompatActivity implements ColorChoose
 
         mCalendar = DateAndTimeUtil.parseDateAndTime(reminder.getDateAndTime());
 
-        mShowText.setText(String.format(getResources().getString(R.string.times_shown_edit), reminder.getNumberShown()));
+        mShowText.setText(getString(R.string.times_shown_edit, reminder.getNumberShown()));
         mTitleEditText.setText(reminder.getTitle());
         mContentEditText.setText(reminder.getContent());
         mDateText.setText(DateAndTimeUtil.toStringReadableDate(mCalendar));
@@ -134,9 +134,9 @@ public class CreateEditActivity extends AppCompatActivity implements ColorChoose
         mImageColourSelect.setColorFilter(Color.parseColor(mColour));
         mTimesText.setVisibility(View.VISIBLE);
 
-        if (!getResources().getString(R.string.default_icon).equals(mIcon)) {
+        if (!getString(R.string.default_icon).equals(mIcon)) {
             mImageIconSelect.setImageResource(getResources().getIdentifier(reminder.getIcon(), "drawable", getPackageName()));
-            mIconText.setText(getResources().getString(R.string.custom_icon));
+            mIconText.setText(R.string.custom_icon);
         }
 
         if (reminder.getRepeatType() != 0) {
@@ -323,12 +323,12 @@ public class CreateEditActivity extends AppCompatActivity implements ColorChoose
         mImageWarningDate.setVisibility(View.GONE);
         Calendar nowCalendar = Calendar.getInstance();
 
-        if (mTimeText.getText().equals(getResources().getString(R.string.time_now))) {
+        if (mTimeText.getText().equals(getString(R.string.time_now))) {
             mCalendar.set(Calendar.HOUR_OF_DAY, nowCalendar.get(Calendar.HOUR_OF_DAY));
             mCalendar.set(Calendar.MINUTE, nowCalendar.get(Calendar.MINUTE));
         }
 
-        if (mDateText.getText().equals(getResources().getString(R.string.date_today))) {
+        if (mDateText.getText().equals(getString(R.string.date_today))) {
             mCalendar.set(Calendar.YEAR, nowCalendar.get(Calendar.YEAR));
             mCalendar.set(Calendar.MONTH, nowCalendar.get(Calendar.MONTH));
             mCalendar.set(Calendar.DAY_OF_MONTH, nowCalendar.get(Calendar.DAY_OF_MONTH));
@@ -346,18 +346,18 @@ public class CreateEditActivity extends AppCompatActivity implements ColorChoose
 
         // Check if selected date is before today's date
         if (DateAndTimeUtil.toLongDateAndTime(mCalendar) < DateAndTimeUtil.toLongDateAndTime(nowCalendar)) {
-            Snackbar.make(mCoordinatorLayout, getResources().getString(R.string.toast_past_date), Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(mCoordinatorLayout, R.string.toast_past_date, Snackbar.LENGTH_SHORT).show();
             mImageWarningTime.setVisibility(View.VISIBLE);
             mImageWarningDate.setVisibility(View.VISIBLE);
 
             // Check if title is empty
         } else if (mTitleEditText.getText().toString().trim().isEmpty()) {
-            Snackbar.make(mCoordinatorLayout, getResources().getString(R.string.toast_title_empty), Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(mCoordinatorLayout, R.string.toast_title_empty, Snackbar.LENGTH_SHORT).show();
             AnimationUtil.shakeView(mTitleEditText, this);
 
             // Check if times to show notification is too low
         } else if (mTimesToShow <= mTimesShown && !mForeverSwitch.isChecked()) {
-            Snackbar.make(mCoordinatorLayout, getResources().getString(R.string.toast_higher_number), Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(mCoordinatorLayout, R.string.toast_higher_number, Snackbar.LENGTH_SHORT).show();
             mImageWarningShow.setVisibility(View.VISIBLE);
         } else {
             saveNotification();

@@ -9,7 +9,7 @@ public class TextFormatUtil {
     public static String formatDaysOfWeekText(Context context, boolean[] daysOfWeek) {
         final String[] shortWeekDays = DateAndTimeUtil.getShortWeekDays();
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(context.getResources().getString(R.string.repeats_on));
+        stringBuilder.append(context.getString(R.string.repeats_on));
         stringBuilder.append(" ");
         for (int i = 0; i < daysOfWeek.length; i++) {
             if (daysOfWeek[i]) {
@@ -30,6 +30,6 @@ public class TextFormatUtil {
             case 4: typeText = context.getResources().getQuantityString(R.plurals.month, interval); break;
             case 5: typeText = context.getResources().getQuantityString(R.plurals.year, interval); break;
         }
-        return String.format(context.getResources().getString(R.string.repeats_every), interval, typeText);
+        return context.getString(R.string.repeats_every, interval, typeText);
     }
 }

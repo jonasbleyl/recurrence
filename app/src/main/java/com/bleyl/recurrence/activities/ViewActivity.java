@@ -130,9 +130,9 @@ public class ViewActivity extends AppCompatActivity {
         }
 
         if (Boolean.parseBoolean(mReminder.getForeverState())) {
-            mShownText.setText(getResources().getString(R.string.forever));
+            mShownText.setText(R.string.forever);
         } else {
-            mShownText.setText(getResources().getString(R.string.times_shown, mReminder.getNumberShown(), mReminder.getNumberToShow()));
+            mShownText.setText(getString(R.string.times_shown, mReminder.getNumberShown(), mReminder.getNumberToShow()));
         }
 
         // Hide "Mark as done" action if reminder is inactive
@@ -177,13 +177,13 @@ public class ViewActivity extends AppCompatActivity {
 
     public void confirmDelete() {
         new AlertDialog.Builder(this, R.style.Dialog)
-                .setMessage(getResources().getString(R.string.delete_confirmation))
-                .setPositiveButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
+                .setMessage(R.string.delete_confirmation)
+                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         actionDelete();
                     }
                 })
-                .setNegativeButton(getResources().getString(R.string.no), null).show();
+                .setNegativeButton(R.string.no, null).show();
     }
 
     public void actionShowNow() {
@@ -194,9 +194,9 @@ public class ViewActivity extends AppCompatActivity {
         DatabaseHelper database = DatabaseHelper.getInstance(this);
         database.deleteNotification(mReminder);
         database.close();
-        Intent alarmIntent = new Intent(getApplicationContext(), AlarmReceiver.class);
+        Intent alarmIntent = new Intent(this, AlarmReceiver.class);
         AlarmUtil.cancelAlarm(this, alarmIntent, mReminder.getId());
-        Intent snoozeIntent = new Intent(getApplicationContext(), SnoozeReceiver.class);
+        Intent snoozeIntent = new Intent(this, SnoozeReceiver.class);
         AlarmUtil.cancelAlarm(this, snoozeIntent, mReminder.getId());
         finish();
     }
@@ -223,7 +223,7 @@ public class ViewActivity extends AppCompatActivity {
         database.addNotification(mReminder);
         assignReminderValues();
         database.close();
-        Snackbar.make(mCoordinatorLayout, getResources().getString(R.string.toast_mark_as_done), Snackbar.LENGTH_SHORT).show();
+        Snackbar.make(mCoordinatorLayout, R.string.toast_mark_as_done, Snackbar.LENGTH_SHORT).show();
     }
 
     public void returnHome() {

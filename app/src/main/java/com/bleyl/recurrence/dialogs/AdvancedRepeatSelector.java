@@ -54,7 +54,7 @@ public class AdvancedRepeatSelector extends DialogFragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 String repeatType = repeatPicker.getDisplayedValues()[repeatPicker.getValue()];
-                String text = String.format(getResources().getString(R.string.repeats_every), numberPicker.getValue(), repeatType);
+                String text = getString(R.string.repeats_every, numberPicker.getValue(), repeatType);
                 mListener.onAdvancedRepeatSelection(repeatPicker.getValue() + 1, numberPicker.getValue(), text);
             }
         });

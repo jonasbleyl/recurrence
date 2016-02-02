@@ -52,7 +52,7 @@ public class TabFragment extends Fragment {
 
         mRemindersType = (RemindersType) this.getArguments().get("TYPE");
         if (mRemindersType == RemindersType.INACTIVE) {
-            mEmptyText.setText(getResources().getString(R.string.no_inactive));
+            mEmptyText.setText(R.string.no_inactive);
         }
 
         mReminderList = getListData();

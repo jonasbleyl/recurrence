@@ -67,8 +67,8 @@ public class IconsAdapter extends RecyclerView.Adapter<IconsAdapter.ViewHolder>{
                 database.close();
 
                 String name;
-                if (!iconName.equals(mContext.getResources().getString(R.string.default_icon_value))) {
-                    name = mContext.getResources().getString(R.string.custom_icon);
+                if (!iconName.equals(mContext.getString(R.string.default_icon_value))) {
+                    name = mContext.getString(R.string.custom_icon);
                 } else {
                     name = mContext.getResources().getString(R.string.default_icon);
                 }
