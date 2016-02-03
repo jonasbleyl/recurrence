@@ -69,6 +69,13 @@ public class SnoozeDialogActivity extends AppCompatActivity {
             }
         });
 
+        builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                finish();
+            }
+        });
+
         builder.setView(view).create().show();
     }
 
