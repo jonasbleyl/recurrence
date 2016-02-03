@@ -1,4 +1,5 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
@@ -18,13 +19,31 @@
         android:scrollingCache="false"
         android:divider="@android:color/transparent"/>
 
-    <TextView
+    <LinearLayout
         android:id="@+id/empty_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:textSize="16sp"
         android:visibility="gone"
-        android:text="@string/no_active" />
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/empty_icon"
+            android:src="@drawable/ic_notifications_black_empty"
+            android:alpha="0.1"
+            android:paddingBottom="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/empty_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="17sp"
+            android:paddingBottom="50dp"
+            android:textColor="@color/emptyColour"
+            android:text="@string/no_active" />
+
+    </LinearLayout>
 
 </LinearLayout>

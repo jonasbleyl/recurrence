@@ -13,6 +13,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bleyl.recurrence.database.DatabaseHelper;
@@ -29,7 +31,9 @@ import butterknife.ButterKnife;
 public class TabFragment extends Fragment {
 
     @Bind(R.id.recycler_view) RecyclerView mRecyclerView;
-    @Bind(R.id.empty_view) TextView mEmptyText;
+    @Bind(R.id.empty_text) TextView mEmptyText;
+    @Bind(R.id.empty_view) LinearLayout mLinearLayout;
+    @Bind(R.id.empty_icon) ImageView mImageView;
 
     private Activity mActivity;
     private ReminderAdapter mReminderAdapter;
@@ -53,6 +57,7 @@ public class TabFragment extends Fragment {
         mRemindersType = (RemindersType) this.getArguments().get("TYPE");
         if (mRemindersType == RemindersType.INACTIVE) {
             mEmptyText.setText(R.string.no_inactive);
+            mImageView.setImageResource(R.drawable.ic_notifications_off_black_empty);
         }
 
         mReminderList = getListData();
@@ -61,7 +66,7 @@ public class TabFragment extends Fragment {
 
         if (mReminderAdapter.getItemCount() == 0) {
             mRecyclerView.setVisibility(View.GONE);
-            mEmptyText.setVisibility(View.VISIBLE);
+            mLinearLayout.setVisibility(View.VISIBLE);
         }
     }
 
@@ -79,10 +84,10 @@ public class TabFragment extends Fragment {
 
         if (mReminderAdapter.getItemCount() == 0) {
             mRecyclerView.setVisibility(View.GONE);
-            mEmptyText.setVisibility(View.VISIBLE);
+            mLinearLayout.setVisibility(View.VISIBLE);
         } else {
             mRecyclerView.setVisibility(View.VISIBLE);
-            mEmptyText.setVisibility(View.GONE);
+            mLinearLayout.setVisibility(View.GONE);
         }
     }
 
