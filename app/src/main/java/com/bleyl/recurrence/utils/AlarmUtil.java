@@ -16,6 +16,7 @@ public class AlarmUtil {
 
     public static void setAlarm(Context context, Intent intent, int notificationId, Calendar calendar) {
         intent.putExtra("NOTIFICATION_ID", notificationId);
+        calendar.set(Calendar.SECOND, 0);
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, notificationId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
@@ -38,7 +39,6 @@ public class AlarmUtil {
         Calendar timeCalendar = DateAndTimeUtil.parseDateAndTime(reminder.getDateAndTime());
         calendar.set(Calendar.HOUR_OF_DAY, timeCalendar.get(Calendar.HOUR_OF_DAY));
         calendar.set(Calendar.MINUTE, timeCalendar.get(Calendar.MINUTE));
-        calendar.set(Calendar.SECOND, 0);
 
         switch (reminder.getRepeatType()) {
             case 1: calendar.add(Calendar.HOUR, reminder.getInterval()); break;
