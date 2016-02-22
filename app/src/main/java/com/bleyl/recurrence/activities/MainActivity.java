@@ -16,15 +16,15 @@ import android.view.Window;
 
 import com.astuetz.PagerSlidingTabStrip;
 import com.bleyl.recurrence.R;
+import com.bleyl.recurrence.adapters.ReminderAdapter;
 import com.bleyl.recurrence.adapters.ViewPageAdapter;
-import com.bleyl.recurrence.interfaces.RecyclerCallback;
 import com.bleyl.recurrence.receivers.BootReceiver;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MainActivity extends AppCompatActivity implements RecyclerCallback {
+public class MainActivity extends AppCompatActivity implements ReminderAdapter.RecyclerListener {
 
     @Bind(R.id.tabs) PagerSlidingTabStrip mPagerSlidingTabStrip;
     @Bind(R.id.toolbar) Toolbar mToolbar;
