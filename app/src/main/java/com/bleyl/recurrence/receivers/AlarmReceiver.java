@@ -27,12 +27,8 @@ public class AlarmReceiver extends BroadcastReceiver {
         if (reminder.getNumberToShow() > reminder.getNumberShown() || Boolean.parseBoolean(reminder.getForeverState())) {
             AlarmUtil.setNextAlarm(context, reminder, database, Calendar.getInstance());
         }
-        updateLists(context);
+        Intent updateIntent = new Intent("BROADCAST_REFRESH");
+        LocalBroadcastManager.getInstance(context).sendBroadcast(updateIntent);
         database.close();
-    }
-
-    public void updateLists(Context context) {
-        Intent intent = new Intent("BROADCAST_REFRESH");
-        LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
     }
 }
