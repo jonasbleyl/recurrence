@@ -9,7 +9,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.NumberPicker;
-import android.widget.Toast;
 
 import com.bleyl.recurrence.R;
 import com.bleyl.recurrence.receivers.SnoozeReceiver;

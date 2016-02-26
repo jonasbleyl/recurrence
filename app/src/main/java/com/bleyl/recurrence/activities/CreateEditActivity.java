@@ -38,6 +38,7 @@ import com.bleyl.recurrence.receivers.AlarmReceiver;
 import com.bleyl.recurrence.utils.AlarmUtil;
 import com.bleyl.recurrence.utils.AnimationUtil;
 import com.bleyl.recurrence.utils.DateAndTimeUtil;
+import com.bleyl.recurrence.utils.ReminderConstants;
 import com.bleyl.recurrence.utils.TextFormatUtil;
 
 import java.util.Calendar;
@@ -78,7 +79,7 @@ public class CreateEditActivity extends AppCompatActivity implements ColorChoose
     private boolean[] mDaysOfWeek = new boolean[7];
     private int mTimesShown = 0;
     private int mTimesToShow = 1;
-    private int mRepeatType = 0;
+    private int mRepeatType;
     private int mId;
     private int mInterval = 1;
 
@@ -96,6 +97,7 @@ public class CreateEditActivity extends AppCompatActivity implements ColorChoose
         mCalendar = Calendar.getInstance();
         mIcon = getString(R.string.default_icon_value);
         mColour = getString(R.string.default_colour_value);
+        mRepeatType = ReminderConstants.DOES_NOT_REPEAT;
         mId = getIntent().getIntExtra("NOTIFICATION_ID", 0);
 
         // Check whether to edit or create a new notification
@@ -139,7 +141,7 @@ public class CreateEditActivity extends AppCompatActivity implements ColorChoose
             mIconText.setText(R.string.custom_icon);
         }
 
-        if (reminder.getRepeatType() != 0) {
+        if (reminder.getRepeatType() != ReminderConstants.DOES_NOT_REPEAT) {
             if (reminder.getInterval() > 1) {
                 mRepeatText.setText(TextFormatUtil.formatAdvancedRepeatText(this, mRepeatType, mInterval));
             } else {
@@ -148,7 +150,7 @@ public class CreateEditActivity extends AppCompatActivity implements ColorChoose
             showFrequency(true);
         }
 
-        if (reminder.getRepeatType() == 6) {
+        if (reminder.getRepeatType() == ReminderConstants.SPECIFIC_DAYS) {
             mDaysOfWeek = reminder.getDaysOfWeek();
             mRepeatText.setText(TextFormatUtil.formatDaysOfWeekText(this, mDaysOfWeek));
         }
@@ -247,7 +249,7 @@ public class CreateEditActivity extends AppCompatActivity implements ColorChoose
         mInterval = 1;
         mRepeatType = which;
         mRepeatText.setText(repeatText);
-        if (which == 0) {
+        if (which == ReminderConstants.DOES_NOT_REPEAT) {
             showFrequency(false);
         } else {
             showFrequency(true);
@@ -258,7 +260,7 @@ public class CreateEditActivity extends AppCompatActivity implements ColorChoose
     public void onDaysOfWeekSelected(boolean[] days) {
         mRepeatText.setText(TextFormatUtil.formatDaysOfWeekText(this, days));
         mDaysOfWeek = days;
-        mRepeatType = 6;
+        mRepeatType = ReminderConstants.SPECIFIC_DAYS;
         showFrequency(true);
     }
 
@@ -287,13 +289,14 @@ public class CreateEditActivity extends AppCompatActivity implements ColorChoose
 
         database.addNotification(reminder);
 
-        if (mRepeatType == 6) {
+        if (mRepeatType == ReminderConstants.SPECIFIC_DAYS) {
             reminder.setDaysOfWeek(mDaysOfWeek);
             database.addDaysOfWeek(reminder);
         }
 
         database.close();
         Intent alarmIntent = new Intent(this, AlarmReceiver.class);
+        mCalendar.set(Calendar.SECOND, 0);
         AlarmUtil.setAlarm(this, alarmIntent, reminder.getId(), mCalendar);
         finish();
     }
@@ -340,7 +343,7 @@ public class CreateEditActivity extends AppCompatActivity implements ColorChoose
         }
 
         mTimesToShow = Integer.parseInt(mTimesEditText.getText().toString());
-        if (mRepeatType == 0) {
+        if (mRepeatType == ReminderConstants.DOES_NOT_REPEAT) {
             mTimesToShow = mTimesShown + 1;
         }
 

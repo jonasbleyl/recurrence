@@ -18,10 +18,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bleyl.recurrence.database.DatabaseHelper;
-import com.bleyl.recurrence.enums.RemindersType;
 import com.bleyl.recurrence.models.Reminder;
 import com.bleyl.recurrence.R;
 import com.bleyl.recurrence.adapters.ReminderAdapter;
+import com.bleyl.recurrence.utils.ReminderConstants;
 
 import java.util.List;
 
@@ -38,7 +38,7 @@ public class TabFragment extends Fragment {
     private Activity mActivity;
     private ReminderAdapter mReminderAdapter;
     private List<Reminder> mReminderList;
-    private RemindersType mRemindersType;
+    private int mRemindersType;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -54,8 +54,8 @@ public class TabFragment extends Fragment {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(mActivity);
         mRecyclerView.setLayoutManager(layoutManager);
 
-        mRemindersType = (RemindersType) this.getArguments().get("TYPE");
-        if (mRemindersType == RemindersType.INACTIVE) {
+        mRemindersType = this.getArguments().getInt("TYPE");
+        if (mRemindersType == ReminderConstants.INACTIVE) {
             mEmptyText.setText(R.string.no_inactive);
             mImageView.setImageResource(R.drawable.ic_notifications_off_black_empty);
         }

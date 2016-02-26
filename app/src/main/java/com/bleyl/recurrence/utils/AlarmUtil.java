@@ -16,7 +16,6 @@ public class AlarmUtil {
 
     public static void setAlarm(Context context, Intent intent, int notificationId, Calendar calendar) {
         intent.putExtra("NOTIFICATION_ID", notificationId);
-        calendar.set(Calendar.SECOND, 0);
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, notificationId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
@@ -39,14 +38,25 @@ public class AlarmUtil {
         Calendar timeCalendar = DateAndTimeUtil.parseDateAndTime(reminder.getDateAndTime());
         calendar.set(Calendar.HOUR_OF_DAY, timeCalendar.get(Calendar.HOUR_OF_DAY));
         calendar.set(Calendar.MINUTE, timeCalendar.get(Calendar.MINUTE));
+        calendar.set(Calendar.SECOND, 0);
 
         switch (reminder.getRepeatType()) {
-            case 1: calendar.add(Calendar.HOUR, reminder.getInterval()); break;
-            case 2: calendar.add(Calendar.DATE, reminder.getInterval()); break;
-            case 3: calendar.add(Calendar.WEEK_OF_YEAR, reminder.getInterval()); break;
-            case 4: calendar.add(Calendar.MONTH, reminder.getInterval()); break;
-            case 5: calendar.add(Calendar.YEAR, reminder.getInterval()); break;
-            case 6:
+            case ReminderConstants.HOURLY:
+                calendar.add(Calendar.HOUR, reminder.getInterval());
+                break;
+            case ReminderConstants.DAILY:
+                calendar.add(Calendar.DATE, reminder.getInterval());
+                break;
+            case ReminderConstants.WEEKLY:
+                calendar.add(Calendar.WEEK_OF_YEAR, reminder.getInterval());
+                break;
+            case ReminderConstants.MONTHLY:
+                calendar.add(Calendar.MONTH, reminder.getInterval());
+                break;
+            case ReminderConstants.YEARLY:
+                calendar.add(Calendar.YEAR, reminder.getInterval());
+                break;
+            case ReminderConstants.SPECIFIC_DAYS:
                 Calendar weekCalendar = (Calendar) calendar.clone();
                 weekCalendar.add(Calendar.DATE, 1);
                 for (int i = 0; i < 7; i++) {

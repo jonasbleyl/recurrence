@@ -24,11 +24,21 @@ public class TextFormatUtil {
         String typeText;
         switch (repeatType) {
             default:
-            case 1: typeText = context.getResources().getQuantityString(R.plurals.hour, interval); break;
-            case 2: typeText = context.getResources().getQuantityString(R.plurals.day, interval); break;
-            case 3: typeText = context.getResources().getQuantityString(R.plurals.week, interval); break;
-            case 4: typeText = context.getResources().getQuantityString(R.plurals.month, interval); break;
-            case 5: typeText = context.getResources().getQuantityString(R.plurals.year, interval); break;
+            case ReminderConstants.HOURLY:
+                typeText = context.getResources().getQuantityString(R.plurals.hour, interval);
+                break;
+            case ReminderConstants.DAILY:
+                typeText = context.getResources().getQuantityString(R.plurals.day, interval);
+                break;
+            case ReminderConstants.WEEKLY:
+                typeText = context.getResources().getQuantityString(R.plurals.week, interval);
+                break;
+            case ReminderConstants.MONTHLY:
+                typeText = context.getResources().getQuantityString(R.plurals.month, interval);
+                break;
+            case ReminderConstants.YEARLY:
+                typeText = context.getResources().getQuantityString(R.plurals.year, interval);
+                break;
         }
         return context.getString(R.string.repeats_every, interval, typeText);
     }

@@ -9,6 +9,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 
 import com.bleyl.recurrence.R;
+import com.bleyl.recurrence.utils.ReminderConstants;
 
 public class RepeatSelector extends DialogFragment {
 
@@ -30,10 +31,10 @@ public class RepeatSelector extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.Dialog);
         builder.setItems(repeatArray, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-                if (which == 6) {
+                if (which == ReminderConstants.SPECIFIC_DAYS) {
                     DialogFragment daysOfWeekDialog = new DaysOfWeekSelector();
                     daysOfWeekDialog.show(getActivity().getSupportFragmentManager(), "DaysOfWeekSelector");
-                }  else if (which == 7) {
+                }  else if (which == ReminderConstants.ADVANCED) {
                     DialogFragment advancedDialog = new AdvancedRepeatSelector();
                     advancedDialog.show(getActivity().getSupportFragmentManager(), "AdvancedSelector");
                 } else {
@@ -43,5 +44,4 @@ public class RepeatSelector extends DialogFragment {
         });
         return builder.create();
     }
-
 }
