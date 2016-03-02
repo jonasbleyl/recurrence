@@ -23,6 +23,7 @@
     <string name="action_about">About</string>
     <string name="action_show_now">Show now</string>
     <string name="action_mark_as_done">Mark as done</string>
+    <string name="action_share">Share</string>
     <string name="delete_confirmation">Are you sure you want to delete this notification?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
