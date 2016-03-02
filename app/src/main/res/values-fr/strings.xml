@@ -1,0 +1,73 @@
+<resources>
+    <string name="about">À propos</string>
+    <string name="settings">Paramètres</string>
+    <string name="preference_notification_category">Préférences des notifications</string>
+    <string name="checkbox_vibrate">Vibrer</string>
+    <string name="checkbox_sound">Son</string>
+    <string name="checkbox_LED">LED</string>
+    <string name="checkbox_ongoing">Notification persistante</string>
+    <string name="snooze">Snooze</string>
+    <string name="snooze_detail">Ajouter une action de rappel à la notification</string>
+    <string name="snooze_length">Durée du rappel</string>
+    <string name="minute">minute</string>
+    <string name="minutes">minutes</string>
+    <string name="mark_as_done">Marquer comme fait</string>
+    <string name="mark_as_done_detail">Ajouter une action \"Marquer comme fait\" à la notification</string>
+    <string name="action_settings">Paramètres</string>
+    <string name="action_delete">Supprimer</string>
+    <string name="action_edit">Éditer</string>
+    <string name="action_about">À propos</string>
+    <string name="action_show_now">Montrer maintenant</string>
+    <string name="action_mark_as_done">Marquer comme fait</string>
+    <string name="delete_confirmation">Êtes-vous certain de vouloir supprimer cette notification?</string>
+    <string name="yes">Oui</string>
+    <string name="no">Non</string>
+    <string name="ok">OK</string>
+    <string name="title">Titre</string>
+    <string name="save_menu">Enregistrer</string>
+    <string name="time_now">Maintenant</string>
+    <string name="date_today">Aujourd\'hui</string>
+    <string name="times_shown">Montré %1$d fois sur %2$d</string>
+    <string name="times_shown_edit">Montré %1$d fois sur</string>
+    <string name="forever">Toujours</string>
+    <string name="no_repeat">Ne pas répéter</string>
+    <!-- Left empty on purpose -->
+    <string name="times"></string>
+    <string name="repeat_notification">Nombre de répétition: </string>
+    <string name="content_hint">Ajouter du contenu</string>
+    <string name="select_icon">Sélectionner une icône</string>
+    <string name="default_icon">Icône par défaut</string>
+    <string name="custom_icon">Icône personnalisée</string>
+    <string name="select_colour">Sélectionner une couleur</string>
+    <string name="default_colour">Couleur par défaut</string>
+    <string name="repeats_on">Répétition le:</string>
+    <string name="no_active">Pas de notifications actives</string>
+    <string name="no_inactive">Pas de notifications inactives</string>
+    <string name="toast_past_date">Impossible d\'avoir une date initiale dans le passé</string>
+    <string name="toast_higher_number">Le nombre de répétition doit être plus élevé</string>
+    <string name="toast_title_empty">Le titre ne peut pas être vide</string>
+    <string name="toast_mark_as_done">Prochain rappel marqué comme fait</string>
+    <string name="libraries">Bibliothèques</string>
+    <string name="rate_app">Noter l\'application</string>
+    <string name="contact">Contact</string>
+    <string name="version">Version</string>
+    <string name="thanks_to">Remerciements</string>
+    <string name="translator">Traducteur</string>
+    <string name="send_email">Envoyer un email</string>
+    <string-array name="repeat_array">
+        <item>Ne pas répéter</item>
+        <item>Chaque heure</item>
+        <item>Chaque jour</item>
+        <item>Chaque semaine</item>
+        <item>Chaque mois</item>
+        <item>Chaque année</item>
+        <item>Jours de la semaine particulier</item>
+        <item>Avancé</item>
+    </string-array>
+    <string name="add_reminder">Ajouter un rappel</string>
+    <string name="repeat_every">Répéter chaque</string>
+    <string name="repeats_every">Répéter chaque: %1$d %2$s</string>
+    <string name="nagging_interval">Interval de rappel</string>
+    <string name="nagging_detail">Notifier continuellement jusqu\'à la lecture de la notification</string>
+    <string name="nagging_reminder">Ecran de rappel</string>
+</resources>

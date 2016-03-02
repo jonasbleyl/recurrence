@@ -1,12 +1,16 @@
-package com.bleyl.recurrence.ui.activities;
+package com.bleyl.recurrence.activities;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -28,9 +32,13 @@ import com.bleyl.recurrence.database.DatabaseHelper;
 import com.bleyl.recurrence.models.Reminder;
 import com.bleyl.recurrence.R;
 import com.bleyl.recurrence.receivers.AlarmReceiver;
+import com.bleyl.recurrence.receivers.DismissReceiver;
+import com.bleyl.recurrence.receivers.SnoozeReceiver;
 import com.bleyl.recurrence.utils.AlarmUtil;
 import com.bleyl.recurrence.utils.DateAndTimeUtil;
 import com.bleyl.recurrence.utils.NotificationUtil;
+import com.bleyl.recurrence.utils.ReminderConstants;
+import com.bleyl.recurrence.utils.TextFormatUtil;
 
 import java.util.Calendar;
 
@@ -57,20 +65,19 @@ public class ViewActivity extends AppCompatActivity {
 
     private Reminder mReminder;
     private boolean mHideMarkAsDone;
-    private boolean mReminderChanged = false;
+    private boolean mReminderChanged;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view);
         ButterKnife.bind(this);
-
-        // Setup the shared element transitions for this activity
         setupTransitions();
 
         setSupportActionBar(mToolbar);
         mToolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
         if (getActionBar() != null) getActionBar().setDisplayHomeAsUpEnabled(true);
+        if (getSupportActionBar() != null) getSupportActionBar().setTitle(null);
 
         // Add drawable shadow and adjust layout if build version is before lollipop
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
@@ -82,61 +89,55 @@ public class ViewActivity extends AppCompatActivity {
 
         DatabaseHelper database = DatabaseHelper.getInstance(this);
         Intent intent = getIntent();
-        int mNotificationID = intent.getIntExtra("NOTIFICATION_ID", 0);
+        int mReminderId = intent.getIntExtra("NOTIFICATION_ID", 0);
+
+        // Arrived to activity from notification on click
+        // Cancel notification and nag alarm
+        if (intent.getBooleanExtra("NOTIFICATION_DISMISS", false)) {
+            Intent dismissIntent = new Intent().setClass(this, DismissReceiver.class);
+            dismissIntent.putExtra("NOTIFICATION_ID", mReminderId);
+            sendBroadcast(dismissIntent);
+        }
 
         // Check if notification has been deleted
-        if (database.isNotificationPresent(mNotificationID)) {
-            mReminder = database.getNotification(mNotificationID);
+        if (database.isNotificationPresent(mReminderId)) {
+            mReminder = database.getNotification(mReminderId);
             database.close();
-            assignReminderValues();
-
         } else {
             database.close();
-            // Return home as this notification has been deleted
             returnHome();
         }
     }
 
     public void assignReminderValues() {
-        // Assign notification values to views
         Calendar calendar = DateAndTimeUtil.parseDateAndTime(mReminder.getDateAndTime());
         mNotificationTitleText.setText(mReminder.getTitle());
         mContentText.setText(mReminder.getContent());
         mDateText.setText(DateAndTimeUtil.toStringReadableDate(calendar));
-        int iconResId = getResources().getIdentifier(mReminder.getIcon(), "drawable", getPackageName());
-        mIconImage.setImageResource(iconResId);
+        mIconImage.setImageResource(getResources().getIdentifier(mReminder.getIcon(), "drawable", getPackageName()));
         mCircleImage.setColorFilter(Color.parseColor(mReminder.getColour()));
         String readableTime = DateAndTimeUtil.toStringReadableTime(calendar, this);
         mTimeText.setText(readableTime);
         mNotificationTimeText.setText(readableTime);
 
-        if (mReminder.getRepeatType() == 5) {
-            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append(getResources().getString(R.string.repeats_on));
-            stringBuilder.append(" ");
-            String[] shortWeekDays = DateAndTimeUtil.getShortWeekDays();
-            for (int i = 0; i < mReminder.getDaysOfWeek().length; i++) {
-                if (mReminder.getDaysOfWeek()[i]) {
-                    stringBuilder.append(shortWeekDays[i]);
-                    stringBuilder.append(" ");
-                }
-            }
-            mRepeatText.setText(stringBuilder);
+        if (mReminder.getRepeatType() == ReminderConstants.SPECIFIC_DAYS) {
+            mRepeatText.setText(TextFormatUtil.formatDaysOfWeekText(this, mReminder.getDaysOfWeek()));
         } else {
-            String[] repeatTexts = getResources().getStringArray(R.array.repeat_array);
-            mRepeatText.setText(repeatTexts[mReminder.getRepeatType()]);
+            if (mReminder.getInterval() > 1) {
+                mRepeatText.setText(TextFormatUtil.formatAdvancedRepeatText(this, mReminder.getRepeatType(), mReminder.getInterval()));
+            } else {
+                mRepeatText.setText(getResources().getStringArray(R.array.repeat_array)[mReminder.getRepeatType()]);
+            }
         }
 
         if (Boolean.parseBoolean(mReminder.getForeverState())) {
-            mShownText.setText(getResources().getString(R.string.forever));
+            mShownText.setText(R.string.forever);
         } else {
-            String shown = (getResources().getString(R.string.times_shown, mReminder.getNumberShown(), mReminder.getNumberToShow()));
-            mShownText.setText(shown);
+            mShownText.setText(getString(R.string.times_shown, mReminder.getNumberShown(), mReminder.getNumberToShow()));
         }
 
         // Hide "Mark as done" action if reminder is inactive
-        mHideMarkAsDone = mReminder.getNumberToShow() <= mReminder.getNumberShown()
-                && !Boolean.parseBoolean(mReminder.getForeverState());
+        mHideMarkAsDone = mReminder.getNumberToShow() <= mReminder.getNumberShown() && !Boolean.parseBoolean(mReminder.getForeverState());
         invalidateOptionsMenu();
     }
 
@@ -177,13 +178,13 @@ public class ViewActivity extends AppCompatActivity {
 
     public void confirmDelete() {
         new AlertDialog.Builder(this, R.style.Dialog)
-                .setMessage(getResources().getString(R.string.delete_confirmation))
-                .setPositiveButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
+                .setMessage(R.string.delete_confirmation)
+                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         actionDelete();
                     }
                 })
-                .setNegativeButton(getResources().getString(R.string.no), null).show();
+                .setNegativeButton(R.string.no, null).show();
     }
 
     public void actionShowNow() {
@@ -194,8 +195,10 @@ public class ViewActivity extends AppCompatActivity {
         DatabaseHelper database = DatabaseHelper.getInstance(this);
         database.deleteNotification(mReminder);
         database.close();
-        Intent alarmIntent = new Intent(getApplicationContext(), AlarmReceiver.class);
-        AlarmUtil.cancelAlarm(getApplicationContext(), alarmIntent, mReminder.getId());
+        Intent alarmIntent = new Intent(this, AlarmReceiver.class);
+        AlarmUtil.cancelAlarm(this, alarmIntent, mReminder.getId());
+        Intent snoozeIntent = new Intent(this, SnoozeReceiver.class);
+        AlarmUtil.cancelAlarm(this, snoozeIntent, mReminder.getId());
         finish();
     }
 
@@ -214,13 +217,21 @@ public class ViewActivity extends AppCompatActivity {
             AlarmUtil.setNextAlarm(this, mReminder, database, DateAndTimeUtil.parseDateAndTime(mReminder.getDateAndTime()));
         } else {
             Intent alarmIntent = new Intent(getApplicationContext(), AlarmReceiver.class);
-            AlarmUtil.cancelAlarm(getApplicationContext(), alarmIntent, mReminder.getId());
+            AlarmUtil.cancelAlarm(this, alarmIntent, mReminder.getId());
+            mReminder.setDateAndTime(DateAndTimeUtil.toStringDateAndTime(Calendar.getInstance()));
         }
         mReminder.setNumberShown(mReminder.getNumberShown() + 1);
-        database.updateNotification(mReminder);
+        database.addNotification(mReminder);
         assignReminderValues();
         database.close();
-        Snackbar.make(mCoordinatorLayout, getResources().getString(R.string.toast_mark_as_done), Snackbar.LENGTH_SHORT).show();
+        Snackbar.make(mCoordinatorLayout, R.string.toast_mark_as_done, Snackbar.LENGTH_SHORT).show();
+    }
+
+    public void actionShareText() {
+        Intent intent = new Intent(); intent.setAction(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_TEXT, mReminder.getTitle() + "\n" + mReminder.getContent());
+        startActivity(Intent.createChooser(intent, getString(R.string.action_share)));
     }
 
     public void returnHome() {
@@ -229,6 +240,34 @@ public class ViewActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
+    public void updateReminder() {
+        DatabaseHelper database = DatabaseHelper.getInstance(this);
+        mReminder = database.getNotification(mReminder.getId());
+        database.close();
+        assignReminderValues();
+    }
+
+    @Override
+    public void onResume() {
+        LocalBroadcastManager.getInstance(this).registerReceiver(messageReceiver, new IntentFilter("BROADCAST_REFRESH"));
+        updateReminder();
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(messageReceiver);
+        super.onPause();
+    }
+
+    private BroadcastReceiver messageReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            mReminderChanged = true;
+            updateReminder();
+        }
+    };
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -259,6 +298,9 @@ public class ViewActivity extends AppCompatActivity {
                 return true;
             case R.id.action_edit:
                 actionEdit();
+                return true;
+            case R.id.action_share:
+                actionShareText();
                 return true;
             case R.id.action_mark_as_done:
                 actionMarkAsDone();

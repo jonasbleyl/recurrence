@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="ContentDescription"
@@ -33,15 +34,13 @@
                 android:layout_height="match_parent"
                 android:background="?attr/colorPrimary"
                 android:orientation="vertical"
-                android:paddingBottom="8dp"
-                android:paddingLeft="@dimen/title_side_padding"
-                android:paddingRight="@dimen/title_side_padding"
-                android:paddingTop="4dp">
+                android:paddingBottom="14dp"
+                android:paddingLeft="@dimen/title_padding_left"
+                android:paddingRight="@dimen/title_padding_right">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="2dp"
                     android:text="@string/title"
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:textColor="@android:color/white" />
@@ -53,7 +52,8 @@
                     android:inputType="textCapSentences"
                     android:textColor="@android:color/white"
                     android:textColorHighlight="@color/accentLight"
-                    android:textSize="26sp" />
+                    android:textSize="28sp"
+                    android:theme="@style/TitleEditText" />
 
             </LinearLayout>
 
@@ -67,23 +67,24 @@
             android:background="@drawable/toolbar_shadow" />
 
         <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="match_parent"
-            android:paddingLeft="@dimen/create_scroll_view_padding"
-            android:paddingStart="@dimen/create_scroll_view_padding"
-            android:layout_height="match_parent">
+                    android:layout_width="match_parent"
+                    android:paddingLeft="@dimen/create_scroll_view_padding"
+                    android:paddingStart="@dimen/create_scroll_view_padding"
+                    android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:animateLayoutChanges="true">
 
-                <TableRow
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="18dp"
+                    android:paddingBottom="@dimen/table_row_default_horizontal_padding"
                     android:paddingEnd="@dimen/table_row_default_padding_side"
                     android:paddingRight="@dimen/table_row_default_padding_side"
-                    android:paddingTop="24dp"
+                    android:paddingTop="22dp"
                     android:weightSum="1">
 
                     <ImageView
@@ -108,7 +109,7 @@
                         android:textColorHint="@color/textLightGray"
                         android:textSize="16sp" />
 
-                </TableRow>
+                </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
@@ -117,16 +118,15 @@
                     android:layout_marginStart="@dimen/line_separator_margin_side_large"
                     android:background="@color/lightGray" />
 
-                <TableRow
+                <LinearLayout
                     android:id="@+id/time_row"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="?attr/selectableItemBackground"
-                    android:onClick="timePicker"
-                    android:paddingBottom="18dp"
+                    android:paddingBottom="@dimen/table_row_default_horizontal_padding"
                     android:paddingEnd="@dimen/table_row_default_padding_side"
                     android:paddingRight="@dimen/table_row_default_padding_side"
-                    android:paddingTop="@dimen/table_row_default_padding_top"
+                    android:paddingTop="@dimen/table_row_default_horizontal_padding"
                     android:weightSum="1">
 
                     <ImageView
@@ -149,7 +149,7 @@
                         android:textColor="@android:color/black"
                         android:textSize="16sp" />
 
-                    <TableRow
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="end"
@@ -163,9 +163,9 @@
                             android:tint="@color/error"
                             android:visibility="gone" />
 
-                    </TableRow>
+                    </LinearLayout>
 
-                </TableRow>
+                </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
@@ -174,16 +174,15 @@
                     android:layout_marginStart="@dimen/line_separator_margin_side_large"
                     android:background="@color/lightGray" />
 
-                <TableRow
+                <LinearLayout
                     android:id="@+id/date_row"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="?attr/selectableItemBackground"
-                    android:onClick="datePicker"
-                    android:paddingBottom="18dp"
+                    android:paddingBottom="@dimen/table_row_default_horizontal_padding"
                     android:paddingEnd="@dimen/table_row_default_padding_side"
                     android:paddingRight="@dimen/table_row_default_padding_side"
-                    android:paddingTop="@dimen/table_row_default_padding_top"
+                    android:paddingTop="@dimen/table_row_default_horizontal_padding"
                     android:weightSum="1">
 
                     <ImageView
@@ -205,7 +204,7 @@
                         android:textColor="@android:color/black"
                         android:textSize="16sp" />
 
-                    <TableRow
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="end"
@@ -219,9 +218,9 @@
                             android:tint="@color/error"
                             android:visibility="gone" />
 
-                    </TableRow>
+                    </LinearLayout>
 
-                </TableRow>
+                </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
@@ -230,16 +229,15 @@
                     android:layout_marginStart="@dimen/line_separator_margin_side_large"
                     android:background="@color/lightGray" />
 
-                <TableRow
+                <LinearLayout
                     android:id="@+id/icon_select"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="?attr/selectableItemBackground"
-                    android:onClick="iconSelector"
-                    android:paddingBottom="18dp"
+                    android:paddingBottom="@dimen/table_row_default_horizontal_padding"
                     android:paddingEnd="@dimen/table_row_default_padding_side"
                     android:paddingRight="@dimen/table_row_default_padding_side"
-                    android:paddingTop="@dimen/table_row_default_padding_top"
+                    android:paddingTop="@dimen/table_row_default_horizontal_padding"
                     android:weightSum="1">
 
                     <ImageView
@@ -262,7 +260,7 @@
                         android:textColor="@android:color/black"
                         android:textSize="16sp" />
 
-                </TableRow>
+                </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
@@ -271,16 +269,15 @@
                     android:layout_marginStart="@dimen/line_separator_margin_side_large"
                     android:background="@color/lightGray" />
 
-                <TableRow
+                <LinearLayout
                     android:id="@+id/colour_select"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="?attr/selectableItemBackground"
-                    android:onClick="colourSelector"
-                    android:paddingBottom="18dp"
+                    android:paddingBottom="@dimen/table_row_default_horizontal_padding"
                     android:paddingEnd="@dimen/table_row_default_padding_side"
                     android:paddingRight="@dimen/table_row_default_padding_side"
-                    android:paddingTop="@dimen/table_row_default_padding_top"
+                    android:paddingTop="@dimen/table_row_default_horizontal_padding"
                     android:weightSum="1">
 
                     <ImageView
@@ -303,7 +300,7 @@
                         android:textColor="@android:color/black"
                         android:textSize="16sp" />
 
-                </TableRow>
+                </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
@@ -312,16 +309,15 @@
                     android:layout_marginStart="@dimen/line_separator_margin_side_large"
                     android:background="@color/lightGray" />
 
-                <TableRow
-                    android:id="@+id/repeat_day_row"
+                <LinearLayout
+                    android:id="@+id/repeat_row"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="?attr/selectableItemBackground"
-                    android:onClick="repeatSelector"
-                    android:paddingBottom="18dp"
+                    android:paddingBottom="@dimen/table_row_default_horizontal_padding"
                     android:paddingEnd="@dimen/table_row_default_padding_side"
                     android:paddingRight="@dimen/table_row_default_padding_side"
-                    android:paddingTop="@dimen/table_row_default_padding_top"
+                    android:paddingTop="@dimen/table_row_default_horizontal_padding"
                     android:weightSum="1">
 
                     <ImageView
@@ -344,7 +340,7 @@
                         android:textColor="@android:color/black"
                         android:textSize="16sp" />
 
-                </TableRow>
+                </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
@@ -353,16 +349,15 @@
                     android:layout_marginStart="@dimen/line_separator_margin_side_large"
                     android:background="@color/lightGray" />
 
-                <TableRow
+                <LinearLayout
                     android:id="@+id/forever_row"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="?attr/selectableItemBackground"
-                    android:onClick="toggleSwitch"
-                    android:paddingBottom="18dp"
+                    android:paddingBottom="@dimen/table_row_default_horizontal_padding"
                     android:paddingEnd="@dimen/table_row_default_padding_side"
                     android:paddingRight="@dimen/table_row_default_padding_side"
-                    android:paddingTop="@dimen/table_row_default_padding_top"
+                    android:paddingTop="@dimen/table_row_default_horizontal_padding"
                     android:visibility="gone"
                     android:weightSum="1">
 
@@ -392,16 +387,15 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
-                        android:onClick="switchClicked"
                         app:showText="false" />
 
-                </TableRow>
+                </LinearLayout>
 
-                <TableRow
+                <LinearLayout
                     android:id="@+id/bottom_row"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="12dp"
+                    android:paddingBottom="24dp"
                     android:paddingEnd="@dimen/table_row_default_padding_side"
                     android:paddingRight="@dimen/table_row_default_padding_side"
                     android:visibility="gone"
@@ -433,6 +427,7 @@
                             android:paddingLeft="12dp"
                             android:paddingRight="12dp"
                             android:textColorHighlight="@color/accentLight"
+                            android:text="@string/one"
                             android:textSize="16sp" />
 
                         <TextView
@@ -446,7 +441,7 @@
 
                     </LinearLayout>
 
-                    <TableRow
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="end"
@@ -461,19 +456,22 @@
                             android:tint="@color/error"
                             android:visibility="gone" />
 
-                    </TableRow>
+                    </LinearLayout>
 
-                </TableRow>
+                </LinearLayout>
 
                 <View
                     android:id="@+id/bottom_view"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/line_separator_height"
-                    android:layout_marginBottom="16dp"
                     android:layout_marginLeft="@dimen/line_separator_margin_side_large"
                     android:layout_marginStart="@dimen/line_separator_margin_side_large"
                     android:background="@color/lightGray"
                     android:visibility="gone" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="16dp"/>
 
             </LinearLayout>
 

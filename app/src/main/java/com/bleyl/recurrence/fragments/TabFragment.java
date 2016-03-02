@@ -1,4 +1,4 @@
-package com.bleyl.recurrence.ui.fragments;
+package com.bleyl.recurrence.fragments;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -13,14 +13,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bleyl.recurrence.database.DatabaseHelper;
-import com.bleyl.recurrence.enums.RemindersType;
 import com.bleyl.recurrence.models.Reminder;
 import com.bleyl.recurrence.R;
 import com.bleyl.recurrence.adapters.ReminderAdapter;
+import com.bleyl.recurrence.utils.ReminderConstants;
 
 import java.util.List;
 
@@ -30,18 +31,19 @@ import butterknife.ButterKnife;
 public class TabFragment extends Fragment {
 
     @Bind(R.id.recycler_view) RecyclerView mRecyclerView;
-    @Bind(R.id.empty_view) TextView mEmptyText;
+    @Bind(R.id.empty_text) TextView mEmptyText;
+    @Bind(R.id.empty_view) LinearLayout mLinearLayout;
+    @Bind(R.id.empty_icon) ImageView mImageView;
 
     private Activity mActivity;
     private ReminderAdapter mReminderAdapter;
     private List<Reminder> mReminderList;
-    private RemindersType mRemindersType;
+    private int mRemindersType;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_tabs, container, false);
         mActivity = getActivity();
-        LocalBroadcastManager.getInstance(mActivity).registerReceiver(messageReceiver, new IntentFilter("BROADCAST_REFRESH"));
         return view;
     }
 
@@ -52,9 +54,10 @@ public class TabFragment extends Fragment {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(mActivity);
         mRecyclerView.setLayoutManager(layoutManager);
 
-        mRemindersType = (RemindersType) this.getArguments().get("TYPE");
-        if (mRemindersType == RemindersType.INACTIVE) {
-            mEmptyText.setText(getResources().getString(R.string.no_inactive));
+        mRemindersType = this.getArguments().getInt("TYPE");
+        if (mRemindersType == ReminderConstants.INACTIVE) {
+            mEmptyText.setText(R.string.no_inactive);
+            mImageView.setImageResource(R.drawable.ic_notifications_off_black_empty);
         }
 
         mReminderList = getListData();
@@ -63,7 +66,7 @@ public class TabFragment extends Fragment {
 
         if (mReminderAdapter.getItemCount() == 0) {
             mRecyclerView.setVisibility(View.GONE);
-            mEmptyText.setVisibility(View.VISIBLE);
+            mLinearLayout.setVisibility(View.VISIBLE);
         }
     }
 
@@ -81,10 +84,10 @@ public class TabFragment extends Fragment {
 
         if (mReminderAdapter.getItemCount() == 0) {
             mRecyclerView.setVisibility(View.GONE);
-            mEmptyText.setVisibility(View.VISIBLE);
+            mLinearLayout.setVisibility(View.VISIBLE);
         } else {
             mRecyclerView.setVisibility(View.VISIBLE);
-            mEmptyText.setVisibility(View.GONE);
+            mLinearLayout.setVisibility(View.GONE);
         }
     }
 
@@ -97,13 +100,14 @@ public class TabFragment extends Fragment {
 
     @Override
     public void onResume() {
-        super.onResume();
+        LocalBroadcastManager.getInstance(mActivity).registerReceiver(messageReceiver, new IntentFilter("BROADCAST_REFRESH"));
         updateList();
+        super.onResume();
     }
 
     @Override
-    public void onDestroy() {
+    public void onPause() {
         LocalBroadcastManager.getInstance(mActivity).unregisterReceiver(messageReceiver);
-        super.onDestroy();
+        super.onPause();
     }
 }

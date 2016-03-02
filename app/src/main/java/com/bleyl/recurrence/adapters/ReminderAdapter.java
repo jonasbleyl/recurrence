@@ -18,8 +18,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bleyl.recurrence.interfaces.RecyclerCallback;
-import com.bleyl.recurrence.ui.activities.ViewActivity;
+import com.bleyl.recurrence.activities.ViewActivity;
 import com.bleyl.recurrence.models.Reminder;
 import com.bleyl.recurrence.R;
 import com.bleyl.recurrence.utils.DateAndTimeUtil;
@@ -50,6 +49,10 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHo
             mView = view;
             ButterKnife.bind(this, view);
         }
+    }
+
+    public interface RecyclerListener {
+        void hideFab();
     }
 
     public ReminderAdapter(Activity activity, int rowLayout, List<Reminder> reminderList) {
@@ -109,7 +112,7 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHo
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(mActivity, cardView, "cardTransition");
                     ActivityCompat.startActivity(mActivity, intent, options.toBundle());
 
-                    ((RecyclerCallback) mActivity).hideFab();
+                    ((RecyclerListener) mActivity).hideFab();
                 } else {
                     view.getContext().startActivity(intent);
                 }

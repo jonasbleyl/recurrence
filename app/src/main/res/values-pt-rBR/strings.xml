@@ -1,10 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="create_notification">Criar Notificação</string>
-    <string name="view_notification">Ver Notificação</string>
-    <string name="edit_notification">Editar Notificação</string>
     <string name="about">Sobre</string>
     <string name="settings">Configurações</string>
-
     <string name="preference_notification_category">Preferências da Notificação</string>
     <string name="checkbox_vibrate">Vibração</string>
     <string name="checkbox_sound">Som</string>
@@ -17,19 +14,16 @@
     <string name="minutes">minutos</string>
     <string name="mark_as_done">Marcar como feito</string>
     <string name="mark_as_done_detail">Adiciona \"Marcar como feito\" á notificação</string>
-
     <string name="action_settings">Configurações</string>
     <string name="action_delete">Excluir</string>
     <string name="action_edit">Editar</string>
     <string name="action_about">Sobre</string>
     <string name="action_show_now">Mostrar agora</string>
     <string name="action_mark_as_done">Marcar como feito</string>
-
     <string name="delete_confirmation">Tem certeza que você quer excluir essa notificação?</string>
     <string name="yes">Sim</string>
     <string name="no">Não</string>
     <string name="ok">Ok</string>
-
     <string name="title">Título</string>
     <string name="save_menu">Salvar</string>
     <string name="time_now">Agora</string>
@@ -41,50 +35,36 @@
     <string name="times">vezes</string>
     <string name="repeat_notification">Número de vezes para repetir:</string>
     <string name="content_hint">Adicione o conteúdo da notificação</string>
-
     <string name="select_icon">Selecione um ícone</string>
     <string name="default_icon">Ícone padrão</string>
     <string name="custom_icon">Ícone personalizado</string>
-
     <string name="select_colour">Selecione uma cor</string>
     <string name="default_colour">Cor padrão</string>
-    <string-array name="colour_names_array">
-        <item>Cor Padrão</item>
-        <item>Azul</item>
-        <item>Roxo</item>
-        <item>Vermelho</item>
-        <item>Verde</item>
-        <item>Laranja</item>
-        <item>Amarelo</item>
-        <item>Rosa</item>
-    </string-array>
-
     <string name="repeats_on">Repete em:</string>
-
+    <string name="repeat_every">Repetir a cada</string>
+    <string name="repeats_every">Repete a cada: %1$d %2$s</string>
     <string name="no_active">Nenhuma notificação ativa</string>
     <string name="no_inactive">Nenhuma notificação inativa</string>
-
     <string name="toast_past_date">Não é possível selecionar uma data no passado</string>
     <string name="toast_higher_number">O número de repetições deve ser maior</string>
     <string name="toast_title_empty">O título não pode estar vazio</string>
     <string name="toast_mark_as_done">Próxima notificação marcada como feita</string>
-
+    <string name="add_reminder">Adicionar lembrete</string>
     <string name="libraries">Bibliotecas</string>
     <string name="rate_app">Dê uma nota ao app</string>
     <string name="contact">Contato</string>
     <string name="version">Versão</string>
-
     <string name="thanks_to">Agradecimentos</string>
     <string name="translator">Tradutor</string>
-
     <string name="send_email">Enviar email</string>
-
     <string-array name="repeat_array">
         <item>Não repetir</item>
+        <item>Toda hora</item>
         <item>Todo dia</item>
         <item>Toda semana</item>
         <item>Todo mês</item>
         <item>Todo ano</item>
         <item>Dia específico da semana</item>
+        <item>Avançado</item>
     </string-array>
 </resources>

@@ -1,9 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <plurals name="time_minute">
-        <item quantity="other">%d minut</item>
         <item quantity="many">%d minut</item>
         <item quantity="few">%d minuty</item>
         <item quantity="one">%d minuta</item>
+    </plurals>
+    <plurals name="time_second">
+        <item quantity="many">%d sekund</item>
+        <item quantity="few">%d sekundy</item>
+        <item quantity="one">%d sekunda</item>
+    </plurals>
+    <plurals name="time_hour">
+        <item quantity="many">%d godzin</item>
+        <item quantity="few">%d godziny</item>
+        <item quantity="one">%d godzina</item>
+    </plurals>
+    <plurals name="hour">
+        <item quantity="many">godzin</item>
+        <item quantity="few">godziny</item>
+        <item quantity="one">godzina</item>
+    </plurals>
+    <plurals name="day">
+        <item quantity="many">dni</item>
+        <item quantity="few">dni</item>
+        <item quantity="one">dzień</item>
+    </plurals>
+    <plurals name="week">
+        <item quantity="many">tygodni</item>
+        <item quantity="few">tygodnie</item>
+        <item quantity="one">tydzień</item>
+    </plurals>
+    <plurals name="month">
+        <item quantity="many">miesięcy</item>
+        <item quantity="few">miesiące</item>
+        <item quantity="one">miesiąc</item>
+    </plurals>
+    <plurals name="year">
+        <item quantity="many">lat</item>
+        <item quantity="few">lata</item>
+        <item quantity="one">rok</item>
     </plurals>
 </resources>

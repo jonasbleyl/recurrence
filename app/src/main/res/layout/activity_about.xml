@@ -43,7 +43,7 @@
                 android:layout_gravity="center"
                 android:orientation="vertical">
 
-                <TableRow
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingTop="24dp"
@@ -83,7 +83,7 @@
 
                     </LinearLayout>
 
-                </TableRow>
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -94,7 +94,7 @@
                 android:layout_marginRight="@dimen/line_separator_margin_side"
                 android:background="@color/lightGray"/>
 
-            <TableRow
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="@dimen/table_row_about_padding"
@@ -113,7 +113,7 @@
                     android:textSize="16sp"
                     android:layout_gravity="center_vertical"/>
 
-            </TableRow>
+            </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
@@ -122,7 +122,7 @@
                 android:layout_marginRight="@dimen/line_separator_margin_side"
                 android:background="@color/lightGray"/>
 
-            <TableRow
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="@dimen/table_row_about_padding"
@@ -141,7 +141,7 @@
                     android:textSize="16sp"
                     android:layout_gravity="center_vertical"/>
 
-            </TableRow>
+            </LinearLayout>
 
             <View
                 android:id="@+id/view_date"
@@ -151,7 +151,7 @@
                 android:layout_marginRight="@dimen/line_separator_margin_side"
                 android:background="@color/lightGray"/>
 
-            <TableRow
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="@dimen/table_row_about_padding"
@@ -170,7 +170,7 @@
                     android:textSize="16sp"
                     android:layout_gravity="center_vertical"/>
 
-            </TableRow>
+            </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
@@ -179,7 +179,7 @@
                 android:layout_marginRight="@dimen/line_separator_margin_side"
                 android:background="@color/lightGray"/>
 
-            <TableRow
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="@dimen/table_row_about_padding"
@@ -198,7 +198,7 @@
                     android:textSize="16sp"
                     android:layout_gravity="center_vertical"/>
 
-            </TableRow>
+            </LinearLayout>
 
             <View
                 android:layout_width="match_parent"

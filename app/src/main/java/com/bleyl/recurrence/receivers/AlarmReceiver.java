@@ -19,7 +19,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         DatabaseHelper database = DatabaseHelper.getInstance(context);
         Reminder reminder = database.getNotification(intent.getIntExtra("NOTIFICATION_ID", 0));
         reminder.setNumberShown(reminder.getNumberShown() + 1);
-        database.updateNotification(reminder);
+        database.addNotification(reminder);
 
         NotificationUtil.createNotification(context, reminder);
 
@@ -27,14 +27,8 @@ public class AlarmReceiver extends BroadcastReceiver {
         if (reminder.getNumberToShow() > reminder.getNumberShown() || Boolean.parseBoolean(reminder.getForeverState())) {
             AlarmUtil.setNextAlarm(context, reminder, database, Calendar.getInstance());
         }
-
-        // Update lists in tab fragments
-        updateLists(context);
+        Intent updateIntent = new Intent("BROADCAST_REFRESH");
+        LocalBroadcastManager.getInstance(context).sendBroadcast(updateIntent);
         database.close();
-    }
-
-    public void updateLists(Context context) {
-        Intent intent = new Intent("BROADCAST_REFRESH");
-        LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
     }
 }

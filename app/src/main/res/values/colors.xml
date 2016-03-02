@@ -4,11 +4,12 @@
     <color name="accent">#897dae</color>
     <color name="accentLight">#ff988db6</color>
     <color name="background">#eeeeee</color>
-    <color name="lightGray">#d6d6d6</color>
-    <color name="textLightGray">#757575</color>
+    <color name="lightGray">#e6e6e6</color>
+    <color name="textLightGray">#8f8f8f</color>
     <color name="textGreyHeader">#ff818181</color>
     <color name="notificationContentText">#737373</color>
     <color name="error">#da1b21</color>
-    <color name="iconTint">#757575</color>
-    <color name="default_colour_grey">#9E9E9E</color>
+    <color name="iconTint">#8e8e8e</color>
+    <color name="default_colour_grey">#8e8e8e</color>
+    <color name="emptyColour">#bababa</color>
 </resources>

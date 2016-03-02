@@ -1,10 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="create_notification">Crear Notificación</string>
-    <string name="view_notification">Ver Notificación</string>
-    <string name="edit_notification">Modificar Notificación</string>
     <string name="about">Acerca de</string>
     <string name="settings">Ajustes</string>
-
     <string name="preference_notification_category">Preferencias de notificación</string>
     <string name="checkbox_vibrate">Vibrar</string>
     <string name="checkbox_sound">Sonar</string>
@@ -17,19 +14,19 @@
     <string name="minutes">minutos</string>
     <string name="mark_as_done">Marcar como completo</string>
     <string name="mark_as_done_detail">Añadir un \"Marcar como completo\" acción a la notificación</string>
-
+    <string name="nagging_reminder">Recordatorio persistente</string>
+    <string name="nagging_detail">Continuamente notificarle de la notificación actual hasta que se descarta</string>
+    <string name="nagging_interval">Intervalo de recordatorio persistente</string>
     <string name="action_settings">Ajustes</string>
     <string name="action_delete">Borrar</string>
     <string name="action_edit">Modificar</string>
     <string name="action_about">Acerca de</string>
     <string name="action_show_now">Mostrar ahora</string>
     <string name="action_mark_as_done">Marcar como completo</string>
-
     <string name="delete_confirmation">¿Estás seguro que quieres borrar esta notificación?</string>
     <string name="yes">Sí</string>
     <string name="no">No</string>
     <string name="ok">OK</string>
-
     <string name="title">Título</string>
     <string name="save_menu">Guardar</string>
     <string name="time_now">Ahora</string>
@@ -41,50 +38,36 @@
     <string name="times"> vez/veces</string>
     <string name="repeat_notification">Número de veces que se repite: </string>
     <string name="content_hint">Añade contenido a la notificación</string>
-
     <string name="select_icon">Seleccione un icono</string>
     <string name="default_icon">Icono defecto</string>
     <string name="custom_icon">Icono personalizado</string>
-
     <string name="select_colour">Seleccione un color</string>
     <string name="default_colour">Color defecto</string>
-    <string-array name="colour_names_array">
-        <item>Color defecto</item>
-        <item>Azul</item>
-        <item>Morado</item>
-        <item>Rojo</item>
-        <item>Verde</item>
-        <item>Naranja</item>
-        <item>Amarillo</item>
-        <item>Rosa</item>
-    </string-array>
-
     <string name="repeats_on">Repite en:</string>
-
+    <string name="repeat_every">Repetir cada</string>
+    <string name="repeats_every">Repite cada: %1$d %2$s</string>
     <string name="no_active">Ninguna notificación activa</string>
     <string name="no_inactive">Ninguna notificación inactiva</string>
-
     <string name="toast_past_date">No se puede elegir una fecha inicial en el pasado</string>
     <string name="toast_higher_number">Número que debe repetirse tiene que ser mayor</string>
     <string name="toast_title_empty">El título no puede estar vacío</string>
     <string name="toast_mark_as_done">Siguiente recordatorio marcado como completo.</string>
-
+    <string name="add_reminder">Añadir recordatorio</string>
     <string name="libraries">Bibliotecas</string>
     <string name="rate_app">Calificar aplicación</string>
     <string name="contact">Contactar</string>
     <string name="version">Versión</string>
-
     <string name="thanks_to">Gracias a</string>
     <string name="translator">Traductor</string>
-
     <string name="send_email">Enviar correo electrónico</string>
-
     <string-array name="repeat_array">
         <item>No se repita</item>
+        <item>Cada hora</item>
         <item>Cada día</item>
         <item>Cada semana</item>
         <item>Cada mes</item>
         <item>Cada año</item>
         <item>Días específicos de la semana</item>
+        <item>Avanzado</item>
     </string-array>
 </resources>

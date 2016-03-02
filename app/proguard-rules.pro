@@ -10,3 +10,8 @@
 -keepclasseswithmembernames class * {
     @butterknife.* <methods>;
 }
+
+# Material Dialogs proguard rules
+-dontwarn
+-ignorewarnings
+-keep class android.support.design.** { *; }

@@ -1,12 +1,10 @@
-package com.bleyl.recurrence.ui.activities;
+package com.bleyl.recurrence.activities;
 
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -16,7 +14,6 @@ import android.widget.TextView;
 
 import com.bleyl.recurrence.BuildConfig;
 import com.bleyl.recurrence.R;
-import com.bleyl.recurrence.adapters.ContributionAdapter;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -36,20 +33,19 @@ public class AboutActivity extends AppCompatActivity {
         mToolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
         if (getActionBar() != null) getActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mVersionText.setText(getResources().getString(R.string.version) + " " + BuildConfig.VERSION_NAME);
+        mVersionText.setText(BuildConfig.VERSION_NAME);
     }
 
     public void launchEmail(View view) {
         Intent intent = new Intent(android.content.Intent.ACTION_SEND);
         intent.setType("plain/text");
-        intent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{getResources().getString(R.string.email)});
-        this.startActivity(Intent.createChooser(intent, getResources().getString(R.string.send_email)));
+        intent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{getString(R.string.email)});
+        startActivity(Intent.createChooser(intent, getString(R.string.send_email)));
     }
 
     public void launchAppURL(View view) {
-        String url = getResources().getString(R.string.app_url);
         Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setData(Uri.parse(url));
+        intent.setData(Uri.parse(getString(R.string.app_url)));
         startActivity(intent);
     }
 
@@ -58,17 +54,16 @@ public class AboutActivity extends AppCompatActivity {
         View dialogView = inflater.inflate(R.layout.view_dialog_libraries, mLinearLayout, false);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.Dialog);
-        builder.setTitle(getResources().getString(R.string.libraries));
+        builder.setTitle(R.string.libraries);
         builder.setView(dialogView);
-        builder.setPositiveButton(getResources().getString(R.string.ok), null);
+        builder.setPositiveButton(R.string.ok, null);
         builder.show();
 
         dialogView.findViewById(R.id.tab_link).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = getResources().getString(R.string.tab_link);
                 Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setData(Uri.parse(url));
+                intent.setData(Uri.parse(getString(R.string.tab_link)));
                 startActivity(intent);
             }
         });
@@ -76,9 +71,17 @@ public class AboutActivity extends AppCompatActivity {
         dialogView.findViewById(R.id.butter_knife_link).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = getResources().getString(R.string.butter_knife_link);
                 Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setData(Uri.parse(url));
+                intent.setData(Uri.parse(getString(R.string.butter_knife_link)));
+                startActivity(intent);
+            }
+        });
+
+        dialogView.findViewById(R.id.material_dialogs_link).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(getString(R.string.material_dialogs_link)));
                 startActivity(intent);
             }
         });
@@ -88,18 +91,10 @@ public class AboutActivity extends AppCompatActivity {
         LayoutInflater inflater = getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.view_dialog_contributors, mLinearLayout, false);
 
-        RecyclerView recyclerView = (RecyclerView) dialogView.findViewById(R.id.contributors_recycler_view);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-
-        String[] contributorNames = getResources().getStringArray(R.array.contributors_array);
-        String[] contributionTypes = getResources().getStringArray(R.array.contribution_array);
-        recyclerView.setAdapter(new ContributionAdapter(this, R.layout.item_contributor_list, contributorNames, contributionTypes));
-
         AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.Dialog);
-        builder.setTitle(getResources().getString(R.string.thanks_to));
+        builder.setTitle(R.string.thanks_to);
         builder.setView(dialogView);
-        builder.setPositiveButton(getResources().getString(R.string.ok), null);
+        builder.setPositiveButton(R.string.ok, null);
         builder.show();
     }
 

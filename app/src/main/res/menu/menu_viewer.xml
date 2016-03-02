@@ -1,28 +1,31 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-      xmlns:app="http://schemas.android.com/apk/res-auto"
-      xmlns:tools="http://schemas.android.com/tools"
-      tools:context=".MainActivity">
+      xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item android:id="@+id/action_mark_as_done"
-          android:title="@string/action_mark_as_done"
-          android:icon="@drawable/ic_done_white_24dp"
-          android:orderInCategory="70"
-          app:showAsAction="ifRoom" />
+      <item android:id="@+id/action_edit"
+            android:title="@string/action_edit"
+            android:icon="@drawable/ic_create_white_24dp"
+            android:orderInCategory="70"
+            app:showAsAction="ifRoom" />
 
-    <item android:id="@+id/action_edit"
-          android:title="@string/action_edit"
-          android:icon="@drawable/ic_create_white_24dp"
-          android:orderInCategory="80"
-          app:showAsAction="ifRoom" />
+      <item android:id="@+id/action_delete"
+            android:title="@string/action_delete"
+            android:icon="@drawable/ic_delete_white_24dp"
+            android:orderInCategory="80"
+            app:showAsAction="ifRoom" />
 
-    <item android:id="@+id/action_delete"
-          android:title="@string/action_delete"
-          android:icon="@drawable/ic_delete_white_24dp"
-          android:orderInCategory="90"
-          app:showAsAction="ifRoom" />
+      <item android:id="@+id/action_share"
+            android:title="@string/action_share"
+            android:orderInCategory="85"
+            app:showAsAction="never" />
 
-    <item android:id="@+id/action_show_now"
-          android:title="@string/action_show_now"
-          android:orderInCategory="100"
-          app:showAsAction="never" />
+      <item android:id="@+id/action_mark_as_done"
+            android:title="@string/action_mark_as_done"
+            android:icon="@drawable/ic_done_white_24dp"
+            android:orderInCategory="90"
+            app:showAsAction="never" />
+
+      <item android:id="@+id/action_show_now"
+            android:title="@string/action_show_now"
+            android:orderInCategory="100"
+            app:showAsAction="never" />
 </menu>
