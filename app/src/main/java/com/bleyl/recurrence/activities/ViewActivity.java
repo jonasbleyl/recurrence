@@ -227,6 +227,13 @@ public class ViewActivity extends AppCompatActivity {
         Snackbar.make(mCoordinatorLayout, R.string.toast_mark_as_done, Snackbar.LENGTH_SHORT).show();
     }
 
+    public void actionShareText() {
+        Intent intent = new Intent(); intent.setAction(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_TEXT, mReminder.getTitle() + "\n" + mReminder.getContent());
+        startActivity(Intent.createChooser(intent, getString(R.string.action_share)));
+    }
+
     public void returnHome() {
         Intent intent = new Intent(this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -291,6 +298,9 @@ public class ViewActivity extends AppCompatActivity {
                 return true;
             case R.id.action_edit:
                 actionEdit();
+                return true;
+            case R.id.action_share:
+                actionShareText();
                 return true;
             case R.id.action_mark_as_done:
                 actionMarkAsDone();

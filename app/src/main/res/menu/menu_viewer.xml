@@ -13,6 +13,11 @@
             android:orderInCategory="80"
             app:showAsAction="ifRoom" />
 
+      <item android:id="@+id/action_share"
+            android:title="@string/action_share"
+            android:orderInCategory="85"
+            app:showAsAction="never" />
+
       <item android:id="@+id/action_mark_as_done"
             android:title="@string/action_mark_as_done"
             android:icon="@drawable/ic_done_white_24dp"
