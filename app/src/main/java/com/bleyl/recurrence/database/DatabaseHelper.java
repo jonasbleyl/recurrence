@@ -10,7 +10,6 @@ import com.bleyl.recurrence.R;
 import com.bleyl.recurrence.models.Colour;
 import com.bleyl.recurrence.models.Icon;
 import com.bleyl.recurrence.models.Reminder;
-import com.bleyl.recurrence.utils.ReminderConstants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -185,11 +184,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String query;
 
         switch (remindersType) {
-            case ReminderConstants.ACTIVE:
+            case Reminder.ACTIVE:
             default:
                 query = "SELECT * FROM " + NOTIFICATION_TABLE + " WHERE " + COL_NUMBER_SHOWN + " < " + COL_NUMBER_TO_SHOW + " OR " + COL_FOREVER + " = 'true' " + " ORDER BY " + COL_DATE_AND_TIME;
                 break;
-            case ReminderConstants.INACTIVE:
+            case Reminder.INACTIVE:
                 query = "SELECT * FROM " + NOTIFICATION_TABLE + " WHERE " + COL_NUMBER_SHOWN + " = " + COL_NUMBER_TO_SHOW + " AND " + COL_FOREVER + " = 'false' " + " ORDER BY " + COL_DATE_AND_TIME + " DESC";
                 break;
         }
@@ -212,7 +211,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 reminder.setColour(cursor.getString(cursor.getColumnIndexOrThrow(COL_COLOUR)));
                 reminder.setInterval(cursor.getInt(cursor.getColumnIndexOrThrow(COL_INTERVAL)));
 
-                if (reminder.getRepeatType() == ReminderConstants.SPECIFIC_DAYS) {
+                if (reminder.getRepeatType() == Reminder.SPECIFIC_DAYS) {
                     getDaysOfWeek(reminder, database);
                 }
                 reminderList.add(reminder);
@@ -241,7 +240,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         reminder.setInterval(cursor.getInt(cursor.getColumnIndexOrThrow(COL_INTERVAL)));
         cursor.close();
 
-        if (reminder.getRepeatType() == ReminderConstants.SPECIFIC_DAYS) {
+        if (reminder.getRepeatType() == Reminder.SPECIFIC_DAYS) {
             getDaysOfWeek(reminder, database);
         }
         return reminder;
@@ -249,7 +248,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public void deleteNotification(Reminder reminder) {
         SQLiteDatabase database = this.getWritableDatabase();
-        if (reminder.getRepeatType() == ReminderConstants.SPECIFIC_DAYS) {
+        if (reminder.getRepeatType() == Reminder.SPECIFIC_DAYS) {
             database.delete(DAYS_OF_WEEK_TABLE, COL_ID + " = ?", new String[]{String.valueOf(reminder.getId())});
         }
         database.delete(NOTIFICATION_TABLE, COL_ID + " = ?", new String[]{String.valueOf(reminder.getId())});

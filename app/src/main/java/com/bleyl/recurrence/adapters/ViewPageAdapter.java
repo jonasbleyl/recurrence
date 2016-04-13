@@ -14,7 +14,7 @@ import android.widget.ImageView;
 import com.astuetz.PagerSlidingTabStrip;
 import com.bleyl.recurrence.fragments.TabFragment;
 import com.bleyl.recurrence.R;
-import com.bleyl.recurrence.utils.ReminderConstants;
+import com.bleyl.recurrence.models.Reminder;
 
 public class ViewPageAdapter extends FragmentPagerAdapter implements PagerSlidingTabStrip.CustomTabProvider {
 
@@ -62,10 +62,10 @@ public class ViewPageAdapter extends FragmentPagerAdapter implements PagerSlidin
         switch (position) {
             case 0:
             default:
-                bundle.putInt("TYPE", ReminderConstants.ACTIVE);
+                bundle.putInt("TYPE", Reminder.ACTIVE);
                 break;
             case 1:
-                bundle.putInt("TYPE", ReminderConstants.INACTIVE);
+                bundle.putInt("TYPE", Reminder.INACTIVE);
                 break;
         }
         Fragment fragment = new TabFragment();

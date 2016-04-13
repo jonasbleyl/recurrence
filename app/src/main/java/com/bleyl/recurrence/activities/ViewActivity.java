@@ -37,7 +37,6 @@ import com.bleyl.recurrence.receivers.SnoozeReceiver;
 import com.bleyl.recurrence.utils.AlarmUtil;
 import com.bleyl.recurrence.utils.DateAndTimeUtil;
 import com.bleyl.recurrence.utils.NotificationUtil;
-import com.bleyl.recurrence.utils.ReminderConstants;
 import com.bleyl.recurrence.utils.TextFormatUtil;
 
 import java.util.Calendar;
@@ -120,7 +119,7 @@ public class ViewActivity extends AppCompatActivity {
         mTimeText.setText(readableTime);
         mNotificationTimeText.setText(readableTime);
 
-        if (mReminder.getRepeatType() == ReminderConstants.SPECIFIC_DAYS) {
+        if (mReminder.getRepeatType() == Reminder.SPECIFIC_DAYS) {
             mRepeatText.setText(TextFormatUtil.formatDaysOfWeekText(this, mReminder.getDaysOfWeek()));
         } else {
             if (mReminder.getInterval() > 1) {

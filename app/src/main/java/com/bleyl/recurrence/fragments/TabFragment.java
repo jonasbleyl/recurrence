@@ -25,7 +25,6 @@ import com.bleyl.recurrence.database.DatabaseHelper;
 import com.bleyl.recurrence.models.Reminder;
 import com.bleyl.recurrence.R;
 import com.bleyl.recurrence.adapters.ReminderAdapter;
-import com.bleyl.recurrence.utils.ReminderConstants;
 
 import java.util.List;
 
@@ -61,7 +60,7 @@ public class TabFragment extends Fragment {
         mRecyclerView.setLayoutManager(layoutManager);
 
         mRemindersType = this.getArguments().getInt("TYPE");
-        if (mRemindersType == ReminderConstants.INACTIVE) {
+        if (mRemindersType == Reminder.INACTIVE) {
             mEmptyText.setText(R.string.no_inactive);
             mImageView.setImageResource(R.drawable.ic_notifications_off_black_empty);
         }

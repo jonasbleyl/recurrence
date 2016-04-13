@@ -41,22 +41,22 @@ public class AlarmUtil {
         calendar.set(Calendar.SECOND, 0);
 
         switch (reminder.getRepeatType()) {
-            case ReminderConstants.HOURLY:
+            case Reminder.HOURLY:
                 calendar.add(Calendar.HOUR, reminder.getInterval());
                 break;
-            case ReminderConstants.DAILY:
+            case Reminder.DAILY:
                 calendar.add(Calendar.DATE, reminder.getInterval());
                 break;
-            case ReminderConstants.WEEKLY:
+            case Reminder.WEEKLY:
                 calendar.add(Calendar.WEEK_OF_YEAR, reminder.getInterval());
                 break;
-            case ReminderConstants.MONTHLY:
+            case Reminder.MONTHLY:
                 calendar.add(Calendar.MONTH, reminder.getInterval());
                 break;
-            case ReminderConstants.YEARLY:
+            case Reminder.YEARLY:
                 calendar.add(Calendar.YEAR, reminder.getInterval());
                 break;
-            case ReminderConstants.SPECIFIC_DAYS:
+            case Reminder.SPECIFIC_DAYS:
                 Calendar weekCalendar = (Calendar) calendar.clone();
                 weekCalendar.add(Calendar.DATE, 1);
                 for (int i = 0; i < 7; i++) {
