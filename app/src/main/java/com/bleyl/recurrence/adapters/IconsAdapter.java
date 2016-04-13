@@ -54,7 +54,7 @@ public class IconsAdapter extends RecyclerView.Adapter<IconsAdapter.ViewHolder>{
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, final int position) {
+    public void onBindViewHolder(final ViewHolder viewHolder, int position) {
         final String iconName = mIconList.get(position).getName();
         final int iconResId = mContext.getResources().getIdentifier(iconName, "drawable", mContext.getPackageName());
         viewHolder.mImageView.setImageResource(iconResId);
@@ -62,8 +62,8 @@ public class IconsAdapter extends RecyclerView.Adapter<IconsAdapter.ViewHolder>{
             @Override
             public void onClick(View view) {
                 DatabaseHelper database = DatabaseHelper.getInstance(mContext);
-                mIconList.get(position).setUseFrequency(mIconList.get(position).getUseFrequency() + 1);
-                database.updateIcon(mIconList.get(position));
+                mIconList.get(viewHolder.getAdapterPosition()).setUseFrequency(mIconList.get(viewHolder.getAdapterPosition()).getUseFrequency() + 1);
+                database.updateIcon(mIconList.get(viewHolder.getAdapterPosition()));
                 database.close();
 
                 String name;

@@ -68,7 +68,7 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, final int position) {
+    public void onBindViewHolder(final ViewHolder viewHolder, int position) {
         Calendar calendar = DateAndTimeUtil.parseDateAndTime(mReminderList.get(position).getDateAndTime());
         // Show header for item if it is the first in date group
         if (position > 0 && mReminderList.get(position).getDate().equals(mReminderList.get(position - 1).getDate()) ) {
@@ -91,7 +91,7 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHo
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(mActivity, ViewActivity.class);
-                intent.putExtra("NOTIFICATION_ID", mReminderList.get(position).getId());
+                intent.putExtra("NOTIFICATION_ID", mReminderList.get(viewHolder.getAdapterPosition()).getId());
 
                 // Add shared element transition animation if on Lollipop or later
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
