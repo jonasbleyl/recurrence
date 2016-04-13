@@ -19,12 +19,12 @@ public class DaysOfWeekSelector extends DialogFragment {
         void onDaysOfWeekSelected(boolean[] days);
     }
 
-    DaysOfWeekSelectionListener mListener;
+    DaysOfWeekSelectionListener listener;
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        mListener = (DaysOfWeekSelectionListener) activity;
+        listener = (DaysOfWeekSelectionListener) activity;
     }
 
     @Override @NonNull
@@ -42,7 +42,7 @@ public class DaysOfWeekSelector extends DialogFragment {
         builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
                 if (Arrays.toString(values).contains("true")) {
-                    mListener.onDaysOfWeekSelected(values);
+                    listener.onDaysOfWeekSelected(values);
                 }
             }
         });

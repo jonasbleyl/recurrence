@@ -18,59 +18,59 @@ import butterknife.ButterKnife;
 
 public class IconsAdapter extends RecyclerView.Adapter<IconsAdapter.ViewHolder>{
 
-    private int mRowLayout;
-    private IconPicker mIconPicker;
-    private List<Icon> mIconList;
+    private int rowLayout;
+    private IconPicker iconPicker;
+    private List<Icon> iconList;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.icon) ImageView mImageView;
-        private View mView;
+        @Bind(R.id.icon) ImageView imageView;
+        private View view;
 
         public ViewHolder(final View view) {
             super(view);
-            mView = view;
+            this.view = view;
             ButterKnife.bind(this, view);
         }
     }
 
     public IconsAdapter(IconPicker iconPicker, int rowLayout, List<Icon> iconList) {
-        mIconPicker = iconPicker;
-        mRowLayout = rowLayout;
-        mIconList = iconList;
+        this.iconPicker = iconPicker;
+        this.rowLayout = rowLayout;
+        this.iconList = iconList;
     }
 
     @Override
     public int getItemCount() {
-        return mIconList.size();
+        return iconList.size();
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(mRowLayout, viewGroup, false);
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(rowLayout, viewGroup, false);
         return new ViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder viewHolder, int position) {
-        final String iconName = mIconList.get(position).getName();
-        final int iconResId = viewHolder.mView.getContext().getResources().getIdentifier(iconName, "drawable", viewHolder.mView.getContext().getPackageName());
-        viewHolder.mImageView.setImageResource(iconResId);
-        viewHolder.mView.setOnClickListener(new View.OnClickListener() {
+        final String iconName = iconList.get(position).getName();
+        final int iconResId = viewHolder.view.getContext().getResources().getIdentifier(iconName, "drawable", viewHolder.view.getContext().getPackageName());
+        viewHolder.imageView.setImageResource(iconResId);
+        viewHolder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DatabaseHelper database = DatabaseHelper.getInstance(viewHolder.mView.getContext());
-                mIconList.get(viewHolder.getAdapterPosition()).setUseFrequency(mIconList.get(viewHolder.getAdapterPosition()).getUseFrequency() + 1);
-                database.updateIcon(mIconList.get(viewHolder.getAdapterPosition()));
+                DatabaseHelper database = DatabaseHelper.getInstance(viewHolder.view.getContext());
+                iconList.get(viewHolder.getAdapterPosition()).setUseFrequency(iconList.get(viewHolder.getAdapterPosition()).getUseFrequency() + 1);
+                database.updateIcon(iconList.get(viewHolder.getAdapterPosition()));
                 database.close();
 
                 String name;
-                if (!iconName.equals(viewHolder.mView.getContext().getString(R.string.default_icon_value))) {
-                    name = viewHolder.mView.getContext().getString(R.string.custom_icon);
+                if (!iconName.equals(viewHolder.view.getContext().getString(R.string.default_icon_value))) {
+                    name = viewHolder.view.getContext().getString(R.string.custom_icon);
                 } else {
-                    name = viewHolder.mView.getContext().getResources().getString(R.string.default_icon);
+                    name = viewHolder.view.getContext().getResources().getString(R.string.default_icon);
                 }
 
-                ((IconPicker.IconSelectionListener) viewHolder.mView.getContext()).onIconSelection(mIconPicker, iconName, name, iconResId);
+                ((IconPicker.IconSelectionListener) viewHolder.view.getContext()).onIconSelection(iconPicker, iconName, name, iconResId);
             }
         });
     }

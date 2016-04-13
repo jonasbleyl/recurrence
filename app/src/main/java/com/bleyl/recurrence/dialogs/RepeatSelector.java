@@ -17,12 +17,12 @@ public class RepeatSelector extends DialogFragment {
         void onRepeatSelection(DialogFragment dialog, int interval, String repeatText);
     }
 
-    RepeatSelectionListener mListener;
+    RepeatSelectionListener listener;
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        mListener = (RepeatSelectionListener) activity;
+        listener = (RepeatSelectionListener) activity;
     }
 
     @Override @NonNull
@@ -38,7 +38,7 @@ public class RepeatSelector extends DialogFragment {
                     DialogFragment advancedDialog = new AdvancedRepeatSelector();
                     advancedDialog.show(getActivity().getSupportFragmentManager(), "AdvancedSelector");
                 } else {
-                    mListener.onRepeatSelection(RepeatSelector.this, which, repeatArray[which]);
+                    listener.onRepeatSelection(RepeatSelector.this, which, repeatArray[which]);
                 }
             }
         });

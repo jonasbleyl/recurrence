@@ -13,6 +13,7 @@ import java.util.Calendar;
 import java.util.List;
 
 public class BootReceiver extends BroadcastReceiver {
+
     @Override
     public void onReceive(Context context, Intent intent) {
         DatabaseHelper database = DatabaseHelper.getInstance(context);

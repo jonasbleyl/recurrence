@@ -9,6 +9,7 @@ import com.bleyl.recurrence.activities.SnoozeDialogActivity;
 import com.bleyl.recurrence.utils.AlarmUtil;
 
 public class SnoozeActionReceiver extends BroadcastReceiver {
+
     @Override
     public void onReceive(Context context, Intent intent) {
         int reminderId = intent.getIntExtra("NOTIFICATION_ID", 0);

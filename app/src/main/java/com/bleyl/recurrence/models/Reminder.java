@@ -16,128 +16,128 @@ public class Reminder {
     public static final int SPECIFIC_DAYS = 6;
     public static final int ADVANCED = 7;
 
-    private int mId;
-    private String mTitle;
-    private String mContent;
-    private String mDateAndTime;
-    private int mRepeatType;
-    private String mForeverState;
-    private int mNumberToShow;
-    private int mNumberShown;
-    private String mIcon;
-    private String mColour;
-    private boolean[] mDaysOfWeek;
-    private int mInterval;
+    private int id;
+    private String title;
+    private String content;
+    private String dateAndTime;
+    private int repeatType;
+    private String foreverState;
+    private int numberToShow;
+    private int numberShown;
+    private String icon;
+    private String colour;
+    private boolean[] daysOfWeek;
+    private int interval;
 
     public int getId() {
-        return mId;
+        return id;
     }
 
     public Reminder setId(int id) {
-        mId = id;
+        this.id = id;
         return this;
     }
 
     public String getTitle() {
-        return mTitle;
+        return title;
     }
 
     public Reminder setTitle(String title) {
-        mTitle = title;
+        this.title = title;
         return this;
     }
 
     public String getContent() {
-        return mContent;
+        return content;
     }
 
     public Reminder setContent(String content) {
-        mContent = content;
+        this.content = content;
         return this;
     }
 
     public String getDateAndTime() {
-        return mDateAndTime;
+        return dateAndTime;
     }
 
     public Reminder setDateAndTime(String dateAndTime) {
-        mDateAndTime = dateAndTime;
+        this.dateAndTime = dateAndTime;
         return this;
     }
 
     public String getDate() {
-        return mDateAndTime.substring(0, 8);
+        return dateAndTime.substring(0, 8);
     }
 
     public int getRepeatType() {
-        return mRepeatType;
+        return repeatType;
     }
 
     public Reminder setRepeatType(int repeatType) {
-        mRepeatType = repeatType;
+        this.repeatType = repeatType;
         return this;
     }
 
     public String getForeverState() {
-        return mForeverState;
+        return foreverState;
     }
 
     public Reminder setForeverState(String foreverState) {
-        mForeverState = foreverState;
+        this.foreverState = foreverState;
         return this;
     }
 
     public int getNumberToShow() {
-        return mNumberToShow;
+        return numberToShow;
     }
 
     public Reminder setNumberToShow(int numberToShow) {
-        mNumberToShow = numberToShow;
+        this.numberToShow = numberToShow;
         return this;
     }
 
     public int getNumberShown() {
-        return mNumberShown;
+        return numberShown;
     }
 
     public Reminder setNumberShown(int numberShown) {
-        mNumberShown = numberShown;
+        this.numberShown = numberShown;
         return this;
     }
 
     public String getIcon() {
-        return mIcon;
+        return icon;
     }
 
     public Reminder setIcon(String icon) {
-        mIcon = icon;
+        this.icon = icon;
         return this;
     }
 
     public String getColour() {
-        return mColour;
+        return colour;
     }
 
     public Reminder setColour(String colour) {
-        mColour = colour;
+        this.colour = colour;
         return this;
     }
 
     public boolean[] getDaysOfWeek() {
-        return mDaysOfWeek;
+        return daysOfWeek;
     }
 
     public Reminder setDaysOfWeek(boolean[] daysOfWeek) {
-        mDaysOfWeek = daysOfWeek;
+        this.daysOfWeek = daysOfWeek;
         return this;
     }
 
     public int getInterval() {
-        return mInterval;
+        return interval;
     }
 
     public Reminder setInterval(int interval) {
-        mInterval = interval;
+        this.interval = interval;
         return this;
     }
 }

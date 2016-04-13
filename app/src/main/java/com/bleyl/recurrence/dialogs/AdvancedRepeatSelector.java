@@ -18,12 +18,12 @@ public class AdvancedRepeatSelector extends DialogFragment {
         void onAdvancedRepeatSelection(int type, int interval, String repeatText);
     }
 
-    AdvancedRepeatSelectionListener mListener;
+    AdvancedRepeatSelectionListener listener;
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        mListener = (AdvancedRepeatSelectionListener) activity;
+        listener = (AdvancedRepeatSelectionListener) activity;
     }
 
     @Override @NonNull
@@ -55,7 +55,7 @@ public class AdvancedRepeatSelector extends DialogFragment {
             public void onClick(DialogInterface dialog, int which) {
                 String repeatType = repeatPicker.getDisplayedValues()[repeatPicker.getValue()];
                 String text = getString(R.string.repeats_every, numberPicker.getValue(), repeatType);
-                mListener.onAdvancedRepeatSelection(repeatPicker.getValue() + 1, numberPicker.getValue(), text);
+                listener.onAdvancedRepeatSelection(repeatPicker.getValue() + 1, numberPicker.getValue(), text);
             }
         });
 

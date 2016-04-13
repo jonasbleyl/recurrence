@@ -26,12 +26,12 @@ import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity implements ReminderAdapter.RecyclerListener {
 
-    @Bind(R.id.tabs) PagerSlidingTabStrip mPagerSlidingTabStrip;
-    @Bind(R.id.toolbar) Toolbar mToolbar;
-    @Bind(R.id.viewpager) ViewPager mViewPager;
-    @Bind(R.id.fab_button) FloatingActionButton mFloatingActionButton;
+    @Bind(R.id.tabs) PagerSlidingTabStrip pagerSlidingTabStrip;
+    @Bind(R.id.toolbar) Toolbar toolbar;
+    @Bind(R.id.viewpager) ViewPager viewPager;
+    @Bind(R.id.fab_button) FloatingActionButton floatingActionButton;
 
-    private boolean mFabIsHidden = false;
+    private boolean fabIsHidden = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,17 +40,17 @@ public class MainActivity extends AppCompatActivity implements ReminderAdapter.R
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        setSupportActionBar(mToolbar);
+        setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle(null);
         }
 
-        ViewPageAdapter adapter = new ViewPageAdapter(getSupportFragmentManager(), getApplicationContext());
-        mViewPager.setAdapter(adapter);
+        ViewPageAdapter adapter = new ViewPageAdapter(getSupportFragmentManager());
+        viewPager.setAdapter(adapter);
 
-        mPagerSlidingTabStrip.setViewPager(mViewPager);
+        pagerSlidingTabStrip.setViewPager(viewPager);
         int pageMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4, getResources().getDisplayMetrics());
-        mViewPager.setPageMargin(pageMargin);
+        viewPager.setPageMargin(pageMargin);
 
         SharedPreferences sharedPreferences = getSharedPreferences("first_run_preferences", Context.MODE_PRIVATE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && sharedPreferences.getBoolean("FirstRun", true)) {
@@ -68,16 +68,16 @@ public class MainActivity extends AppCompatActivity implements ReminderAdapter.R
 
     @Override
     public void hideFab() {
-        mFloatingActionButton.hide();
-        mFabIsHidden = true;
+        floatingActionButton.hide();
+        fabIsHidden = true;
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if (mFabIsHidden) {
-            mFloatingActionButton.show();
-            mFabIsHidden = false;
+        if (fabIsHidden) {
+            floatingActionButton.show();
+            fabIsHidden = false;
         }
     }
 

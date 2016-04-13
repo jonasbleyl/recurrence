@@ -16,8 +16,8 @@ import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    private static DatabaseHelper sInstance;
-    private Context mContext;
+    private static DatabaseHelper instance;
+    private Context context;
 
     private static final int DATABASE_VERSION = 4;
     private static final String DATABASE_NAME = "RECURRENCE_DB";
@@ -58,10 +58,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String OLD_COLOUR = "#9E9E9E";
 
     public static synchronized DatabaseHelper getInstance(Context context) {
-        if (sInstance == null) {
-            sInstance = new DatabaseHelper(context.getApplicationContext());
+        if (instance == null) {
+            instance = new DatabaseHelper(context.getApplicationContext());
         }
-        return sInstance;
+        return instance;
     }
 
     /**
@@ -70,7 +70,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      */
     private DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
-        mContext = context;
+        this.context = context;
     }
 
     public void onCreate(SQLiteDatabase database) {
@@ -288,7 +288,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     private void addAllIcons(SQLiteDatabase database) {
-        String[] icons = mContext.getResources().getStringArray(R.array.icons_string_array);
+        String[] icons = context.getResources().getStringArray(R.array.icons_string_array);
         for (int i = 0; i < icons.length; i++) {
             ContentValues values = new ContentValues();
             values.put(COL_ICON_ID, i);
@@ -356,7 +356,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     private void addAllColours(SQLiteDatabase database) {
-        int[] colours = mContext.getResources().getIntArray(R.array.int_colours_array);
+        int[] colours = context.getResources().getIntArray(R.array.int_colours_array);
         for(int colour : colours) {
             ContentValues values = new ContentValues();
             values.put(COL_PICKER_COLOUR, colour);

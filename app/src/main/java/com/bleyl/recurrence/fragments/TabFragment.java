@@ -2,7 +2,6 @@ package com.bleyl.recurrence.fragments;
 
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
-import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -33,22 +32,20 @@ import butterknife.ButterKnife;
 
 public class TabFragment extends Fragment {
 
-    @Bind(R.id.recycler_view) RecyclerView mRecyclerView;
-    @Bind(R.id.empty_text) TextView mEmptyText;
-    @Bind(R.id.empty_view) LinearLayout mLinearLayout;
-    @Bind(R.id.empty_icon) ImageView mImageView;
+    @Bind(R.id.recycler_view) RecyclerView recyclerView;
+    @Bind(R.id.empty_text) TextView emptyText;
+    @Bind(R.id.empty_view) LinearLayout linearLayout;
+    @Bind(R.id.empty_icon) ImageView imageView;
 
-    private Activity mActivity;
-    private ReminderAdapter mReminderAdapter;
-    private List<Reminder> mReminderList;
-    private int mRemindersType;
+    private ReminderAdapter reminderAdapter;
+    private List<Reminder> reminderList;
+    private int remindersType;
     private boolean startAnimation = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_tabs, container, false);
         if (savedInstanceState == null) startAnimation = true;
-        mActivity = getActivity();
         return view;
     }
 
@@ -56,46 +53,46 @@ public class TabFragment extends Fragment {
     public void onViewCreated(View view, Bundle bundle) {
         super.onViewCreated(view, bundle);
         ButterKnife.bind(this, view);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(mActivity);
-        mRecyclerView.setLayoutManager(layoutManager);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(layoutManager);
 
-        mRemindersType = this.getArguments().getInt("TYPE");
-        if (mRemindersType == Reminder.INACTIVE) {
-            mEmptyText.setText(R.string.no_inactive);
-            mImageView.setImageResource(R.drawable.ic_notifications_off_black_empty);
+        remindersType = this.getArguments().getInt("TYPE");
+        if (remindersType == Reminder.INACTIVE) {
+            emptyText.setText(R.string.no_inactive);
+            imageView.setImageResource(R.drawable.ic_notifications_off_black_empty);
         }
 
-        mReminderList = getListData();
-        mReminderAdapter = new ReminderAdapter(mActivity, R.layout.item_notification_list, mReminderList);
-        mRecyclerView.setAdapter(mReminderAdapter);
+        reminderList = getListData();
+        reminderAdapter = new ReminderAdapter(getActivity(), R.layout.item_notification_list, reminderList);
+        recyclerView.setAdapter(reminderAdapter);
 
-        if (mReminderAdapter.getItemCount() == 0) {
-            mRecyclerView.setVisibility(View.GONE);
-            mLinearLayout.setVisibility(View.VISIBLE);
+        if (reminderAdapter.getItemCount() == 0) {
+            recyclerView.setVisibility(View.GONE);
+            linearLayout.setVisibility(View.VISIBLE);
         } else {
             if (startAnimation)
-                runStartAnimation(mRecyclerView, layoutManager);
+                runStartAnimation(recyclerView, layoutManager);
         }
     }
 
     public List<Reminder> getListData() {
-        DatabaseHelper database = DatabaseHelper.getInstance(mActivity.getApplicationContext());
-        List<Reminder> reminderList = database.getNotificationList(mRemindersType);
+        DatabaseHelper database = DatabaseHelper.getInstance(getActivity().getApplicationContext());
+        List<Reminder> reminderList = database.getNotificationList(remindersType);
         database.close();
         return reminderList;
     }
 
     public void updateList() {
-        mReminderList.clear();
-        mReminderList.addAll(getListData());
-        mReminderAdapter.notifyDataSetChanged();
+        reminderList.clear();
+        reminderList.addAll(getListData());
+        reminderAdapter.notifyDataSetChanged();
 
-        if (mReminderAdapter.getItemCount() == 0) {
-            mRecyclerView.setVisibility(View.GONE);
-            mLinearLayout.setVisibility(View.VISIBLE);
+        if (reminderAdapter.getItemCount() == 0) {
+            recyclerView.setVisibility(View.GONE);
+            linearLayout.setVisibility(View.VISIBLE);
         } else {
-            mRecyclerView.setVisibility(View.VISIBLE);
-            mLinearLayout.setVisibility(View.GONE);
+            recyclerView.setVisibility(View.VISIBLE);
+            linearLayout.setVisibility(View.GONE);
         }
     }
 
@@ -133,14 +130,14 @@ public class TabFragment extends Fragment {
 
     @Override
     public void onResume() {
-        LocalBroadcastManager.getInstance(mActivity).registerReceiver(messageReceiver, new IntentFilter("BROADCAST_REFRESH"));
+        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(messageReceiver, new IntentFilter("BROADCAST_REFRESH"));
         updateList();
         super.onResume();
     }
 
     @Override
     public void onPause() {
-        LocalBroadcastManager.getInstance(mActivity).unregisterReceiver(messageReceiver);
+        LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(messageReceiver);
         super.onPause();
     }
 }

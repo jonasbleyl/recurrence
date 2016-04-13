@@ -1,31 +1,32 @@
 package com.bleyl.recurrence.models;
 
 public class Icon {
-    private int mId;
-    private String mName;
-    private int mUseFrequency;
+
+    private int id;
+    private String name;
+    private int useFrequency;
 
     public int getId() {
-        return mId;
+        return id;
     }
 
     public void setId(int id) {
-        mId = id;
+        this.id = id;
     }
 
     public String getName() {
-        return mName;
+        return name;
     }
 
     public void setName(String name) {
-        mName = name;
+        this.name = name;
     }
 
     public int getUseFrequency() {
-        return mUseFrequency;
+        return useFrequency;
     }
 
     public void setUseFrequency(int useFrequency) {
-        mUseFrequency = useFrequency;
+        this.useFrequency = useFrequency;
     }
 }

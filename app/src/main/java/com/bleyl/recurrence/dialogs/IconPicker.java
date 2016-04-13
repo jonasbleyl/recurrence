@@ -24,12 +24,12 @@ public class IconPicker extends DialogFragment {
         void onIconSelection(DialogFragment dialog, String iconName, String iconType, int iconResId);
     }
 
-    IconSelectionListener mListener;
+    IconSelectionListener listener;
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        mListener = (IconSelectionListener) activity;
+        listener = (IconSelectionListener) activity;
     }
 
     @Override @NonNull

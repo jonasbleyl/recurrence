@@ -1,6 +1,5 @@
 package com.bleyl.recurrence.adapters;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -18,15 +17,13 @@ import com.bleyl.recurrence.models.Reminder;
 
 public class ViewPageAdapter extends FragmentPagerAdapter implements PagerSlidingTabStrip.CustomTabProvider {
 
-    private Context mContext;
     private final int[] ICONS = {
             R.drawable.selector_icon_active,
             R.drawable.selector_icon_inactive
     };
 
-    public ViewPageAdapter(FragmentManager fm, Context context) {
+    public ViewPageAdapter(FragmentManager fm) {
         super(fm);
-        mContext = context;
     }
 
     @Override
@@ -41,7 +38,7 @@ public class ViewPageAdapter extends FragmentPagerAdapter implements PagerSlidin
 
     @Override
     public View getCustomTabView(ViewGroup parent, int position) {
-        FrameLayout customLayout = (FrameLayout) LayoutInflater.from(mContext).inflate(R.layout.custom_tab, parent, false);
+        FrameLayout customLayout = (FrameLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_tab, parent, false);
         ((ImageView) customLayout.findViewById(R.id.image)).setImageResource(ICONS[position]);
         return customLayout;
     }
