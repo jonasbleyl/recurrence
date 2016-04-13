@@ -72,10 +72,10 @@ public class TabFragment extends Fragment {
         if (mReminderAdapter.getItemCount() == 0) {
             mRecyclerView.setVisibility(View.GONE);
             mLinearLayout.setVisibility(View.VISIBLE);
+        } else {
+            if (startAnimation)
+                runStartAnimation(mRecyclerView, layoutManager);
         }
-
-        if (startAnimation)
-            runStartAnimation(mRecyclerView, layoutManager);
     }
 
     public List<Reminder> getListData() {
