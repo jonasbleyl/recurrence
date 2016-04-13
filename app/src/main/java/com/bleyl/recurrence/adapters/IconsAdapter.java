@@ -1,6 +1,5 @@
 package com.bleyl.recurrence.adapters;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +19,6 @@ import butterknife.ButterKnife;
 public class IconsAdapter extends RecyclerView.Adapter<IconsAdapter.ViewHolder>{
 
     private int mRowLayout;
-    private Context mContext;
     private IconPicker mIconPicker;
     private List<Icon> mIconList;
 
@@ -35,8 +33,7 @@ public class IconsAdapter extends RecyclerView.Adapter<IconsAdapter.ViewHolder>{
         }
     }
 
-    public IconsAdapter(Context context, IconPicker iconPicker, int rowLayout, List<Icon> iconList) {
-        mContext = context;
+    public IconsAdapter(IconPicker iconPicker, int rowLayout, List<Icon> iconList) {
         mIconPicker = iconPicker;
         mRowLayout = rowLayout;
         mIconList = iconList;
@@ -56,24 +53,24 @@ public class IconsAdapter extends RecyclerView.Adapter<IconsAdapter.ViewHolder>{
     @Override
     public void onBindViewHolder(final ViewHolder viewHolder, int position) {
         final String iconName = mIconList.get(position).getName();
-        final int iconResId = mContext.getResources().getIdentifier(iconName, "drawable", mContext.getPackageName());
+        final int iconResId = viewHolder.mView.getContext().getResources().getIdentifier(iconName, "drawable", viewHolder.mView.getContext().getPackageName());
         viewHolder.mImageView.setImageResource(iconResId);
         viewHolder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DatabaseHelper database = DatabaseHelper.getInstance(mContext);
+                DatabaseHelper database = DatabaseHelper.getInstance(viewHolder.mView.getContext());
                 mIconList.get(viewHolder.getAdapterPosition()).setUseFrequency(mIconList.get(viewHolder.getAdapterPosition()).getUseFrequency() + 1);
                 database.updateIcon(mIconList.get(viewHolder.getAdapterPosition()));
                 database.close();
 
                 String name;
-                if (!iconName.equals(mContext.getString(R.string.default_icon_value))) {
-                    name = mContext.getString(R.string.custom_icon);
+                if (!iconName.equals(viewHolder.mView.getContext().getString(R.string.default_icon_value))) {
+                    name = viewHolder.mView.getContext().getString(R.string.custom_icon);
                 } else {
-                    name = mContext.getResources().getString(R.string.default_icon);
+                    name = viewHolder.mView.getContext().getResources().getString(R.string.default_icon);
                 }
 
-                ((IconPicker.IconSelectionListener) mContext).onIconSelection(mIconPicker, iconName, name, iconResId);
+                ((IconPicker.IconSelectionListener) viewHolder.mView.getContext()).onIconSelection(mIconPicker, iconName, name, iconResId);
             }
         });
     }

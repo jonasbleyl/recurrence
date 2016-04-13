@@ -43,7 +43,7 @@ public class IconPicker extends DialogFragment {
         recyclerView.addItemDecoration(itemDecoration);
 
         DatabaseHelper database = DatabaseHelper.getInstance(getContext());
-        recyclerView.setAdapter(new IconsAdapter(getContext(), IconPicker.this, R.layout.item_icon_grid, database.getIconList()));
+        recyclerView.setAdapter(new IconsAdapter(IconPicker.this, R.layout.item_icon_grid, database.getIconList()));
         database.close();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.Dialog);
