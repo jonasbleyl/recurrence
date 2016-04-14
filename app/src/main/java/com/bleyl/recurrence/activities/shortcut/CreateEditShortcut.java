@@ -21,4 +21,10 @@ public class CreateEditShortcut extends CreateEditActivity {
             }
         }, 300);
     }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        finish();
+    }
 }
