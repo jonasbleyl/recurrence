@@ -107,7 +107,7 @@ public class TabFragment extends Fragment {
                     View view = recyclerView.findViewHolderForAdapterPosition(i).itemView;
                     view.setAlpha(0);
 
-                    PropertyValuesHolder slide = PropertyValuesHolder.ofFloat(View.TRANSLATION_Y, 150, 0);
+                    PropertyValuesHolder slide = PropertyValuesHolder.ofFloat(View.TRANSLATION_Y, 400, 0);
                     PropertyValuesHolder alpha = PropertyValuesHolder.ofFloat(View.ALPHA, 0, 1);
                     ObjectAnimator animator = ObjectAnimator.ofPropertyValuesHolder(view, slide, alpha);
                     animator.setDuration(400);
