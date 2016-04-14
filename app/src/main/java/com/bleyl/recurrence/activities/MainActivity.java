@@ -1,9 +1,6 @@
 package com.bleyl.recurrence.activities;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.ViewPager;
@@ -18,7 +15,6 @@ import com.astuetz.PagerSlidingTabStrip;
 import com.bleyl.recurrence.R;
 import com.bleyl.recurrence.adapters.ReminderAdapter;
 import com.bleyl.recurrence.adapters.ViewPageAdapter;
-import com.bleyl.recurrence.receivers.BootReceiver;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -51,13 +47,6 @@ public class MainActivity extends AppCompatActivity implements ReminderAdapter.R
         pagerSlidingTabStrip.setViewPager(viewPager);
         int pageMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4, getResources().getDisplayMetrics());
         viewPager.setPageMargin(pageMargin);
-
-        SharedPreferences sharedPreferences = getSharedPreferences("first_run_preferences", Context.MODE_PRIVATE);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && sharedPreferences.getBoolean("FirstRun", true)) {
-            sharedPreferences.edit().putBoolean("FirstRun", false).apply();
-            Intent intent = new Intent().setClass(this, BootReceiver.class);
-            sendBroadcast(intent);
-        }
     }
 
     @OnClick(R.id.fab_button)

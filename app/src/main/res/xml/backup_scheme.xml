@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <full-backup-content>
-    <exclude domain="sharedpref" path="first_run_preferences.xml"/>
+    <exclude domain="database" path="RECURRENCE_DB"/>
 </full-backup-content>
