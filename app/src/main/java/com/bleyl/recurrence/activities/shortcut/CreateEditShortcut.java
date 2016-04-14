@@ -1,4 +1,4 @@
-package com.bleyl.recurrence.widgets;
+package com.bleyl.recurrence.activities.shortcut;
 
 import android.content.Context;
 import android.os.Bundle;

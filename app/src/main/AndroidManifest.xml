@@ -47,7 +47,7 @@
             android:excludeFromRecents="true"/>
 
         <activity
-            android:name=".widgets.CreateEditShortcut"
+            android:name=".activities.shortcut.CreateEditShortcut"
             android:taskAffinity=""
             android:theme="@style/AppThemeDialog"
             android:configChanges="orientation|screenSize"
@@ -58,7 +58,7 @@
         </activity>
 
         <activity
-            android:name=".widgets.ShortcutActivity">
+            android:name=".activities.shortcut.ShortcutActivity">
             <intent-filter>
                 <action android:name="android.intent.action.CREATE_SHORTCUT" />
                 <category android:name="android.intent.category.DEFAULT" />
