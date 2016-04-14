@@ -32,7 +32,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:layout_marginTop="8dp"
             android:fontFamily="monospace"
             android:text="@string/tab_license"
             android:textSize="11sp"/>
@@ -57,7 +56,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:layout_marginTop="8dp"
             android:fontFamily="monospace"
             android:text="@string/butter_knife_license"
             android:textSize="11sp" />
