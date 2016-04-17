@@ -97,6 +97,8 @@ public class TabFragment extends Fragment {
     }
 
     public void runStartAnimation(final RecyclerView recyclerView, final LinearLayoutManager layoutManager) {
+        recyclerView.setAlpha(0);
+
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -110,8 +112,8 @@ public class TabFragment extends Fragment {
                     PropertyValuesHolder slide = PropertyValuesHolder.ofFloat(View.TRANSLATION_Y, 400, 0);
                     PropertyValuesHolder alpha = PropertyValuesHolder.ofFloat(View.ALPHA, 0, 1);
                     ObjectAnimator animator = ObjectAnimator.ofPropertyValuesHolder(view, slide, alpha);
-                    animator.setDuration(400);
-                    animator.setStartDelay(i * 80);
+                    animator.setDuration(300);
+                    animator.setStartDelay(i * 70);
                     animator.setInterpolator(new DecelerateInterpolator());
                     animator.start();
                 }
