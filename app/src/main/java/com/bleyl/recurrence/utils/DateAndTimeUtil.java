@@ -17,18 +17,8 @@ public class DateAndTimeUtil {
     private static final SimpleDateFormat READABLE_DAY_MONTH_YEAR_FORMAT = new SimpleDateFormat("d MMMM yyyy", Locale.getDefault());
     private static final SimpleDateFormat READABLE_TIME_24_FORMAT = new SimpleDateFormat("HH:mm", Locale.getDefault());
     private static final SimpleDateFormat READABLE_TIME_FORMAT = new SimpleDateFormat("h:mm a", Locale.getDefault());
-    private static final SimpleDateFormat TIME_FORMAT = new SimpleDateFormat("HHmm", Locale.getDefault());
-    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
     private static final SimpleDateFormat WEEK_DAYS_FORMAT = new SimpleDateFormat("EEEE", Locale.getDefault());
     private static final SimpleDateFormat SHORT_WEEK_DAYS_FORMAT = new SimpleDateFormat("E", Locale.getDefault());
-
-    public static String toStringTime(Calendar calendar) {
-        return TIME_FORMAT.format(calendar.getTime());
-    }
-
-    public static String toStringDate(Calendar calendar) {
-        return DATE_FORMAT.format(calendar.getTime());
-    }
 
     public static String toStringReadableDate(Calendar calendar) {
         java.text.DateFormat dateFormat = java.text.DateFormat.getDateInstance(java.text.DateFormat.FULL, Locale.getDefault());

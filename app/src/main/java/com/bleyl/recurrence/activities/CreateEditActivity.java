@@ -277,7 +277,7 @@ public class CreateEditActivity extends AppCompatActivity implements ColorChoose
                 .setId(id)
                 .setTitle(titleEditText.getText().toString())
                 .setContent(contentEditText.getText().toString())
-                .setDateAndTime(DateAndTimeUtil.toStringDate(calendar) + DateAndTimeUtil.toStringTime(calendar))
+                .setDateAndTime(DateAndTimeUtil.toStringDateAndTime(calendar))
                 .setRepeatType(repeatType)
                 .setForeverState(Boolean.toString(foreverSwitch.isChecked()))
                 .setNumberToShow(timesToShow)
