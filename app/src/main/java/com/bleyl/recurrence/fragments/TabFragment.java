@@ -1,5 +1,6 @@
 package com.bleyl.recurrence.fragments;
 
+import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.content.BroadcastReceiver;
@@ -103,22 +104,33 @@ public class TabFragment extends Fragment {
             @Override
             public void run() {
                 int start = layoutManager.findFirstVisibleItemPosition();
-                int end = layoutManager.findLastVisibleItemPosition();
+                int end = layoutManager.findLastVisibleItemPosition(); end++;
 
                 for (int i = start; i <= end; i++) {
-                    View view = recyclerView.findViewHolderForAdapterPosition(i).itemView;
-                    view.setAlpha(0);
+                    if (recyclerView.findViewHolderForAdapterPosition(i) != null) {
+                        View view = recyclerView.findViewHolderForAdapterPosition(i).itemView;
+                        view.setAlpha(0);
 
-                    PropertyValuesHolder slide = PropertyValuesHolder.ofFloat(View.TRANSLATION_Y, 400, 0);
-                    PropertyValuesHolder alpha = PropertyValuesHolder.ofFloat(View.ALPHA, 0, 1);
-                    ObjectAnimator animator = ObjectAnimator.ofPropertyValuesHolder(view, slide, alpha);
-                    animator.setDuration(300);
-                    animator.setStartDelay(i * 70);
-                    animator.setInterpolator(new DecelerateInterpolator());
-                    animator.start();
+                        PropertyValuesHolder slide = PropertyValuesHolder.ofFloat(View.TRANSLATION_Y, 400, 0);
+                        PropertyValuesHolder alpha = PropertyValuesHolder.ofFloat(View.ALPHA, 0, 1);
+                        ObjectAnimator animator = ObjectAnimator.ofPropertyValuesHolder(view, slide, alpha);
+                        animator.setDuration(300);
+                        animator.setStartDelay(i * 70);
+                        animator.setInterpolator(new DecelerateInterpolator());
+                        animator.addListener(new Animator.AnimatorListener() {
+                            @Override public void onAnimationCancel(Animator animation) {}
+                            @Override public void onAnimationRepeat(Animator animation) {}
+                            @Override public void onAnimationStart(Animator animation) {}
+                            @Override
+                            public void onAnimationEnd(Animator animation) {
+                                reminderAdapter.setAnimationComplete();
+                            }
+                        });
+                        animator.start();
+
+                    }
                 }
                 recyclerView.setAlpha(1);
-
             }
         }, 50);
     }
