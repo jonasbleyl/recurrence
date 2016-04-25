@@ -34,7 +34,6 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHo
     private int rowLayout;
     private Activity activity;
     private List<Reminder> reminderList;
-    private boolean isAnimating = true;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         @Bind(R.id.notification_title) TextView title;
@@ -64,8 +63,7 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHo
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(rowLayout, viewGroup, false);
-        return new ViewHolder(v);
+        return new ViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(rowLayout, viewGroup, false));
     }
 
     @Override
@@ -91,41 +89,36 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHo
         viewHolder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!isAnimating) {
-                    Intent intent = new Intent(activity, ViewActivity.class);
-                    intent.putExtra("NOTIFICATION_ID", reminderList.get(viewHolder.getAdapterPosition()).getId());
+                Intent intent = new Intent(activity, ViewActivity.class);
+                intent.putExtra("NOTIFICATION_ID", reminderList.get(viewHolder.getAdapterPosition()).getId());
 
-                    // Add shared element transition animation if on Lollipop or later
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        CardView cardView = (CardView) view.findViewById(R.id.notification_card);
+                // Add shared element transition animation if on Lollipop or later
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    CardView cardView = (CardView) view.findViewById(R.id.notification_card);
 
-                        TransitionSet setExit = new TransitionSet();
-                        Transition transition = new Fade();
-                        transition.excludeTarget(android.R.id.statusBarBackground, true);
-                        transition.excludeTarget(android.R.id.navigationBarBackground, true);
-                        transition.excludeTarget(R.id.fab_button, true);
-                        transition.excludeTarget(R.id.recycler_view, true);
-                        transition.setDuration(400);
-                        setExit.addTransition(transition);
+                    TransitionSet setExit = new TransitionSet();
+                    Transition transition = new Fade();
+                    transition.excludeTarget(android.R.id.statusBarBackground, true);
+                    transition.excludeTarget(android.R.id.navigationBarBackground, true);
+                    transition.excludeTarget(R.id.fab_button, true);
+                    transition.excludeTarget(R.id.recycler_view, true);
+                    transition.setDuration(400);
+                    setExit.addTransition(transition);
 
-                        activity.getWindow().setSharedElementsUseOverlay(false);
-                        activity.getWindow().setReenterTransition(null);
+                    activity.getWindow().setSharedElementsUseOverlay(false);
+                    activity.getWindow().setReenterTransition(null);
 
-                        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(activity, cardView, "cardTransition");
-                        ActivityCompat.startActivity(activity, intent, options.toBundle());
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(activity, cardView, "cardTransition");
+                    ActivityCompat.startActivity(activity, intent, options.toBundle());
 
-                        ((RecyclerListener) activity).hideFab();
-                    } else {
-                        view.getContext().startActivity(intent);
-                    }
+                    ((RecyclerListener) activity).hideFab();
+                } else {
+                    view.getContext().startActivity(intent);
                 }
             }
         });
     }
 
-    public void setAnimationComplete() {
-        isAnimating = false;
-    }
 
     @Override
     public int getItemCount() {

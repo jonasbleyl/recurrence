@@ -1,14 +1,10 @@
 package com.bleyl.recurrence.fragments;
 
-import android.animation.Animator;
-import android.animation.ObjectAnimator;
-import android.animation.PropertyValuesHolder;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,7 +12,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -41,13 +36,10 @@ public class TabFragment extends Fragment {
     private ReminderAdapter reminderAdapter;
     private List<Reminder> reminderList;
     private int remindersType;
-    private boolean startAnimation = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_tabs, container, false);
-        if (savedInstanceState == null) startAnimation = true;
-        return view;
+        return inflater.inflate(R.layout.fragment_tabs, container, false);
     }
 
     @Override
@@ -70,9 +62,6 @@ public class TabFragment extends Fragment {
         if (reminderAdapter.getItemCount() == 0) {
             recyclerView.setVisibility(View.GONE);
             linearLayout.setVisibility(View.VISIBLE);
-        } else {
-            if (startAnimation)
-                runStartAnimation(recyclerView, layoutManager);
         }
     }
 
@@ -95,44 +84,6 @@ public class TabFragment extends Fragment {
             recyclerView.setVisibility(View.VISIBLE);
             linearLayout.setVisibility(View.GONE);
         }
-    }
-
-    public void runStartAnimation(final RecyclerView recyclerView, final LinearLayoutManager layoutManager) {
-        recyclerView.setAlpha(0);
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                int start = layoutManager.findFirstVisibleItemPosition();
-                int end = layoutManager.findLastVisibleItemPosition(); end++;
-
-                for (int i = start; i <= end; i++) {
-                    if (recyclerView.findViewHolderForAdapterPosition(i) != null) {
-                        View view = recyclerView.findViewHolderForAdapterPosition(i).itemView;
-                        view.setAlpha(0);
-
-                        PropertyValuesHolder slide = PropertyValuesHolder.ofFloat(View.TRANSLATION_Y, 400, 0);
-                        PropertyValuesHolder alpha = PropertyValuesHolder.ofFloat(View.ALPHA, 0, 1);
-                        ObjectAnimator animator = ObjectAnimator.ofPropertyValuesHolder(view, slide, alpha);
-                        animator.setDuration(300);
-                        animator.setStartDelay(i * 70);
-                        animator.setInterpolator(new DecelerateInterpolator());
-                        animator.addListener(new Animator.AnimatorListener() {
-                            @Override public void onAnimationCancel(Animator animation) {}
-                            @Override public void onAnimationRepeat(Animator animation) {}
-                            @Override public void onAnimationStart(Animator animation) {}
-                            @Override
-                            public void onAnimationEnd(Animator animation) {
-                                reminderAdapter.setAnimationComplete();
-                            }
-                        });
-                        animator.start();
-
-                    }
-                }
-                recyclerView.setAlpha(1);
-            }
-        }, 50);
     }
 
     private BroadcastReceiver messageReceiver = new BroadcastReceiver() {
