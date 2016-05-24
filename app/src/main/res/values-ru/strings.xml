@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="about">О</string>
+    <string name="settings">Настройки</string>
+    <string name="backup_restore">Резервное копирование / Восстановление</string>
+    <string name="preference_notification_category">Настройки уведомлений</string>
+    <string name="checkbox_vibrate">Вибрация</string>
+    <string name="checkbox_sound">Мелодия</string>
+    <string name="checkbox_LED">LED-индикация</string>
+    <string name="checkbox_ongoing">Постоянные</string>
+    <string name="snooze">Отложить</string>
+    <string name="snooze_detail">Добавить «Отложить» в Уведомление</string>
+    <string name="snooze_length">Отложить на</string>
+    <string name="mark_as_done">Выполнено</string>
+    <string name="mark_as_done_detail">Добавить «Выполнено» в Уведомление</string>
+    <string name="nagging_reminder">Назойливое напоминание</string>
+    <string name="nagging_detail">Постоянное уведомление, пока не будет отклонено</string>
+    <string name="nagging_interval">Интервал назойливости</string>
+    <string name="action_settings">Настройки</string>
+    <string name="action_backup_restore">Резерв./Восстановить</string>
+    <string name="action_delete">Удалить</string>
+    <string name="action_edit">Изменить</string>
+    <string name="action_about">О</string>
+    <string name="action_show_now">Показать</string>
+    <string name="action_mark_as_done">Выполнено</string>
+    <string name="action_share">Поделиться</string>
+    <string name="delete_confirmation">Вы действительно хотите удалить это уведомление?</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
+    <string name="ok">Ok</string>
+    <string name="cancel">Отмена</string>
+    <string name="title">Заголовок</string>
+    <string name="save_menu">Сохранить</string>
+    <string name="time_now">Сейчас</string>
+    <string name="date_today">Сегодня</string>
+    <string name="times_shown">Показано %1$d из %2$d раз</string>
+    <string name="times_shown_edit">Показано %1$d из</string>
+    <string name="forever">Всегда</string>
+    <string name="no_repeat">Не повторять</string>
+    <string name="times">раз</string>
+    <string name="repeat_notification">Количество повторений: </string>
+    <string name="content_hint">Добавить содержимое уведомления</string>
+    <string name="select_icon">Выберите значок</string>
+    <string name="default_icon">Значок по умолчанию</string>
+    <string name="custom_icon">Пользовательский значок</string>
+    <string name="select_colour">Выберите цвет</string>
+    <string name="default_colour">Цвет по умолчанию</string>
+    <string name="repeats_on">Повторять:</string>
+    <string name="repeat_every">Повторять каждые</string>
+    <string name="repeats_every">Повторяется каждые: %1$d %2$s</string>
+    <string name="no_active">Нет активных уведомлений</string>
+    <string name="no_inactive">Нет неактивных уведомлений</string>
+    <string name="toast_past_date">Не удается задать начальную дату в прошлом</string>
+    <string name="toast_higher_number">Число повторений должно быть выше</string>
+    <string name="toast_title_empty">Заголовок не может быть пустым</string>
+    <string name="toast_mark_as_done">Отметить следующее напоминание выполненным</string>
+    <string name="add_reminder">Добавить напоминание</string>
+    <string name="libraries">Библиотеки</string>
+    <string name="rate_app">Оценить приложение</string>
+    <string name="contact">Связаться с нами</string>
+    <string name="version">Версия</string>
+    <string name="thanks_to">Спасибо</string>
+    <string name="translator">Переводчик</string>
+    <string name="send_email">Отправить Email</string>
+    <string-array name="repeat_array">
+        <item>Не повторять</item>
+        <item>Каждый час</item>
+        <item>Каждый день</item>
+        <item>Каждую неделю</item>
+        <item>Ежемесячно</item>
+        <item>Ежегодно</item>
+        <item>Конкретные дни недели</item>
+        <item>Дополнительные опции</item>
+    </string-array>
+</resources>

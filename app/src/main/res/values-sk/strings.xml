@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="about">O aplikácii</string>
+    <string name="settings">Nastavenia</string>
+    <string name="backup_restore">Záloha/Obnova</string>
+    <string name="preference_notification_category">Nastavenie oznámenia</string>
+    <string name="checkbox_vibrate">Vibrovať</string>
+    <string name="checkbox_sound">Zvuk</string>
+    <string name="checkbox_LED">LED</string>
+    <string name="checkbox_ongoing">Trvalé</string>
+    <string name="snooze">Odložiť</string>
+    <string name="snooze_detail">Pridať možnosť odloženia k upozorneniu</string>
+    <string name="snooze_length">Odložiť o</string>
+    <string name="mark_as_done">Označiť ako hotové</string>
+    <string name="mark_as_done_detail">Pridať akciu \"Označiť ako hotové\" k upozorneniu</string>
+    <string name="nagging_reminder">Neodbytné pripomínanie</string>
+    <string name="nagging_detail">Priebežné upozorňovnie na aktuálne oznámenie, pokiaľ sa nezamietne</string>
+    <string name="nagging_interval">Neodbytný interval</string>
+    <string name="action_settings">Nastavenia</string>
+    <string name="action_backup_restore">Záloha/Obnova</string>
+    <string name="action_delete">Zmazať</string>
+    <string name="action_edit">Upraviť</string>
+    <string name="action_about">Viac o</string>
+    <string name="action_show_now">Ukáž teraz</string>
+    <string name="action_mark_as_done">Označiť ako hotové</string>
+    <string name="action_share">Zdielať</string>
+    <string name="delete_confirmation">Ste si naozaj istý, že chcete odstrániť toto oznámenie?</string>
+    <string name="yes">Áno</string>
+    <string name="no">Nie</string>
+    <string name="ok">Ok</string>
+    <string name="cancel">Zrušiť</string>
+    <string name="title">Názov</string>
+    <string name="save_menu">Uložiť</string>
+    <string name="time_now">Teraz</string>
+    <string name="date_today">Dnes</string>
+    <string name="times_shown">Zobrazené %1$d krát z %2$d</string>
+    <string name="times_shown_edit">Zobrazené %1$d krát z</string>
+    <string name="forever">Navždy</string>
+    <string name="no_repeat">Len raz</string>
+    <string name="times">krát</string>
+    <string name="repeat_notification">Počet opakovaní: </string>
+    <string name="content_hint">Pridať poznámky</string>
+    <string name="select_icon">Vyberte si ikonu</string>
+    <string name="default_icon">Predvolená ikona</string>
+    <string name="custom_icon">Vlastná ikona</string>
+    <string name="select_colour">Vyberte si farbu</string>
+    <string name="default_colour">Predvolená farba</string>
+    <string name="repeats_on">Opakuje sa:</string>
+    <string name="repeat_every">Opakovať po</string>
+    <string name="repeats_every">Opakovanie: %1$d %2$s</string>
+    <string name="no_active">Žiadne aktívne oznámenia</string>
+    <string name="no_inactive">Žiadne neaktívne oznámenia</string>
+    <string name="toast_past_date">Počiatočný dátum nemôže byť v minulosti</string>
+    <string name="toast_higher_number">Počet opakovaní musí byť vyšší</string>
+    <string name="toast_title_empty">Názov nesme byť prázdny</string>
+    <string name="toast_mark_as_done">Označiť nasledujúcu pripomieku ako poslednú</string>
+    <string name="add_reminder">Pridať pripomienku</string>
+    <string name="libraries">Knižnice</string>
+    <string name="rate_app">Ohodnotiť aplikáciu</string>
+    <string name="contact">Kontakt</string>
+    <string name="version">Verzia</string>
+    <string name="thanks_to">Poďakovanie</string>
+    <string name="translator">Prekladateľ</string>
+    <string name="send_email">Poslať email</string>
+    <string-array name="repeat_array">
+        <item>Len raz</item>
+        <item>Každú hodinu</item>
+        <item>Každý deň</item>
+        <item>Každý týždeň</item>
+        <item>Každý mesiac</item>
+        <item>Každý rok</item>
+        <item>Určité dni v týždni</item>
+        <item>Rozšírené</item>
+    </string-array>
+</resources>

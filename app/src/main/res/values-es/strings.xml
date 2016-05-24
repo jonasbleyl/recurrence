@@ -2,6 +2,7 @@
 <resources>
     <string name="about">Acerca de</string>
     <string name="settings">Ajustes</string>
+    <string name="backup_restore">Respaldar / Restaurar</string>
     <string name="preference_notification_category">Preferencias de notificación</string>
     <string name="checkbox_vibrate">Vibrar</string>
     <string name="checkbox_sound">Sonar</string>
@@ -10,23 +11,24 @@
     <string name="snooze">Silenciar</string>
     <string name="snooze_detail">Añadir una acción de repetición a la notificación</string>
     <string name="snooze_length">Repetir alarma después dé</string>
-    <string name="minute">minuto</string>
-    <string name="minutes">minutos</string>
     <string name="mark_as_done">Marcar como completo</string>
     <string name="mark_as_done_detail">Añadir un \"Marcar como completo\" acción a la notificación</string>
     <string name="nagging_reminder">Recordatorio persistente</string>
     <string name="nagging_detail">Continuamente notificarle de la notificación actual hasta que se descarta</string>
     <string name="nagging_interval">Intervalo de recordatorio persistente</string>
     <string name="action_settings">Ajustes</string>
+    <string name="action_backup_restore">Respaldar / Restaurar</string>
     <string name="action_delete">Borrar</string>
     <string name="action_edit">Modificar</string>
     <string name="action_about">Acerca de</string>
     <string name="action_show_now">Mostrar ahora</string>
     <string name="action_mark_as_done">Marcar como completo</string>
+    <string name="action_share">Compartir</string>
     <string name="delete_confirmation">¿Estás seguro que quieres borrar esta notificación?</string>
     <string name="yes">Sí</string>
     <string name="no">No</string>
     <string name="ok">OK</string>
+    <string name="cancel">Cancelar</string>
     <string name="title">Título</string>
     <string name="save_menu">Guardar</string>
     <string name="time_now">Ahora</string>

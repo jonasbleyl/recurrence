@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <plurals name="time_minute">
+        <item quantity="many">%d минут</item>
+        <item quantity="few">%d минуты</item>
+        <item quantity="one">%d минута</item>
+    </plurals>
+    <plurals name="time_second">
+        <item quantity="many">%d секунд</item>
+        <item quantity="few">%d секунды</item>
+        <item quantity="one">%d секунда</item>
+    </plurals>
+    <plurals name="time_hour">
+        <item quantity="many">%d часов</item>
+        <item quantity="few">%d часа</item>
+        <item quantity="one">%d час</item>
+    </plurals>
+    <plurals name="hour">
+        <item quantity="many">часов</item>
+        <item quantity="few">часа</item>
+        <item quantity="one" tools:ignore="ImpliedQuantity">час</item>
+    </plurals>
+    <plurals name="day">
+        <item quantity="many">дней</item>
+        <item quantity="few">дня</item>
+        <item quantity="one" tools:ignore="ImpliedQuantity">день</item>
+    </plurals>
+    <plurals name="week">
+        <item quantity="many">недель</item>
+        <item quantity="few">недели</item>
+        <item quantity="one" tools:ignore="ImpliedQuantity">неделя</item>
+    </plurals>
+    <plurals name="month">
+        <item quantity="many">месяцев</item>
+        <item quantity="few">месяца</item>
+        <item quantity="one" tools:ignore="ImpliedQuantity">месяц</item>
+    </plurals>
+    <plurals name="year">
+        <item quantity="many">лет</item>
+        <item quantity="few">года</item>
+        <item quantity="one" tools:ignore="ImpliedQuantity">год</item>
+    </plurals>
+</resources>

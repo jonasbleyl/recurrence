@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="about">關於</string>
+    <string name="settings">選項</string>
+    <string name="backup_restore">備份/還原</string>
+    <string name="preference_notification_category">通知設定</string>
+    <string name="checkbox_vibrate">震動</string>
+    <string name="checkbox_sound">提示音</string>
+    <string name="checkbox_LED">LED</string>
+    <string name="checkbox_ongoing">永久</string>
+    <string name="snooze">延後</string>
+    <string name="snooze_detail">替通知增加延後動作</string>
+    <string name="snooze_length">延後時間長度</string>
+    <string name="mark_as_done">標記為完成</string>
+    <string name="mark_as_done_detail">替通知增加 \"標記完成\" 動作</string>
+    <string name="nagging_reminder">確保提醒</string>
+    <string name="nagging_detail">持續提醒直到取消</string>
+    <string name="nagging_interval">確保間隔</string>
+    <string name="action_settings">設定</string>
+    <string name="action_backup_restore">備份/還原</string>
+    <string name="action_delete">刪除？</string>
+    <string name="action_edit">編輯</string>
+    <string name="action_about">關於</string>
+    <string name="action_show_now">現在顯示</string>
+    <string name="action_mark_as_done">標記為完成</string>
+    <string name="action_share">分享</string>
+    <string name="delete_confirmation">確定要刪除此通知嗎?</string>
+    <string name="yes">是</string>
+    <string name="no">否</string>
+    <string name="ok">確定</string>
+    <string name="cancel">取消</string>
+    <string name="title">標題：</string>
+    <string name="save_menu">儲存</string>
+    <string name="time_now">現在</string>
+    <string name="date_today">今日</string>
+    <string name="forever">永遠</string>
+    <string name="no_repeat">不重複</string>
+    <string name="repeat_notification">重複次數： </string>
+    <string name="content_hint">加入通知內文</string>
+    <string name="select_icon">選擇圖示</string>
+    <string name="default_icon">預設圖示</string>
+    <string name="custom_icon">自訂圖示</string>
+    <string name="select_colour">選擇顏色：</string>
+    <string name="default_colour">預設顏色</string>
+    <string name="repeats_on">重複於</string>
+    <string name="repeat_every">重複每</string>
+    <string name="repeats_every">重複每: %1$d %2$s</string>
+    <string name="no_active">無作用中通知</string>
+    <string name="no_inactive">無未作用中通知</string>
+    <string name="toast_past_date">無法將初始日設在過去</string>
+    <string name="toast_higher_number">重複次數必須更高</string>
+    <string name="toast_title_empty">標題不能為空白</string>
+    <string name="toast_mark_as_done">標記下個提醒為完成</string>
+    <string name="add_reminder">新增提醒</string>
+    <string name="libraries">程式庫</string>
+    <string name="rate_app">評價程式！</string>
+    <string name="contact">聯繫</string>
+    <string name="version">版本</string>
+    <string name="thanks_to">感謝</string>
+    <string name="translator">翻譯者</string>
+    <string name="send_email">傳送電子郵件</string>
+    <string-array name="repeat_array">
+        <item>不重複</item>
+        <item>每小時</item>
+        <item>每天</item>
+        <item>每週</item>
+        <item>每月</item>
+        <item>每年</item>
+        <item>特定星期幾</item>
+        <item>進階：</item>
+    </string-array>
+</resources>

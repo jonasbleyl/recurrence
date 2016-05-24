@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <plurals name="time_minute">
         <item quantity="other">%d minuta</item>
         <item quantity="one">%d minuta</item>
@@ -17,27 +17,27 @@
     </plurals>
     <plurals name="hour">
         <item quantity="other">sati</item>
-        <item quantity="one">%d sat</item>
+        <item quantity="one" tools:ignore="ImpliedQuantity">sat</item>
         <item quantity="few">sata</item>
     </plurals>
     <plurals name="day">
         <item quantity="other">dana</item>
-        <item quantity="one">%d dan</item>
+        <item quantity="one" tools:ignore="ImpliedQuantity">dan</item>
         <item quantity="few">dana</item>
     </plurals>
     <plurals name="week">
         <item quantity="other">tjedana</item>
-        <item quantity="one">%d tjedan</item>
+        <item quantity="one" tools:ignore="ImpliedQuantity">tjedan</item>
         <item quantity="few">tjedna</item>
     </plurals>
     <plurals name="month">
         <item quantity="other">mjeseci</item>
-        <item quantity="one">%d mjesec</item>
+        <item quantity="one" tools:ignore="ImpliedQuantity">mjesec</item>
         <item quantity="few">mjeseca</item>
     </plurals>
     <plurals name="year">
         <item quantity="other">godina</item>
-        <item quantity="one">%d godina</item>
+        <item quantity="one" tools:ignore="ImpliedQuantity">godina</item>
         <item quantity="few">godine</item>
     </plurals>
 </resources>
