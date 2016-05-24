@@ -1,9 +1,6 @@
 package com.bleyl.recurrence.activities;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.ViewPager;
@@ -18,20 +15,19 @@ import com.astuetz.PagerSlidingTabStrip;
 import com.bleyl.recurrence.R;
 import com.bleyl.recurrence.adapters.ReminderAdapter;
 import com.bleyl.recurrence.adapters.ViewPageAdapter;
-import com.bleyl.recurrence.receivers.BootReceiver;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity implements ReminderAdapter.RecyclerListener {
 
-    @Bind(R.id.tabs) PagerSlidingTabStrip mPagerSlidingTabStrip;
-    @Bind(R.id.toolbar) Toolbar mToolbar;
-    @Bind(R.id.viewpager) ViewPager mViewPager;
-    @Bind(R.id.fab_button) FloatingActionButton mFloatingActionButton;
+    @BindView(R.id.tabs) PagerSlidingTabStrip pagerSlidingTabStrip;
+    @BindView(R.id.toolbar) Toolbar toolbar;
+    @BindView(R.id.viewpager) ViewPager viewPager;
+    @BindView(R.id.fab_button) FloatingActionButton floatingActionButton;
 
-    private boolean mFabIsHidden = false;
+    private boolean fabIsHidden = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,24 +36,17 @@ public class MainActivity extends AppCompatActivity implements ReminderAdapter.R
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        setSupportActionBar(mToolbar);
+        setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle(null);
         }
 
-        ViewPageAdapter adapter = new ViewPageAdapter(getSupportFragmentManager(), getApplicationContext());
-        mViewPager.setAdapter(adapter);
+        ViewPageAdapter adapter = new ViewPageAdapter(getSupportFragmentManager());
+        viewPager.setAdapter(adapter);
 
-        mPagerSlidingTabStrip.setViewPager(mViewPager);
+        pagerSlidingTabStrip.setViewPager(viewPager);
         int pageMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4, getResources().getDisplayMetrics());
-        mViewPager.setPageMargin(pageMargin);
-
-        SharedPreferences sharedPreferences = getSharedPreferences("first_run_preferences", Context.MODE_PRIVATE);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && sharedPreferences.getBoolean("FirstRun", true)) {
-            sharedPreferences.edit().putBoolean("FirstRun", false).apply();
-            Intent intent = new Intent().setClass(this, BootReceiver.class);
-            sendBroadcast(intent);
-        }
+        viewPager.setPageMargin(pageMargin);
     }
 
     @OnClick(R.id.fab_button)
@@ -68,16 +57,16 @@ public class MainActivity extends AppCompatActivity implements ReminderAdapter.R
 
     @Override
     public void hideFab() {
-        mFloatingActionButton.hide();
-        mFabIsHidden = true;
+        floatingActionButton.hide();
+        fabIsHidden = true;
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if (mFabIsHidden) {
-            mFloatingActionButton.show();
-            mFabIsHidden = false;
+        if (fabIsHidden) {
+            floatingActionButton.show();
+            fabIsHidden = false;
         }
     }
 

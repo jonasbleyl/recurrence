@@ -10,8 +10,6 @@
     <string name="snooze">Soneca</string>
     <string name="snooze_detail">Adiciona a função de adiar a notificação</string>
     <string name="snooze_length">Duração da soneca</string>
-    <string name="minute">minuto</string>
-    <string name="minutes">minutos</string>
     <string name="mark_as_done">Marcar como feito</string>
     <string name="mark_as_done_detail">Adiciona \"Marcar como feito\" á notificação</string>
     <string name="action_settings">Configurações</string>

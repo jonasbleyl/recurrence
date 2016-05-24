@@ -38,12 +38,11 @@ import com.bleyl.recurrence.receivers.AlarmReceiver;
 import com.bleyl.recurrence.utils.AlarmUtil;
 import com.bleyl.recurrence.utils.AnimationUtil;
 import com.bleyl.recurrence.utils.DateAndTimeUtil;
-import com.bleyl.recurrence.utils.ReminderConstants;
 import com.bleyl.recurrence.utils.TextFormatUtil;
 
 import java.util.Calendar;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -51,37 +50,37 @@ public class CreateEditActivity extends AppCompatActivity implements ColorChoose
         IconPicker.IconSelectionListener, AdvancedRepeatSelector.AdvancedRepeatSelectionListener,
         DaysOfWeekSelector.DaysOfWeekSelectionListener, RepeatSelector.RepeatSelectionListener {
 
-    @Bind(R.id.create_coordinator) CoordinatorLayout mCoordinatorLayout;
-    @Bind(R.id.notification_title) EditText mTitleEditText;
-    @Bind(R.id.notification_content) EditText mContentEditText;
-    @Bind(R.id.time) TextView mTimeText;
-    @Bind(R.id.date) TextView mDateText;
-    @Bind(R.id.repeat_day) TextView mRepeatText;
-    @Bind(R.id.switch_toggle) SwitchCompat mForeverSwitch;
-    @Bind(R.id.show_times_number) EditText mTimesEditText;
-    @Bind(R.id.forever_row) LinearLayout mForeverRow;
-    @Bind(R.id.bottom_row) LinearLayout mBottomRow;
-    @Bind(R.id.bottom_view) View mBottomView;
-    @Bind(R.id.show) TextView mShowText;
-    @Bind(R.id.times) TextView mTimesText;
-    @Bind(R.id.select_icon_text) TextView mIconText;
-    @Bind(R.id.select_colour_text) TextView mColourText;
-    @Bind(R.id.colour_icon) ImageView mImageColourSelect;
-    @Bind(R.id.selected_icon) ImageView mImageIconSelect;
-    @Bind(R.id.error_time) ImageView mImageWarningTime;
-    @Bind(R.id.error_date) ImageView mImageWarningDate;
-    @Bind(R.id.error_show) ImageView mImageWarningShow;
-    @Bind(R.id.toolbar) Toolbar mToolbar;
+    @BindView(R.id.create_coordinator) CoordinatorLayout coordinatorLayout;
+    @BindView(R.id.notification_title) EditText titleEditText;
+    @BindView(R.id.notification_content) EditText contentEditText;
+    @BindView(R.id.time) TextView timeText;
+    @BindView(R.id.date) TextView dateText;
+    @BindView(R.id.repeat_day) TextView repeatText;
+    @BindView(R.id.switch_toggle) SwitchCompat foreverSwitch;
+    @BindView(R.id.show_times_number) EditText timesEditText;
+    @BindView(R.id.forever_row) LinearLayout foreverRow;
+    @BindView(R.id.bottom_row) LinearLayout bottomRow;
+    @BindView(R.id.bottom_view) View bottomView;
+    @BindView(R.id.show) TextView showText;
+    @BindView(R.id.times) TextView timesText;
+    @BindView(R.id.select_icon_text) TextView iconText;
+    @BindView(R.id.select_colour_text) TextView colourText;
+    @BindView(R.id.colour_icon) ImageView imageColourSelect;
+    @BindView(R.id.selected_icon) ImageView imageIconSelect;
+    @BindView(R.id.error_time) ImageView imageWarningTime;
+    @BindView(R.id.error_date) ImageView imageWarningDate;
+    @BindView(R.id.error_show) ImageView imageWarningShow;
+    @BindView(R.id.toolbar) Toolbar toolbar;
 
-    private String mIcon;
-    private String mColour;
-    private Calendar mCalendar;
-    private boolean[] mDaysOfWeek = new boolean[7];
-    private int mTimesShown = 0;
-    private int mTimesToShow = 1;
-    private int mRepeatType;
-    private int mId;
-    private int mInterval = 1;
+    private String icon;
+    private String colour;
+    private Calendar calendar;
+    private boolean[] daysOfWeek = new boolean[7];
+    private int timesShown = 0;
+    private int timesToShow = 1;
+    private int repeatType;
+    private int id;
+    private int interval = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,21 +88,21 @@ public class CreateEditActivity extends AppCompatActivity implements ColorChoose
         setContentView(R.layout.activity_create);
         ButterKnife.bind(this);
 
-        setSupportActionBar(mToolbar);
-        mToolbar.setNavigationIcon(R.drawable.ic_close_white_24dp);
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(R.drawable.ic_close_white_24dp);
         if (getActionBar() != null) getActionBar().setDisplayHomeAsUpEnabled(true);
         if (getSupportActionBar() != null) getSupportActionBar().setTitle(null);
 
-        mCalendar = Calendar.getInstance();
-        mIcon = getString(R.string.default_icon_value);
-        mColour = getString(R.string.default_colour_value);
-        mRepeatType = ReminderConstants.DOES_NOT_REPEAT;
-        mId = getIntent().getIntExtra("NOTIFICATION_ID", 0);
+        calendar = Calendar.getInstance();
+        icon = getString(R.string.default_icon_value);
+        colour = getString(R.string.default_colour_value);
+        repeatType = Reminder.DOES_NOT_REPEAT;
+        id = getIntent().getIntExtra("NOTIFICATION_ID", 0);
 
         // Check whether to edit or create a new notification
-        if (mId == 0) {
+        if (id == 0) {
             DatabaseHelper database = DatabaseHelper.getInstance(this);
-            mId = database.getLastNotificationId() + 1;
+            id = database.getLastNotificationId() + 1;
             database.close();
         } else {
             assignReminderValues();
@@ -115,62 +114,62 @@ public class CreateEditActivity extends AppCompatActivity implements ColorChoose
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
         DatabaseHelper database = DatabaseHelper.getInstance(this);
-        Reminder reminder = database.getNotification(mId);
+        Reminder reminder = database.getNotification(id);
         database.close();
 
-        mTimesShown = reminder.getNumberShown();
-        mRepeatType = reminder.getRepeatType();
-        mInterval = reminder.getInterval();
-        mIcon = reminder.getIcon();
-        mColour = reminder.getColour();
+        timesShown = reminder.getNumberShown();
+        repeatType = reminder.getRepeatType();
+        interval = reminder.getInterval();
+        icon = reminder.getIcon();
+        colour = reminder.getColour();
 
-        mCalendar = DateAndTimeUtil.parseDateAndTime(reminder.getDateAndTime());
+        calendar = DateAndTimeUtil.parseDateAndTime(reminder.getDateAndTime());
 
-        mShowText.setText(getString(R.string.times_shown_edit, reminder.getNumberShown()));
-        mTitleEditText.setText(reminder.getTitle());
-        mContentEditText.setText(reminder.getContent());
-        mDateText.setText(DateAndTimeUtil.toStringReadableDate(mCalendar));
-        mTimeText.setText(DateAndTimeUtil.toStringReadableTime(mCalendar, this));
-        mTimesEditText.setText(String.valueOf(reminder.getNumberToShow()));
-        mColourText.setText(mColour);
-        mImageColourSelect.setColorFilter(Color.parseColor(mColour));
-        mTimesText.setVisibility(View.VISIBLE);
+        showText.setText(getString(R.string.times_shown_edit, reminder.getNumberShown()));
+        titleEditText.setText(reminder.getTitle());
+        contentEditText.setText(reminder.getContent());
+        dateText.setText(DateAndTimeUtil.toStringReadableDate(calendar));
+        timeText.setText(DateAndTimeUtil.toStringReadableTime(calendar, this));
+        timesEditText.setText(String.valueOf(reminder.getNumberToShow()));
+        colourText.setText(colour);
+        imageColourSelect.setColorFilter(Color.parseColor(colour));
+        timesText.setVisibility(View.VISIBLE);
 
-        if (!getString(R.string.default_icon).equals(mIcon)) {
-            mImageIconSelect.setImageResource(getResources().getIdentifier(reminder.getIcon(), "drawable", getPackageName()));
-            mIconText.setText(R.string.custom_icon);
+        if (!getString(R.string.default_icon).equals(icon)) {
+            imageIconSelect.setImageResource(getResources().getIdentifier(reminder.getIcon(), "drawable", getPackageName()));
+            iconText.setText(R.string.custom_icon);
         }
 
-        if (reminder.getRepeatType() != ReminderConstants.DOES_NOT_REPEAT) {
+        if (reminder.getRepeatType() != Reminder.DOES_NOT_REPEAT) {
             if (reminder.getInterval() > 1) {
-                mRepeatText.setText(TextFormatUtil.formatAdvancedRepeatText(this, mRepeatType, mInterval));
+                repeatText.setText(TextFormatUtil.formatAdvancedRepeatText(this, repeatType, interval));
             } else {
-                mRepeatText.setText(getResources().getStringArray(R.array.repeat_array)[reminder.getRepeatType()]);
+                repeatText.setText(getResources().getStringArray(R.array.repeat_array)[reminder.getRepeatType()]);
             }
             showFrequency(true);
         }
 
-        if (reminder.getRepeatType() == ReminderConstants.SPECIFIC_DAYS) {
-            mDaysOfWeek = reminder.getDaysOfWeek();
-            mRepeatText.setText(TextFormatUtil.formatDaysOfWeekText(this, mDaysOfWeek));
+        if (reminder.getRepeatType() == Reminder.SPECIFIC_DAYS) {
+            daysOfWeek = reminder.getDaysOfWeek();
+            repeatText.setText(TextFormatUtil.formatDaysOfWeekText(this, daysOfWeek));
         }
 
         if (Boolean.parseBoolean(reminder.getForeverState())) {
-            mForeverSwitch.setChecked(true);
-            mBottomRow.setVisibility(View.GONE);
+            foreverSwitch.setChecked(true);
+            bottomRow.setVisibility(View.GONE);
         }
     }
 
     public void showFrequency(boolean show) {
         if (show) {
-            mForeverRow.setVisibility(View.VISIBLE);
-            mBottomRow.setVisibility(View.VISIBLE);
-            mBottomView.setVisibility(View.VISIBLE);
+            foreverRow.setVisibility(View.VISIBLE);
+            bottomRow.setVisibility(View.VISIBLE);
+            bottomView.setVisibility(View.VISIBLE);
         } else {
-            mForeverSwitch.setChecked(false);
-            mForeverRow.setVisibility(View.GONE);
-            mBottomRow.setVisibility(View.GONE);
-            mBottomView.setVisibility(View.GONE);
+            foreverSwitch.setChecked(false);
+            foreverRow.setVisibility(View.GONE);
+            bottomRow.setVisibility(View.GONE);
+            bottomView.setVisibility(View.GONE);
         }
     }
 
@@ -179,11 +178,11 @@ public class CreateEditActivity extends AppCompatActivity implements ColorChoose
         TimePickerDialog TimePicker = new TimePickerDialog(CreateEditActivity.this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int hour, int minute) {
-                mCalendar.set(Calendar.HOUR_OF_DAY, hour);
-                mCalendar.set(Calendar.MINUTE, minute);
-                mTimeText.setText(DateAndTimeUtil.toStringReadableTime(mCalendar, getApplicationContext()));
+                calendar.set(Calendar.HOUR_OF_DAY, hour);
+                calendar.set(Calendar.MINUTE, minute);
+                timeText.setText(DateAndTimeUtil.toStringReadableTime(calendar, getApplicationContext()));
             }
-        }, mCalendar.get(Calendar.HOUR_OF_DAY), mCalendar.get(Calendar.MINUTE), DateFormat.is24HourFormat(this));
+        }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), DateFormat.is24HourFormat(this));
         TimePicker.show();
     }
 
@@ -192,12 +191,12 @@ public class CreateEditActivity extends AppCompatActivity implements ColorChoose
         DatePickerDialog DatePicker = new DatePickerDialog(CreateEditActivity.this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker DatePicker, int year, int month, int dayOfMonth) {
-                mCalendar.set(Calendar.YEAR, year);
-                mCalendar.set(Calendar.MONTH, month);
-                mCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                mDateText.setText(DateAndTimeUtil.toStringReadableDate(mCalendar));
+                calendar.set(Calendar.YEAR, year);
+                calendar.set(Calendar.MONTH, month);
+                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                dateText.setText(DateAndTimeUtil.toStringReadableDate(calendar));
             }
-        }, mCalendar.get(Calendar.YEAR), mCalendar.get(Calendar.MONTH), mCalendar.get(Calendar.DAY_OF_MONTH));
+        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
         DatePicker.show();
     }
 
@@ -209,9 +208,9 @@ public class CreateEditActivity extends AppCompatActivity implements ColorChoose
 
     @Override
     public void onIconSelection(DialogFragment dialog, String iconName, String iconType, int iconResId) {
-        mIcon = iconName;
-        mIconText.setText(iconType);
-        mImageIconSelect.setImageResource(iconResId);
+        icon = iconName;
+        iconText.setText(iconType);
+        imageIconSelect.setImageResource(iconResId);
         dialog.dismiss();
     }
 
@@ -224,15 +223,15 @@ public class CreateEditActivity extends AppCompatActivity implements ColorChoose
         new ColorChooserDialog.Builder(this, R.string.select_colour)
                 .allowUserColorInputAlpha(false)
                 .customColors(colours, null)
-                .preselect(Color.parseColor(mColour))
+                .preselect(Color.parseColor(colour))
                 .show();
     }
 
     @Override
     public void onColorSelection(@NonNull ColorChooserDialog dialog, @ColorInt int selectedColour) {
-        mColour = String.format("#%06X", (0xFFFFFF & selectedColour));
-        mImageColourSelect.setColorFilter(selectedColour);
-        mColourText.setText(mColour);
+        colour = String.format("#%06X", (0xFFFFFF & selectedColour));
+        imageColourSelect.setColorFilter(selectedColour);
+        colourText.setText(colour);
         DatabaseHelper database = DatabaseHelper.getInstance(this);
         database.addColour(new Colour(selectedColour, DateAndTimeUtil.toStringDateTimeWithSeconds(Calendar.getInstance())));
         database.close();
@@ -246,10 +245,10 @@ public class CreateEditActivity extends AppCompatActivity implements ColorChoose
 
     @Override
     public void onRepeatSelection(DialogFragment dialog, int which, String repeatText) {
-        mInterval = 1;
-        mRepeatType = which;
-        mRepeatText.setText(repeatText);
-        if (which == ReminderConstants.DOES_NOT_REPEAT) {
+        interval = 1;
+        repeatType = which;
+        this.repeatText.setText(repeatText);
+        if (which == Reminder.DOES_NOT_REPEAT) {
             showFrequency(false);
         } else {
             showFrequency(true);
@@ -258,110 +257,110 @@ public class CreateEditActivity extends AppCompatActivity implements ColorChoose
 
     @Override
     public void onDaysOfWeekSelected(boolean[] days) {
-        mRepeatText.setText(TextFormatUtil.formatDaysOfWeekText(this, days));
-        mDaysOfWeek = days;
-        mRepeatType = ReminderConstants.SPECIFIC_DAYS;
+        repeatText.setText(TextFormatUtil.formatDaysOfWeekText(this, days));
+        daysOfWeek = days;
+        repeatType = Reminder.SPECIFIC_DAYS;
         showFrequency(true);
     }
 
     @Override
     public void onAdvancedRepeatSelection(int type, int interval, String repeatText) {
-        mRepeatType = type;
-        mInterval = interval;
-        mRepeatText.setText(repeatText);
+        repeatType = type;
+        this.interval = interval;
+        this.repeatText.setText(repeatText);
         showFrequency(true);
     }
 
     public void saveNotification() {
         DatabaseHelper database = DatabaseHelper.getInstance(this);
         Reminder reminder = new Reminder()
-                .setId(mId)
-                .setTitle(mTitleEditText.getText().toString())
-                .setContent(mContentEditText.getText().toString())
-                .setDateAndTime(DateAndTimeUtil.toStringDate(mCalendar) + DateAndTimeUtil.toStringTime(mCalendar))
-                .setRepeatType(mRepeatType)
-                .setForeverState(Boolean.toString(mForeverSwitch.isChecked()))
-                .setNumberToShow(mTimesToShow)
-                .setNumberShown(mTimesShown)
-                .setIcon(mIcon)
-                .setColour(mColour)
-                .setInterval(mInterval);
+                .setId(id)
+                .setTitle(titleEditText.getText().toString())
+                .setContent(contentEditText.getText().toString())
+                .setDateAndTime(DateAndTimeUtil.toStringDateAndTime(calendar))
+                .setRepeatType(repeatType)
+                .setForeverState(Boolean.toString(foreverSwitch.isChecked()))
+                .setNumberToShow(timesToShow)
+                .setNumberShown(timesShown)
+                .setIcon(icon)
+                .setColour(colour)
+                .setInterval(interval);
 
         database.addNotification(reminder);
 
-        if (mRepeatType == ReminderConstants.SPECIFIC_DAYS) {
-            reminder.setDaysOfWeek(mDaysOfWeek);
+        if (repeatType == Reminder.SPECIFIC_DAYS) {
+            reminder.setDaysOfWeek(daysOfWeek);
             database.addDaysOfWeek(reminder);
         }
 
         database.close();
         Intent alarmIntent = new Intent(this, AlarmReceiver.class);
-        mCalendar.set(Calendar.SECOND, 0);
-        AlarmUtil.setAlarm(this, alarmIntent, reminder.getId(), mCalendar);
+        calendar.set(Calendar.SECOND, 0);
+        AlarmUtil.setAlarm(this, alarmIntent, reminder.getId(), calendar);
         finish();
     }
 
     @OnClick(R.id.forever_row)
     public void toggleSwitch() {
-        mForeverSwitch.toggle();
-        if (mForeverSwitch.isChecked()) {
-            mBottomRow.setVisibility(View.GONE);
+        foreverSwitch.toggle();
+        if (foreverSwitch.isChecked()) {
+            bottomRow.setVisibility(View.GONE);
         } else {
-            mBottomRow.setVisibility(View.VISIBLE);
+            bottomRow.setVisibility(View.VISIBLE);
         }
     }
 
     @OnClick(R.id.switch_toggle)
     public void switchClicked() {
-        if (mForeverSwitch.isChecked()) {
-            mBottomRow.setVisibility(View.GONE);
+        if (foreverSwitch.isChecked()) {
+            bottomRow.setVisibility(View.GONE);
         } else {
-            mBottomRow.setVisibility(View.VISIBLE);
+            bottomRow.setVisibility(View.VISIBLE);
         }
     }
 
     public void validateInput() {
-        mImageWarningShow.setVisibility(View.GONE);
-        mImageWarningTime.setVisibility(View.GONE);
-        mImageWarningDate.setVisibility(View.GONE);
+        imageWarningShow.setVisibility(View.GONE);
+        imageWarningTime.setVisibility(View.GONE);
+        imageWarningDate.setVisibility(View.GONE);
         Calendar nowCalendar = Calendar.getInstance();
 
-        if (mTimeText.getText().equals(getString(R.string.time_now))) {
-            mCalendar.set(Calendar.HOUR_OF_DAY, nowCalendar.get(Calendar.HOUR_OF_DAY));
-            mCalendar.set(Calendar.MINUTE, nowCalendar.get(Calendar.MINUTE));
+        if (timeText.getText().equals(getString(R.string.time_now))) {
+            calendar.set(Calendar.HOUR_OF_DAY, nowCalendar.get(Calendar.HOUR_OF_DAY));
+            calendar.set(Calendar.MINUTE, nowCalendar.get(Calendar.MINUTE));
         }
 
-        if (mDateText.getText().equals(getString(R.string.date_today))) {
-            mCalendar.set(Calendar.YEAR, nowCalendar.get(Calendar.YEAR));
-            mCalendar.set(Calendar.MONTH, nowCalendar.get(Calendar.MONTH));
-            mCalendar.set(Calendar.DAY_OF_MONTH, nowCalendar.get(Calendar.DAY_OF_MONTH));
+        if (dateText.getText().equals(getString(R.string.date_today))) {
+            calendar.set(Calendar.YEAR, nowCalendar.get(Calendar.YEAR));
+            calendar.set(Calendar.MONTH, nowCalendar.get(Calendar.MONTH));
+            calendar.set(Calendar.DAY_OF_MONTH, nowCalendar.get(Calendar.DAY_OF_MONTH));
         }
 
         // Check if the number of times to show notification is empty
-        if (mTimesEditText.getText().toString().isEmpty()) {
-            mTimesEditText.setText("1");
+        if (timesEditText.getText().toString().isEmpty()) {
+            timesEditText.setText("1");
         }
 
-        mTimesToShow = Integer.parseInt(mTimesEditText.getText().toString());
-        if (mRepeatType == ReminderConstants.DOES_NOT_REPEAT) {
-            mTimesToShow = mTimesShown + 1;
+        timesToShow = Integer.parseInt(timesEditText.getText().toString());
+        if (repeatType == Reminder.DOES_NOT_REPEAT) {
+            timesToShow = timesShown + 1;
         }
 
         // Check if selected date is before today's date
-        if (DateAndTimeUtil.toLongDateAndTime(mCalendar) < DateAndTimeUtil.toLongDateAndTime(nowCalendar)) {
-            Snackbar.make(mCoordinatorLayout, R.string.toast_past_date, Snackbar.LENGTH_SHORT).show();
-            mImageWarningTime.setVisibility(View.VISIBLE);
-            mImageWarningDate.setVisibility(View.VISIBLE);
+        if (DateAndTimeUtil.toLongDateAndTime(calendar) < DateAndTimeUtil.toLongDateAndTime(nowCalendar)) {
+            Snackbar.make(coordinatorLayout, R.string.toast_past_date, Snackbar.LENGTH_SHORT).show();
+            imageWarningTime.setVisibility(View.VISIBLE);
+            imageWarningDate.setVisibility(View.VISIBLE);
 
             // Check if title is empty
-        } else if (mTitleEditText.getText().toString().trim().isEmpty()) {
-            Snackbar.make(mCoordinatorLayout, R.string.toast_title_empty, Snackbar.LENGTH_SHORT).show();
-            AnimationUtil.shakeView(mTitleEditText, this);
+        } else if (titleEditText.getText().toString().trim().isEmpty()) {
+            Snackbar.make(coordinatorLayout, R.string.toast_title_empty, Snackbar.LENGTH_SHORT).show();
+            AnimationUtil.shakeView(titleEditText, this);
 
             // Check if times to show notification is too low
-        } else if (mTimesToShow <= mTimesShown && !mForeverSwitch.isChecked()) {
-            Snackbar.make(mCoordinatorLayout, R.string.toast_higher_number, Snackbar.LENGTH_SHORT).show();
-            mImageWarningShow.setVisibility(View.VISIBLE);
+        } else if (timesToShow <= timesShown && !foreverSwitch.isChecked()) {
+            Snackbar.make(coordinatorLayout, R.string.toast_higher_number, Snackbar.LENGTH_SHORT).show();
+            imageWarningShow.setVisibility(View.VISIBLE);
         } else {
             saveNotification();
         }

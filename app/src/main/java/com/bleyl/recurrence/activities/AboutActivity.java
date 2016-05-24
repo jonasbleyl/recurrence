@@ -15,25 +15,25 @@ import android.widget.TextView;
 import com.bleyl.recurrence.BuildConfig;
 import com.bleyl.recurrence.R;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class AboutActivity extends AppCompatActivity {
 
-    @Bind(R.id.version) TextView mVersionText;
-    @Bind(R.id.toolbar) Toolbar mToolbar;
-    @Bind(R.id.root) LinearLayout mLinearLayout;
+    @BindView(R.id.version) TextView versionText;
+    @BindView(R.id.toolbar) Toolbar toolbar;
+    @BindView(R.id.root) LinearLayout linearLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
         ButterKnife.bind(this);
-        setSupportActionBar(mToolbar);
-        mToolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
         if (getActionBar() != null) getActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mVersionText.setText(BuildConfig.VERSION_NAME);
+        versionText.setText(BuildConfig.VERSION_NAME);
     }
 
     public void launchEmail(View view) {
@@ -51,7 +51,7 @@ public class AboutActivity extends AppCompatActivity {
 
     public void showLibrariesDialog(View view) {
         LayoutInflater inflater = getLayoutInflater();
-        View dialogView = inflater.inflate(R.layout.view_dialog_libraries, mLinearLayout, false);
+        View dialogView = inflater.inflate(R.layout.view_dialog_libraries, linearLayout, false);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.Dialog);
         builder.setTitle(R.string.libraries);
@@ -89,7 +89,7 @@ public class AboutActivity extends AppCompatActivity {
 
     public void showContributorsDialog(View view) {
         LayoutInflater inflater = getLayoutInflater();
-        View dialogView = inflater.inflate(R.layout.view_dialog_contributors, mLinearLayout, false);
+        View dialogView = inflater.inflate(R.layout.view_dialog_contributors, linearLayout, false);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.Dialog);
         builder.setTitle(R.string.thanks_to);

@@ -1,19 +1,20 @@
 package com.bleyl.recurrence.models;
 
 public class Colour {
-    private int mColour;
-    private String mDateAndTime;
+
+    private int colour;
+    private String dateAndTime;
 
     public Colour(int colour, String dateAndTime) {
-        mColour = colour;
-        mDateAndTime = dateAndTime;
+        this.colour = colour;
+        this.dateAndTime = dateAndTime;
     }
 
     public String getDateAndTime() {
-        return mDateAndTime;
+        return dateAndTime;
     }
 
     public int getColour() {
-        return mColour;
+        return colour;
     }
 }

@@ -24,12 +24,12 @@ public class IconPicker extends DialogFragment {
         void onIconSelection(DialogFragment dialog, String iconName, String iconType, int iconResId);
     }
 
-    IconSelectionListener mListener;
+    IconSelectionListener listener;
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        mListener = (IconSelectionListener) activity;
+        listener = (IconSelectionListener) activity;
     }
 
     @Override @NonNull
@@ -43,7 +43,7 @@ public class IconPicker extends DialogFragment {
         recyclerView.addItemDecoration(itemDecoration);
 
         DatabaseHelper database = DatabaseHelper.getInstance(getContext());
-        recyclerView.setAdapter(new IconsAdapter(getContext(), IconPicker.this, R.layout.item_icon_grid, database.getIconList()));
+        recyclerView.setAdapter(new IconsAdapter(IconPicker.this, R.layout.item_icon_grid, database.getIconList()));
         database.close();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.Dialog);

@@ -8,16 +8,16 @@ import com.bleyl.recurrence.database.DatabaseHelper;
 import com.bleyl.recurrence.utils.AlarmUtil;
 import com.bleyl.recurrence.models.Reminder;
 import com.bleyl.recurrence.utils.DateAndTimeUtil;
-import com.bleyl.recurrence.utils.ReminderConstants;
 
 import java.util.Calendar;
 import java.util.List;
 
 public class BootReceiver extends BroadcastReceiver {
+
     @Override
     public void onReceive(Context context, Intent intent) {
         DatabaseHelper database = DatabaseHelper.getInstance(context);
-        List<Reminder> reminderList = database.getNotificationList(ReminderConstants.ACTIVE);
+        List<Reminder> reminderList = database.getNotificationList(Reminder.ACTIVE);
         database.close();
         Intent alarmIntent = new Intent(context, AlarmReceiver.class);
 

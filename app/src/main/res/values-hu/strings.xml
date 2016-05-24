@@ -10,8 +10,6 @@
     <string name="snooze">Szundi</string>
     <string name="snooze_detail">Szundi hozzáadása az értesítéshez</string>
     <string name="snooze_length">Szundi hossza</string>
-    <string name="minute">perc</string>
-    <string name="minutes">perc</string>
     <string name="action_settings">Beállítások</string>
     <string name="action_delete">Törlés</string>
     <string name="action_edit">Szerkesztés</string>

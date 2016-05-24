@@ -26,27 +26,27 @@ import com.bleyl.recurrence.utils.DateAndTimeUtil;
 import java.util.Calendar;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHolder> {
 
-    private int mRowLayout;
-    private Activity mActivity;
-    private List<Reminder> mReminderList;
+    private int rowLayout;
+    private Activity activity;
+    private List<Reminder> reminderList;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.notification_title) TextView mTitle;
-        @Bind(R.id.notification_time) TextView mTime;
-        @Bind(R.id.notification_content) TextView mContent;
-        @Bind(R.id.header_separator) TextView mTextSeparator;
-        @Bind(R.id.notification_icon) ImageView mIcon;
-        @Bind(R.id.notification_circle) ImageView mCircle;
-        private View mView;
+        @BindView(R.id.notification_title) TextView title;
+        @BindView(R.id.notification_time) TextView time;
+        @BindView(R.id.notification_content) TextView content;
+        @BindView(R.id.header_separator) TextView textSeparator;
+        @BindView(R.id.notification_icon) ImageView icon;
+        @BindView(R.id.notification_circle) ImageView circle;
+        private View view;
 
         public ViewHolder(final View view) {
             super(view);
-            mView = view;
+            this.view = view;
             ButterKnife.bind(this, view);
         }
     }
@@ -56,42 +56,41 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHo
     }
 
     public ReminderAdapter(Activity activity, int rowLayout, List<Reminder> reminderList) {
-        mActivity = activity;
-        mRowLayout = rowLayout;
-        mReminderList = reminderList;
+        this.activity = activity;
+        this.rowLayout = rowLayout;
+        this.reminderList = reminderList;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(mRowLayout, viewGroup, false);
-        return new ViewHolder(v);
+        return new ViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(rowLayout, viewGroup, false));
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, final int position) {
-        Calendar calendar = DateAndTimeUtil.parseDateAndTime(mReminderList.get(position).getDateAndTime());
+    public void onBindViewHolder(final ViewHolder viewHolder, int position) {
+        Calendar calendar = DateAndTimeUtil.parseDateAndTime(reminderList.get(position).getDateAndTime());
         // Show header for item if it is the first in date group
-        if (position > 0 && mReminderList.get(position).getDate().equals(mReminderList.get(position - 1).getDate()) ) {
-            viewHolder.mTextSeparator.setVisibility(View.GONE);
+        if (position > 0 && reminderList.get(position).getDate().equals(reminderList.get(position - 1).getDate()) ) {
+            viewHolder.textSeparator.setVisibility(View.GONE);
         } else {
-            String appropriateDate = DateAndTimeUtil.getAppropriateDateFormat(mActivity, calendar);
-            viewHolder.mTextSeparator.setText(appropriateDate);
-            viewHolder.mTextSeparator.setVisibility(View.VISIBLE);
+            String appropriateDate = DateAndTimeUtil.getAppropriateDateFormat(activity, calendar);
+            viewHolder.textSeparator.setText(appropriateDate);
+            viewHolder.textSeparator.setVisibility(View.VISIBLE);
         }
 
-        viewHolder.mTitle.setText(mReminderList.get(position).getTitle());
-        viewHolder.mContent.setText(mReminderList.get(position).getContent());
-        viewHolder.mTime.setText(DateAndTimeUtil.toStringReadableTime(calendar, mActivity));
-        int iconResId = mActivity.getResources().getIdentifier(mReminderList.get(position).getIcon(), "drawable", mActivity.getPackageName());
-        viewHolder.mIcon.setImageResource(iconResId);
-        GradientDrawable bgShape = (GradientDrawable) viewHolder.mCircle.getDrawable();
-        bgShape.setColor(Color.parseColor(mReminderList.get(position).getColour()));
+        viewHolder.title.setText(reminderList.get(position).getTitle());
+        viewHolder.content.setText(reminderList.get(position).getContent());
+        viewHolder.time.setText(DateAndTimeUtil.toStringReadableTime(calendar, activity));
+        int iconResId = activity.getResources().getIdentifier(reminderList.get(position).getIcon(), "drawable", activity.getPackageName());
+        viewHolder.icon.setImageResource(iconResId);
+        GradientDrawable bgShape = (GradientDrawable) viewHolder.circle.getDrawable();
+        bgShape.setColor(Color.parseColor(reminderList.get(position).getColour()));
 
-        viewHolder.mView.setOnClickListener(new View.OnClickListener() {
+        viewHolder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(mActivity, ViewActivity.class);
-                intent.putExtra("NOTIFICATION_ID", mReminderList.get(position).getId());
+                Intent intent = new Intent(activity, ViewActivity.class);
+                intent.putExtra("NOTIFICATION_ID", reminderList.get(viewHolder.getAdapterPosition()).getId());
 
                 // Add shared element transition animation if on Lollipop or later
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -106,13 +105,13 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHo
                     transition.setDuration(400);
                     setExit.addTransition(transition);
 
-                    mActivity.getWindow().setSharedElementsUseOverlay(false);
-                    mActivity.getWindow().setReenterTransition(null);
+                    activity.getWindow().setSharedElementsUseOverlay(false);
+                    activity.getWindow().setReenterTransition(null);
 
-                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(mActivity, cardView, "cardTransition");
-                    ActivityCompat.startActivity(mActivity, intent, options.toBundle());
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(activity, cardView, "cardTransition");
+                    ActivityCompat.startActivity(activity, intent, options.toBundle());
 
-                    ((RecyclerListener) mActivity).hideFab();
+                    ((RecyclerListener) activity).hideFab();
                 } else {
                     view.getContext().startActivity(intent);
                 }
@@ -120,8 +119,9 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHo
         });
     }
 
+
     @Override
     public int getItemCount() {
-        return mReminderList.size();
+        return reminderList.size();
     }
 }

@@ -3,6 +3,7 @@ package com.bleyl.recurrence.utils;
 import android.content.Context;
 
 import com.bleyl.recurrence.R;
+import com.bleyl.recurrence.models.Reminder;
 
 public class TextFormatUtil {
 
@@ -24,19 +25,19 @@ public class TextFormatUtil {
         String typeText;
         switch (repeatType) {
             default:
-            case ReminderConstants.HOURLY:
+            case Reminder.HOURLY:
                 typeText = context.getResources().getQuantityString(R.plurals.hour, interval);
                 break;
-            case ReminderConstants.DAILY:
+            case Reminder.DAILY:
                 typeText = context.getResources().getQuantityString(R.plurals.day, interval);
                 break;
-            case ReminderConstants.WEEKLY:
+            case Reminder.WEEKLY:
                 typeText = context.getResources().getQuantityString(R.plurals.week, interval);
                 break;
-            case ReminderConstants.MONTHLY:
+            case Reminder.MONTHLY:
                 typeText = context.getResources().getQuantityString(R.plurals.month, interval);
                 break;
-            case ReminderConstants.YEARLY:
+            case Reminder.YEARLY:
                 typeText = context.getResources().getQuantityString(R.plurals.year, interval);
                 break;
         }

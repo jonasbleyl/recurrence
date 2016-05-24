@@ -5,13 +5,10 @@
     <string name="preference_notification_category">Preferencje powiadomień</string>
     <string name="checkbox_vibrate">Wibracja</string>
     <string name="checkbox_sound">Dźwięk</string>
-    <string name="checkbox_LED">LED</string>
     <string name="checkbox_ongoing">Trwające</string>
     <string name="snooze">Drzemka</string>
     <string name="snooze_detail">Dodaj akcję drzemki do powiadomienia</string>
     <string name="snooze_length">Długość drzemki</string>
-    <string name="minute">minuty</string>
-    <string name="minutes">minut</string>
     <string name="action_settings">Ustawienia</string>
     <string name="action_delete">Usuń</string>
     <string name="action_edit">Edytuj</string>
@@ -20,7 +17,6 @@
     <string name="delete_confirmation">Na pewno chcesz usunąć to powiadomienie?</string>
     <string name="yes">Tak</string>
     <string name="no">Nie</string>
-    <string name="ok">OK</string>
     <string name="title">Tytuł</string>
     <string name="save_menu">Zapisz</string>
     <string name="time_now">Teraz</string>

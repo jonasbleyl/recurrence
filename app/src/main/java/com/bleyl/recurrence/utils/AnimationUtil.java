@@ -8,6 +8,7 @@ import android.view.animation.AnimationUtils;
 import com.bleyl.recurrence.R;
 
 public class AnimationUtil {
+
     public static void shakeView(View view, Context context) {
         Animation shake = AnimationUtils.loadAnimation(context, R.anim.shake_view);
         view.startAnimation(shake);

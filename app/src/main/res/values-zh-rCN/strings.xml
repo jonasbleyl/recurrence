@@ -10,8 +10,6 @@
     <string name="snooze">贪睡</string>
     <string name="snooze_detail">在通知中显示贪睡按钮</string>
     <string name="snooze_length">贪睡时间长度</string>
-    <string name="minute">分钟后</string>
-    <string name="minutes">分钟后</string>
     <string name="action_settings">设置</string>
     <string name="action_delete">删除</string>
     <string name="action_edit">编辑</string>

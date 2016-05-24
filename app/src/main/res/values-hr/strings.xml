@@ -2,29 +2,34 @@
 <resources>
     <string name="about">O aplikaciji</string>
     <string name="settings">Postavke</string>
+    <string name="backup_restore">Sigurnosno kopiranje/Sigurnosno vraćanje</string>
     <string name="preference_notification_category">Obavijesti</string>
     <string name="checkbox_vibrate">Vibracija</string>
     <string name="checkbox_sound">Zvuk</string>
     <string name="checkbox_LED">LED</string>
     <string name="checkbox_ongoing">Trajno</string>
     <string name="snooze">Odgodi</string>
-    <string name="snooze_detail">Dodaj odgode akcije na obavijesti</string>
+    <string name="snooze_detail">Dodaj akciju za odgodu na obavijest</string>
     <string name="snooze_length">Trajanje odgode alarma</string>
-    <string name="minute">minute</string>
-    <string name="minutes">minuta</string>
     <string name="mark_as_done">Označi kao obavljeno</string>
     <string name="mark_as_done_detail">Dodaj \"Označi kao obavljeno\" gumb u obavijesti</string>
+    <string name="nagging_reminder">Podsjetnik dosađivanja</string>
+    <string name="nagging_detail">Konstantno obavješćuj o trenutnoj obavijesti dok nije odbačena</string>
+    <string name="nagging_interval">Interval dosađivanja</string>
     <string name="action_settings">Postavke</string>
-    <string name="action_delete">Obriši</string>
+    <string name="action_backup_restore">Sigurnosno kopiranje/Sigurnosno vraćanje</string>
+    <string name="action_delete">Izbriši</string>
     <string name="action_edit">Uredi</string>
     <string name="action_about">O aplikaciji</string>
     <string name="action_show_now">Prikaži sada</string>
     <string name="action_mark_as_done">Označi kao obavljeno</string>
-    <string name="delete_confirmation">Jeste li sigurni da želite obrisati obavijest?</string>
+    <string name="action_share">Podijeli</string>
+    <string name="delete_confirmation">Jeste li sigurni da želite izbrisati ovu obavijest?</string>
     <string name="yes">Da</string>
     <string name="no">Ne</string>
     <string name="ok">U redu</string>
-    <string name="title">Naziv</string>
+    <string name="cancel">Poništi</string>
+    <string name="title">Naslov</string>
     <string name="save_menu">Spremi</string>
     <string name="time_now">Sada</string>
     <string name="date_today">Danas</string>
@@ -40,8 +45,8 @@
     <string name="custom_icon">Prilagođena ikona</string>
     <string name="select_colour">Odaberi boju</string>
     <string name="default_colour">Zadana boja</string>
-    <string name="repeats_on">Ponavlja se svaki:</string>
-    <string name="repeat_every">Ponovite svaki</string>
+    <string name="repeats_on">Ponavlja se svakih:</string>
+    <string name="repeat_every">Ponovite svakih</string>
     <string name="repeats_every">Ponavlja se svaka: %1$d %2$s</string>
     <string name="no_active">Nema aktivnih obavijesti</string>
     <string name="no_inactive">Nema neaktivnih obavijesti</string>
@@ -54,7 +59,7 @@
     <string name="rate_app">Ocijenite aplikaciju</string>
     <string name="contact">Kontakt</string>
     <string name="version">Verzija</string>
-    <string name="thanks_to">Zahvala</string>
+    <string name="thanks_to">Zahvale</string>
     <string name="translator">Prevoditelj</string>
     <string name="send_email">Pošalji e-mail</string>
     <string-array name="repeat_array">
@@ -65,6 +70,6 @@
         <item>Svaki mjesec</item>
         <item>Svaku godinu</item>
         <item>Određeni dani u tjednu</item>
-        <item>Napredan</item>
+        <item>Napredno</item>
     </string-array>
 </resources>
