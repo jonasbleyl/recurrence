@@ -16,16 +16,16 @@ import com.bleyl.recurrence.R;
 import com.bleyl.recurrence.adapters.ReminderAdapter;
 import com.bleyl.recurrence.adapters.ViewPageAdapter;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity implements ReminderAdapter.RecyclerListener {
 
-    @Bind(R.id.tabs) PagerSlidingTabStrip pagerSlidingTabStrip;
-    @Bind(R.id.toolbar) Toolbar toolbar;
-    @Bind(R.id.viewpager) ViewPager viewPager;
-    @Bind(R.id.fab_button) FloatingActionButton floatingActionButton;
+    @BindView(R.id.tabs) PagerSlidingTabStrip pagerSlidingTabStrip;
+    @BindView(R.id.toolbar) Toolbar toolbar;
+    @BindView(R.id.viewpager) ViewPager viewPager;
+    @BindView(R.id.fab_button) FloatingActionButton floatingActionButton;
 
     private boolean fabIsHidden = false;
 

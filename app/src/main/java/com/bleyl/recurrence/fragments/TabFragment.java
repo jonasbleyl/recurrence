@@ -23,15 +23,15 @@ import com.bleyl.recurrence.adapters.ReminderAdapter;
 
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class TabFragment extends Fragment {
 
-    @Bind(R.id.recycler_view) RecyclerView recyclerView;
-    @Bind(R.id.empty_text) TextView emptyText;
-    @Bind(R.id.empty_view) LinearLayout linearLayout;
-    @Bind(R.id.empty_icon) ImageView imageView;
+    @BindView(R.id.recycler_view) RecyclerView recyclerView;
+    @BindView(R.id.empty_text) TextView emptyText;
+    @BindView(R.id.empty_view) LinearLayout linearLayout;
+    @BindView(R.id.empty_icon) ImageView imageView;
 
     private ReminderAdapter reminderAdapter;
     private List<Reminder> reminderList;

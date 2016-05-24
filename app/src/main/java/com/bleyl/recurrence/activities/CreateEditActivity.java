@@ -42,7 +42,7 @@ import com.bleyl.recurrence.utils.TextFormatUtil;
 
 import java.util.Calendar;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -50,27 +50,27 @@ public class CreateEditActivity extends AppCompatActivity implements ColorChoose
         IconPicker.IconSelectionListener, AdvancedRepeatSelector.AdvancedRepeatSelectionListener,
         DaysOfWeekSelector.DaysOfWeekSelectionListener, RepeatSelector.RepeatSelectionListener {
 
-    @Bind(R.id.create_coordinator) CoordinatorLayout coordinatorLayout;
-    @Bind(R.id.notification_title) EditText titleEditText;
-    @Bind(R.id.notification_content) EditText contentEditText;
-    @Bind(R.id.time) TextView timeText;
-    @Bind(R.id.date) TextView dateText;
-    @Bind(R.id.repeat_day) TextView repeatText;
-    @Bind(R.id.switch_toggle) SwitchCompat foreverSwitch;
-    @Bind(R.id.show_times_number) EditText timesEditText;
-    @Bind(R.id.forever_row) LinearLayout foreverRow;
-    @Bind(R.id.bottom_row) LinearLayout bottomRow;
-    @Bind(R.id.bottom_view) View bottomView;
-    @Bind(R.id.show) TextView showText;
-    @Bind(R.id.times) TextView timesText;
-    @Bind(R.id.select_icon_text) TextView iconText;
-    @Bind(R.id.select_colour_text) TextView colourText;
-    @Bind(R.id.colour_icon) ImageView imageColourSelect;
-    @Bind(R.id.selected_icon) ImageView imageIconSelect;
-    @Bind(R.id.error_time) ImageView imageWarningTime;
-    @Bind(R.id.error_date) ImageView imageWarningDate;
-    @Bind(R.id.error_show) ImageView imageWarningShow;
-    @Bind(R.id.toolbar) Toolbar toolbar;
+    @BindView(R.id.create_coordinator) CoordinatorLayout coordinatorLayout;
+    @BindView(R.id.notification_title) EditText titleEditText;
+    @BindView(R.id.notification_content) EditText contentEditText;
+    @BindView(R.id.time) TextView timeText;
+    @BindView(R.id.date) TextView dateText;
+    @BindView(R.id.repeat_day) TextView repeatText;
+    @BindView(R.id.switch_toggle) SwitchCompat foreverSwitch;
+    @BindView(R.id.show_times_number) EditText timesEditText;
+    @BindView(R.id.forever_row) LinearLayout foreverRow;
+    @BindView(R.id.bottom_row) LinearLayout bottomRow;
+    @BindView(R.id.bottom_view) View bottomView;
+    @BindView(R.id.show) TextView showText;
+    @BindView(R.id.times) TextView timesText;
+    @BindView(R.id.select_icon_text) TextView iconText;
+    @BindView(R.id.select_colour_text) TextView colourText;
+    @BindView(R.id.colour_icon) ImageView imageColourSelect;
+    @BindView(R.id.selected_icon) ImageView imageIconSelect;
+    @BindView(R.id.error_time) ImageView imageWarningTime;
+    @BindView(R.id.error_date) ImageView imageWarningDate;
+    @BindView(R.id.error_show) ImageView imageWarningShow;
+    @BindView(R.id.toolbar) Toolbar toolbar;
 
     private String icon;
     private String colour;

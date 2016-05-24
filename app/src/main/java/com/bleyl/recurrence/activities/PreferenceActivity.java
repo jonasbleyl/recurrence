@@ -9,6 +9,7 @@ import com.bleyl.recurrence.R;
 import com.bleyl.recurrence.fragments.PreferenceFragment;
 
 public class PreferenceActivity extends AppCompatActivity {
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

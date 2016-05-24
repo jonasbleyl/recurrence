@@ -26,7 +26,7 @@ import com.bleyl.recurrence.utils.DateAndTimeUtil;
 import java.util.Calendar;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHolder> {
@@ -36,12 +36,12 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHo
     private List<Reminder> reminderList;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.notification_title) TextView title;
-        @Bind(R.id.notification_time) TextView time;
-        @Bind(R.id.notification_content) TextView content;
-        @Bind(R.id.header_separator) TextView textSeparator;
-        @Bind(R.id.notification_icon) ImageView icon;
-        @Bind(R.id.notification_circle) ImageView circle;
+        @BindView(R.id.notification_title) TextView title;
+        @BindView(R.id.notification_time) TextView time;
+        @BindView(R.id.notification_content) TextView content;
+        @BindView(R.id.header_separator) TextView textSeparator;
+        @BindView(R.id.notification_icon) ImageView icon;
+        @BindView(R.id.notification_circle) ImageView circle;
         private View view;
 
         public ViewHolder(final View view) {

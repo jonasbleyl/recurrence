@@ -13,7 +13,7 @@ import com.bleyl.recurrence.models.Icon;
 
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class IconsAdapter extends RecyclerView.Adapter<IconsAdapter.ViewHolder>{
@@ -23,7 +23,7 @@ public class IconsAdapter extends RecyclerView.Adapter<IconsAdapter.ViewHolder>{
     private List<Icon> iconList;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.icon) ImageView imageView;
+        @BindView(R.id.icon) ImageView imageView;
         private View view;
 
         public ViewHolder(final View view) {

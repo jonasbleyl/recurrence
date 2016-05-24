@@ -41,26 +41,26 @@ import com.bleyl.recurrence.utils.TextFormatUtil;
 
 import java.util.Calendar;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ViewActivity extends AppCompatActivity {
 
-    @Bind(R.id.notification_title) TextView notificationTitleText;
-    @Bind(R.id.notification_time) TextView notificationTimeText;
-    @Bind(R.id.notification_content) TextView contentText;
-    @Bind(R.id.notification_icon) ImageView iconImage;
-    @Bind(R.id.notification_circle) ImageView circleImage;
-    @Bind(R.id.time) TextView timeText;
-    @Bind(R.id.date) TextView dateText;
-    @Bind(R.id.repeat) TextView repeatText;
-    @Bind(R.id.shown) TextView shownText;
-    @Bind(R.id.toolbar) Toolbar toolbar;
-    @Bind(R.id.detail_layout) LinearLayout linearLayout;
-    @Bind(R.id.toolbar_shadow) View shadowView;
-    @Bind(R.id.scroll) ScrollView scrollView;
-    @Bind(R.id.header) View headerView;
-    @Bind(R.id.view_coordinator) CoordinatorLayout coordinatorLayout;
+    @BindView(R.id.notification_title) TextView notificationTitleText;
+    @BindView(R.id.notification_time) TextView notificationTimeText;
+    @BindView(R.id.notification_content) TextView contentText;
+    @BindView(R.id.notification_icon) ImageView iconImage;
+    @BindView(R.id.notification_circle) ImageView circleImage;
+    @BindView(R.id.time) TextView timeText;
+    @BindView(R.id.date) TextView dateText;
+    @BindView(R.id.repeat) TextView repeatText;
+    @BindView(R.id.shown) TextView shownText;
+    @BindView(R.id.toolbar) Toolbar toolbar;
+    @BindView(R.id.detail_layout) LinearLayout linearLayout;
+    @BindView(R.id.toolbar_shadow) View shadowView;
+    @BindView(R.id.scroll) ScrollView scrollView;
+    @BindView(R.id.header) View headerView;
+    @BindView(R.id.view_coordinator) CoordinatorLayout coordinatorLayout;
 
     private Reminder reminder;
     private boolean hideMarkAsDone;

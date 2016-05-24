@@ -15,14 +15,14 @@ import android.widget.TextView;
 import com.bleyl.recurrence.BuildConfig;
 import com.bleyl.recurrence.R;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class AboutActivity extends AppCompatActivity {
 
-    @Bind(R.id.version) TextView versionText;
-    @Bind(R.id.toolbar) Toolbar toolbar;
-    @Bind(R.id.root) LinearLayout linearLayout;
+    @BindView(R.id.version) TextView versionText;
+    @BindView(R.id.toolbar) Toolbar toolbar;
+    @BindView(R.id.root) LinearLayout linearLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
