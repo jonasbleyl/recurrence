@@ -2,7 +2,6 @@
 <resources>
     <string name="about">Über</string>
     <string name="settings">Einstellungen</string>
-    <string name="backup_restore">Backup / Wiederherstellung</string>
     <string name="preference_notification_category">Benachrichtigungseinstellungen</string>
     <string name="checkbox_vibrate">Vibration</string>
     <string name="checkbox_sound">Ton</string>
@@ -17,7 +16,6 @@
     <string name="nagging_detail">Benachrichtigt Sie in regelmäßigen Abständen, bis die Erinnerung ausgeblendet wird</string>
     <string name="nagging_interval">Intervall permanenter Erinnerungen</string>
     <string name="action_settings">Einstellungen</string>
-    <string name="action_backup_restore">Backup / Wiederherstellung</string>
     <string name="action_delete">Löschen</string>
     <string name="action_edit">Bearbeiten</string>
     <string name="action_about">Über</string>
@@ -28,7 +26,6 @@
     <string name="yes">Ja</string>
     <string name="no">Nein</string>
     <string name="ok">OK</string>
-    <string name="cancel">Abbrechen</string>
     <string name="title">Titel</string>
     <string name="save_menu">Speichern</string>
     <string name="time_now">Jetzt</string>

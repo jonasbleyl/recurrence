@@ -2,7 +2,6 @@
 <resources>
     <string name="about">關於</string>
     <string name="settings">選項</string>
-    <string name="backup_restore">備份/還原</string>
     <string name="preference_notification_category">通知設定</string>
     <string name="checkbox_vibrate">震動</string>
     <string name="checkbox_sound">提示音</string>
@@ -17,7 +16,6 @@
     <string name="nagging_detail">持續提醒直到取消</string>
     <string name="nagging_interval">確保間隔</string>
     <string name="action_settings">設定</string>
-    <string name="action_backup_restore">備份/還原</string>
     <string name="action_delete">刪除？</string>
     <string name="action_edit">編輯</string>
     <string name="action_about">關於</string>
@@ -28,7 +26,6 @@
     <string name="yes">是</string>
     <string name="no">否</string>
     <string name="ok">確定</string>
-    <string name="cancel">取消</string>
     <string name="title">標題：</string>
     <string name="save_menu">儲存</string>
     <string name="time_now">現在</string>

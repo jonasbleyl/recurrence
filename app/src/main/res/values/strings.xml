@@ -10,8 +10,6 @@
     <string name="snooze">Snooze</string>
     <string name="snooze_detail">Add a snooze action to the notification</string>
     <string name="snooze_length">Snooze length</string>
-    <string name="minute">minute</string>
-    <string name="minutes">minutes</string>
     <string name="mark_as_done">Mark as done</string>
     <string name="mark_as_done_detail">Add a \"Mark as done\" action to the notification</string>
     <string name="nagging_reminder">Nagging reminder</string>

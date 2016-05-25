@@ -2,7 +2,6 @@
 <resources>
     <string name="about">O aplikácii</string>
     <string name="settings">Nastavenia</string>
-    <string name="backup_restore">Záloha/Obnova</string>
     <string name="preference_notification_category">Nastavenie oznámenia</string>
     <string name="checkbox_vibrate">Vibrovať</string>
     <string name="checkbox_sound">Zvuk</string>
@@ -17,7 +16,6 @@
     <string name="nagging_detail">Priebežné upozorňovnie na aktuálne oznámenie, pokiaľ sa nezamietne</string>
     <string name="nagging_interval">Neodbytný interval</string>
     <string name="action_settings">Nastavenia</string>
-    <string name="action_backup_restore">Záloha/Obnova</string>
     <string name="action_delete">Zmazať</string>
     <string name="action_edit">Upraviť</string>
     <string name="action_about">Viac o</string>
@@ -28,7 +26,6 @@
     <string name="yes">Áno</string>
     <string name="no">Nie</string>
     <string name="ok">Ok</string>
-    <string name="cancel">Zrušiť</string>
     <string name="title">Názov</string>
     <string name="save_menu">Uložiť</string>
     <string name="time_now">Teraz</string>
