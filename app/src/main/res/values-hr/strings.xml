@@ -2,7 +2,6 @@
 <resources>
     <string name="about">O aplikaciji</string>
     <string name="settings">Postavke</string>
-    <string name="backup_restore">Sigurnosno kopiranje/Sigurnosno vraćanje</string>
     <string name="preference_notification_category">Obavijesti</string>
     <string name="checkbox_vibrate">Vibracija</string>
     <string name="checkbox_sound">Zvuk</string>
@@ -17,7 +16,6 @@
     <string name="nagging_detail">Konstantno obavješćuj o trenutnoj obavijesti dok nije odbačena</string>
     <string name="nagging_interval">Interval dosađivanja</string>
     <string name="action_settings">Postavke</string>
-    <string name="action_backup_restore">Sigurnosno kopiranje/Sigurnosno vraćanje</string>
     <string name="action_delete">Izbriši</string>
     <string name="action_edit">Uredi</string>
     <string name="action_about">O aplikaciji</string>
@@ -28,7 +26,6 @@
     <string name="yes">Da</string>
     <string name="no">Ne</string>
     <string name="ok">U redu</string>
-    <string name="cancel">Poništi</string>
     <string name="title">Naslov</string>
     <string name="save_menu">Spremi</string>
     <string name="time_now">Sada</string>
