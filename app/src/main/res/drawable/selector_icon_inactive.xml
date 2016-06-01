@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
+<selector
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:enterFadeDuration="@android:integer/config_shortAnimTime"
+    android:exitFadeDuration="@android:integer/config_shortAnimTime">
     <item android:drawable="@drawable/ic_notifications_off_white_24dp" android:state_selected="true"/>
     <item android:drawable="@drawable/ic_notifications_off_white_24dp_alpha" android:state_selected="false"/>
 </selector>
