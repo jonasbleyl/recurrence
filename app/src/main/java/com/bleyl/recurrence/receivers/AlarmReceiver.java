@@ -25,7 +25,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         // Check if new alarm needs to be set
         if (reminder.getNumberToShow() > reminder.getNumberShown() || Boolean.parseBoolean(reminder.getForeverState())) {
-            AlarmUtil.setNextAlarm(context, reminder, database, Calendar.getInstance());
+            AlarmUtil.setNextAlarm(context, reminder, database);
         }
         Intent updateIntent = new Intent("BROADCAST_REFRESH");
         LocalBroadcastManager.getInstance(context).sendBroadcast(updateIntent);

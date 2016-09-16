@@ -34,10 +34,8 @@ public class AlarmUtil {
         alarmManager.cancel(pendingIntent);
     }
 
-    public static void setNextAlarm(Context context, Reminder reminder, DatabaseHelper database, Calendar calendar) {
-        Calendar timeCalendar = DateAndTimeUtil.parseDateAndTime(reminder.getDateAndTime());
-        calendar.set(Calendar.HOUR_OF_DAY, timeCalendar.get(Calendar.HOUR_OF_DAY));
-        calendar.set(Calendar.MINUTE, timeCalendar.get(Calendar.MINUTE));
+    public static void setNextAlarm(Context context, Reminder reminder, DatabaseHelper database) {
+        Calendar calendar = DateAndTimeUtil.parseDateAndTime(reminder.getDateAndTime());
         calendar.set(Calendar.SECOND, 0);
 
         switch (reminder.getRepeatType()) {
