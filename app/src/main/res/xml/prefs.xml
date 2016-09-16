@@ -18,7 +18,8 @@
             android:title="@string/checkbox_LED"/>
         <CheckBoxPreference
             android:key="checkBoxOngoing"
-            android:title="@string/checkbox_ongoing"/>
+            android:title="@string/checkbox_ongoing"
+            android:summary="@string/ongoing_detail"/>
         <CheckBoxPreference
             android:key="checkBoxMarkAsDone"
             android:title="@string/mark_as_done"
