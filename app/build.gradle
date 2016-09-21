@@ -9,8 +9,8 @@ android {
         applicationId "com.bleyl.recurrence"
         minSdkVersion 15
         targetSdkVersion 24
-        versionCode 23
-        versionName "1.4.2"
+        versionCode 24
+        versionName "1.5"
     }
     buildTypes {
         release {
