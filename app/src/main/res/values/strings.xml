@@ -7,6 +7,7 @@
     <string name="checkbox_sound">Sound</string>
     <string name="checkbox_LED">LED</string>
     <string name="checkbox_ongoing">Persistent</string>
+    <string name="ongoing_detail">Prevent notification from being swiped away</string>
     <string name="snooze">Snooze</string>
     <string name="snooze_detail">Add a snooze action to the notification</string>
     <string name="snooze_length">Snooze length</string>

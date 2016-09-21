@@ -18,7 +18,6 @@ import butterknife.ButterKnife;
 
 public class IconsAdapter extends RecyclerView.Adapter<IconsAdapter.ViewHolder>{
 
-    private int rowLayout;
     private IconPicker iconPicker;
     private List<Icon> iconList;
 
@@ -33,9 +32,8 @@ public class IconsAdapter extends RecyclerView.Adapter<IconsAdapter.ViewHolder>{
         }
     }
 
-    public IconsAdapter(IconPicker iconPicker, int rowLayout, List<Icon> iconList) {
+    public IconsAdapter(IconPicker iconPicker, List<Icon> iconList) {
         this.iconPicker = iconPicker;
-        this.rowLayout = rowLayout;
         this.iconList = iconList;
     }
 
@@ -46,7 +44,7 @@ public class IconsAdapter extends RecyclerView.Adapter<IconsAdapter.ViewHolder>{
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(rowLayout, viewGroup, false);
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_icon_grid, viewGroup, false);
         return new ViewHolder(v);
     }
 

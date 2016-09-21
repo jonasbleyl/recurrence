@@ -1,7 +1,7 @@
 package com.bleyl.recurrence.dialogs;
 
-import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -21,9 +21,9 @@ public class AdvancedRepeatSelector extends DialogFragment {
     AdvancedRepeatSelectionListener listener;
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        listener = (AdvancedRepeatSelectionListener) activity;
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        listener = (AdvancedRepeatSelectionListener) context;
     }
 
     @Override @NonNull

@@ -213,7 +213,7 @@ public class ViewActivity extends AppCompatActivity {
         DatabaseHelper database = DatabaseHelper.getInstance(this);
         // Check whether next alarm needs to be set
         if (reminder.getNumberShown() + 1 != reminder.getNumberToShow() || Boolean.parseBoolean(reminder.getForeverState())) {
-            AlarmUtil.setNextAlarm(this, reminder, database, DateAndTimeUtil.parseDateAndTime(reminder.getDateAndTime()));
+            AlarmUtil.setNextAlarm(this, reminder, database);
         } else {
             Intent alarmIntent = new Intent(getApplicationContext(), AlarmReceiver.class);
             AlarmUtil.cancelAlarm(this, alarmIntent, reminder.getId());

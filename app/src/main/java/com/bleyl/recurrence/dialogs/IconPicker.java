@@ -1,6 +1,5 @@
 package com.bleyl.recurrence.dialogs;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Rect;
@@ -27,9 +26,9 @@ public class IconPicker extends DialogFragment {
     IconSelectionListener listener;
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        listener = (IconSelectionListener) activity;
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        listener = (IconSelectionListener) context;
     }
 
     @Override @NonNull
@@ -43,7 +42,7 @@ public class IconPicker extends DialogFragment {
         recyclerView.addItemDecoration(itemDecoration);
 
         DatabaseHelper database = DatabaseHelper.getInstance(getContext());
-        recyclerView.setAdapter(new IconsAdapter(IconPicker.this, R.layout.item_icon_grid, database.getIconList()));
+        recyclerView.setAdapter(new IconsAdapter(IconPicker.this, database.getIconList()));
         database.close();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.Dialog);

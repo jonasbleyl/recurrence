@@ -46,7 +46,7 @@ public class TabFragment extends Fragment {
     public void onViewCreated(View view, Bundle bundle) {
         super.onViewCreated(view, bundle);
         ButterKnife.bind(this, view);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
 
         remindersType = this.getArguments().getInt("TYPE");
@@ -56,7 +56,7 @@ public class TabFragment extends Fragment {
         }
 
         reminderList = getListData();
-        reminderAdapter = new ReminderAdapter(getActivity(), R.layout.item_notification_list, reminderList);
+        reminderAdapter = new ReminderAdapter(getContext(), reminderList);
         recyclerView.setAdapter(reminderAdapter);
 
         if (reminderAdapter.getItemCount() == 0) {
@@ -66,7 +66,7 @@ public class TabFragment extends Fragment {
     }
 
     public List<Reminder> getListData() {
-        DatabaseHelper database = DatabaseHelper.getInstance(getActivity().getApplicationContext());
+        DatabaseHelper database = DatabaseHelper.getInstance(getContext().getApplicationContext());
         List<Reminder> reminderList = database.getNotificationList(remindersType);
         database.close();
         return reminderList;
