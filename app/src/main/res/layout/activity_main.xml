@@ -20,7 +20,7 @@
                 android:id="@+id/tabs"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:pstsIndicatorColor="@android:color/white"
+                app:pstsIndicatorColor="@color/NotificationTitle"
                 app:pstsTabPaddingLeftRight="26dp"
                 android:layout_marginLeft="@dimen/tabs_padding"
                 android:layout_marginStart="@dimen/tabs_padding"
