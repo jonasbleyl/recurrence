@@ -12,4 +12,5 @@
     <color name="iconTint">#8e8e8e</color>
     <color name="default_colour_grey">#8e8e8e</color>
     <color name="emptyColour">#bababa</color>
+    <color name="NotificationTitle">#ffffff</color>
 </resources>
