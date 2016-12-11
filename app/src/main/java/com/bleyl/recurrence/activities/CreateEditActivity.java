@@ -35,6 +35,8 @@ import com.bleyl.recurrence.models.Colour;
 import com.bleyl.recurrence.models.Reminder;
 import com.bleyl.recurrence.R;
 import com.bleyl.recurrence.receivers.AlarmReceiver;
+import com.bleyl.recurrence.receivers.NagReceiver;
+import com.bleyl.recurrence.receivers.SnoozeReceiver;
 import com.bleyl.recurrence.utils.AlarmUtil;
 import com.bleyl.recurrence.utils.AnimationUtil;
 import com.bleyl.recurrence.utils.DateAndTimeUtil;
@@ -293,11 +295,20 @@ public class CreateEditActivity extends AppCompatActivity implements ColorChoose
             database.addDaysOfWeek(reminder);
         }
 
+        cancelOldAlarms(reminder);
+
         database.close();
         Intent alarmIntent = new Intent(this, AlarmReceiver.class);
         calendar.set(Calendar.SECOND, 0);
         AlarmUtil.setAlarm(this, alarmIntent, reminder.getId(), calendar);
         finish();
+    }
+
+    private void cancelOldAlarms(Reminder reminder) {
+        Intent nagIntent = new Intent(this, NagReceiver.class);
+        AlarmUtil.cancelAlarm(this, nagIntent, reminder.getId());
+        Intent snoozeIntent = new Intent(this, SnoozeReceiver.class);
+        AlarmUtil.cancelAlarm(this, snoozeIntent, reminder.getId());
     }
 
     @OnClick(R.id.forever_row)
