@@ -2,6 +2,7 @@ package com.bleyl.recurrence.activities;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -174,6 +176,13 @@ public class CreateEditActivity extends AppCompatActivity implements ColorChoose
         }
     }
 
+    private void hideKeyboard() {
+        if (getCurrentFocus() != null) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        }
+    }
+
     public void showFrequency(boolean show) {
         if (show) {
             foreverRow.setVisibility(View.VISIBLE);
@@ -198,6 +207,7 @@ public class CreateEditActivity extends AppCompatActivity implements ColorChoose
             }
         }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), DateFormat.is24HourFormat(this));
         TimePicker.show();
+        hideKeyboard();
     }
 
     @OnClick(R.id.date_row)
@@ -212,12 +222,14 @@ public class CreateEditActivity extends AppCompatActivity implements ColorChoose
             }
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
         DatePicker.show();
+        hideKeyboard();
     }
 
     @OnClick(R.id.icon_select)
     public void iconSelector() {
         DialogFragment dialog = new IconPicker();
         dialog.show(getSupportFragmentManager(), "IconPicker");
+        hideKeyboard();
     }
 
     @Override
@@ -230,6 +242,7 @@ public class CreateEditActivity extends AppCompatActivity implements ColorChoose
 
     @OnClick(R.id.colour_select)
     public void colourSelector() {
+        hideKeyboard();
         DatabaseHelper database = DatabaseHelper.getInstance(this);
         int[] colours = database.getColoursArray();
         database.close();
@@ -249,12 +262,14 @@ public class CreateEditActivity extends AppCompatActivity implements ColorChoose
         DatabaseHelper database = DatabaseHelper.getInstance(this);
         database.addColour(new Colour(selectedColour, DateAndTimeUtil.toStringDateTimeWithSeconds(Calendar.getInstance())));
         database.close();
+        hideKeyboard();
     }
 
     @OnClick(R.id.repeat_row)
     public void repeatSelector() {
         DialogFragment dialog = new RepeatSelector();
         dialog.show(getSupportFragmentManager(), "RepeatSelector");
+        hideKeyboard();
     }
 
     @Override
