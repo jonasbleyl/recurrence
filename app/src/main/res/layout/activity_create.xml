@@ -43,14 +43,14 @@
                     android:layout_height="wrap_content"
                     android:text="@string/title"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@android:color/white" />
+                    android:textColor="@color/NotificationTitle" />
 
                 <EditText
                     android:id="@+id/notification_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textCapSentences|textAutoCorrect"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/NotificationTitle"
                     android:textColorHighlight="@color/accentLight"
                     android:textSize="28sp"
                     android:theme="@style/TitleEditText" />
