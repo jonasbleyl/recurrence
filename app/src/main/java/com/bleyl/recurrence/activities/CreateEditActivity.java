@@ -13,6 +13,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -108,6 +109,17 @@ public class CreateEditActivity extends AppCompatActivity implements ColorChoose
             database.close();
         } else {
             assignReminderValues();
+        }
+        handleSharedText();
+    }
+
+    private void handleSharedText() {
+        Intent intent = getIntent();
+        if (Intent.ACTION_SEND.equals(intent.getAction()) && intent.getType() != null) {
+            String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
+            if (!TextUtils.isEmpty(sharedText)) {
+                contentEditText.setText(sharedText);
+            }
         }
     }
 
