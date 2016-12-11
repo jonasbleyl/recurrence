@@ -262,7 +262,6 @@ public class CreateEditActivity extends AppCompatActivity implements ColorChoose
         DatabaseHelper database = DatabaseHelper.getInstance(this);
         database.addColour(new Colour(selectedColour, DateAndTimeUtil.toStringDateTimeWithSeconds(Calendar.getInstance())));
         database.close();
-        hideKeyboard();
     }
 
     @OnClick(R.id.repeat_row)
