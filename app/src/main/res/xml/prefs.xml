@@ -7,11 +7,11 @@
             android:key="checkBoxVibrate"
             android:title="@string/checkbox_vibrate"/>
         <RingtonePreference
-            android:showDefault="true"
+            android:showDefault="false"
             android:key="NotificationSound"
             android:title="@string/checkbox_sound"
             android:defaultValue="content://settings/system/notification_sound"
-            android:ringtoneType="notification" />
+            android:ringtoneType="all" />
         <CheckBoxPreference
             android:defaultValue="true"
             android:key="checkBoxLED"
