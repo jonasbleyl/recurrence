@@ -62,31 +62,29 @@ public class NotificationUtil {
         }
 
         String soundUri = sharedPreferences.getString("NotificationSound", "content://settings/system/notification_sound");
-        if (soundUri.length() != 0) {
+        if (soundUri.length() != 0)
             builder.setSound(Uri.parse(soundUri));
-        }
-        if (sharedPreferences.getBoolean("checkBoxLED", true)) {
+
+        if (sharedPreferences.getBoolean("checkBoxLED", true))
             builder.setLights(Color.BLUE, 700, 1500);
-        }
-        if (sharedPreferences.getBoolean("checkBoxOngoing", false)) {
+
+        if (sharedPreferences.getBoolean("checkBoxOngoing", false))
             builder.setOngoing(true);
-        }
-        if (sharedPreferences.getBoolean("checkBoxVibrate", true)) {
-            long[] pattern = {0, 300, 0};
-            builder.setVibrate(pattern);
-        }
+
+        if (sharedPreferences.getBoolean("checkBoxVibrate", true))
+            builder.setDefaults(NotificationCompat.DEFAULT_VIBRATE);
+
         if (sharedPreferences.getBoolean("checkBoxMarkAsDone", false)) {
             Intent intent = new Intent(context, DismissReceiver.class);
             intent.putExtra("NOTIFICATION_ID", reminder.getId());
             PendingIntent pendingIntent = PendingIntent.getBroadcast(context, reminder.getId(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
             builder.addAction(R.drawable.ic_done_white_24dp, context.getString(R.string.mark_as_done), pendingIntent);
         }
-        if (sharedPreferences.getBoolean("checkBoxSnooze", false)) {
+        if (sharedPreferences.getBoolean("checkBoxSnooze", false))
             builder.addAction(R.drawable.ic_snooze_white_24dp, context.getString(R.string.snooze), pendingSnooze);
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
             builder.setPriority(Notification.PRIORITY_HIGH);
-        }
 
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(reminder.getId(), builder.build());
