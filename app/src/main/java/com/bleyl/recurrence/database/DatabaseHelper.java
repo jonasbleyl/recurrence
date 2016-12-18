@@ -6,6 +6,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.graphics.Color;
 
 import com.bleyl.recurrence.R;
 import com.bleyl.recurrence.models.Colour;
@@ -343,14 +344,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor cursor = database.rawQuery("SELECT " + COL_PICKER_COLOUR + " FROM " + PICKER_COLOUR_TABLE + " WHERE " + COL_PICKER_COLOUR + " != -7434610 ORDER BY " + COL_PICKER_DATE_AND_TIME + " DESC LIMIT 14", null);
 
         int[] colours;
-        if (cursor.getCount() < 15) {
+        if (cursor.getCount() < 15)
             colours = new int[cursor.getCount() + 1];
-        } else {
+        else
             colours = new int[15];
-        }
 
         int i = 0;
-        colours[i] = -7434610;
+        colours[i] = Color.parseColor(DEFAULT_COLOUR);
         if (cursor.moveToFirst()) {
             do {
                 colours[++i] = cursor.getInt(cursor.getColumnIndexOrThrow(COL_PICKER_COLOUR));
@@ -369,10 +369,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     private void addAllColours(SQLiteDatabase database) {
-        int[] colours = context.getResources().getIntArray(R.array.int_colours_array);
-        for(int colour : colours) {
+        String[] colours = context.getResources().getStringArray(R.array.colours_array);
+        for(String colour : colours) {
             ContentValues values = new ContentValues();
-            values.put(COL_PICKER_COLOUR, colour);
+            values.put(COL_PICKER_COLOUR, Color.parseColor(colour));
             values.put(COL_PICKER_DATE_AND_TIME, 0);
             database.insert(PICKER_COLOUR_TABLE, null, values);
         }

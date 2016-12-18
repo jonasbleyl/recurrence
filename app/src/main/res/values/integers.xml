@@ -6,15 +6,4 @@
     <integer name="default_nag_seconds">0</integer>
     <integer name="default_snooze_minutes">5</integer>
     <integer name="default_snooze_hours">0</integer>
-
-    <integer-array name="int_colours_array">
-        <item>-13663817</item>
-        <item>-7518037</item>
-        <item>-4310479</item>
-        <item>-14442619</item>
-        <item>-1802704</item>
-        <item>-1984714</item>
-        <item>-9798256</item>
-        <item>-4048015</item>
-    </integer-array>
 </resources>

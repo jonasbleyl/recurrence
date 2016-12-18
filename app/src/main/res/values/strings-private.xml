@@ -20,6 +20,17 @@
 
     <string name="default_icon_value" translatable="false">ic_notifications_white_24dp</string>
 
+    <string-array translatable="false" name="colours_array">
+        <item>#239f85</item>
+        <item>#2f81b7</item>
+        <item>#6a7d90</item>
+        <item>#8d48ab</item>
+        <item>#be3a31</item>
+        <item>#c23b71</item>
+        <item>#e1b736</item>
+        <item>#e47e30</item>
+    </string-array>
+
     <string-array name="icons_string_array" translatable="false">
         <item>ic_notifications_white_24dp</item>
         <item>ic_account_balance_wallet_white_24dp</item>
