@@ -1,5 +1,6 @@
 package com.bleyl.recurrence.database;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -16,6 +17,7 @@ import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
+    @SuppressLint("StaticFieldLeak")
     private static DatabaseHelper instance;
     private Context context;
 
@@ -39,6 +41,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COL_ICON_ID = "ID";
     private static final String COL_ICON_NAME = "NAME";
     private static final String COL_ICON_USE_FREQUENCY = "USE_FREQUENCY";
+    private static final String COL_ICON_INDEX = "NAME_INDEX";
 
     private static final String DAYS_OF_WEEK_TABLE = "DAYS_OF_WEEK";
     private static final String COL_SUNDAY = "SUNDAY";
@@ -73,6 +76,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         this.context = context;
     }
 
+    @Override
     public void onCreate(SQLiteDatabase database) {
         database.execSQL("CREATE TABLE " + NOTIFICATION_TABLE + " ("
                 + COL_ID + " INTEGER PRIMARY KEY, "
@@ -87,9 +91,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + COL_COLOUR + " TEXT, "
                 + COL_INTERVAL + " INTEGER) ");
 
-        database.execSQL("CREATE TABLE " + ICON_TABLE + " ("
+        database.execSQL("CREATE TABLE "+ ICON_TABLE + " ("
                 + COL_ICON_ID + " INTEGER PRIMARY KEY, "
-                + COL_ICON_NAME + " TEXT, "
+                + COL_ICON_NAME + " TEXT UNIQUE, "
                 + COL_ICON_USE_FREQUENCY + " INTEGER) ");
 
         database.execSQL("CREATE TABLE " + DAYS_OF_WEEK_TABLE + " ("
@@ -110,6 +114,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         addAllColours(database);
     }
 
+    @Override
     public void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion) {
         if (oldVersion < 2) {
             database.execSQL("ALTER TABLE " + NOTIFICATION_TABLE + " ADD " + COL_ICON + " TEXT;");
@@ -148,6 +153,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     + COL_PICKER_DATE_AND_TIME + " INTEGER);");
 
             addAllColours(database);
+        }
+
+        if (oldVersion < 5) {
+            database.execSQL("CREATE UNIQUE INDEX "
+                    + COL_ICON_INDEX + " ON "
+                    + ICON_TABLE  + " ("
+                    + COL_ICON_NAME + ")");
+
+            addAllIcons(database);
         }
     }
 
@@ -289,12 +303,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private void addAllIcons(SQLiteDatabase database) {
         String[] icons = context.getResources().getStringArray(R.array.icons_string_array);
-        for (int i = 0; i < icons.length; i++) {
+        for (String icon : icons) {
             ContentValues values = new ContentValues();
-            values.put(COL_ICON_ID, i);
-            values.put(COL_ICON_NAME, icons[i]);
+            values.put(COL_ICON_NAME, icon);
             values.put(COL_ICON_USE_FREQUENCY, 0);
-            database.insert(ICON_TABLE, null, values);
+            database.insertWithOnConflict(ICON_TABLE, null, values, SQLiteDatabase.CONFLICT_IGNORE);
         }
     }
 
