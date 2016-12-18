@@ -197,7 +197,7 @@ public class CreateEditActivity extends AppCompatActivity implements ColorChoose
     }
 
     @OnClick(R.id.time_row)
-    private void timePicker() {
+    void timePicker() {
         TimePickerDialog TimePicker = new TimePickerDialog(CreateEditActivity.this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int hour, int minute) {
@@ -211,7 +211,7 @@ public class CreateEditActivity extends AppCompatActivity implements ColorChoose
     }
 
     @OnClick(R.id.date_row)
-    private void datePicker(View view) {
+    void datePicker(View view) {
         DatePickerDialog DatePicker = new DatePickerDialog(CreateEditActivity.this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker DatePicker, int year, int month, int dayOfMonth) {
@@ -226,7 +226,7 @@ public class CreateEditActivity extends AppCompatActivity implements ColorChoose
     }
 
     @OnClick(R.id.icon_select)
-    private void iconSelector() {
+    void iconSelector() {
         DialogFragment dialog = new IconPicker();
         dialog.show(getSupportFragmentManager(), "IconPicker");
         hideKeyboard();
@@ -241,7 +241,7 @@ public class CreateEditActivity extends AppCompatActivity implements ColorChoose
     }
 
     @OnClick(R.id.colour_select)
-    private void colourSelector() {
+    void colourSelector() {
         hideKeyboard();
         DatabaseHelper database = DatabaseHelper.getInstance(this);
         int[] colours = database.getColoursArray();
@@ -265,7 +265,7 @@ public class CreateEditActivity extends AppCompatActivity implements ColorChoose
     }
 
     @OnClick(R.id.repeat_row)
-    private void repeatSelector() {
+    void repeatSelector() {
         DialogFragment dialog = new RepeatSelector();
         dialog.show(getSupportFragmentManager(), "RepeatSelector");
         hideKeyboard();
@@ -338,7 +338,7 @@ public class CreateEditActivity extends AppCompatActivity implements ColorChoose
     }
 
     @OnClick(R.id.forever_row)
-    private void toggleSwitch() {
+    void toggleSwitch() {
         foreverSwitch.toggle();
         if (foreverSwitch.isChecked()) {
             bottomRow.setVisibility(View.GONE);
@@ -348,7 +348,7 @@ public class CreateEditActivity extends AppCompatActivity implements ColorChoose
     }
 
     @OnClick(R.id.switch_toggle)
-    private void switchClicked() {
+    void switchClicked() {
         if (foreverSwitch.isChecked()) {
             bottomRow.setVisibility(View.GONE);
         } else {
