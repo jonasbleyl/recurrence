@@ -263,9 +263,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public void deleteNotification(Reminder reminder) {
         SQLiteDatabase database = this.getWritableDatabase();
-        if (reminder.getRepeatType() == Reminder.SPECIFIC_DAYS) {
-            database.delete(DAYS_OF_WEEK_TABLE, COL_ID + " = ?", new String[]{String.valueOf(reminder.getId())});
-        }
+        database.delete(DAYS_OF_WEEK_TABLE, COL_ID + " = ?", new String[]{String.valueOf(reminder.getId())});
         database.delete(NOTIFICATION_TABLE, COL_ID + " = ?", new String[]{String.valueOf(reminder.getId())});
     }
 
