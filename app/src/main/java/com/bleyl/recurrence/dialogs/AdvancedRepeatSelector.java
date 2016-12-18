@@ -70,7 +70,7 @@ public class AdvancedRepeatSelector extends DialogFragment {
         return builder.create();
     }
 
-    public String[] getRepeatValues(int number) {
+    private String[] getRepeatValues(int number) {
         String[] values = new String[5];
         values[0] = getResources().getQuantityString(R.plurals.hour, number);
         values[1] = getResources().getQuantityString(R.plurals.day, number);

@@ -125,7 +125,7 @@ public class CreateEditActivity extends AppCompatActivity implements ColorChoose
         }
     }
 
-    public void assignReminderValues() {
+    private void assignReminderValues() {
         // Prevent keyboard from opening automatically
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
@@ -183,7 +183,7 @@ public class CreateEditActivity extends AppCompatActivity implements ColorChoose
         }
     }
 
-    public void showFrequency(boolean show) {
+    private void showFrequency(boolean show) {
         if (show) {
             foreverRow.setVisibility(View.VISIBLE);
             bottomRow.setVisibility(View.VISIBLE);
@@ -197,7 +197,7 @@ public class CreateEditActivity extends AppCompatActivity implements ColorChoose
     }
 
     @OnClick(R.id.time_row)
-    public void timePicker() {
+    private void timePicker() {
         TimePickerDialog TimePicker = new TimePickerDialog(CreateEditActivity.this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int hour, int minute) {
@@ -211,7 +211,7 @@ public class CreateEditActivity extends AppCompatActivity implements ColorChoose
     }
 
     @OnClick(R.id.date_row)
-    public void datePicker(View view) {
+    private void datePicker(View view) {
         DatePickerDialog DatePicker = new DatePickerDialog(CreateEditActivity.this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker DatePicker, int year, int month, int dayOfMonth) {
@@ -226,7 +226,7 @@ public class CreateEditActivity extends AppCompatActivity implements ColorChoose
     }
 
     @OnClick(R.id.icon_select)
-    public void iconSelector() {
+    private void iconSelector() {
         DialogFragment dialog = new IconPicker();
         dialog.show(getSupportFragmentManager(), "IconPicker");
         hideKeyboard();
@@ -241,7 +241,7 @@ public class CreateEditActivity extends AppCompatActivity implements ColorChoose
     }
 
     @OnClick(R.id.colour_select)
-    public void colourSelector() {
+    private void colourSelector() {
         hideKeyboard();
         DatabaseHelper database = DatabaseHelper.getInstance(this);
         int[] colours = database.getColoursArray();
@@ -265,7 +265,7 @@ public class CreateEditActivity extends AppCompatActivity implements ColorChoose
     }
 
     @OnClick(R.id.repeat_row)
-    public void repeatSelector() {
+    private void repeatSelector() {
         DialogFragment dialog = new RepeatSelector();
         dialog.show(getSupportFragmentManager(), "RepeatSelector");
         hideKeyboard();
@@ -299,7 +299,7 @@ public class CreateEditActivity extends AppCompatActivity implements ColorChoose
         showFrequency(true);
     }
 
-    public void saveNotification() {
+    private void saveNotification() {
         DatabaseHelper database = DatabaseHelper.getInstance(this);
         Reminder reminder = new Reminder()
                 .setId(id)
@@ -338,7 +338,7 @@ public class CreateEditActivity extends AppCompatActivity implements ColorChoose
     }
 
     @OnClick(R.id.forever_row)
-    public void toggleSwitch() {
+    private void toggleSwitch() {
         foreverSwitch.toggle();
         if (foreverSwitch.isChecked()) {
             bottomRow.setVisibility(View.GONE);
@@ -348,7 +348,7 @@ public class CreateEditActivity extends AppCompatActivity implements ColorChoose
     }
 
     @OnClick(R.id.switch_toggle)
-    public void switchClicked() {
+    private void switchClicked() {
         if (foreverSwitch.isChecked()) {
             bottomRow.setVisibility(View.GONE);
         } else {
@@ -356,7 +356,7 @@ public class CreateEditActivity extends AppCompatActivity implements ColorChoose
         }
     }
 
-    public void validateInput() {
+    private void validateInput() {
         imageWarningShow.setVisibility(View.GONE);
         imageWarningTime.setVisibility(View.GONE);
         imageWarningDate.setVisibility(View.GONE);

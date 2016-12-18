@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements ReminderAdapter.R
     }
 
     @OnClick(R.id.fab_button)
-    public void fabClicked() {
+    private void fabClicked() {
         Intent intent = new Intent(this, CreateEditActivity.class);
         startActivity(intent);
     }

@@ -17,6 +17,7 @@ import com.bleyl.recurrence.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class AboutActivity extends AppCompatActivity {
 
@@ -36,20 +37,23 @@ public class AboutActivity extends AppCompatActivity {
         versionText.setText(BuildConfig.VERSION_NAME);
     }
 
-    public void launchEmail(View view) {
+    @OnClick(R.id.email_row)
+    private void launchEmail() {
         Intent intent = new Intent(android.content.Intent.ACTION_SEND);
         intent.setType("plain/text");
         intent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{getString(R.string.email)});
         startActivity(Intent.createChooser(intent, getString(R.string.send_email)));
     }
 
-    public void launchAppURL(View view) {
+    @OnClick(R.id.app_row)
+    private void launchAppURL() {
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setData(Uri.parse(getString(R.string.app_url)));
         startActivity(intent);
     }
 
-    public void showLibrariesDialog(View view) {
+    @OnClick(R.id.libraries_row)
+    private void showLibrariesDialog() {
         LayoutInflater inflater = getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.view_dialog_libraries, linearLayout, false);
 
@@ -87,7 +91,8 @@ public class AboutActivity extends AppCompatActivity {
         });
     }
 
-    public void showContributorsDialog(View view) {
+    @OnClick(R.id.contributors_row)
+    private void showContributorsDialog(View view) {
         LayoutInflater inflater = getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.view_dialog_contributors, linearLayout, false);
 

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:ignore="ContentDescription"
-    android:orientation="vertical"
-    android:id="@+id/root"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              tools:ignore="ContentDescription"
+              android:orientation="vertical"
+              android:id="@+id/root"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -95,13 +95,13 @@
                 android:background="@color/lightGray"/>
 
             <LinearLayout
+                android:id="@+id/email_row"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="@dimen/table_row_about_padding"
                 android:background="?attr/selectableItemBackground"
                 android:paddingBottom="@dimen/table_row_about_padding"
-                android:weightSum="1"
-                android:onClick="launchEmail">
+                android:weightSum="1">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -123,13 +123,13 @@
                 android:background="@color/lightGray"/>
 
             <LinearLayout
+                android:id="@+id/app_row"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="@dimen/table_row_about_padding"
                 android:background="?attr/selectableItemBackground"
                 android:paddingBottom="@dimen/table_row_about_padding"
-                android:weightSum="1"
-                android:onClick="launchAppURL">
+                android:weightSum="1">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -152,13 +152,13 @@
                 android:background="@color/lightGray"/>
 
             <LinearLayout
+                android:id="@+id/libraries_row"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="@dimen/table_row_about_padding"
                 android:background="?attr/selectableItemBackground"
                 android:paddingBottom="@dimen/table_row_about_padding"
-                android:weightSum="1"
-                android:onClick="showLibrariesDialog">
+                android:weightSum="1">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -180,13 +180,13 @@
                 android:background="@color/lightGray"/>
 
             <LinearLayout
+                android:id="@+id/contributors_row"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="@dimen/table_row_about_padding"
                 android:background="?attr/selectableItemBackground"
                 android:paddingBottom="@dimen/table_row_about_padding"
-                android:weightSum="1"
-                android:onClick="showContributorsDialog">
+                android:weightSum="1">
 
                 <TextView
                     android:layout_width="match_parent"

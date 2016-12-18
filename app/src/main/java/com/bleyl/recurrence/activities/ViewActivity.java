@@ -108,7 +108,7 @@ public class ViewActivity extends AppCompatActivity {
         }
     }
 
-    public void assignReminderValues() {
+    private void assignReminderValues() {
         Calendar calendar = DateAndTimeUtil.parseDateAndTime(reminder.getDateAndTime());
         notificationTitleText.setText(reminder.getTitle());
         contentText.setText(reminder.getContent());
@@ -140,7 +140,7 @@ public class ViewActivity extends AppCompatActivity {
         invalidateOptionsMenu();
     }
 
-    public void setupTransitions() {
+    private void setupTransitions() {
         // Add shared element transition animation if on Lollipop or later
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             // Enter transitions
@@ -175,7 +175,7 @@ public class ViewActivity extends AppCompatActivity {
         }
     }
 
-    public void confirmDelete() {
+    private void confirmDelete() {
         new AlertDialog.Builder(this, R.style.Dialog)
                 .setMessage(R.string.delete_confirmation)
                 .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
@@ -186,11 +186,11 @@ public class ViewActivity extends AppCompatActivity {
                 .setNegativeButton(R.string.no, null).show();
     }
 
-    public void actionShowNow() {
+    private void actionShowNow() {
         NotificationUtil.createNotification(this, reminder);
     }
 
-    public void actionDelete() {
+    private void actionDelete() {
         DatabaseHelper database = DatabaseHelper.getInstance(this);
         database.deleteNotification(reminder);
         database.close();
@@ -201,14 +201,14 @@ public class ViewActivity extends AppCompatActivity {
         finish();
     }
 
-    public void actionEdit() {
+    private void actionEdit() {
         Intent intent = new Intent(this, CreateEditActivity.class);
         intent.putExtra("NOTIFICATION_ID", reminder.getId());
         startActivity(intent);
         finish();
     }
 
-    public void actionMarkAsDone() {
+    private void actionMarkAsDone() {
         reminderChanged = true;
         DatabaseHelper database = DatabaseHelper.getInstance(this);
         // Check whether next alarm needs to be set
@@ -226,21 +226,21 @@ public class ViewActivity extends AppCompatActivity {
         Snackbar.make(coordinatorLayout, R.string.toast_mark_as_done, Snackbar.LENGTH_SHORT).show();
     }
 
-    public void actionShareText() {
+    private void actionShareText() {
         Intent intent = new Intent(); intent.setAction(Intent.ACTION_SEND);
         intent.setType("text/plain");
         intent.putExtra(Intent.EXTRA_TEXT, reminder.getTitle() + "\n" + reminder.getContent());
         startActivity(Intent.createChooser(intent, getString(R.string.action_share)));
     }
 
-    public void returnHome() {
+    private void returnHome() {
         Intent intent = new Intent(this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         finish();
     }
 
-    public void updateReminder() {
+    private void updateReminder() {
         DatabaseHelper database = DatabaseHelper.getInstance(this);
         reminder = database.getNotification(reminder.getId());
         database.close();

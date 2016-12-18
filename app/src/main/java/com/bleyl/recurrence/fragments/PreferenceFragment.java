@@ -15,7 +15,7 @@ public class PreferenceFragment extends android.preference.PreferenceFragment im
         updatePreferenceSummary();
     }
 
-    public void updatePreferenceSummary() {
+    private void updatePreferenceSummary() {
         SharedPreferences sharedPreferences = getPreferenceScreen().getSharedPreferences();
 
         // Set nagging preference summary

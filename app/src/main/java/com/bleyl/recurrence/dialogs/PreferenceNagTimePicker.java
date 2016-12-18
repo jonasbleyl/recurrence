@@ -12,8 +12,8 @@ import com.bleyl.recurrence.R;
 
 public class PreferenceNagTimePicker extends DialogPreference{
 
-    public static final int MAX_VALUE = 60;
-    public static final int MIN_VALUE = 0;
+    private static final int MAX_VALUE = 60;
+    private static final int MIN_VALUE = 0;
 
     private NumberPicker minutePicker;
     private NumberPicker secondPicker;
@@ -33,7 +33,7 @@ public class PreferenceNagTimePicker extends DialogPreference{
         setUpSecondPicker(view);
     }
 
-    protected void setUpMinutePicker(View view) {
+    private void setUpMinutePicker(View view) {
         minutePicker = (NumberPicker) view.findViewById(R.id.picker1);
         minutePicker.setMaxValue(MAX_VALUE);
         minutePicker.setMinValue(MIN_VALUE);
@@ -46,7 +46,7 @@ public class PreferenceNagTimePicker extends DialogPreference{
         minutePicker.setDisplayedValues(minuteValues);
     }
 
-    protected void setUpSecondPicker(View view) {
+    private void setUpSecondPicker(View view) {
         secondPicker = (NumberPicker) view.findViewById(R.id.picker2);
         secondPicker.setMaxValue(MAX_VALUE);
         secondPicker.setMinValue(MIN_VALUE);

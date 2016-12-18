@@ -78,7 +78,7 @@ public class SnoozeDialogActivity extends AppCompatActivity {
         builder.setView(view).create().show();
     }
 
-    public void setUpHourPicker() {
+    private void setUpHourPicker() {
         hourPicker.setMinValue(0);
         hourPicker.setMaxValue(24);
         hourPicker.setValue(sharedPreferences.getInt("snoozeHours", getResources().getInteger(R.integer.default_snooze_hours)));
@@ -90,7 +90,7 @@ public class SnoozeDialogActivity extends AppCompatActivity {
         hourPicker.setDisplayedValues(hourValues);
     }
 
-    public void setUpMinutePicker() {
+    private void setUpMinutePicker() {
         minutePicker.setMinValue(0);
         minutePicker.setMaxValue(60);
         minutePicker.setValue(sharedPreferences.getInt("snoozeMinutes", getResources().getInteger(R.integer.default_snooze_minutes)));

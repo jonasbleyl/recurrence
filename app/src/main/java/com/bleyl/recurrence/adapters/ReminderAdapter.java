@@ -35,7 +35,7 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHo
     private Context context;
     private List<Reminder> reminderList;
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.notification_title) TextView title;
         @BindView(R.id.notification_time) TextView time;
         @BindView(R.id.notification_content) TextView content;
@@ -44,7 +44,7 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHo
         @BindView(R.id.notification_circle) ImageView circle;
         private View view;
 
-        public ViewHolder(final View view) {
+        ViewHolder(final View view) {
             super(view);
             this.view = view;
             ButterKnife.bind(this, view);
@@ -108,7 +108,7 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHo
                     ((Activity) context).getWindow().setReenterTransition(null);
 
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(((Activity) context), cardView, "cardTransition");
-                    ActivityCompat.startActivity(((Activity) context), intent, options.toBundle());
+                    ActivityCompat.startActivity(context, intent, options.toBundle());
 
                     ((RecyclerListener) context).hideFab();
                 } else {
