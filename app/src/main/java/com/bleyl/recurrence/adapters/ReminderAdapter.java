@@ -91,22 +91,8 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHo
                 Intent intent = new Intent(context, ViewActivity.class);
                 intent.putExtra("NOTIFICATION_ID", reminderList.get(viewHolder.getAdapterPosition()).getId());
 
-                // Add shared element transition animation if on Lollipop or later
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     CardView cardView = (CardView) view.findViewById(R.id.notification_card);
-
-                    TransitionSet setExit = new TransitionSet();
-                    Transition transition = new Fade();
-                    transition.excludeTarget(android.R.id.statusBarBackground, true);
-                    transition.excludeTarget(android.R.id.navigationBarBackground, true);
-                    transition.excludeTarget(R.id.fab_button, true);
-                    transition.excludeTarget(R.id.recycler_view, true);
-                    transition.setDuration(400);
-                    setExit.addTransition(transition);
-
-                    ((Activity) context).getWindow().setSharedElementsUseOverlay(false);
-                    ((Activity) context).getWindow().setReenterTransition(null);
-
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(((Activity) context), cardView, "cardTransition");
                     ActivityCompat.startActivity(context, intent, options.toBundle());
 

@@ -1,0 +1,21 @@
+<transitionSet
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:transitionOrdering="together">
+
+    <explode android:duration="400">
+        <targets>
+            <target android:targetId="@android:id/navigationBarBackground" />
+            <target android:targetId="@android:id/statusBarBackground" />
+            <target android:targetId="@id/header" />
+        </targets>
+    </explode>
+
+    <slide
+        android:slideEdge="bottom"
+        android:duration="300">
+        <targets>
+            <target android:targetId="@id/scroll" />
+        </targets>
+    </slide>
+
+</transitionSet>

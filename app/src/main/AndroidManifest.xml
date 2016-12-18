@@ -34,7 +34,7 @@
 
         <activity
             android:name=".activities.ViewActivity"
-            android:theme="@style/AppThemeLight"/>
+            android:theme="@style/AppThemeTranslucent"/>
 
         <activity
             android:name=".activities.PreferenceActivity"

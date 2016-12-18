@@ -15,17 +15,13 @@ import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.transition.Explode;
-import android.transition.Slide;
 import android.transition.Transition;
-import android.transition.TransitionSet;
-import android.view.Gravity;
+import android.transition.TransitionInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.bleyl.recurrence.database.DatabaseHelper;
@@ -58,7 +54,6 @@ public class ViewActivity extends AppCompatActivity {
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.detail_layout) LinearLayout linearLayout;
     @BindView(R.id.toolbar_shadow) View shadowView;
-    @BindView(R.id.scroll) ScrollView scrollView;
     @BindView(R.id.header) View headerView;
     @BindView(R.id.view_coordinator) CoordinatorLayout coordinatorLayout;
 
@@ -140,38 +135,12 @@ public class ViewActivity extends AppCompatActivity {
         invalidateOptionsMenu();
     }
 
-    private void setupTransitions() {
-        // Add shared element transition animation if on Lollipop or later
+    public void setupTransitions() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            // Enter transitions
-            TransitionSet setEnter = new TransitionSet();
-
-            Transition slideDown = new Explode();
-            slideDown.addTarget(headerView);
-            slideDown.excludeTarget(scrollView, true);
-            slideDown.setDuration(500);
-            setEnter.addTransition(slideDown);
-
-            Transition fadeOut = new Slide(Gravity.BOTTOM);
-            fadeOut.addTarget(scrollView);
-            fadeOut.setDuration(500);
-            setEnter.addTransition(fadeOut);
-
-            // Exit transitions
-            TransitionSet setExit = new TransitionSet();
-
-            Transition slideDown2 = new Explode();
-            slideDown2.addTarget(headerView);
-            slideDown2.setDuration(570);
-            setExit.addTransition(slideDown2);
-
-            Transition fadeOut2 = new Slide(Gravity.BOTTOM);
-            fadeOut2.addTarget(scrollView);
-            fadeOut2.setDuration(280);
-            setExit.addTransition(fadeOut2);
-
-            getWindow().setEnterTransition(setEnter);
-            getWindow().setReturnTransition(setExit);
+            Transition enter = TransitionInflater.from(this).inflateTransition(R.transition.view_enter);
+            Transition exit = TransitionInflater.from(this).inflateTransition(R.transition.view_exit);
+            getWindow().setEnterTransition(enter);
+            getWindow().setReturnTransition(exit);
         }
     }
 
