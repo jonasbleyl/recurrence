@@ -202,6 +202,14 @@ public class ViewActivity extends AppCompatActivity {
         startActivity(Intent.createChooser(intent, getString(R.string.action_share)));
     }
 
+    private void actionClone() {
+        Intent intent = new Intent(this, CreateEditActivity.class);
+        intent.putExtra("NOTIFICATION_ID", reminder.getId());
+        intent.putExtra("CLONE", true);
+        startActivity(intent);
+        finish();
+    }
+
     private void returnHome() {
         Intent intent = new Intent(this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -275,6 +283,9 @@ public class ViewActivity extends AppCompatActivity {
                 return true;
             case R.id.action_show_now:
                 actionShowNow();
+                return true;
+            case R.id.action_clone:
+                actionClone();
                 return true;
         }
         return super.onOptionsItemSelected(item);

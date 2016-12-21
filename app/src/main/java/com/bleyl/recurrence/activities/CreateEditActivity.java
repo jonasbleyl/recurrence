@@ -47,6 +47,7 @@ import com.bleyl.recurrence.utils.TextFormatUtil;
 
 import java.util.Calendar;
 
+import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -76,14 +77,14 @@ public class CreateEditActivity extends AppCompatActivity implements ColorChoose
     @BindView(R.id.error_date) ImageView imageWarningDate;
     @BindView(R.id.error_show) ImageView imageWarningShow;
     @BindView(R.id.toolbar) Toolbar toolbar;
+    @BindString(R.string.default_colour_value) String colour;
+    @BindString(R.string.default_icon_value) String icon;
 
-    private String icon;
-    private String colour;
-    private Calendar calendar;
+    private Calendar calendar = Calendar.getInstance();
     private boolean[] daysOfWeek = new boolean[7];
     private int timesShown = 0;
     private int timesToShow = 1;
-    private int repeatType;
+    private int repeatType = Reminder.DOES_NOT_REPEAT;
     private int id;
     private int interval = 1;
 
@@ -95,24 +96,24 @@ public class CreateEditActivity extends AppCompatActivity implements ColorChoose
 
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_close_white_24dp);
-        if (getActionBar() != null) getActionBar().setDisplayHomeAsUpEnabled(true);
-        if (getSupportActionBar() != null) getSupportActionBar().setTitle(null);
+        if (getActionBar() != null)
+            getActionBar().setDisplayHomeAsUpEnabled(true);
+        if (getSupportActionBar() != null)
+            getSupportActionBar().setTitle(null);
 
-        calendar = Calendar.getInstance();
-        icon = getString(R.string.default_icon_value);
-        colour = getString(R.string.default_colour_value);
-        repeatType = Reminder.DOES_NOT_REPEAT;
         id = getIntent().getIntExtra("NOTIFICATION_ID", 0);
+        setupCreateOrEdit(getIntent().getBooleanExtra("CLONE", false));
+        handleSharedText();
+    }
 
-        // Check whether to edit or create a new notification
+    private void setupCreateOrEdit(boolean clone) {
         if (id == 0) {
             DatabaseHelper database = DatabaseHelper.getInstance(this);
             id = database.getLastNotificationId() + 1;
             database.close();
         } else {
-            assignReminderValues();
+            setReminderValues(clone);
         }
-        handleSharedText();
     }
 
     private void handleSharedText() {
@@ -125,23 +126,30 @@ public class CreateEditActivity extends AppCompatActivity implements ColorChoose
         }
     }
 
-    private void assignReminderValues() {
-        // Prevent keyboard from opening automatically
+    private void setReminderValues(boolean clone) {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-
         DatabaseHelper database = DatabaseHelper.getInstance(this);
         Reminder reminder = database.getNotification(id);
         database.close();
 
-        timesShown = reminder.getNumberShown();
         repeatType = reminder.getRepeatType();
         interval = reminder.getInterval();
         icon = reminder.getIcon();
         colour = reminder.getColour();
+        Calendar nowCalendar = DateAndTimeUtil.parseDateAndTime(reminder.getDateAndTime());
 
-        calendar = DateAndTimeUtil.parseDateAndTime(reminder.getDateAndTime());
+        if (clone) {
+            calendar.set(Calendar.HOUR_OF_DAY, nowCalendar.get(Calendar.HOUR_OF_DAY));
+            calendar.set(Calendar.MINUTE, nowCalendar.get(Calendar.MINUTE));
+            setupCloneLayout(reminder);
+        } else {
+            calendar.setTime(nowCalendar.getTime());
+            timesShown = reminder.getNumberShown();
+            setupEditLayout(reminder);
+        }
+    }
 
-        showText.setText(getString(R.string.times_shown_edit, reminder.getNumberShown()));
+    private void setupEditLayout(Reminder reminder) {
         titleEditText.setText(reminder.getTitle());
         contentEditText.setText(reminder.getContent());
         dateText.setText(DateAndTimeUtil.toStringReadableDate(calendar));
@@ -149,6 +157,7 @@ public class CreateEditActivity extends AppCompatActivity implements ColorChoose
         timesEditText.setText(String.valueOf(reminder.getNumberToShow()));
         colourText.setText(colour);
         imageColourSelect.setColorFilter(Color.parseColor(colour));
+        showText.setText(getString(R.string.times_shown_edit, timesShown));
         timesText.setVisibility(View.VISIBLE);
 
         if (!getString(R.string.default_icon).equals(icon)) {
@@ -157,12 +166,11 @@ public class CreateEditActivity extends AppCompatActivity implements ColorChoose
         }
 
         if (reminder.getRepeatType() != Reminder.DOES_NOT_REPEAT) {
-            if (reminder.getInterval() > 1) {
-                repeatText.setText(TextFormatUtil.formatAdvancedRepeatText(this, repeatType, interval));
-            } else {
-                repeatText.setText(getResources().getStringArray(R.array.repeat_array)[reminder.getRepeatType()]);
-            }
             showFrequency(true);
+            if (reminder.getInterval() > 1)
+                repeatText.setText(TextFormatUtil.formatAdvancedRepeatText(this, repeatType, interval));
+            else
+                repeatText.setText(getResources().getStringArray(R.array.repeat_array)[reminder.getRepeatType()]);
         }
 
         if (reminder.getRepeatType() == Reminder.SPECIFIC_DAYS) {
@@ -174,6 +182,14 @@ public class CreateEditActivity extends AppCompatActivity implements ColorChoose
             foreverSwitch.setChecked(true);
             bottomRow.setVisibility(View.GONE);
         }
+    }
+
+    private void setupCloneLayout(Reminder reminder) {
+        setupEditLayout(reminder);
+        timesText.setVisibility(View.GONE);
+        dateText.setText(getString(R.string.date_today));
+        showText.setText(getString(R.string.repeat_notification));
+        timesShown = 0;
     }
 
     private void hideKeyboard() {
