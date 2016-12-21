@@ -10,9 +10,6 @@ import android.os.Build;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.transition.Fade;
-import android.transition.Transition;
-import android.transition.TransitionSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,12 +33,12 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHo
     private List<Reminder> reminderList;
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.notification_title) TextView title;
-        @BindView(R.id.notification_time) TextView time;
-        @BindView(R.id.notification_content) TextView content;
+        @BindView(R.id.reminder_title) TextView title;
+        @BindView(R.id.reminder_time) TextView time;
+        @BindView(R.id.reminder_content) TextView content;
         @BindView(R.id.header_separator) TextView textSeparator;
-        @BindView(R.id.notification_icon) ImageView icon;
-        @BindView(R.id.notification_circle) ImageView circle;
+        @BindView(R.id.reminder_icon) ImageView icon;
+        @BindView(R.id.reminder_circle) ImageView circle;
         private View view;
 
         ViewHolder(final View view) {
@@ -62,7 +59,7 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHo
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        return new ViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_notification_list, viewGroup, false));
+        return new ViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_reminder_list, viewGroup, false));
     }
 
     @Override
@@ -89,10 +86,10 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHo
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, ViewActivity.class);
-                intent.putExtra("NOTIFICATION_ID", reminderList.get(viewHolder.getAdapterPosition()).getId());
+                intent.putExtra("REMINDER_ID", reminderList.get(viewHolder.getAdapterPosition()).getId());
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    CardView cardView = (CardView) view.findViewById(R.id.notification_card);
+                    CardView cardView = (CardView) view.findViewById(R.id.reminder_card);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(((Activity) context), cardView, "cardTransition");
                     ActivityCompat.startActivity(context, intent, options.toBundle());
 

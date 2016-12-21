@@ -26,7 +26,7 @@ public class SnoozeDialogActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        final int reminderId = getIntent().getIntExtra("NOTIFICATION_ID", 0);
+        final int reminderId = getIntent().getIntExtra("REMINDER_ID", 0);
 
         View view = getLayoutInflater().inflate(R.layout.number_picker, null);
         AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.Dialog);

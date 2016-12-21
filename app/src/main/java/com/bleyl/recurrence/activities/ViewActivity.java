@@ -42,11 +42,11 @@ import butterknife.ButterKnife;
 
 public class ViewActivity extends AppCompatActivity {
 
-    @BindView(R.id.notification_title) TextView notificationTitleText;
-    @BindView(R.id.notification_time) TextView notificationTimeText;
-    @BindView(R.id.notification_content) TextView contentText;
-    @BindView(R.id.notification_icon) ImageView iconImage;
-    @BindView(R.id.notification_circle) ImageView circleImage;
+    @BindView(R.id.reminder_title) TextView reminderTitleText;
+    @BindView(R.id.reminder_time) TextView reminderTimeText;
+    @BindView(R.id.reminder_content) TextView contentText;
+    @BindView(R.id.reminder_icon) ImageView iconImage;
+    @BindView(R.id.reminder_circle) ImageView circleImage;
     @BindView(R.id.time) TextView timeText;
     @BindView(R.id.date) TextView dateText;
     @BindView(R.id.repeat) TextView repeatText;
@@ -83,19 +83,18 @@ public class ViewActivity extends AppCompatActivity {
 
         DatabaseHelper database = DatabaseHelper.getInstance(this);
         Intent intent = getIntent();
-        int mReminderId = intent.getIntExtra("NOTIFICATION_ID", 0);
+        int mReminderId = intent.getIntExtra("REMINDER_ID", 0);
 
-        // Arrived to activity from notification on click
-        // Cancel notification and nag alarm
+        // Arrived to activity from reminder on click
+        // Cancel reminder and nag alarm
         if (intent.getBooleanExtra("NOTIFICATION_DISMISS", false)) {
             Intent dismissIntent = new Intent().setClass(this, DismissReceiver.class);
-            dismissIntent.putExtra("NOTIFICATION_ID", mReminderId);
+            dismissIntent.putExtra("REMINDER_ID", mReminderId);
             sendBroadcast(dismissIntent);
         }
 
-        // Check if notification has been deleted
-        if (database.isNotificationPresent(mReminderId)) {
-            reminder = database.getNotification(mReminderId);
+        if (database.isReminderPresent(mReminderId)) {
+            reminder = database.getReminder(mReminderId);
             database.close();
         } else {
             database.close();
@@ -105,14 +104,14 @@ public class ViewActivity extends AppCompatActivity {
 
     private void assignReminderValues() {
         Calendar calendar = DateAndTimeUtil.parseDateAndTime(reminder.getDateAndTime());
-        notificationTitleText.setText(reminder.getTitle());
+        reminderTitleText.setText(reminder.getTitle());
         contentText.setText(reminder.getContent());
         dateText.setText(DateAndTimeUtil.toStringReadableDate(calendar));
         iconImage.setImageResource(getResources().getIdentifier(reminder.getIcon(), "drawable", getPackageName()));
         circleImage.setColorFilter(Color.parseColor(reminder.getColour()));
         String readableTime = DateAndTimeUtil.toStringReadableTime(calendar, this);
         timeText.setText(readableTime);
-        notificationTimeText.setText(readableTime);
+        reminderTimeText.setText(readableTime);
 
         if (reminder.getRepeatType() == Reminder.SPECIFIC_DAYS) {
             repeatText.setText(TextFormatUtil.formatDaysOfWeekText(this, reminder.getDaysOfWeek()));
@@ -135,7 +134,7 @@ public class ViewActivity extends AppCompatActivity {
         invalidateOptionsMenu();
     }
 
-    public void setupTransitions() {
+    private void setupTransitions() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Transition enter = TransitionInflater.from(this).inflateTransition(R.transition.view_enter);
             Transition exit = TransitionInflater.from(this).inflateTransition(R.transition.view_exit);
@@ -161,7 +160,7 @@ public class ViewActivity extends AppCompatActivity {
 
     private void actionDelete() {
         DatabaseHelper database = DatabaseHelper.getInstance(this);
-        database.deleteNotification(reminder);
+        database.deleteReminder(reminder);
         database.close();
         Intent alarmIntent = new Intent(this, AlarmReceiver.class);
         AlarmUtil.cancelAlarm(this, alarmIntent, reminder.getId());
@@ -172,7 +171,7 @@ public class ViewActivity extends AppCompatActivity {
 
     private void actionEdit() {
         Intent intent = new Intent(this, CreateEditActivity.class);
-        intent.putExtra("NOTIFICATION_ID", reminder.getId());
+        intent.putExtra("REMINDER_ID", reminder.getId());
         startActivity(intent);
         finish();
     }
@@ -189,7 +188,7 @@ public class ViewActivity extends AppCompatActivity {
             reminder.setDateAndTime(DateAndTimeUtil.toStringDateAndTime(Calendar.getInstance()));
         }
         reminder.setNumberShown(reminder.getNumberShown() + 1);
-        database.addNotification(reminder);
+        database.addReminder(reminder);
         assignReminderValues();
         database.close();
         Snackbar.make(coordinatorLayout, R.string.toast_mark_as_done, Snackbar.LENGTH_SHORT).show();
@@ -204,7 +203,7 @@ public class ViewActivity extends AppCompatActivity {
 
     private void actionClone() {
         Intent intent = new Intent(this, CreateEditActivity.class);
-        intent.putExtra("NOTIFICATION_ID", reminder.getId());
+        intent.putExtra("REMINDER_ID", reminder.getId());
         intent.putExtra("CLONE", true);
         startActivity(intent);
         finish();
@@ -219,7 +218,7 @@ public class ViewActivity extends AppCompatActivity {
 
     private void updateReminder() {
         DatabaseHelper database = DatabaseHelper.getInstance(this);
-        reminder = database.getNotification(reminder.getId());
+        reminder = database.getReminder(reminder.getId());
         database.close();
         assignReminderValues();
     }

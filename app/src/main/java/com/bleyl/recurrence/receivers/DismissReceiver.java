@@ -12,7 +12,7 @@ public class DismissReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        int reminderId = intent.getIntExtra("NOTIFICATION_ID", 0);
+        int reminderId = intent.getIntExtra("REMINDER_ID", 0);
         NotificationUtil.cancelNotification(context, reminderId);
 
         if (PreferenceManager.getDefaultSharedPreferences(context).getBoolean("checkBoxNagging", false)) {

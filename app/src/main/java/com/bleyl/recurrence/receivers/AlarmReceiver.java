@@ -10,16 +10,14 @@ import com.bleyl.recurrence.utils.AlarmUtil;
 import com.bleyl.recurrence.models.Reminder;
 import com.bleyl.recurrence.utils.NotificationUtil;
 
-import java.util.Calendar;
-
 public class AlarmReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
         DatabaseHelper database = DatabaseHelper.getInstance(context);
-        Reminder reminder = database.getNotification(intent.getIntExtra("NOTIFICATION_ID", 0));
+        Reminder reminder = database.getReminder(intent.getIntExtra("REMINDER_ID", 0));
         reminder.setNumberShown(reminder.getNumberShown() + 1);
-        database.addNotification(reminder);
+        database.addReminder(reminder);
 
         NotificationUtil.createNotification(context, reminder);
 

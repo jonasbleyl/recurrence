@@ -35,7 +35,7 @@
                 android:orientation="vertical"
                 android:paddingBottom="15dp">
 
-                <include layout="@layout/notification"/>
+                <include layout="@layout/reminder"/>
 
             </LinearLayout>
 

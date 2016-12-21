@@ -67,7 +67,7 @@ public class TabFragment extends Fragment {
 
     private List<Reminder> getListData() {
         DatabaseHelper database = DatabaseHelper.getInstance(getContext().getApplicationContext());
-        List<Reminder> reminderList = database.getNotificationList(remindersType);
+        List<Reminder> reminderList = database.getReminderList(remindersType);
         database.close();
         return reminderList;
     }

@@ -14,10 +14,10 @@ import java.util.Calendar;
 
 public class AlarmUtil {
 
-    public static void setAlarm(Context context, Intent intent, int notificationId, Calendar calendar) {
-        intent.putExtra("NOTIFICATION_ID", notificationId);
+    public static void setAlarm(Context context, Intent intent, int reminderId, Calendar calendar) {
+        intent.putExtra("REMINDER_ID", reminderId);
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, notificationId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, reminderId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
@@ -28,9 +28,9 @@ public class AlarmUtil {
         }
     }
 
-    public static void cancelAlarm(Context context, Intent intent, int notificationId) {
+    public static void cancelAlarm(Context context, Intent intent, int reminderId) {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, notificationId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, reminderId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         alarmManager.cancel(pendingIntent);
     }
 
@@ -68,7 +68,7 @@ public class AlarmUtil {
         }
 
         reminder.setDateAndTime(DateAndTimeUtil.toStringDateAndTime(calendar));
-        database.addNotification(reminder);
+        database.addReminder(reminder);
 
         Intent alarmIntent = new Intent(context, AlarmReceiver.class);
         setAlarm(context, alarmIntent, reminder.getId(), calendar);

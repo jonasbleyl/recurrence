@@ -21,6 +21,6 @@
         android:textSize="14sp"
         android:visibility="gone" />
 
-    <include layout="@layout/notification"/>
+    <include layout="@layout/reminder"/>
 
 </LinearLayout>

@@ -57,8 +57,8 @@ public class CreateEditActivity extends AppCompatActivity implements ColorChoose
         DaysOfWeekSelector.DaysOfWeekSelectionListener, RepeatSelector.RepeatSelectionListener {
 
     @BindView(R.id.create_coordinator) CoordinatorLayout coordinatorLayout;
-    @BindView(R.id.notification_title) EditText titleEditText;
-    @BindView(R.id.notification_content) EditText contentEditText;
+    @BindView(R.id.reminder_title) EditText titleEditText;
+    @BindView(R.id.reminder_content) EditText contentEditText;
     @BindView(R.id.time) TextView timeText;
     @BindView(R.id.date) TextView dateText;
     @BindView(R.id.repeat_day) TextView repeatText;
@@ -101,7 +101,7 @@ public class CreateEditActivity extends AppCompatActivity implements ColorChoose
         if (getSupportActionBar() != null)
             getSupportActionBar().setTitle(null);
 
-        id = getIntent().getIntExtra("NOTIFICATION_ID", 0);
+        id = getIntent().getIntExtra("REMINDER_ID", 0);
         setupCreateOrEdit(getIntent().getBooleanExtra("CLONE", false));
         handleSharedText();
     }
@@ -109,7 +109,7 @@ public class CreateEditActivity extends AppCompatActivity implements ColorChoose
     private void setupCreateOrEdit(boolean clone) {
         if (id == 0) {
             DatabaseHelper database = DatabaseHelper.getInstance(this);
-            id = database.getLastNotificationId() + 1;
+            id = database.getLastReminderId() + 1;
             database.close();
         } else {
             setReminderValues(clone);
@@ -129,7 +129,7 @@ public class CreateEditActivity extends AppCompatActivity implements ColorChoose
     private void setReminderValues(boolean clone) {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         DatabaseHelper database = DatabaseHelper.getInstance(this);
-        Reminder reminder = database.getNotification(id);
+        Reminder reminder = database.getReminder(id);
         database.close();
 
         repeatType = reminder.getRepeatType();
@@ -315,7 +315,7 @@ public class CreateEditActivity extends AppCompatActivity implements ColorChoose
         showFrequency(true);
     }
 
-    private void saveNotification() {
+    private void saveReminder() {
         DatabaseHelper database = DatabaseHelper.getInstance(this);
         Reminder reminder = new Reminder()
                 .setId(id)
@@ -330,7 +330,7 @@ public class CreateEditActivity extends AppCompatActivity implements ColorChoose
                 .setColour(colour)
                 .setInterval(interval);
 
-        database.addNotification(reminder);
+        database.addReminder(reminder);
 
         if (repeatType == Reminder.SPECIFIC_DAYS) {
             reminder.setDaysOfWeek(daysOfWeek);
@@ -415,7 +415,7 @@ public class CreateEditActivity extends AppCompatActivity implements ColorChoose
             Snackbar.make(coordinatorLayout, R.string.toast_higher_number, Snackbar.LENGTH_SHORT).show();
             imageWarningShow.setVisibility(View.VISIBLE);
         } else {
-            saveNotification();
+            saveReminder();
         }
     }
 

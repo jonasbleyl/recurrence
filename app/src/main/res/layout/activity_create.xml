@@ -46,7 +46,7 @@
                     android:textColor="@color/NotificationTitle" />
 
                 <EditText
-                    android:id="@+id/notification_title"
+                    android:id="@+id/reminder_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textCapSentences|textAutoCorrect"
@@ -96,7 +96,7 @@
                         android:src="@drawable/ic_subject_white_24dp"/>
 
                     <EditText
-                        android:id="@+id/notification_content"
+                        android:id="@+id/reminder_content"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"

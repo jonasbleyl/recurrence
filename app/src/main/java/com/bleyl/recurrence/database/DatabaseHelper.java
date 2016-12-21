@@ -25,7 +25,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 4;
     private static final String DATABASE_NAME = "RECURRENCE_DB";
 
-    private static final String NOTIFICATION_TABLE = "NOTIFICATIONS";
+    private static final String REMINDER_TABLE = "NOTIFICATIONS";
     private static final String COL_ID = "ID";
     private static final String COL_TITLE = "TITLE";
     private static final String COL_CONTENT = "CONTENT";
@@ -79,7 +79,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase database) {
-        database.execSQL("CREATE TABLE " + NOTIFICATION_TABLE + " ("
+        database.execSQL("CREATE TABLE " + REMINDER_TABLE + " ("
                 + COL_ID + " INTEGER PRIMARY KEY, "
                 + COL_TITLE + " TEXT, "
                 + COL_CONTENT + " TEXT, "
@@ -118,10 +118,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion) {
         if (oldVersion < 2) {
-            database.execSQL("ALTER TABLE " + NOTIFICATION_TABLE + " ADD " + COL_ICON + " TEXT;");
-            database.execSQL("ALTER TABLE " + NOTIFICATION_TABLE + " ADD " + COL_COLOUR + " TEXT;");
-            database.execSQL("UPDATE " + NOTIFICATION_TABLE + " SET " + COL_ICON + " = '" + DEFAULT_ICON + "';");
-            database.execSQL("UPDATE " + NOTIFICATION_TABLE + " SET " + COL_COLOUR + " = '" + DEFAULT_COLOUR + "';");
+            database.execSQL("ALTER TABLE " + REMINDER_TABLE
+                    + " ADD " + COL_ICON + " TEXT;");
+            database.execSQL("ALTER TABLE " + REMINDER_TABLE
+                    + " ADD " + COL_COLOUR + " TEXT;");
+            database.execSQL("UPDATE " + REMINDER_TABLE
+                    + " SET " + COL_ICON + " = '" + DEFAULT_ICON + "';");
+            database.execSQL("UPDATE " + REMINDER_TABLE
+                    + " SET " + COL_COLOUR + " = '" + DEFAULT_COLOUR + "';");
             database.execSQL("CREATE TABLE " + ICON_TABLE + " ("
                     + COL_ICON_ID + " INTEGER PRIMARY KEY, "
                     + COL_ICON_NAME + " TEXT, "
@@ -143,12 +147,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
 
         if (oldVersion < 4) {
-            database.execSQL("ALTER TABLE " + NOTIFICATION_TABLE + " ADD " + COL_INTERVAL + " INTEGER;");
-            database.execSQL("UPDATE " + NOTIFICATION_TABLE + " SET " + COL_INTERVAL + " = 1;");
-            database.execSQL("UPDATE " + NOTIFICATION_TABLE + " SET " + COL_COLOUR + " = '" + DEFAULT_COLOUR + "' WHERE "
-                    + COL_COLOUR + " == '" + OLD_COLOUR + "';");
-            database.execSQL("UPDATE " + NOTIFICATION_TABLE + " SET " + COL_REPEAT_TYPE + " = " + COL_REPEAT_TYPE + " + 1 WHERE "
-                    + COL_REPEAT_TYPE + " != 0");
+            database.execSQL("ALTER TABLE " + REMINDER_TABLE
+                    + " ADD " + COL_INTERVAL + " INTEGER;");
+            database.execSQL("UPDATE " + REMINDER_TABLE
+                    + " SET " + COL_INTERVAL + " = 1;");
+            database.execSQL("UPDATE " + REMINDER_TABLE
+                    + " SET " + COL_COLOUR + " = '" + DEFAULT_COLOUR + "'"
+                    + " WHERE " + COL_COLOUR + " == '" + OLD_COLOUR + "';");
+            database.execSQL("UPDATE " + REMINDER_TABLE
+                    + " SET " + COL_REPEAT_TYPE + " = " + COL_REPEAT_TYPE + " + 1"
+                    + " WHERE " + COL_REPEAT_TYPE + " != 0");
             database.execSQL("CREATE TABLE " + PICKER_COLOUR_TABLE + " ("
                     + COL_PICKER_COLOUR + " INTEGER PRIMARY KEY, "
                     + COL_PICKER_DATE_AND_TIME + " INTEGER);");
@@ -166,7 +174,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    public void addNotification(Reminder reminder) {
+    public void addReminder(Reminder reminder) {
         SQLiteDatabase database = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COL_ID, reminder.getId());
@@ -180,13 +188,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COL_ICON, reminder.getIcon());
         values.put(COL_COLOUR, reminder.getColour());
         values.put(COL_INTERVAL, reminder.getInterval());
-        database.replace(NOTIFICATION_TABLE, null, values);
+        database.replace(REMINDER_TABLE, null, values);
     }
 
-    public int getLastNotificationId() {
+    public int getLastReminderId() {
         int data = 0;
         SQLiteDatabase database = this.getReadableDatabase();
-        Cursor cursor = database.rawQuery("SELECT " + COL_ID + " FROM " + NOTIFICATION_TABLE + " ORDER BY " + COL_ID + " DESC LIMIT 1", null);
+        Cursor cursor = database.rawQuery("SELECT " + COL_ID + " FROM " + REMINDER_TABLE
+                + " ORDER BY " + COL_ID + " DESC LIMIT 1", null);
         if (cursor != null && cursor.moveToFirst()) {
             data = cursor.getInt(0);
             cursor.close();
@@ -194,17 +203,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return data;
     }
 
-    public List<Reminder> getNotificationList(int remindersType) {
+    public List<Reminder> getReminderList(int remindersType) {
         List<Reminder> reminderList = new ArrayList<>();
         String query;
 
         switch (remindersType) {
             case Reminder.ACTIVE:
             default:
-                query = "SELECT * FROM " + NOTIFICATION_TABLE + " WHERE " + COL_NUMBER_SHOWN + " < " + COL_NUMBER_TO_SHOW + " OR " + COL_FOREVER + " = 'true' " + " ORDER BY " + COL_DATE_AND_TIME;
+                query = "SELECT * FROM " + REMINDER_TABLE
+                        + " WHERE " + COL_NUMBER_SHOWN + " < " + COL_NUMBER_TO_SHOW
+                        + " OR " + COL_FOREVER + " = 'true' "
+                        + " ORDER BY " + COL_DATE_AND_TIME;
                 break;
             case Reminder.INACTIVE:
-                query = "SELECT * FROM " + NOTIFICATION_TABLE + " WHERE " + COL_NUMBER_SHOWN + " = " + COL_NUMBER_TO_SHOW + " AND " + COL_FOREVER + " = 'false' " + " ORDER BY " + COL_DATE_AND_TIME + " DESC";
+                query = "SELECT * FROM " + REMINDER_TABLE
+                        + " WHERE " + COL_NUMBER_SHOWN + " = " + COL_NUMBER_TO_SHOW
+                        + " AND " + COL_FOREVER + " = 'false' "
+                        + " ORDER BY " + COL_DATE_AND_TIME + " DESC";
                 break;
         }
 
@@ -236,9 +251,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return reminderList;
     }
 
-    public Reminder getNotification(int id) {
+    public Reminder getReminder(int id) {
         SQLiteDatabase database = this.getReadableDatabase();
-        Cursor cursor = database.rawQuery("SELECT * FROM " + NOTIFICATION_TABLE + " WHERE " + COL_ID + " = ? LIMIT 1", new String[]{String.valueOf(id)});
+        Cursor cursor = database.rawQuery("SELECT * FROM " + REMINDER_TABLE
+                + " WHERE " + COL_ID + " = ? LIMIT 1", new String[]{String.valueOf(id)});
 
         cursor.moveToFirst();
         Reminder reminder = new Reminder();
@@ -261,22 +277,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return reminder;
     }
 
-    public void deleteNotification(Reminder reminder) {
+    public void deleteReminder(Reminder reminder) {
         SQLiteDatabase database = this.getWritableDatabase();
         database.delete(DAYS_OF_WEEK_TABLE, COL_ID + " = ?", new String[]{String.valueOf(reminder.getId())});
-        database.delete(NOTIFICATION_TABLE, COL_ID + " = ?", new String[]{String.valueOf(reminder.getId())});
+        database.delete(REMINDER_TABLE, COL_ID + " = ?", new String[]{String.valueOf(reminder.getId())});
     }
 
-    public boolean isNotificationPresent(int id) {
+    public boolean isReminderPresent(int id) {
         SQLiteDatabase database = this.getReadableDatabase();
-        Cursor cursor = database.rawQuery("SELECT * FROM " + NOTIFICATION_TABLE + " WHERE " + COL_ID + " = ? LIMIT 1", new String[]{String.valueOf(id)});
+        Cursor cursor = database.rawQuery("SELECT * FROM " + REMINDER_TABLE
+                + " WHERE " + COL_ID + " = ? LIMIT 1", new String[]{String.valueOf(id)});
         boolean result = cursor.moveToFirst();
         cursor.close();
         return result;
     }
 
     private void getDaysOfWeek(Reminder reminder, SQLiteDatabase database) {
-        Cursor cursor = database.rawQuery("SELECT * FROM " + DAYS_OF_WEEK_TABLE + " WHERE " + COL_ID + " = ? LIMIT 1", new String[]{String.valueOf(reminder.getId())});
+        Cursor cursor = database.rawQuery("SELECT * FROM " + DAYS_OF_WEEK_TABLE
+                + " WHERE " + COL_ID + " = ? LIMIT 1", new String[]{String.valueOf(reminder.getId())});
         cursor.moveToFirst();
         boolean[] daysOfWeek = new boolean[7];
         for (int i = 0; i < 7; i++) {
@@ -313,7 +331,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public List<Icon> getIconList() {
         List<Icon> iconList = new ArrayList<>();
         SQLiteDatabase database = this.getReadableDatabase();
-        Cursor cursor = database.rawQuery("SELECT * FROM " + ICON_TABLE + " ORDER BY " + COL_ICON_USE_FREQUENCY + " DESC", null);
+        Cursor cursor = database.rawQuery("SELECT * FROM " + ICON_TABLE
+                + " ORDER BY " + COL_ICON_USE_FREQUENCY + " DESC", null);
 
         if (cursor.moveToFirst()) {
             do {
@@ -339,7 +358,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public int[] getColoursArray() {
         SQLiteDatabase database = this.getReadableDatabase();
-        Cursor cursor = database.rawQuery("SELECT " + COL_PICKER_COLOUR + " FROM " + PICKER_COLOUR_TABLE + " WHERE " + COL_PICKER_COLOUR + " != -7434610 ORDER BY " + COL_PICKER_DATE_AND_TIME + " DESC LIMIT 14", null);
+        Cursor cursor = database.rawQuery("SELECT " + COL_PICKER_COLOUR + " FROM " + PICKER_COLOUR_TABLE
+                + " WHERE " + COL_PICKER_COLOUR + " != " + Color.parseColor(DEFAULT_COLOUR)
+                + " ORDER BY " + COL_PICKER_DATE_AND_TIME + " DESC LIMIT 14", null);
 
         int[] colours;
         if (cursor.getCount() < 15)

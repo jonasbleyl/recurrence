@@ -12,7 +12,7 @@ public class SnoozeActionReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        int reminderId = intent.getIntExtra("NOTIFICATION_ID", 0);
+        int reminderId = intent.getIntExtra("REMINDER_ID", 0);
 
         if (PreferenceManager.getDefaultSharedPreferences(context).getBoolean("checkBoxNagging", false)) {
             Intent alarmIntent = new Intent(context, NagReceiver.class);
@@ -25,7 +25,7 @@ public class SnoozeActionReceiver extends BroadcastReceiver {
 
         Intent snoozeIntent = new Intent(context, SnoozeDialogActivity.class);
         snoozeIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        snoozeIntent.putExtra("NOTIFICATION_ID", reminderId);
+        snoozeIntent.putExtra("REMINDER_ID", reminderId);
         context.startActivity(snoozeIntent);
     }
 }

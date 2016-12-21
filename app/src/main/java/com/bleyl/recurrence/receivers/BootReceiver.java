@@ -17,7 +17,7 @@ public class BootReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         DatabaseHelper database = DatabaseHelper.getInstance(context);
-        List<Reminder> reminderList = database.getNotificationList(Reminder.ACTIVE);
+        List<Reminder> reminderList = database.getReminderList(Reminder.ACTIVE);
         database.close();
         Intent alarmIntent = new Intent(context, AlarmReceiver.class);
 

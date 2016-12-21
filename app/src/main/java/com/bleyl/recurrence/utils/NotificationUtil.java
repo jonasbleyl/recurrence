@@ -24,15 +24,15 @@ import java.util.Calendar;
 public class NotificationUtil {
 
     public static void createNotification(Context context, Reminder reminder) {
-        // Create intent for notification onClick behaviour
+        // Create intent for reminder onClick behaviour
         Intent viewIntent = new Intent(context, ViewActivity.class);
-        viewIntent.putExtra("NOTIFICATION_ID", reminder.getId());
+        viewIntent.putExtra("REMINDER_ID", reminder.getId());
         viewIntent.putExtra("NOTIFICATION_DISMISS", true);
         PendingIntent pending = PendingIntent.getActivity(context, reminder.getId(), viewIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        // Create intent for notification snooze click behaviour
+        // Create intent for reminder snooze click behaviour
         Intent snoozeIntent = new Intent(context, SnoozeActionReceiver.class);
-        snoozeIntent.putExtra("NOTIFICATION_ID", reminder.getId());
+        snoozeIntent.putExtra("REMINDER_ID", reminder.getId());
         PendingIntent pendingSnooze = PendingIntent.getBroadcast(context, reminder.getId(), snoozeIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         int imageResId = context.getResources().getIdentifier(reminder.getIcon(), "drawable", context.getPackageName());
@@ -50,7 +50,7 @@ public class NotificationUtil {
 
         if (sharedPreferences.getBoolean("checkBoxNagging", false)) {
             Intent swipeIntent = new Intent(context, DismissReceiver.class);
-            swipeIntent.putExtra("NOTIFICATION_ID", reminder.getId());
+            swipeIntent.putExtra("REMINDER_ID", reminder.getId());
             PendingIntent pendingDismiss = PendingIntent.getBroadcast(context, reminder.getId(), swipeIntent, PendingIntent.FLAG_UPDATE_CURRENT);
             builder.setDeleteIntent(pendingDismiss);
 
@@ -76,7 +76,7 @@ public class NotificationUtil {
 
         if (sharedPreferences.getBoolean("checkBoxMarkAsDone", false)) {
             Intent intent = new Intent(context, DismissReceiver.class);
-            intent.putExtra("NOTIFICATION_ID", reminder.getId());
+            intent.putExtra("REMINDER_ID", reminder.getId());
             PendingIntent pendingIntent = PendingIntent.getBroadcast(context, reminder.getId(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
             builder.addAction(R.drawable.ic_done_white_24dp, context.getString(R.string.mark_as_done), pendingIntent);
         }
