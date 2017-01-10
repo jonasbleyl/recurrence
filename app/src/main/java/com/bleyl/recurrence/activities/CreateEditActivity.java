@@ -190,6 +190,8 @@ public class CreateEditActivity extends AppCompatActivity implements ColorChoose
         dateText.setText(getString(R.string.date_today));
         showText.setText(getString(R.string.repeat_notification));
         timesShown = 0;
+        if (reminder.getRepeatType() == Reminder.DOES_NOT_REPEAT)
+            timesEditText.setText(String.valueOf(1));
     }
 
     private void hideKeyboard() {
