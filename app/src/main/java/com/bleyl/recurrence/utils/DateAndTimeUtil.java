@@ -78,7 +78,7 @@ public class DateAndTimeUtil {
         return weekDays;
     }
 
-    public static String[] getShortWeekDays() {
+    static String[] getShortWeekDays() {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
         String[] weekDays = new String[7];
@@ -89,17 +89,26 @@ public class DateAndTimeUtil {
         return weekDays;
     }
 
-    private static Boolean isThisYear(Calendar calendar) {
+    public static boolean isNow(Calendar calendar) {
+        Calendar nowCalendar = Calendar.getInstance();
+        nowCalendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.SECOND, 0);
+        nowCalendar.set(Calendar.MILLISECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        return calendar.getTimeInMillis() == nowCalendar.getTimeInMillis();
+    }
+
+    private static boolean isThisYear(Calendar calendar) {
         Calendar nowCalendar = Calendar.getInstance();
         return calendar.get(Calendar.YEAR) == nowCalendar.get(Calendar.YEAR);
     }
 
-    private static Boolean isThisMonth(Calendar calendar) {
+    private static boolean isThisMonth(Calendar calendar) {
         Calendar nowCalendar = Calendar.getInstance();
         return calendar.get(Calendar.MONTH) == nowCalendar.get(Calendar.MONTH);
     }
 
-    private static Boolean isThisDayOfMonth(Calendar calendar) {
+    private static boolean isThisDayOfMonth(Calendar calendar) {
         Calendar nowCalendar = Calendar.getInstance();
         return calendar.get(Calendar.DAY_OF_MONTH) == nowCalendar.get(Calendar.DAY_OF_MONTH);
     }

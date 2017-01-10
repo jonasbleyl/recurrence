@@ -16,7 +16,7 @@ public class NagReceiver extends BroadcastReceiver {
         int reminderId = intent.getIntExtra("REMINDER_ID", 0);
         if (reminderId != 0 && database.isReminderPresent(reminderId)) {
             Reminder reminder = database.getReminder(reminderId);
-            NotificationUtil.createNotification(context, reminder);
+            NotificationUtil.createNotification(context, reminder, false);
         }
         database.close();
     }

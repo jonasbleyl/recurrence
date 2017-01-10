@@ -216,7 +216,7 @@ public class CreateEditActivity extends AppCompatActivity implements ColorChoose
 
     @OnClick(R.id.time_row)
     void timePicker() {
-        TimePickerDialog TimePicker = new TimePickerDialog(CreateEditActivity.this, new TimePickerDialog.OnTimeSetListener() {
+        TimePickerDialog timePicker = new TimePickerDialog(CreateEditActivity.this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int hour, int minute) {
                 calendar.set(Calendar.HOUR_OF_DAY, hour);
@@ -224,13 +224,13 @@ public class CreateEditActivity extends AppCompatActivity implements ColorChoose
                 timeText.setText(DateAndTimeUtil.toStringReadableTime(calendar, getApplicationContext()));
             }
         }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), DateFormat.is24HourFormat(this));
-        TimePicker.show();
+        timePicker.show();
         hideKeyboard();
     }
 
     @OnClick(R.id.date_row)
     void datePicker(View view) {
-        DatePickerDialog DatePicker = new DatePickerDialog(CreateEditActivity.this, new DatePickerDialog.OnDateSetListener() {
+        DatePickerDialog datePicker = new DatePickerDialog(CreateEditActivity.this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker DatePicker, int year, int month, int dayOfMonth) {
                 calendar.set(Calendar.YEAR, year);
@@ -239,7 +239,7 @@ public class CreateEditActivity extends AppCompatActivity implements ColorChoose
                 dateText.setText(DateAndTimeUtil.toStringReadableDate(calendar));
             }
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
-        DatePicker.show();
+        datePicker.show();
         hideKeyboard();
     }
 
@@ -343,6 +343,7 @@ public class CreateEditActivity extends AppCompatActivity implements ColorChoose
 
         database.close();
         Intent alarmIntent = new Intent(this, AlarmReceiver.class);
+        alarmIntent.putExtra("QUIET", DateAndTimeUtil.isNow(calendar));
         calendar.set(Calendar.SECOND, 0);
         AlarmUtil.setAlarm(this, alarmIntent, reminder.getId(), calendar);
         finish();
@@ -379,27 +380,7 @@ public class CreateEditActivity extends AppCompatActivity implements ColorChoose
         imageWarningTime.setVisibility(View.GONE);
         imageWarningDate.setVisibility(View.GONE);
         Calendar nowCalendar = Calendar.getInstance();
-
-        if (timeText.getText().equals(getString(R.string.time_now))) {
-            calendar.set(Calendar.HOUR_OF_DAY, nowCalendar.get(Calendar.HOUR_OF_DAY));
-            calendar.set(Calendar.MINUTE, nowCalendar.get(Calendar.MINUTE));
-        }
-
-        if (dateText.getText().equals(getString(R.string.date_today))) {
-            calendar.set(Calendar.YEAR, nowCalendar.get(Calendar.YEAR));
-            calendar.set(Calendar.MONTH, nowCalendar.get(Calendar.MONTH));
-            calendar.set(Calendar.DAY_OF_MONTH, nowCalendar.get(Calendar.DAY_OF_MONTH));
-        }
-
-        // Check if the number of times to show notification is empty
-        if (timesEditText.getText().toString().isEmpty()) {
-            timesEditText.setText("1");
-        }
-
-        timesToShow = Integer.parseInt(timesEditText.getText().toString());
-        if (repeatType == Reminder.DOES_NOT_REPEAT) {
-            timesToShow = timesShown + 1;
-        }
+        correctValues(nowCalendar);
 
         // Check if selected date is before today's date
         if (DateAndTimeUtil.toLongDateAndTime(calendar) < DateAndTimeUtil.toLongDateAndTime(nowCalendar)) {
@@ -412,13 +393,34 @@ public class CreateEditActivity extends AppCompatActivity implements ColorChoose
             Snackbar.make(coordinatorLayout, R.string.toast_title_empty, Snackbar.LENGTH_SHORT).show();
             AnimationUtil.shakeView(titleEditText, this);
 
-            // Check if times to show notification is too low
+            // Check if times to show reminder is too low
         } else if (timesToShow <= timesShown && !foreverSwitch.isChecked()) {
             Snackbar.make(coordinatorLayout, R.string.toast_higher_number, Snackbar.LENGTH_SHORT).show();
             imageWarningShow.setVisibility(View.VISIBLE);
         } else {
             saveReminder();
         }
+    }
+
+    private void correctValues(Calendar nowCalendar) {
+        if (timeText.getText().equals(getString(R.string.time_now))) {
+            calendar.set(Calendar.HOUR_OF_DAY, nowCalendar.get(Calendar.HOUR_OF_DAY));
+            calendar.set(Calendar.MINUTE, nowCalendar.get(Calendar.MINUTE));
+        }
+
+        if (dateText.getText().equals(getString(R.string.date_today))) {
+            calendar.set(Calendar.YEAR, nowCalendar.get(Calendar.YEAR));
+            calendar.set(Calendar.MONTH, nowCalendar.get(Calendar.MONTH));
+            calendar.set(Calendar.DAY_OF_MONTH, nowCalendar.get(Calendar.DAY_OF_MONTH));
+        }
+
+        // Check if the number of times to show reminder is empty
+        if (timesEditText.getText().toString().isEmpty())
+            timesEditText.setText("1");
+
+        timesToShow = Integer.parseInt(timesEditText.getText().toString());
+        if (repeatType == Reminder.DOES_NOT_REPEAT)
+            timesToShow = timesShown + 1;
     }
 
     @Override

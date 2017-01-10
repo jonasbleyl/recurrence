@@ -19,7 +19,8 @@ public class AlarmReceiver extends BroadcastReceiver {
         reminder.setNumberShown(reminder.getNumberShown() + 1);
         database.addReminder(reminder);
 
-        NotificationUtil.createNotification(context, reminder);
+        boolean showQuietly = intent.getBooleanExtra("QUIET", false);
+        NotificationUtil.createNotification(context, reminder, showQuietly);
 
         // Check if new alarm needs to be set
         if (reminder.getNumberToShow() > reminder.getNumberShown() || Boolean.parseBoolean(reminder.getForeverState())) {

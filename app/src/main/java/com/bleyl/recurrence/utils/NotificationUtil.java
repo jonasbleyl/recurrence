@@ -23,7 +23,7 @@ import java.util.Calendar;
 
 public class NotificationUtil {
 
-    public static void createNotification(Context context, Reminder reminder) {
+    public static void createNotification(Context context, Reminder reminder, boolean showQuietly) {
         // Create intent for reminder onClick behaviour
         Intent viewIntent = new Intent(context, ViewActivity.class);
         viewIntent.putExtra("REMINDER_ID", reminder.getId());
@@ -48,7 +48,7 @@ public class NotificationUtil {
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
 
-        if (sharedPreferences.getBoolean("checkBoxNagging", false)) {
+        if (sharedPreferences.getBoolean("checkBoxNagging", false) && !showQuietly) {
             Intent swipeIntent = new Intent(context, DismissReceiver.class);
             swipeIntent.putExtra("REMINDER_ID", reminder.getId());
             PendingIntent pendingDismiss = PendingIntent.getBroadcast(context, reminder.getId(), swipeIntent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -62,16 +62,16 @@ public class NotificationUtil {
         }
 
         String soundUri = sharedPreferences.getString("NotificationSound", "content://settings/system/notification_sound");
-        if (soundUri.length() != 0)
+        if (soundUri.length() != 0 && !showQuietly)
             builder.setSound(Uri.parse(soundUri));
 
-        if (sharedPreferences.getBoolean("checkBoxLED", true))
+        if (sharedPreferences.getBoolean("checkBoxLED", true) && !showQuietly)
             builder.setLights(Color.BLUE, 700, 1500);
 
         if (sharedPreferences.getBoolean("checkBoxOngoing", false))
             builder.setOngoing(true);
 
-        if (sharedPreferences.getBoolean("checkBoxVibrate", true))
+        if (sharedPreferences.getBoolean("checkBoxVibrate", true) && !showQuietly)
             builder.setDefaults(NotificationCompat.DEFAULT_VIBRATE);
 
         if (sharedPreferences.getBoolean("checkBoxMarkAsDone", false)) {

@@ -155,7 +155,7 @@ public class ViewActivity extends AppCompatActivity {
     }
 
     private void actionShowNow() {
-        NotificationUtil.createNotification(this, reminder);
+        NotificationUtil.createNotification(this, reminder, true);
     }
 
     private void actionDelete() {
