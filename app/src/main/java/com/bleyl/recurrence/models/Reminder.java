@@ -1,5 +1,10 @@
 package com.bleyl.recurrence.models;
 
+import android.content.ContentValues;
+import android.database.Cursor;
+
+import com.bleyl.recurrence.database.DatabaseHelper;
+
 public class Reminder {
 
     // Reminder types
@@ -28,6 +33,21 @@ public class Reminder {
     private String colour;
     private boolean[] daysOfWeek;
     private int interval;
+
+    public static Reminder createFromCursor(Cursor cursor) {
+        return new Reminder()
+                .setId(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHelper.COL_ID)))
+                .setTitle(cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COL_TITLE)))
+                .setContent(cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COL_CONTENT)))
+                .setDateAndTime(cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COL_DATE_AND_TIME)))
+                .setRepeatType(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHelper.COL_REPEAT_TYPE)))
+                .setForeverState(cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COL_FOREVER)))
+                .setNumberToShow(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHelper.COL_NUMBER_TO_SHOW)))
+                .setNumberShown(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHelper.COL_NUMBER_SHOWN)))
+                .setIcon(cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COL_ICON)))
+                .setColour(cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COL_COLOUR)))
+                .setInterval(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHelper.COL_INTERVAL)));
+    }
 
     public int getId() {
         return id;
@@ -139,5 +159,21 @@ public class Reminder {
     public Reminder setInterval(int interval) {
         this.interval = interval;
         return this;
+    }
+
+    public ContentValues toContentValues() {
+        ContentValues values = new ContentValues();
+        values.put(DatabaseHelper.COL_ID, getId());
+        values.put(DatabaseHelper.COL_TITLE, getTitle());
+        values.put(DatabaseHelper.COL_CONTENT, getContent());
+        values.put(DatabaseHelper.COL_DATE_AND_TIME, getDateAndTime());
+        values.put(DatabaseHelper.COL_REPEAT_TYPE, getRepeatType());
+        values.put(DatabaseHelper.COL_FOREVER, getForeverState());
+        values.put(DatabaseHelper.COL_NUMBER_TO_SHOW, getNumberToShow());
+        values.put(DatabaseHelper.COL_NUMBER_SHOWN, getNumberShown());
+        values.put(DatabaseHelper.COL_ICON, getIcon());
+        values.put(DatabaseHelper.COL_COLOUR, getColour());
+        values.put(DatabaseHelper.COL_INTERVAL, getInterval());
+        return values;
     }
 }

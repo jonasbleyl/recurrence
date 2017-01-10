@@ -1,5 +1,9 @@
 package com.bleyl.recurrence.models;
 
+import android.content.ContentValues;
+
+import com.bleyl.recurrence.database.DatabaseHelper;
+
 public class Colour {
 
     private int colour;
@@ -10,11 +14,10 @@ public class Colour {
         this.dateAndTime = dateAndTime;
     }
 
-    public String getDateAndTime() {
-        return dateAndTime;
-    }
-
-    public int getColour() {
-        return colour;
+    public ContentValues toContentValues() {
+        ContentValues values = new ContentValues();
+        values.put(DatabaseHelper.COL_PICKER_COLOUR, colour);
+        values.put(DatabaseHelper.COL_PICKER_DATE_AND_TIME, dateAndTime);
+        return values;
     }
 }
